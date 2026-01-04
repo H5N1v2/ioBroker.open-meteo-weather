@@ -1,0 +1,14 @@
+# Abhängigkeiten
+node_modules/
+
+# ioBroker Entwicklungs-Tools
+.dev-server/
+
+# VS Code & Betriebssystem
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs & Temporäres
+*.log
+npm-debug.log*

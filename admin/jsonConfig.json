@@ -1,0 +1,58 @@
+{
+    "type": "tabs",
+    "items": {
+        "main": {
+            "type": "panel",
+            "label": "Einstellungen",
+            "items": {
+                "descriptionText": {
+                    "type": "staticText",
+                    "text": "Dieser Adapter ruft aktuelle Wetterdaten, Vorhersagen sowie Pollenflug- und Luftqualitätsdaten basierend auf deinen Standortkoordinaten ab.",
+                    "style": { "fontStyle": "italic", "marginBottom": "20px" }
+                },
+                "locationLabel": {
+                    "type": "header",
+                    "text": "Standort-Koordinaten"
+                },
+                "latitude": {
+                    "type": "number",
+                    "label": "Breitengrad (Latitude)",
+                    "sm": 6
+                },
+                "longitude": {
+                    "type": "number",
+                    "label": "Längengrad (Longitude)",
+                    "sm": 6
+                },
+                "settingsLabel": {
+                    "type": "header",
+                    "text": "Optionen",
+                    "style": { "marginTop": "20px" }
+                },
+                "interval": {
+                    "type": "select",
+                    "label": "Update-Intervall",
+                    "default": 15,
+                    "options": [
+                        { "value": 15, "label": "15 Minuten" },
+                        { "value": 30, "label": "30 Minuten" },
+                        { "value": 60, "label": "60 Minuten" }
+                    ],
+                    "sm": 6
+                },
+                "pollenEnabled": {
+                    "type": "checkbox",
+                    "label": "Pollenflug-Daten abrufen",
+                    "default": true,
+                    "sm": 6
+                },
+                "airQualityEnabled": {
+                    "type": "checkbox",
+                    "label": "Luftqualität abrufen",
+                    "default": true,
+                    "sm": 6
+                }
+            }
+        }
+    }
+}

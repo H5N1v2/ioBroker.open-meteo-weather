@@ -1,0 +1,73 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.weatherTranslations = void 0;
+exports.weatherTranslations = {
+    de: {
+        dirs: ["Norden", "Nordost", "Osten", "Südost", "Süden", "Südwest", "Westen", "Nordwest"],
+        pollen: { none: "Keine", low: "Gering", moderate: "Mittel", high: "Hoch" },
+        codes: {
+            0: "Klarer Himmel",
+            1: "Hauptsächlich klar",
+            2: "Teilbewölkt",
+            3: "Bedeckt",
+            45: "Nebel",
+            48: "Raureifnebel",
+            51: "Leichter Niesel",
+            53: "Mäßiger Niesel",
+            55: "Dichter Niesel",
+            56: "Leichter gefrierender Niesel",
+            57: "Dichter gefrierender Niesel",
+            61: "Leichter Regen",
+            63: "Mäßiger Regen",
+            65: "Starker Regen",
+            66: "Leichter gefrierender Regen",
+            67: "Starker gefrierender Regen",
+            71: "Leichter Schneefall",
+            73: "Mäßiger Schneefall",
+            75: "Starker Schneefall",
+            77: "Schneegriesel",
+            80: "Leichte Regenschauer",
+            81: "Mäßige Regenschauer",
+            82: "Starke Regenschauer",
+            85: "Leichte Schneeschauer",
+            86: "Starke Schneeschauer",
+            95: "Gewitter",
+            96: "Gewitter mit leichtem Hagel",
+            99: "Gewitter mit starkem Hagel"
+        }
+    },
+    en: {
+        dirs: ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"],
+        pollen: { none: "None", low: "Low", moderate: "Moderate", high: "High" },
+        codes: {
+            0: "Clear sky",
+            1: "Mainly clear",
+            2: "Partly cloudy",
+            3: "Overcast",
+            45: "Fog",
+            48: "Rime fog",
+            51: "Light drizzle",
+            53: "Moderate drizzle",
+            55: "Dense drizzle",
+            56: "Light freezing drizzle",
+            57: "Dense freezing drizzle",
+            61: "Slight rain",
+            63: "Moderate rain",
+            65: "Heavy rain",
+            66: "Light freezing rain",
+            67: "Heavy freezing rain",
+            71: "Slight snow",
+            73: "Moderate snow",
+            75: "Heavy snow",
+            77: "Snow grains",
+            80: "Slight rain showers",
+            81: "Moderate rain showers",
+            82: "Violent rain showers",
+            85: "Slight snow showers",
+            86: "Heavy snow showers",
+            95: "Thunderstorm",
+            96: "Thunderstorm with slight hail",
+            99: "Thunderstorm with heavy hail"
+        }
+    }
+};

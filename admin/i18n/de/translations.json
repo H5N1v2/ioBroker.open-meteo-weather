@@ -1,0 +1,9 @@
+
+{
+    "latitude": "Breitengrad",
+    "longitude": "Längengrad",
+    "interval": "Abfrageintervall (Minuten)",
+    "pollenEnabled": "Pollenflug-Daten abrufen",
+    "airQualityEnabled": "Luftqualität abrufen",
+    "settings": "Einstellungen"
+}

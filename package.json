@@ -1,0 +1,26 @@
+
+{
+  "name": "iobroker.open-meteo-weather",
+  "version": "0.1.0",
+  "description": "Open-Meteo weather, pollen and air quality",
+  "author": "H5N1v2",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/H5N1v2/ioBroker.open-meteo-weather"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.0.4",
+    "axios": "^1.6.0"
+  },
+"devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "@iobroker/testing": "^4.1.0" 
+  },
+  "main": "build/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "watch": "tsc -p tsconfig.build.json --watch"
+  }
+}

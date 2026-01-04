@@ -1,0 +1,38 @@
+{
+"common": {
+    "name": "open-meteo-weather",
+    "version": "0.1.0",
+    "title": "Open-Meteo Weather Service",
+    "titleLang": {
+      "en": "Open-Meteo Weather Service",
+      "de": "Open-Meteo Wetterdienst",
+      "ru": "Прогноз погоды Open-Meteo",
+      "pt": "Serviço de Meteorologia Open-Meteo",
+      "nl": "Open-Meteo weerdienst",
+      "fr": "Service météo Open-Meteo",
+      "it": "Servizio meteo Open-Meteo",
+      "es": "Servicio Meteorológico Open-Meteo",
+      "pl": "Serwis pogodowy Open-Meteo",
+      "uk": "Метеорологічна служба Open-Meteo",
+      "zh-cn": "Open-Meteo 天气服务"
+    },
+    "desc": {
+      "en": "Get local weather, air quality and pollen data from Open-Meteo.com",
+      "de": "Lokale Wetter-, Luftqualitäts- und Pollenflugdaten von Open-Meteo.com abrufen"
+    },
+    "icon": "open-meteo.png",
+    "authors": [
+      "H5N1v2 <info@iknox.de>"
+    ],
+    "keywords": [
+      "weather",
+      "forecast",
+      "open-meteo",
+      "pollen",
+      "air quality"
+    ],
+    "type": "weather",
+    "mode": "daemon",
+    "platform": "Javascript/Node.js"
+  }
+}
