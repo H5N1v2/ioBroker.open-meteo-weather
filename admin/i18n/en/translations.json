@@ -1,0 +1,19 @@
+{
+    "settings_label": "Settings",
+    "location_header_text": "Location Coordinates",
+    "options_header_text": "Options",
+    "interval_15_min": "15 Minutes",
+    "interval_30_min": "30 Minutes",
+    "interval_60_min": "60 Minutes",
+    "days_3": "3 Days",
+    "days_7": "7 Days",
+    "days_14": "14 Days",
+    "days_16": "16 Days",
+    "latitude_label": "Latitude",
+    "longitude_label": "Longitude",
+    "interval_label": "Update Interval",
+    "forecastDays_label": "Forecast Duration (Days)",
+    "pollenEnabled_label": "Fetch Pollen Data",
+    "airQualityEnabled_label": "Fetch Air Quality Data",
+    "descriptionText_text": "This adapter fetches current weather data, forecasts, as well as pollen and air quality data."
+}

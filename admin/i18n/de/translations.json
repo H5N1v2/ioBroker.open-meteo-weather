@@ -1,9 +1,19 @@
-
 {
-    "latitude": "Breitengrad",
-    "longitude": "Längengrad",
-    "interval": "Abfrageintervall (Minuten)",
-    "pollenEnabled": "Pollenflug-Daten abrufen",
-    "airQualityEnabled": "Luftqualität abrufen",
-    "settings": "Einstellungen"
+    "settings_label": "Einstellungen",
+    "location_header_text": "Standort-Koordinaten",
+    "options_header_text": "Optionen",
+    "interval_15_min": "15 Minuten",
+    "interval_30_min": "30 Minuten",
+    "interval_60_min": "60 Minuten",
+    "days_3": "3 Tage",
+    "days_7": "7 Tage",
+    "days_14": "14 Tage",
+    "days_16": "16 Tage",
+    "latitude_label": "Breitengrad (Latitude)",
+    "longitude_label": "Längengrad (Longitude)",
+    "interval_label": "Update-Intervall",
+    "forecastDays_label": "Anzahl der Tage für Vorhersage",
+    "pollenEnabled_label": "Pollenflug-Daten abrufen",
+    "airQualityEnabled_label": "Luftqualität abrufen",
+    "descriptionText_text": "Dieser Adapter ruft aktuelle Wetterdaten, Vorhersagen sowie Pollenflug- und Luftqualitätsdaten ab."
 }

@@ -1,0 +1,19 @@
+{
+    "settings_label": "Ajustes",
+    "location_header_text": "Coordenadas de ubicación",
+    "options_header_text": "Opciones",
+    "interval_15_min": "15 minutos",
+    "interval_30_min": "30 minutos",
+    "interval_60_min": "60 minutos",
+    "days_3": "3 días",
+    "days_7": "7 días",
+    "days_14": "14 días",
+    "days_16": "16 días",
+    "latitude_label": "Latitud",
+    "longitude_label": "Longitud",
+    "interval_label": "Intervalo de actualización",
+    "forecastDays_label": "Días de previsión",
+    "pollenEnabled_label": "Obtener datos de polen",
+    "airQualityEnabled_label": "Obtener calidad del aire",
+    "descriptionText_text": "Este adaptador obtiene datos meteorológicos actuales, previsiones y datos de polen y calidad del aire."
+}

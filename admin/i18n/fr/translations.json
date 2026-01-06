@@ -1,0 +1,19 @@
+{
+    "settings_label": "Paramètres",
+    "location_header_text": "Coordonnées de l'emplacement",
+    "options_header_text": "Options",
+    "interval_15_min": "15 minutes",
+    "interval_30_min": "30 minutes",
+    "interval_60_min": "60 minutes",
+    "days_3": "3 jours",
+    "days_7": "7 jours",
+    "days_14": "14 jours",
+    "days_16": "16 jours",
+    "latitude_label": "Latitude",
+    "longitude_label": "Longitude",
+    "interval_label": "Intervalle de mise à jour",
+    "forecastDays_label": "Nombre de jours de prévision",
+    "pollenEnabled_label": "Récupérer les données de pollen",
+    "airQualityEnabled_label": "Récupérer la qualité de l'air",
+    "descriptionText_text": "Cet adaptateur récupère les données météo actuelles, les prévisions ainsi que les données sur le pollen et la qualité de l'air."
+}

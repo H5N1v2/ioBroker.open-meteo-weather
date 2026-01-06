@@ -1,0 +1,19 @@
+{
+    "settings_label": "Настройки",
+    "location_header_text": "Координаты местоположения",
+    "options_header_text": "Опции",
+    "interval_15_min": "15 минут",
+    "interval_30_min": "30 минут",
+    "interval_60_min": "60 минут",
+    "days_3": "3 дня",
+    "days_7": "7 дней",
+    "days_14": "14 дней",
+    "days_16": "16 дней",
+    "latitude_label": "Широта",
+    "longitude_label": "Долгота",
+    "interval_label": "Интервал обновления",
+    "forecastDays_label": "Дней прогноза",
+    "pollenEnabled_label": "Получать данные о пыльце",
+    "airQualityEnabled_label": "Получать данные о качестве воздуха",
+    "descriptionText_text": "Этот драйвер получает текущие данные о погоде, прогнозы, а также данные о пыльце и качестве воздуха."
+}

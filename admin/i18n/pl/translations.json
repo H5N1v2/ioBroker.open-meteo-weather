@@ -1,0 +1,19 @@
+{
+    "settings_label": "Ustawienia",
+    "location_header_text": "Współrzędne lokalizacji",
+    "options_header_text": "Opcje",
+    "interval_15_min": "15 minut",
+    "interval_30_min": "30 minut",
+    "interval_60_min": "60 minut",
+    "days_3": "3 dni",
+    "days_7": "7 dni",
+    "days_14": "14 dni",
+    "days_16": "16 dni",
+    "latitude_label": "Szerokość geograficzna",
+    "longitude_label": "Długość geograficzna",
+    "interval_label": "Interwał aktualizacji",
+    "forecastDays_label": "Liczba dni prognozy",
+    "pollenEnabled_label": "Pobieraj dane o pyłkach",
+    "airQualityEnabled_label": "Pobieraj dane o jakości powietrza",
+    "descriptionText_text": "Ten adapter pobiera aktualne dane pogodowe, prognozy oraz dane o pyłkach i jakości powietrza."
+}

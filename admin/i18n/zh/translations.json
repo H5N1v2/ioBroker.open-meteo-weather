@@ -1,0 +1,19 @@
+{
+    "settings_label": "设置",
+    "location_header_text": "位置坐标",
+    "options_header_text": "选项",
+    "interval_15_min": "15 分钟",
+    "interval_30_min": "30 分钟",
+    "interval_60_min": "60 分钟",
+    "days_3": "3 天",
+    "days_7": "7 天",
+    "days_14": "14 天",
+    "days_16": "16 天",
+    "latitude_label": "纬度",
+    "longitude_label": "经度",
+    "interval_label": "更新间隔",
+    "forecastDays_label": "预报天数",
+    "pollenEnabled_label": "获取花粉数据",
+    "airQualityEnabled_label": "获取空气质量数据",
+    "descriptionText_text": "该适配器用于获取当前天气数据、预报以及花粉和空气质量数据。"
+}

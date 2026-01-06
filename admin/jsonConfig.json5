@@ -1,9 +1,10 @@
 {
+    "i18n": true,
     "type": "tabs",
     "items": {
         "main": {
             "type": "panel",
-            "label": "Einstellungen",
+            "label": "settings_label", 
             "items": {
                 "icontest": {
                     "type": "staticImage",
@@ -13,65 +14,65 @@
                 },
                 "descriptionText": {
                     "type": "staticText",
-                    "text": "Dieser Adapter ruft aktuelle Wetterdaten, Vorhersagen sowie Pollenflug- und Luftqualitätsdaten ab.",
+                    "text": "descriptionText_text",
                     "style": { "fontStyle": "italic", "marginBottom": "20px" },
                     "sm": 10
                 },
                 "locationLabel": {
                     "type": "header",
-                    "text": "Standort-Koordinaten",
+                    "text": "location_header_text",
                     "size": 5,
                     "sm": 12
                 },
                 "latitude": {
                     "type": "number",
-                    "label": "Breitengrad (Latitude)",
+                    "label": "latitude_label",
                     "sm": 6
                 },
                 "longitude": {
                     "type": "number",
-                    "label": "Längengrad (Longitude)",
+                    "label": "longitude_label",
                     "sm": 6
                 },
                 "settingsLabel": {
                     "type": "header",
-                    "text": "Optionen",
+                    "text": "options_header_text",
                     "size": 5,
                     "sm": 12,
                     "style": { "marginTop": "20px" }
                 },
                 "interval": {
                     "type": "select",
-                    "label": "Update-Intervall",
+                    "label": "interval_label",
                     "default": 30,
                     "options": [
-                        { "value": 15, "label": "15 Minuten" },
-                        { "value": 30, "label": "30 Minuten" },
-                        { "value": 60, "label": "60 Minuten" }
+                        { "value": 15, "label": "interval_15_min" },
+                        { "value": 30, "label": "interval_30_min" },
+                        { "value": 60, "label": "interval_60_min" }
                     ],
                     "sm": 6
                 },
                 "forecastDays": {
                     "type": "select",
-                    "label": "Anzahl der Tage für Vorhersage",
+                    "label": "forecastDays_label",
                     "default": 7,
                     "options": [
-                        { "value": 3, "label": "3 Tage" },
-                        { "value": 7, "label": "7 Tage" },
-                        { "value": 14, "label": "14 Tage" },
-                        { "value": 16, "label": "16 Tage" }
+                        { "value": 3, "label": "days_3" },
+                        { "value": 7, "label": "days_7" },
+                        { "value": 14, "label": "days_14" },
+                        { "value": 16, "label": "days_16" }
                     ],
                     "sm": 6
                 },
                 "pollenEnabled": {
                     "type": "checkbox",
-                    "label": "Pollenflug-Daten abrufen",
+                    "label": "pollenEnabled_label",
                     "default": true,
                     "sm": 3
                 },
                 "airQualityEnabled": {
                     "type": "checkbox",
-                    "label": "Luftqualität abrufen",
+                    "label": "airQualityEnabled_label",
                     "default": true,
                     "sm": 3
                 }
