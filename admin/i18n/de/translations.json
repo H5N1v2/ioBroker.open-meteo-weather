@@ -5,6 +5,7 @@
     "interval_15_min": "15 Minuten",
     "interval_30_min": "30 Minuten",
     "interval_60_min": "60 Minuten",
+    "days_1": "1 Tag",
     "days_3": "3 Tage",
     "days_7": "7 Tage",
     "days_14": "14 Tage",
@@ -13,7 +14,6 @@
     "longitude_label": "Längengrad (Longitude)",
     "interval_label": "Update-Intervall",
     "forecastDays_label": "Anzahl der Tage für Vorhersage",
-    "pollenEnabled_label": "Pollenflug-Daten abrufen",
-    "airQualityEnabled_label": "Luftqualität abrufen",
+    "airQualityEnabled_label": "Luftqualität & Pollen abrufen",
     "descriptionText_text": "Dieser Adapter ruft aktuelle Wetterdaten, Vorhersagen sowie Pollenflug- und Luftqualitätsdaten ab."
 }

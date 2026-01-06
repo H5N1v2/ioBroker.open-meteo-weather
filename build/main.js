@@ -82,17 +82,20 @@ class OpenMeteoWeather extends utils.Adapter {
             const lat = config.latitude;
             const lon = config.longitude;
             const fDays = config.forecastDays || 7;
+            const airQualityEnabled = config.airQualityEnabled || false; // Hier wird der Wert aus der Konfiguration abgerufen
             if (!lat || !lon)
                 return;
             const tz = encodeURIComponent(this.systemTimeZone);
             const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunshine_duration,sunset,uv_index_max,rain_sum,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,dew_point_2m_mean&timezone=${tz}&forecast_days=${fDays}`;
-            const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pm10,pm2_5,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen&timezone=${tz}&forecast_days=${fDays > 7 ? 7 : fDays}`;
+            if (airQualityEnabled) {
+                const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pm10,pm2_5,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen&timezone=${tz}&forecast_days=${fDays > 7 ? 7 : fDays}`;
+                const resA = await axios_1.default.get(airQualityUrl);
+                if (resA.data)
+                    await this.processAirQualityData(resA.data);
+            }
             const resW = await axios_1.default.get(weatherUrl);
-            const resA = await axios_1.default.get(airQualityUrl);
             if (resW.data)
                 await this.processWeatherData(resW.data);
-            if (resA.data)
-                await this.processAirQualityData(resA.data);
         }
         catch (error) {
             this.log.error(`Abruf fehlgeschlagen: ${error.message}`);

@@ -52,8 +52,8 @@
     "longitude": 12.37,
     "interval": 30,
     "pollenEnabled": true,
-    "airQualityEnabled": true,
+    "airQualityEnabled": false,
     "language": "de",
-    "forecastDays": 3
+    "forecastDays": 1
   }
 }

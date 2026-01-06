@@ -55,8 +55,9 @@
                 "forecastDays": {
                     "type": "select",
                     "label": "forecastDays_label",
-                    "default": 7,
+                    "default": 1,
                     "options": [
+                        { "value": 1, "label": "days_1" },
                         { "value": 3, "label": "days_3" },
                         { "value": 7, "label": "days_7" },
                         { "value": 14, "label": "days_14" },
@@ -64,16 +65,10 @@
                     ],
                     "sm": 6
                 },
-                "pollenEnabled": {
-                    "type": "checkbox",
-                    "label": "pollenEnabled_label",
-                    "default": true,
-                    "sm": 3
-                },
                 "airQualityEnabled": {
                     "type": "checkbox",
                     "label": "airQualityEnabled_label",
-                    "default": true,
+                    "default": false,
                     "sm": 3
                 }
             }
