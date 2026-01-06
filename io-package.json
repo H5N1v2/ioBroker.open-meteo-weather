@@ -19,9 +19,18 @@
       "uk": "Метеорологічна служба Open-Meteo",
       "zh-cn": "Open-Meteo 天气服务"
     },
-    "desc": {
+"desc": {
       "en": "Get local weather, air quality and pollen data from Open-Meteo.com",
-      "de": "Lokale Wetter-, Luftqualitäts- und Pollenflugdaten von Open-Meteo.com abrufen"
+      "de": "Lokale Wetter-, Luftqualitäts- und Pollenflugdaten von Open-Meteo.com abrufen",
+      "ru": "Получайте данные о местной погоде, качестве воздуха и пыльце с сайта Open-Meteo.com",
+      "pt": "Obtenha dados meteorológicos locais, qualidade do ar e pólen de Open-Meteo.com",
+      "nl": "Ontvang lokale weers-, luchtkwaliteits- en pollengegevens van Open-Meteo.com",
+      "fr": "Obtenez les prévisions météo locales, la qualité de l'air et les données sur le pollen d'Open-Meteo.com",
+      "it": "Ottieni meteo locale, qualità dell' dell'aria e dati sui pollini da Open-Meteo.com",
+      "es": "Obtenga datos meteorológicos locales, calidad del aire y polen de Open-Meteo.com",
+      "pl": "Pobieraj lokalne dane pogodowe, jakość powietrza i dane o pyłkach z Open-Meteo.com",
+      "uk": "Отримуйте дані про місцеву погоду, якість повітря та пилок з Open-Meteo.com",
+      "zh-cn": "从 Open-Meteo.com 获取当地天气、空气质量和花粉数据"
     },
     "icon": "open-meteo.png",
     "authors": [
