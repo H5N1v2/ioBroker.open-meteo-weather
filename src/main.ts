@@ -14,18 +14,21 @@ class OpenMeteoWeather extends utils.Adapter {
         this.on('unload', this.onUnload.bind(this));
     }
 
+    // Lädt Übersetzungen für State-Namen aus der i18n
     private getTranslation(key: string): string {
         if (!translations) return key;
         return translations[this.systemLang]?.[key] || translations['en']?.[key] || key;
     }
 
-private getWindDirection(deg: number): string {
+    // Wandelt Grad-Zahlen in Windrichtung (N, NO, etc.) um
+    private getWindDirection(deg: number): string {
         const t = weatherTranslations[this.systemLang] || weatherTranslations['de'];
         const directions = t.dirs || ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
         const index = Math.round(deg / 45) % 8;
         return directions[index];
     }
 
+    // Initialisierung: Lädt Systemeinstellungen, startet Cleanup und Interval
     private async onReady(): Promise<void> {
         try {
             const sysConfig = await this.getForeignObjectAsync('system.config');
@@ -33,42 +36,85 @@ private getWindDirection(deg: number): string {
                 this.systemLang = sysConfig.common.language || 'de';
                 this.systemTimeZone = (sysConfig.common as any).timezone || 'Europe/Berlin';
             }
+            await this.cleanupObjects();
         } catch (e) {
-            this.log.error('Systemeinstellungen konnten nicht geladen werden.');
+            this.log.error('Initialisierung fehlgeschlagen.');
         }
+
         await this.updateData();
         const config = this.config as any;
         const intervalMs = (parseInt(config.interval) || 30) * 60000;
         this.updateInterval = this.setInterval(() => this.updateData(), intervalMs);
     }
 
+    // Löscht deaktivierte AirQuality-Daten und überzählige Forecast-Tage
+    private async cleanupObjects(): Promise<void> {
+        const config = this.config as any;
+        const maxDays = parseInt(config.forecastDays as any);
+
+        // Air Quality Cleanup
+        if (config.airQualityEnabled === false) {
+            await this.delObjectAsync('air', { recursive: true });
+        }
+
+        // Forecast Days Cleanup
+        try {
+            const allObjects = await this.getAdapterObjectsAsync();
+            const allIds = Object.keys(allObjects);
+
+            for (const id of allIds) {
+                const match = id.match(/day(\d+)/);
+                if (match) {
+                    const dayNumber = parseInt(match[1]);
+                    if (dayNumber >= maxDays) {
+                        const relativeId = id.replace(`${this.namespace}.`, '');
+                        const pathParts = relativeId.split('.');
+                        const dayPartIndex = pathParts.findIndex(p => p.startsWith('day'));
+                        
+                        if (dayPartIndex !== -1) {
+                            const folderToDelete = pathParts.slice(0, dayPartIndex + 1).join('.');
+                            try {
+                                await this.delObjectAsync(folderToDelete, { recursive: true });
+                            } catch (e) {}
+                        }
+                    }
+                }
+            }
+        } catch (err: any) {
+            this.log.error(`Cleanup Fehler: ${err.message}`);
+        }
+    }
+
+    // Hauptfunktion zum Abrufen der Wetter- und Luftqualitätsdaten
     private async updateData(): Promise<void> {
         try {
             const config = this.config as any;
             const lat = config.latitude;
             const lon = config.longitude;
             const fDays = config.forecastDays || 7;
-            const airQualityEnabled = config.airQualityEnabled || false; // Hier wird der Wert aus der Konfiguration abgerufen
+            const airQualityEnabled = config.airQualityEnabled || false;
+
             if (!lat || !lon) return;
 
             const tz = encodeURIComponent(this.systemTimeZone);
             const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunshine_duration,sunset,uv_index_max,rain_sum,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,dew_point_2m_mean&timezone=${tz}&forecast_days=${fDays}`;
-            if (airQualityEnabled) {
-            const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pm10,pm2_5,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen&timezone=${tz}&forecast_days=${fDays > 7 ? 7 : fDays}`;
-            const resA = await axios.get(airQualityUrl);
-            if (resA.data) await this.processAirQualityData(resA.data);
-            }
+            
             const resW = await axios.get(weatherUrl);
             if (resW.data) await this.processWeatherData(resW.data);
 
+            if (airQualityEnabled) {
+                const airQualityUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pm10,pm2_5,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen&timezone=${tz}&forecast_days=${fDays > 7 ? 7 : fDays}`;
+                const resA = await axios.get(airQualityUrl);
+                if (resA.data) await this.processAirQualityData(resA.data);
+            }
         } catch (error: any) {
             this.log.error(`Abruf fehlgeschlagen: ${error.message}`);
         }
     }
 
+    // Verarbeitet Wetterdaten und erstellt die entsprechenden States
     private async processWeatherData(data: any): Promise<void> {
         const t = weatherTranslations[this.systemLang] || weatherTranslations['de'];
-
         if (data.current) {
             const isDay = data.current.is_day;
             for (const key in data.current) {
@@ -83,14 +129,12 @@ private getWindDirection(deg: number): string {
                 }
             }
         }
-
         if (data.daily && data.daily.time) {
             for (let i = 0; i < data.daily.time.length; i++) {
                 const dayPath = `weather.forecast.day${i}`;
                 for (const key in data.daily) {
                     let val = data.daily[key][i];
                     await this.extendOrCreateState(`${dayPath}.${key}`, val, key);
-                    
                     if (key === 'weather_code') {
                         await this.createCustomState(`${dayPath}.weather_text`, t.codes[val] || '?', 'string', 'text', '');
                         await this.createCustomState(`${dayPath}.icon_url`, `/adapter/${this.name}/icons/${val}.png`, 'string', 'url', '');
@@ -103,28 +147,25 @@ private getWindDirection(deg: number): string {
         }
     }
 
-private async processAirQualityData(data: any): Promise<void> {
+    // Verarbeitet Luftqualitätsdaten und Pollenwerte
+    private async processAirQualityData(data: any): Promise<void> {
         const t = weatherTranslations[this.systemLang] || weatherTranslations['de'];
-        
         if (data.current) {
             for (const key in data.current) {
                 await this.extendOrCreateState(`air.current.${key}`, data.current[key], key);
-                
-                // Wenn es ein Pollen-Wert ist, übersetze ihn in deinen Text
                 if (key.includes('pollen')) {
                     const val = data.current[key];
-                    let pollenText = t.pollen.none; // Standard: Keine
-
+                    let pollenText = t.pollen.none;
                     if (val > 0 && val <= 1) pollenText = t.pollen.low;
                     else if (val > 1 && val <= 2) pollenText = t.pollen.moderate;
                     else if (val > 2) pollenText = t.pollen.high;
-
                     await this.createCustomState(`air.current.${key}_text`, pollenText, 'string', 'text', '');
                 }
             }
         }
     }
 
+    // Erstellt manuelle States (z.B. Texte oder Icons)
     private async createCustomState(id: string, val: any, type: ioBroker.CommonType, role: string, unit: string): Promise<void> {
         await this.setObjectNotExistsAsync(id, {
             type: 'state',
@@ -134,11 +175,11 @@ private async processAirQualityData(data: any): Promise<void> {
         await this.setStateAsync(id, { val, ack: true });
     }
 
+    // Erstellt oder aktualisiert automatische States inkl. Einheiten-Mapping
     private async extendOrCreateState(id: string, val: any, translationKey?: string): Promise<void> {
         const unitMap: Record<string, string> = { 'temperature': '°C', 'humidity': '%', 'precipitation': 'mm', 'wind': 'km/h', 'pm': 'µg/m³', 'cloud': '%','wind_direction': '°', 'dew_point': '°C', 'apparent': '°C' };
         let unit = '';
         for (const k in unitMap) { if (id.includes(k)) unit = unitMap[k]; }
-        
         await this.setObjectNotExistsAsync(id, {
             type: 'state',
             common: { name: this.getTranslation(translationKey || id.split('.').pop() || id), type: typeof val as any, role: 'value', read: true, write: false, unit },
@@ -147,12 +188,14 @@ private async processAirQualityData(data: any): Promise<void> {
         await this.setStateAsync(id, { val, ack: true });
     }
 
+    // Stoppt das Interval beim Beenden des Adapters
     private onUnload(callback: () => void): void {
         if (this.updateInterval) this.clearInterval(this.updateInterval);
         callback();
     }
 }
 
+// Start der Instanz
 if (require.main !== module) {
     module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new OpenMeteoWeather(options);
 } else {
