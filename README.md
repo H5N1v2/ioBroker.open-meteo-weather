@@ -4,65 +4,65 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 ![Number of Installations](https://iobroker.live/badges/open-meteo-weather.svg)
 
-**Der Open-Meteo Wetterdienst Adapter für ioBroker.**
+**The Open-Meteo Weather Service Adapter for ioBroker.**
 
-Dieser Adapter liefert präzise Wetterdaten, Vorhersagen, Luftqualität und Pollenflug-Informationen von [Open-Meteo.com](https://open-meteo.com/). Die Nutzung ist für den nicht-kommerziellen Gebrauch und weniger als 10.000 tägliche API-Aufrufe ohne Registration für einen API-Key möglich, was die Einrichtung extrem vereinfacht.
-
----
-
-## Funktionen
-
-* **Aktuelle Wetterdaten:** Echtzeit-Abruf von Temperatur, Feuchtigkeit, Luftdruck und Winddaten.
-* **Flexible Vorhersage:** Konfigurierbare Anzahl an Vorhersagetagen und stündlicher Auflösung.
-* **Luftqualität & Pollenflug:** Optionale Daten für Feinstaub (PM2.5, PM10) sowie verschiedene Pollenarten (Erle, Birke, Gräser, etc.).
-* **Automatisches Cleanup:** Der Adapter bereinigt die Objektstruktur selbstständig, wenn die Vorhersage-Zeiträume in der Konfiguration verkürzt oder geändert werden.
-* **Multi-Language:** Unterstützung für 11 Sprachen (u.a. Deutsch, Englisch, Polnisch, Russisch, Französisch, Chinesisch).
-* **Einheiten-System:** Nahtloser Wechsel zwischen Metrisch (°C, km/h) und Imperial (°F, mph).
+This adapter provides precise weather data, forecasts, air quality, and pollen information powered by [Open-Meteo.com](https://open-meteo.com/). It is free for non-commercial use (under 10,000 daily API calls) and requires no API key registration, making the setup process extremely simple.
 
 ---
 
-## Konfiguration
+## Features
 
-Nach der Installation müssen folgende Felder in den Instanz-Einstellungen ausgefüllt werden:
-
-1.  **Koordinaten (Breitengrad & Längengrad):** Bestimmen Sie den Ort für die Wetterabfrage auf openstreatmap.org.
-2.  **Abfrageintervall:** Zeitabstand in Minuten (Standard: 30 Min).
-3.  **Vorhersage-Tage:** Anzahl der Tage für die tägliche Übersicht (0-16 Tage).
-4.  **Stündliche Vorhersage:** Aktivierung und Anzahl der Stunden pro Tag (z.B. die nächsten 24 Stunden).
-5.  **Optionale Daten:** Checkboxen für Pollenflug und Luftqualität.
-6.  **Einheiten:** Auswahl zwischen Metrisch und Imperial.
+* **Current Weather Data:** Real-time retrieval of temperature, humidity, air pressure, and wind data.
+* **Flexible Forecasts:** Configurable number of forecast days and hourly resolution.
+* **Air Quality & Pollen:** Optional data for particulate matter (PM2.5, PM10) as well as various pollen types (alder, birch, grass, etc.).
+* **Automatic Cleanup:** The adapter automatically cleans up the object structure if forecast periods are shortened or changed in the configuration.
+* **Multi-Language Support:** Supports 11 languages (including English, German, Polish, Russian, French, Chinese, etc.).
+* **Unit System:** Seamless switching between Metric (°C, km/h) and Imperial (°F, mph) systems.
 
 ---
 
-## Icons & Visualisierung
+## Configuration
 
-Der Adapter stellt dynamische Pfade zu Icons bereit, die direkt in Visualisierungen (vis, iQontrol, Jarvis) genutzt werden können.
+After installation, configure the following fields in the instance settings:
 
-* **Wetter-Icons:** Zu finden unter `weather.current.icon_url`. Der Adapter unterscheidet automatisch zwischen Tag und Nacht (z.B. Sonne vs. Mond).
-* **Windrichtung:** Statische Pfade unter `wind_direction_icon` zeigen einen Kompass-Pfeil passend zur Gradzahl.
-* **Windböen-Warnung:** Unter `wind_gust_icon` wird ab einer Windgeschwindigkeit von ca. 39 km/h (Bft 6) ein Warn-Icon eingeblendet (Stufen 0-4).
+1.  **Coordinates (Latitude & Longitude):** Determine your location (you can find these on openstreetmap.org).
+2.  **Update Interval:** Time interval in minutes (Default: 30 min).
+3.  **Forecast Days:** Number of days for the daily overview (0–16 days).
+4.  **Hourly Forecast:** Toggle and set the number of hours per day (e.g., the next 24 hours).
+5.  **Optional Data:** Checkboxes for pollen and air quality data.
+6.  **Units:** Choose between Metric and Imperial.
 
 ---
 
-## Datenpunkte (Auszug)
+## Icons & Visualization
 
-| Ordner | Beschreibung |
+The adapter provides dynamic icon paths that can be used directly in visualizations such as **vis, iQontrol, or Jarvis**.
+
+* **Weather Icons:** Found under `weather.current.icon_url`. The adapter automatically distinguishes between day and night (e.g., Sun vs. Moon).
+* **Wind Direction:** Static paths under `wind_direction_icon` display a compass arrow corresponding to the degree value.
+* **Wind Gust Warning:** A warning icon is displayed under `wind_gust_icon` for wind speeds above approx. 39 km/h (Bft 6), featuring levels 0–4.
+
+---
+
+## Data Points (Excerpt)
+
+| Folder | Description |
 |:---|:---|
-| `weather.current` | Aktuelle Messwerte (Temp, Taupunkt, Wind, etc.) |
-| `weather.forecast.dayX` | Tägliche Vorhersage für den Tag X |
-| `weather.forecast.hourly.dayX.hourY` | Stündliche Details pro Tag |
-| `air.current` | Luftqualität und Pollenbelastung als Text und Wert |
+| `weather.current` | Current measurements (Temp, Dew point, Wind, etc.) |
+| `weather.forecast.dayX` | Daily forecast for Day X |
+| `weather.forecast.hourly.dayX.hourY` | Hourly details per day |
+| `air.current` | Air quality and pollen levels as text and value |
 
 ---
 
-## Rechtliches & Copyright
+## Legal & Copyright
 
-### Icons & Bilder
-Die im Adapter enthaltenen Wetter-Icons sowie Windrichtungs-Icons unterliegen dem Urheberrecht des Erstellers. 
-* **Nutzung:** Die Icons sind für die Verwendung innerhalb des ioBroakers lizenziert. Eine kommerzielle Weiterverbreitung oder Nutzung außerhalb dieses Adapters bedarf der Zustimmung des Autors h5n1@iknox.de.
-* **Wetterdaten:** Alle Wetterdaten werden von [Open-Meteo.com](https://open-meteo.com/) bereitgestellt. Bitte beachten Sie deren Nutzungsbedingungen für kommerzielle Zwecke.
+### Icons & Images
+The weather and wind direction icons included in this adapter are subject to the creator's copyright.
+* **Usage:** These icons are licensed for use within ioBroker. Commercial redistribution or use outside of this adapter requires the explicit consent of the author: h5n1@iknox.de.
+* **Weather Data:** All weather data is provided by [Open-Meteo.com](https://open-meteo.com/). Please review their terms of use for commercial purposes.
 
-### Lizenz
-Dieses Projekt ist unter der **MIT Lizenz** lizenziert - siehe die `LICENSE` Datei für Details.
+### License
+This project is licensed under the **MIT License** - see the `LICENSE` file for details.
 
 Copyright (c) 2026 H5N1v2 <h5n1@iknox.de>
