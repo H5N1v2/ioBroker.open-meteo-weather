@@ -9,6 +9,8 @@ import { es } from './es';
 import { zh } from './zh';
 import { fr } from './fr';
 import { pt } from './pt';
+import { nl } from './nl';
+import { uk } from './uk';
 
 /**
  * Zentrales Übersetzungsobjekt für Datenpunkte
@@ -23,7 +25,9 @@ export const translations: Record<string, Record<string, string>> = {
     es,
     "zh-cn": zh,
     fr,
-    pt
+    pt,
+    nl,
+    uk
 };
 
 /**
