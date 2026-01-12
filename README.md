@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 ![Number of Installations](https://iobroker.live/badges/open-meteo-weather.svg)
 
-[![NPM](https://nodei.co/npm/iobroker.open-meteo-weather.svg)](https://nodei.co/npm/iobroker.open-meteo-weather/)
+[![NPM](https://nodei.co/npm/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 
 **The Open-Meteo Weather Service Adapter for ioBroker.**
 
