@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "news": {
       "1.2.1": {
         "en": "Fix settings for adapter checker",
@@ -15,8 +15,7 @@
         "pl": "Poprawki w ustawieniach sprawdzania adapterów",
         "uk": "Виправлення налаштувань для перевірки адаптера",
         "zh-cn": "修复适配器检查器的设置"
-
-    },
+      },
       "1.2.0": {
         "en": "Updated internal project structure to latest standards; improved code stability and maintenance.",
         "de": "Interne Projektstruktur auf den neuesten Stand gebracht; Stabilität und Wartbarkeit verbessert.",
@@ -29,7 +28,7 @@
         "pl": "Zaktualizowano wewnętrzną strukturę projektu do najnowszych standardów.",
         "uk": "Оновлено внутрішню структуру проекту до останніх стандартів.",
         "zh-cn": "内部项目结构已更新至最新标准。"
-    },
+      },
       "1.1.0": {
         "en": "fix for air quality timestamps, added icons for wind direction and storm warnings",
         "de": "Fix für Luftqualität-Zeitstempel, Icons für Windrichtung und Sturmwarnungen hinzugefügt",
@@ -80,36 +79,36 @@
       "pollen",
       "air quality"
     ],
-    		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
     "type": "weather",
     "mode": "daemon",
     "platform": "Javascript/Node.js",
-		"icon": "open-meteo.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/H5N1v2/ioBroker.open-meteo-weather/main/admin/open-meteo.png",
-		"readme": "https://github.com/H5N1v2/ioBroker.open-meteo-weather/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-     		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=5.0.19"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.0.23"
-			}
-		]
-	},
+    "icon": "open-meteo.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/H5N1v2/ioBroker.open-meteo-weather/main/admin/open-meteo.png",
+    "readme": "https://github.com/H5N1v2/ioBroker.open-meteo-weather/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.0.23"
+      }
+    ]
+  },
   "native": {
     "latitude": 51.34,
     "longitude": 12.37,

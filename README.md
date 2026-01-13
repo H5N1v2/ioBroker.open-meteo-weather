@@ -60,12 +60,12 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 
 ---
 ## Change Log
-
-### **WORK IN PROGRESS**
+### 1.2.1 (2026-01-13)
 * (H5n1v2) Fix settings for adapter checker
 
 ### 1.2.0
 * Updated internal project structure to latest standards; improved code stability and maintenance.
+
 ### 1.1.0
 * Initial NPM release
 * fix for air quality timestamps
