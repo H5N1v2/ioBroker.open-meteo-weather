@@ -2,8 +2,21 @@
   "common": {
     "name": "open-meteo-weather",
     "version": "1.2.0",
-    "title": "Open-Meteo Weather Service",
     "news": {
+      "1.2.1": {
+        "en": "Fix settings for adapter checker",
+        "de": "Fixe Einstellungen für den Adapter-Checker",
+        "ru": "Исправлены настройки для проверки адаптера",
+        "pt": "Correções nas configurações do verificador de adaptadores",
+        "nl": "Fix voor instellingen voor adapterchecker",
+        "fr": "Correction des paramètres pour le verificateur d'adaptateur",
+        "it": "Correzioni per le impostazioni per il verificatore di adapter",
+        "es": "Correcciones para el verificador de adaptadores",
+        "pl": "Poprawki w ustawieniach sprawdzania adapterów",
+        "uk": "Виправлення налаштувань для перевірки адаптера",
+        "zh-cn": "修复适配器检查器的设置"
+
+    },
       "1.2.0": {
         "en": "Updated internal project structure to latest standards; improved code stability and maintenance.",
         "de": "Interne Projektstruktur auf den neuesten Stand gebracht; Stabilität und Wartbarkeit verbessert.",
@@ -30,9 +43,6 @@
         "uk": "виправлення часових міток якості повітря, додано іконки напрямку вітру та штормових попереджень",
         "zh-cn": "修复了空气质量时间戳，增加了风向和风暴警告图标"
       }
-    },
-    "adminUI": {
-      "config": "json"
     },
     "titleLang": {
       "en": "Open-Meteo Weather Service",
@@ -79,14 +89,27 @@
     "platform": "Javascript/Node.js",
 		"icon": "open-meteo.png",
 		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/H5N1v2/iobroker.open-meteo-weather/main/admin/open-meteo.png",
-		"readme": "https://github.com/H5N1v2/iobroker.open-meteo-weather/blob/main/README.md",
+		"extIcon": "https://raw.githubusercontent.com/H5N1v2/ioBroker.open-meteo-weather/main/admin/open-meteo.png",
+		"readme": "https://github.com/H5N1v2/ioBroker.open-meteo-weather/blob/main/README.md",
 		"loglevel": "info",
 		"tier": 3,
 		"compact": true,
 		"connectionType": "cloud",
-		"dataSource": "poll"
-  },
+		"dataSource": "poll",
+     		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=5.0.19"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=7.0.23"
+			}
+		]
+	},
   "native": {
     "latitude": 51.34,
     "longitude": 12.37,

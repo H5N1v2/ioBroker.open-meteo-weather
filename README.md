@@ -61,6 +61,9 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 ---
 ## Change Log
 
+### **WORK IN PROGRESS**
+* (H5n1v2) Fix settings for adapter checker
+
 ### 1.2.0
 * Updated internal project structure to latest standards; improved code stability and maintenance.
 ### 1.1.0

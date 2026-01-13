@@ -7,9 +7,10 @@
     "email": "h5n1@iknox.de"
   },
   "contributors": [],
-  "homepage": "https://github.com/H5N1v2/iobroker.open-meteo-weathe",
+  "homepage": "https://github.com/H5N1v2/ioBroker.open-meteo-weather",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
     "weather",
     "forecast",
     "open-meteo",
@@ -18,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/H5N1v2/iobroker.open-meteo-weather"
+    "url": "https://github.com/H5N1v2/ioBroker.open-meteo-weather"
   },
   "engines": {
     "node": ">= 20"
@@ -71,7 +72,7 @@
     "dev-server": "dev-server"
   },
   "bugs": {
-    "url": "https://github.com/H5N1v2/iobroker.open-meteo-weather/issues"
+    "url": "https://github.com/H5N1v2/ioBroker.open-meteo-weather/issues"
   },
   "readmeFilename": "README.md"
 }
