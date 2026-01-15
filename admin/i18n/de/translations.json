@@ -26,5 +26,10 @@
     "forecastHoursEnabled_label": "Vorhersage für Stunden",
     "forecastHoursEnabled_help": "(Achtung: Erstellt viele Datenpunkte! Dies kann die Systemlast und den Speicherverbrauch erhöhen.)",
     "airQualityEnabled_label": "Luftqualität & Pollen abrufen",
-    "descriptionText_text": "Dieser Adapter ruft aktuelle Wetterdaten, Vorhersagen sowie Pollenflug- und Luftqualitätsdaten ab\nKoordinaten können auf https://www.openstreetmap.org abgerufen werden."
+    "descriptionText_text": "Dieser Adapter ruft aktuelle Wetterdaten, Vorhersagen sowie Pollenflug- und Luftqualitätsdaten ab, Koordinaten können auf https://www.openstreetmap.org abgerufen werden.",
+    "locations_label": "Konfigurierte Standorte",
+    "locations_help": "Fügen Sie Standorte hinzu, löschen oder bearbeiten Sie diese.",
+    "location_name_label": "Name des Standorts",
+    "timezone_label": "Zeitzone",
+    "airQualityHint_text": "Aktiviert zusätzliche Luftqualitätsdaten für diesen Standort."
 }

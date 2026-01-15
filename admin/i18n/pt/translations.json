@@ -27,5 +27,10 @@
     "forecastHoursEnabled_help": "(Aviso: Crea muchos puntos de datos! Esto puede aumentar la carga del sistema y el uso de memoria.)",
     "pollenEnabled_label": "Obter dados de pólen",
     "airQualityEnabled_label": "Obter qualidade do ar",
-    "descriptionText_text": "Este adaptador obtém dados meteorológicos atuais, previsões e dados de pólen e qualidade do ar."
+    "descriptionText_text": "Este adaptador recupera dados meteorológicos atuais, previsões, bem como dados sobre pólen e qualidade do air. As coordenadas podem ser obtidas em https://www.openstreetmap.org.",
+    "locations_label": "Configurações de localização",
+    "locations_help": "Adicionar, eliminar ou editar localizações.",
+    "location_name_label": "Nome de localização",
+    "timezone_label": "Fuso horário",
+    "airQualityHint_text": "Ativar dados adicionais de qualidade do ar para esta localização."
 }

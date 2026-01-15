@@ -27,5 +27,10 @@
     "forecastHoursEnabled_help": "(Attenzione: Crea molti punti dati! Questo puo' aumentare la carica del sistema e l'uso della memoria.)",
     "pollenEnabled_label": "Recupera dati sui pollini",
     "airQualityEnabled_label": "Recupera qualità dell'aria",
-    "descriptionText_text": "Questo adattatore recupera i dati meteo attuali, le previsioni e i dati sui pollini e sulla qualità dell'aria."
+    "descriptionText_text": "Questo adattatore recupera i dati meteo attuali, le previsioni, nonché i dati sui pollini e sulla qualità dell'aria. Le coordinate possono essere ottenute su https://www.openstreetmap.org.",
+    "locations_label": "Configurazioni di posizione",
+    "locations_help": "Aggiungi, rimuovi o modifica posizioni.",
+    "location_name_label": "Nome della posizione",
+    "timezone_label": "Fuso orario",
+    "airQualityHint_text": "Attiva dati aggiuntivi sulla qualità dell'aria per questa posizione."
 }

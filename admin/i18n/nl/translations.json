@@ -26,5 +26,10 @@
     "forecastHoursEnabled_label": "Voorspelling per uur",
     "forecastHoursEnabled_help": "(Let op: Maakt veel datapunten aan! Dit kan de systeembelasting en het geheugengebruik verhogen.)",
     "airQualityEnabled_label": "Luchtkwaliteit & pollen ophalen",
-    "descriptionText_text": "Deze adapter haalt actuele weergegevens, voorspellingen, pollen- en luchtkwaliteitsgegevens op\nCoördinaten kunnen worden verkregen op https://www.openstreetmap.org"
+    "descriptionText_text": "Deze adapter haalt actuele weersgegevens, voorspellingen en gegevens over pollen en luchtkwaliteit op. Coördinaten zijn te vinden op https://www.openstreetmap.org.",
+    "locations_label": "Gestelde locaties",
+    "locations_help": "Voeg locaties toe, verwijder of bewerk deze.",
+    "location_name_label": "Naam van de locatie",
+    "timezone_label": "Tijdzone",
+    "airQualityHint_text": "Activeer extra luchtkwaliteitgegevens voor deze locatie."
 }

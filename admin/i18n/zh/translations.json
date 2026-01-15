@@ -27,5 +27,10 @@
     "forecastHoursEnabled_help": "(警告:创建大量数据点!这可能会增加系统负载和内存使用量。)",
     "pollenEnabled_label": "获取花粉数据",
     "airQualityEnabled_label": "获取空气质量数据",
-    "descriptionText_text": "该适配器用于获取当前天气数据、预报以及花粉和空气质量数据。"
+    "descriptionText_text": "该适配器可获取当前天气数据、天气预报以及花粉和空气质量数据。坐标可在 https://www.openstreetmap.org 获取。",
+    "locations_label": "配置的位置",
+    "locations_help": "添加、删除或编辑位置。",
+    "location_name_label": "位置名称",
+    "timezone_label": "时区",
+    "airQualityHint_text": "为此位置启用额外的空气质量数据。"
 }

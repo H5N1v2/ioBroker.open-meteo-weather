@@ -27,5 +27,10 @@
     "forecastHoursEnabled_help": "(Ostrzeżenie: Tworzenie wielu punktów danych! To może zwieksza załadunek systemu i zuzycie pamieci.)",
     "pollenEnabled_label": "Pobieraj dane o pyłkach",
     "airQualityEnabled_label": "Pobieraj dane o jakości powietrza",
-    "descriptionText_text": "Ten adapter pobiera aktualne dane pogodowe, prognozy oraz dane o pyłkach i jakości powietrza."
-}
+    "descriptionText_text": "Ten adapter pobiera aktualne dane pogodowe, prognozy oraz dane o stężeniu pyłków i jakości powietrza. Współrzędne można uzyskać na stronie https://www.openstreetmap.org.",
+    "locations_label": "Skonfigurowane lokalizacje",
+    "locations_help": "Dodaj, usuń lub edytuj lokalizacje.",
+    "location_name_label": "Nazwa lokalizacji",
+    "timezone_label": "Strefa czasowa",
+    "airQualityHint_text": "Włącz dodatkowe dane o jakości powietrza dla tej lokalizacji."
+    }

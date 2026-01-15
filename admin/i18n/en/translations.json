@@ -27,5 +27,10 @@
     "forecastHoursEnabled_help": "(Warning: Creates many data points! This can increase system load and memory usage.)",
     "pollenEnabled_label": "Fetch Pollen Data",
     "airQualityEnabled_label": "Fetch Air Quality Data",
-    "descriptionText_text": "This adapter fetches current weather data, forecasts, as well as pollen and air quality data."
+    "descriptionText_text": "This adapter retrieves current weather data, forecasts, as well as pollen and air quality data. Coordinates can be obtained at https://www.openstreetmap.org.",
+    "locations_label": "Configured Locations",
+    "locations_help": "Add, remove, or edit locations.",
+    "location_name_label": "Location Name",
+    "timezone_label": "Timezone",
+    "airQualityHint_text": "Enable additional air quality data for this location."
 }

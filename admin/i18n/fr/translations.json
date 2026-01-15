@@ -27,5 +27,10 @@
     "forecastHoursEnabled_help": "(Attention: Création de nombreux points de données! Ceci peut augmenter la charge du système et le consommation de lamoire.)",
     "pollenEnabled_label": "Récupérer les données de pollen",
     "airQualityEnabled_label": "Récupérer la qualité de l'air",
-    "descriptionText_text": "Cet adaptateur récupère les données météo actuelles, les prévisions ainsi que les données sur le pollen et la qualité de l'air."
+    "descriptionText_text": "Cet adaptateur récupère les données météo actuelles, les prévisions, ainsi que les données sur le pollen et la qualité de l'air. Les coordonnées peuvent être obtenues sur https://www.openstreetmap.org.",
+    "locations_label": "Configurations d'emplacement",
+    "locations_help": "Ajouter, supprimer ou modifier des emplacements.",
+    "location_name_label": "Nom de l'emplacement",
+    "timezone_label": "Fuseau horaire",
+    "airQualityHint_text": "Activer des données supplémentaires de la qualité de l'air pour cet emplacement."
 }
