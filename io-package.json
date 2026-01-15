@@ -118,6 +118,7 @@
     "language": "de",
     "forecastDays": 1,
     "forecastHours": 1,
-    "forecastHoursEnabled": false
+    "forecastHoursEnabled": false,
+    "locations": []
   }
 }
