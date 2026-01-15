@@ -41,19 +41,6 @@
         "pl": "Zaktualizowano wewnętrzną strukturę projektu do najnowszych standardów.",
         "uk": "Оновлено внутрішню структуру проекту до останніх стандартів.",
         "zh-cn": "内部项目结构已更新至最新标准。"
-      },
-      "1.1.0": {
-        "en": "fix for air quality timestamps, added icons for wind direction and storm warnings",
-        "de": "Fix für Luftqualität-Zeitstempel, Icons für Windrichtung und Sturmwarnungen hinzugefügt",
-        "ru": "исправление временных меток качества воздуха, добавлены значки направления ветра и штормовых предупреждений",
-        "pt": "correção de data e hora da qualidade do ar, adição de ícones de direção do vento e avisos de tempestade",
-        "nl": "fix voor tijdstempels van luchtkwaliteit, iconen voor windrichting en stormwaarschuwingen toegevoegd",
-        "fr": "correction des horodatages de la qualité de l'air, ajout d'icônes pour la direction du vent et les alertes de tempête",
-        "it": "correzione dei timestamp della qualità dell'aria, aggiunte icone per la direzione del vento e gli avvisi di tempesta",
-        "es": "corrección de marcas de tiempo de calidad del aire, iconos de dirección de viento y advertencias de tormenta añadidos",
-        "pl": "poprawka znaczników czasu jakości powietrza, dodano ikony kierunku wiatru i ostrzeżeń burzowych",
-        "uk": "виправлення часових міток якості повітря, додано іконки напрямку вітру та штормових попереджень",
-        "zh-cn": "修复了空气质量时间戳，增加了风向和风暴警告图标"
       }
     },
     "titleLang": {
