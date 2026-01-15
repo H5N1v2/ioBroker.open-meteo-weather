@@ -3,6 +3,19 @@
     "name": "open-meteo-weather",
     "version": "1.2.1",
     "news": {
+      "2.0.1": {
+        "en": "NEW: Multi-location support with dynamic table; Added smart cleanup logic for deleted objects",
+        "de": "NEU: Unterstützung für mehrere Standorte via Tabelle; Intelligente Löschlogik für veraltete Objekte .",
+        "ru": "НОВОЕ: Поддержка нескольких местоположений через таблицу; Умная логика очистки удаленных объектов",
+        "pt": "NOVO: Suporte a múltiplos locais via tabela; Lógica de limpeza inteligente para objetos excluídos",
+        "nl": "NIEUW: Ondersteuning voor meerdere locaties via tabel; Slimme opschoonlogica voor verwijderde objecten",
+        "fr": "NOUVEAU : Support multi-sites via tableau ; Logique de nettoyage intelligente pour les objets supprimés",
+        "it": "NOVITÀ: Supporto multi-posizione tramite tabella; Logica di pulizia intelligente per gli oggetti eliminati",
+        "es": "NUEVO: Soporte para múltiples ubicaciones a través de tabla; Lógica de limpieza inteligente para objetos eliminados",
+        "pl": "NOWOŚĆ: Obsługa wielu lokalizacji za pomocą tabeli; Inteligentna logika czyszczenia usuniętych obiektów",
+        "uk": "НОВЕ: Підтримка кількох локацій через таблицю; Розумна логіка очищення видалених об'єктів",
+        "zh-cn": "新功能：通过表格支持多个位置；增加了删除对象的智能清理逻辑."
+      },
       "1.2.1": {
         "en": "Fix settings for adapter checker",
         "de": "Fixe Einstellungen für den Adapter-Checker",
