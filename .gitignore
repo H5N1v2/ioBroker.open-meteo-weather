@@ -10,7 +10,6 @@ nbproject
 
 # npm package files
 iobroker.*.tgz
-.npmrc
 
 Thumbs.db
 .commitinfo
