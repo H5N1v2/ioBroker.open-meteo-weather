@@ -30,11 +30,13 @@ class OpenMeteoWeather extends utils.Adapter {
   updateInterval = void 0;
   systemLang = "de";
   systemTimeZone = "Europe/Berlin";
+  // Initialisiert die Basisklasse des Adapters
   constructor(options = {}) {
     super({ ...options, name: "open-meteo-weather" });
     this.on("ready", this.onReady.bind(this));
     this.on("unload", this.onUnload.bind(this));
   }
+  // Holt die passende Übersetzung für Objektnamen aus den i18n Dateien
   getTranslation(key) {
     var _a, _b;
     if (!import_i18n.translations) {
@@ -42,17 +44,20 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     return ((_a = import_i18n.translations[this.systemLang]) == null ? void 0 : _a[key]) || ((_b = import_i18n.translations.en) == null ? void 0 : _b[key]) || key;
   }
+  // Wandelt Gradzahlen in Himmelsrichtungen als Text um
   getWindDirection(deg) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     const directions = t.dirs || ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
     const index = Math.round(deg / 45) % 8;
     return directions[index];
   }
+  // Liefert den Pfad zum passenden Icon für die Windrichtung
   getWindDirectionIcon(deg) {
     const fileNames = ["n.png", "no.png", "o.png", "so.png", "s.png", "sw.png", "w.png", "nw.png"];
     const index = Math.round(deg / 45) % 8;
     return `/adapter/${this.name}/icons/wind_direction_icons/${fileNames[index]}`;
   }
+  // Ermittelt basierend auf der Windgeschwindigkeit das passende Warn-Icon
   getWindGustIcon(gusts) {
     const config = this.config;
     const isImperial = config.isImperial || false;
@@ -74,6 +79,7 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     return `/adapter/${this.name}/icons/wind_icons/4.png`;
   }
+  // Errechnet den Taupunkt unter Berücksichtigung der eingestellten Maßeinheit
   calculateDewPoint(temp, humidity) {
     const config = this.config;
     const isImperial = config.isImperial || false;
@@ -88,6 +94,7 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     return parseFloat(dewPoint.toFixed(1));
   }
+  // Setzt die Grundeinstellungen beim Start und startet den Update-Zyklus
   async onReady() {
     try {
       const sysConfig = await this.getForeignObjectAsync("system.config");
@@ -164,6 +171,7 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
   }
+  // Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
   async updateData() {
     try {
       const config = this.config;
@@ -198,6 +206,7 @@ class OpenMeteoWeather extends utils.Adapter {
       this.log.error(`Abruf fehlgeschlagen: ${error.message}`);
     }
   }
+  // Verarbeitet aktuelle Wetterdaten sowie die tägliche Vorhersage
   async processWeatherData(data, locationPath) {
     var _a;
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
@@ -326,6 +335,7 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
   }
+  // Verarbeitet die stündlichen Vorhersagedaten
   async processForecastHoursData(data, locationPath) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     const config = this.config;
@@ -398,6 +408,7 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
   }
+  // Verarbeitet Daten zur Luftqualität und Pollenbelastung
   async processAirQualityData(data, locationPath) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     if (data.current) {
@@ -423,6 +434,7 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
   }
+  // Erstellt einen neuen Datenpunkt mit benutzerdefinierter Rolle und Einheit
   async createCustomState(id, val, type, role, unit) {
     await this.setObjectNotExistsAsync(id, {
       type: "state",
@@ -438,6 +450,7 @@ class OpenMeteoWeather extends utils.Adapter {
     });
     await this.setStateAsync(id, { val, ack: true });
   }
+  // Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
   async extendOrCreateState(id, val, translationKey) {
     const config = this.config;
     let unit = "";
@@ -462,6 +475,7 @@ class OpenMeteoWeather extends utils.Adapter {
     });
     await this.setStateAsync(id, { val, ack: true });
   }
+  // Bereinigt Intervalle beim Beenden des Adapters
   onUnload(callback) {
     if (this.updateInterval) {
       this.clearInterval(this.updateInterval);
