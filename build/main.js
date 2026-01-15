@@ -30,13 +30,11 @@ class OpenMeteoWeather extends utils.Adapter {
   updateInterval = void 0;
   systemLang = "de";
   systemTimeZone = "Europe/Berlin";
-  // Initialisiert die Basisklasse des Adapters
   constructor(options = {}) {
     super({ ...options, name: "open-meteo-weather" });
     this.on("ready", this.onReady.bind(this));
     this.on("unload", this.onUnload.bind(this));
   }
-  // Holt die passende Übersetzung für Objektnamen aus den i18n Dateien
   getTranslation(key) {
     var _a, _b;
     if (!import_i18n.translations) {
@@ -44,20 +42,17 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     return ((_a = import_i18n.translations[this.systemLang]) == null ? void 0 : _a[key]) || ((_b = import_i18n.translations.en) == null ? void 0 : _b[key]) || key;
   }
-  // Wandelt Gradzahlen in Himmelsrichtungen als Text um
   getWindDirection(deg) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     const directions = t.dirs || ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
     const index = Math.round(deg / 45) % 8;
     return directions[index];
   }
-  // Liefert den Pfad zum passenden Icon für die Windrichtung
   getWindDirectionIcon(deg) {
     const fileNames = ["n.png", "no.png", "o.png", "so.png", "s.png", "sw.png", "w.png", "nw.png"];
     const index = Math.round(deg / 45) % 8;
     return `/adapter/${this.name}/icons/wind_direction_icons/${fileNames[index]}`;
   }
-  // Ermittelt basierend auf der Windgeschwindigkeit das passende Warn-Icon
   getWindGustIcon(gusts) {
     const config = this.config;
     const isImperial = config.isImperial || false;
@@ -79,7 +74,6 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     return `/adapter/${this.name}/icons/wind_icons/4.png`;
   }
-  // Errechnet den Taupunkt unter Berücksichtigung der eingestellten Maßeinheit
   calculateDewPoint(temp, humidity) {
     const config = this.config;
     const isImperial = config.isImperial || false;
@@ -94,7 +88,6 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     return parseFloat(dewPoint.toFixed(1));
   }
-  // Setzt die Grundeinstellungen beim Start und startet den Update-Zyklus
   async onReady() {
     try {
       const sysConfig = await this.getForeignObjectAsync("system.config");
@@ -102,106 +95,123 @@ class OpenMeteoWeather extends utils.Adapter {
         this.systemLang = sysConfig.common.language || "de";
         this.systemTimeZone = sysConfig.common.timezone || "Europe/Berlin";
       }
-      await this.cleanupObjects();
+      await this.cleanupDeletedLocations();
     } catch {
       this.log.error("Initialisierung fehlgeschlagen.");
     }
     await this.updateData();
     const config = this.config;
-    const intervalMs = (parseInt(config.interval) || 30) * 6e4;
+    const intervalMs = (parseInt(config.updateInterval) || 30) * 6e4;
     this.updateInterval = this.setInterval(() => this.updateData(), intervalMs);
   }
-  // Entfernt veraltete oder deaktivierte Datenpunkte aus der Objektstruktur
-  async cleanupObjects() {
+  async cleanupDeletedLocations() {
     const config = this.config;
-    try {
-      const allObjects = await this.getAdapterObjectsAsync();
-      const allIds = Object.keys(allObjects);
-      const maxDays = parseInt(config.forecastDays) || 0;
-      const maxHoursLimit = parseInt(config.forecastHours) || 0;
-      const hoursEnabled = config.forecastHoursEnabled || false;
-      for (const id of allIds) {
-        const relativeId = id.replace(`${this.namespace}.`, "");
-        if (config.airQualityEnabled === false && relativeId.startsWith("air.")) {
-          await this.delObjectAsync(relativeId, { recursive: true });
+    const locations = config.locations || [];
+    const validFolders = locations.map((loc) => loc.name.replace(/[^a-zA-Z0-9]/g, "_"));
+    const forecastDays = parseInt(config.forecastDays) || 1;
+    const forecastHoursEnabled = config.forecastHoursEnabled || false;
+    const airQualityEnabled = config.airQualityEnabled || false;
+    const hoursLimit = parseInt(config.forecastHours) || 24;
+    const allObjects = await this.getAdapterObjectsAsync();
+    for (const objId in allObjects) {
+      const parts = objId.split(".");
+      if (parts.length > 2) {
+        const folderName = parts[2];
+        if (!validFolders.includes(folderName)) {
+          this.log.info(`L\xF6sche veralteten Standort: ${folderName}`);
+          await this.delObjectAsync(objId, { recursive: true });
           continue;
         }
-        if (!hoursEnabled && relativeId.startsWith("weather.forecast.hourly")) {
-          await this.delObjectAsync(relativeId, { recursive: true });
+        if (!airQualityEnabled && objId.includes(`${folderName}.air`)) {
+          await this.delObjectAsync(objId, { recursive: true });
           continue;
         }
-        const dayMatch = relativeId.match(/day(\d+)/);
-        if (dayMatch) {
-          const dayIdx = parseInt(dayMatch[1]);
-          if (dayIdx >= maxDays) {
-            const parts = relativeId.split(".");
-            const dayPathIdx = parts.findIndex((p) => p.startsWith("day"));
-            const folderToDelete = parts.slice(0, dayPathIdx + 1).join(".");
-            await this.delObjectAsync(folderToDelete, { recursive: true });
-            continue;
+        if (!forecastHoursEnabled && objId.includes(`${folderName}.weather.forecast.hourly`)) {
+          await this.delObjectAsync(objId, { recursive: true });
+          continue;
+        }
+        if (forecastHoursEnabled && objId.includes(".hourly.day")) {
+          const hourlyDayMatch = objId.match(/\.hourly\.day(\d+)/);
+          if (hourlyDayMatch) {
+            const hDayNum = parseInt(hourlyDayMatch[1]);
+            if (hDayNum >= forecastDays) {
+              this.log.debug(`Cleanup st\xFCndlich: L\xF6sche Tag ${hDayNum} f\xFCr ${folderName}`);
+              await this.delObjectAsync(objId, { recursive: true });
+              continue;
+            }
           }
         }
-        const hourMatch = relativeId.match(/hour(\d+)/);
-        if (hourMatch) {
-          const hourIdx = parseInt(hourMatch[1]);
-          if (hourIdx >= maxHoursLimit) {
-            const parts = relativeId.split(".");
-            const hourPathIdx = parts.findIndex((p) => p.startsWith("hour"));
-            const folderToDelete = parts.slice(0, hourPathIdx + 1).join(".");
-            await this.delObjectAsync(folderToDelete, { recursive: true });
+        if (objId.includes(`${folderName}.weather.forecast.day`) && !objId.includes(".hourly.")) {
+          const dayMatch = objId.match(/\.day(\d+)/);
+          if (dayMatch) {
+            const dayNum = parseInt(dayMatch[1]);
+            if (dayNum >= forecastDays) {
+              await this.delObjectAsync(objId, { recursive: true });
+              continue;
+            }
+          }
+        }
+        if (forecastHoursEnabled && objId.includes(".hourly.day")) {
+          const hourMatch = objId.match(/\.hour(\d+)/);
+          if (hourMatch) {
+            const hourNum = parseInt(hourMatch[1]);
+            if (hourNum >= hoursLimit) {
+              await this.delObjectAsync(objId, { recursive: true });
+              continue;
+            }
           }
         }
       }
-    } catch (err) {
-      this.log.error(`Cleanup Fehler: ${err.message}`);
     }
   }
-  // Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
   async updateData() {
     try {
       const config = this.config;
-      if (!config.latitude || !config.longitude) {
-        this.log.warn("Koordinaten fehlen.");
+      const locations = config.locations;
+      if (!locations || !Array.isArray(locations) || locations.length === 0) {
+        this.log.warn("Keine Standorte konfiguriert.");
         return;
       }
-      const data = await (0, import_api_caller.fetchAllWeatherData)({
-        latitude: config.latitude,
-        longitude: config.longitude,
-        forecastDays: config.forecastDays || 7,
-        forecastHours: config.forecastHours || 1,
-        forecastHoursEnabled: config.forecastHoursEnabled || false,
-        airQualityEnabled: config.airQualityEnabled || false,
-        timezone: this.systemTimeZone,
-        isImperial: config.isImperial || false
-      });
-      if (data.weather) {
-        await this.processWeatherData(data.weather);
-      }
-      if (data.hourly) {
-        await this.processForecastHoursData(data.hourly);
-      }
-      if (data.air) {
-        await this.processAirQualityData(data.air);
+      for (const loc of locations) {
+        const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, "_");
+        const data = await (0, import_api_caller.fetchAllWeatherData)({
+          latitude: loc.latitude,
+          longitude: loc.longitude,
+          forecastDays: config.forecastDays || 7,
+          forecastHours: config.forecastHours || 1,
+          forecastHoursEnabled: config.forecastHoursEnabled || false,
+          airQualityEnabled: config.airQualityEnabled || false,
+          timezone: loc.timezone || this.systemTimeZone,
+          isImperial: config.isImperial || false
+        });
+        if (data.weather) {
+          await this.processWeatherData(data.weather, folderName);
+        }
+        if (data.hourly) {
+          await this.processForecastHoursData(data.hourly, folderName);
+        }
+        if (data.air) {
+          await this.processAirQualityData(data.air, folderName);
+        }
       }
     } catch (error) {
       this.log.error(`Abruf fehlgeschlagen: ${error.message}`);
     }
   }
-  // Verarbeitet aktuelle Wetterdaten sowie die tägliche Vorhersage
-  async processWeatherData(data) {
+  async processWeatherData(data, locationPath) {
     var _a;
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     if (data.current) {
       const isDay = data.current.is_day;
+      const root = `${locationPath}.weather.current`;
       if (typeof data.current.temperature_2m === "number" && typeof data.current.relative_humidity_2m === "number") {
         const dp = this.calculateDewPoint(data.current.temperature_2m, data.current.relative_humidity_2m);
-        await this.extendOrCreateState(`weather.current.dew_point_2m`, dp, "dew_point_2m");
+        await this.extendOrCreateState(`${root}.dew_point_2m`, dp, "dew_point_2m");
       }
       for (const key in data.current) {
         let val = data.current[key];
         if (key === "time" && typeof val === "string") {
-          const dateObj = new Date(val);
-          val = dateObj.toLocaleString(this.systemLang, {
+          val = new Date(val).toLocaleString(this.systemLang, {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
@@ -210,17 +220,11 @@ class OpenMeteoWeather extends utils.Adapter {
             hour12: this.systemLang === "en"
           });
         }
-        await this.extendOrCreateState(`weather.current.${key}`, val, key);
+        await this.extendOrCreateState(`${root}.${key}`, val, key);
         if (key === "weather_code") {
+          await this.createCustomState(`${root}.weather_text`, t.codes[val] || "?", "string", "text", "");
           await this.createCustomState(
-            "weather.current.weather_text",
-            t.codes[val] || "?",
-            "string",
-            "text",
-            ""
-          );
-          await this.createCustomState(
-            "weather.current.icon_url",
+            `${root}.icon_url`,
             `/adapter/${this.name}/icons/${val}${isDay === 1 ? "" : "n"}.png`,
             "string",
             "url",
@@ -229,14 +233,14 @@ class OpenMeteoWeather extends utils.Adapter {
         }
         if (key === "wind_direction_10m" && typeof val === "number") {
           await this.createCustomState(
-            "weather.current.wind_direction_text",
+            `${root}.wind_direction_text`,
             this.getWindDirection(val),
             "string",
             "text",
             ""
           );
           await this.createCustomState(
-            "weather.current.wind_direction_icon",
+            `${root}.wind_direction_icon`,
             this.getWindDirectionIcon(val),
             "string",
             "url",
@@ -245,7 +249,7 @@ class OpenMeteoWeather extends utils.Adapter {
         }
         if (key === "wind_gusts_10m" && typeof val === "number") {
           await this.createCustomState(
-            "weather.current.wind_gust_icon",
+            `${root}.wind_gust_icon`,
             this.getWindGustIcon(val),
             "string",
             "url",
@@ -256,12 +260,11 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     if (data.daily) {
       for (let i = 0; i < (((_a = data.daily.time) == null ? void 0 : _a.length) || 0); i++) {
-        const dayPath = `weather.forecast.day${i}`;
+        const dayPath = `${locationPath}.weather.forecast.day${i}`;
         for (const key in data.daily) {
           let val = data.daily[key][i];
           if (key === "time" && typeof val === "string") {
-            const dateObj = new Date(val);
-            val = dateObj.toLocaleDateString(this.systemLang, {
+            val = new Date(val).toLocaleDateString(this.systemLang, {
               day: "2-digit",
               month: "2-digit",
               year: "numeric"
@@ -271,8 +274,7 @@ class OpenMeteoWeather extends utils.Adapter {
             val = parseFloat((val / 3600).toFixed(2));
           }
           if ((key === "sunrise" || key === "sunset") && typeof val === "string") {
-            const dateObj = new Date(val);
-            val = dateObj.toLocaleTimeString(this.systemLang, {
+            val = new Date(val).toLocaleTimeString(this.systemLang, {
               hour: "2-digit",
               minute: "2-digit",
               hour12: this.systemLang === "en"
@@ -324,8 +326,7 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
   }
-  // Verarbeitet die stündlichen Vorhersagedaten
-  async processForecastHoursData(data) {
+  async processForecastHoursData(data, locationPath) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     const config = this.config;
     const hoursPerDayLimit = parseInt(config.forecastHours) || 24;
@@ -334,12 +335,11 @@ class OpenMeteoWeather extends utils.Adapter {
         const dayNum = Math.floor(i / 24);
         const hourInDay = i % 24;
         if (hourInDay < hoursPerDayLimit) {
-          const hourPath = `weather.forecast.hourly.day${dayNum}.hour${hourInDay}`;
+          const hourPath = `${locationPath}.weather.forecast.hourly.day${dayNum}.hour${hourInDay}`;
           for (const key in data.hourly) {
             let val = data.hourly[key][i];
             if (key === "time" && typeof val === "string") {
-              const dateObj = new Date(val);
-              val = dateObj.toLocaleString(this.systemLang, {
+              val = new Date(val).toLocaleString(this.systemLang, {
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",
@@ -398,15 +398,14 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
   }
-  // Verarbeitet Daten zur Luftqualität und Pollenbelastung
-  async processAirQualityData(data) {
+  async processAirQualityData(data, locationPath) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     if (data.current) {
+      const root = `${locationPath}.air.current`;
       for (const key in data.current) {
         let val = data.current[key];
         if (key === "time" && typeof val === "string") {
-          const dateObj = new Date(val);
-          val = dateObj.toLocaleString(this.systemLang, {
+          val = new Date(val).toLocaleString(this.systemLang, {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
@@ -415,16 +414,15 @@ class OpenMeteoWeather extends utils.Adapter {
             hour12: this.systemLang === "en"
           });
         }
-        await this.extendOrCreateState(`air.current.${key}`, val, key);
+        await this.extendOrCreateState(`${root}.${key}`, val, key);
         if (key.includes("pollen")) {
           const valPollen = data.current[key];
           const pollenText = valPollen > 2 ? t.pollen.high : valPollen > 1 ? t.pollen.moderate : valPollen > 0 ? t.pollen.low : t.pollen.none;
-          await this.createCustomState(`air.current.${key}_text`, pollenText, "string", "text", "");
+          await this.createCustomState(`${root}.${key}_text`, pollenText, "string", "text", "");
         }
       }
     }
   }
-  // Erstellt einen neuen Datenpunkt mit benutzerdefinierter Rolle und Einheit
   async createCustomState(id, val, type, role, unit) {
     await this.setObjectNotExistsAsync(id, {
       type: "state",
@@ -440,7 +438,6 @@ class OpenMeteoWeather extends utils.Adapter {
     });
     await this.setStateAsync(id, { val, ack: true });
   }
-  // Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
   async extendOrCreateState(id, val, translationKey) {
     const config = this.config;
     let unit = "";
@@ -465,7 +462,6 @@ class OpenMeteoWeather extends utils.Adapter {
     });
     await this.setStateAsync(id, { val, ack: true });
   }
-  // Bereinigt Intervalle beim Beenden des Adapters
   onUnload(callback) {
     if (this.updateInterval) {
       this.clearInterval(this.updateInterval);
