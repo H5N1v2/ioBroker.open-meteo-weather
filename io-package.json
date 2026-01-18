@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "Fix wind direction icons",
+        "de": "Icons der Windrichtung fixieren",
+        "ru": "Исправьте иконки направления ветра",
+        "pt": "Corrigir os ícones de direção do vento",
+        "nl": "Windrichtingpictogrammen herstellen",
+        "fr": "Correction des icônes de direction du vent",
+        "it": "Fissare le icone della direzione del vento",
+        "es": "Fijar iconos de dirección del viento",
+        "pl": "Napraw ikony kierunku wiatru",
+        "uk": "Виправлення значків напрямку вітру",
+        "zh-cn": "修整风向图标"
+      },
       "2.0.0": {
         "en": "Major Feature: Migrated to a dynamic table-based location management (multi-location support).\nMajor Feature: Implemented smart recursive cleanup logic for objects (locations, days, hours, air quality).\nImproved UI visibility for coordinates link.",
         "de": "Hauptmerkmal: Migration auf ein dynamisches tabellenbasiertes Standortmanagement (Multi-Location-Unterstützung).\nMajor Feature: Implementierte intelligente rekursive Aufräumlogik für Objekte (Standorte, Tage, Stunden, Luftqualität).\nVerbesserte UI Sichtbarkeit für Koordinatenlink.",

@@ -62,7 +62,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 
 ---
 ## Change Log
-### **WORK IN PROGRESS**
+### 2.0.1 (2026-01-18)
 * (H5N1v2) Fix wind direction icons
 
 ### 2.0.0 (2026-01-15)
