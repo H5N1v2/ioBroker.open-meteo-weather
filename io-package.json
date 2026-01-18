@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "news": {
+      "2.1.0": {
+        "en": "add module suncalc\nadd Moon Phase value, text and icon url datapoints \nadd Moon Phase icons \nadd translations for Moon Phases\nChanged location for weather icons for better overview",
+        "de": "modul suncalc hinzufügen\nhinzufügen Mond Phasenwert, Text und Icon url datapoints\nhinzufügen Mond Phasensymbole\nübersetzungen für Mondphasen hinzufügen\nÄnderte Lage für Wettersymbole für bessere Übersicht",
+        "ru": "добавить модуль suncalc\nдобавить луну Значение фазы, текст и иконка URL точек данных\nдобавить луну Иконки фазы\nпереводы для лунных фаз\nИзмененное местоположение иконок погоды для лучшего обзора",
+        "pt": "adicionar módulo suncalc\nadicionar Lua Valor de fase, pontos de dados url de texto e ícone\nadicionar Lua Ícones de fase\nadicionar traduções para as Fases da Lua\nLocalização alterada para ícones meteorológicos para uma melhor visão geral",
+        "nl": "module suncalc toevoegen\nmaan toevoegen Fasewaarde, tekst en pictogram url-gegevenspunten\nmaan toevoegen Fasepictogrammen\nvertalingen voor maanfasen toevoegen\nVeranderde locatie voor weerpictogrammen voor een beter overzicht",
+        "fr": "ajouter le module suncalc\najouter Lune Valeur de phase, texte et point de données url icon\najouter Lune Icônes de phase\najouter des traductions pour Phases de Lune\nEmplacement modifié pour les icônes météo pour un meilleur aperçu",
+        "it": "aggiungere modulo suncalc\naggiungi Luna Valore di fase, punti dati del testo e dell'icona\naggiungi Luna Icone di fase\naggiungere le traduzioni per le fasi lunari\nPosizione modificata per le icone meteo per una migliore panoramica",
+        "es": "añadir módulo suncalc\nañadir Moon Puntos de datos url de valor de fase, texto e icono\nañadir Moon Iconos de fase\nañadir traducciones para Fase de la Luna\nCambio de ubicación para iconos meteorológicos para una mejor vista general",
+        "pl": "dodaj moduł suncalc\ndodaj Księżyc Wartość fazowa, tekst i ikona punktów danych url\ndodaj Księżyc Ikony fazy\ndodaj tłumaczenia dla Moon Fases\nZmieniona lokalizacja ikon pogodowych dla lepszego przeglądu",
+        "uk": "додати модуль solarc\nдодати Місяць Фази значення, текстові та значкові точки даних\nдодати Місяць Фази ікони\nдодавати переклади для Moon Phases\nЗміна розташування для метеорологічних ікон для кращого огляду",
+        "zh-cn": "添加模块太阳算法\n添加月亮 阶段值、 文本和图标url 数据点\n添加月亮 阶段图标\n为月球相位添加翻译\n更改天气图标位置, 以更好地进行概览"
+      },
       "2.0.1": {
         "en": "Fix wind direction icons",
         "de": "Icons der Windrichtung fixieren",
