@@ -62,6 +62,13 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 
 ---
 ## Change Log
+### **WORK IN PROGRESS**
+* (H5N1v2) add module suncalc
+* (H5N1v2) add Moon Phase value, text and icon url datapoints 
+* (H5N1v2) add Moon Phase icons 
+* (H5N1v2) add translations for Moon Phases
+* (H5N1v2) Changed location for weather icons for better overview
+
 ### 2.0.1 (2026-01-18)
 * (H5N1v2) Fix wind direction icons
 
