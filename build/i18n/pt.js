@@ -60,6 +60,11 @@ const pt = {
   wind_direction_10m_dominant: "Dire\xE7\xE3o do vento dominante",
   wind_gusts_10m_max: "Rajadas de vento m\xE1x.",
   dew_point_2m_mean: "Ponto de orvalho m\xE9dio (2m)",
+  moonset: "Ocaso da lua",
+  moonrise: "Nascer da lua",
+  moon_phase_val: "Fase lunar",
+  moon_phase_text: "Texto da fase lunar",
+  moon_phase_icon: "Icono da fase lunar",
   // Luftqualität (Air Quality)
   european_aqi: "\xCDndice Europeu de Qualidade do Ar",
   pm10: "Part\xEDculas em suspens\xE3o PM10",

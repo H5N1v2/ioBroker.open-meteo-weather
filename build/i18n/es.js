@@ -42,6 +42,11 @@ const es = {
   pressure_msl_mean: "Presi\xF3n media de la superficie",
   wind_gust_icon: "Icono de r\xE1fagas de viento",
   wind_direction_icon: "Icono de la direcci\xF3n del viento",
+  moonset: "Puesta de la luna",
+  moonrise: "Salida de la luna",
+  moon_phase_val: "Fase lunar",
+  moon_phase_text: "Texto de la fase lunar",
+  moon_phase_icon: "Icono de la fase lunar",
   // Tägliche Vorhersage (Daily&Hourly)
   temperature_2m_max: "Temperatura m\xE1x.",
   temperature_2m_min: "Temperatura m\xEDn.",

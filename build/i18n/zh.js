@@ -60,6 +60,11 @@ const zh = {
   wind_direction_10m_dominant: "\u4E3B\u5BFC\u98CE\u5411",
   wind_gusts_10m_max: "\u6700\u5927\u9635\u98CE",
   dew_point_2m_mean: "\u5E73\u5747\u9732\u70B9\u6E29\u5EA6 (2\u7C73)",
+  moonset: "\u6708\u843D",
+  moonrise: "\u6708\u51FA",
+  moon_phase_val: "\u6708\u76F8",
+  moon_phase_text: "\u6708\u76F8\u63CF\u8FF0",
+  moon_phase_icon: "\u6708\u76F8\u56FE\u6807",
   // Luftqualität (Air Quality)
   european_aqi: "\u6B27\u6D32\u7A7A\u6C14\u8D28\u91CF\u6307\u6570",
   pm10: "PM10\u9897\u7C92\u7269",

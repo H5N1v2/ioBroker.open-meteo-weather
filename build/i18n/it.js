@@ -60,6 +60,11 @@ const it = {
   wind_direction_10m_dominant: "Direzione del vento dominante",
   wind_gusts_10m_max: "Raffiche di vento max",
   dew_point_2m_mean: "Punto di rugiada medio (2m)",
+  moonset: "Tramonto della luna",
+  moonrise: "Sorgere della luna",
+  moon_phase_val: "Fase lunare",
+  moon_phase_text: "Descrizione fase lunare",
+  moon_phase_icon: "Icona fase lunare",
   // Luftqualität (Air Quality)
   european_aqi: "Indice europeo di qualit\xE0 dell'aria",
   pm10: "Particolato PM10",

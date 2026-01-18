@@ -25,6 +25,16 @@ const weatherTranslations = {
   de: {
     dirs: ["Norden", "Nordost", "Osten", "S\xFCdost", "S\xFCden", "S\xFCdwest", "Westen", "Nordwest"],
     pollen: { none: "Keine", low: "Gering", moderate: "Mittel", high: "Hoch" },
+    moon_phases: {
+      new_moon: "Neumond",
+      waxing_crescent: "Zunehmender Sichelmond",
+      first_quarter: "Erstes Viertel",
+      waxing_gibbous: "Zunehmender Dreiviertelmond",
+      full_moon: "Vollmond",
+      waning_gibbous: "Abnehmender Dreiviertelmond",
+      last_quarter: "Letztes Viertel",
+      waning_crescent: "Abnehmender Sichelmond"
+    },
     codes: {
       0: "Klarer Himmel",
       1: "Haupts\xE4chlich klar",
@@ -59,6 +69,16 @@ const weatherTranslations = {
   en: {
     dirs: ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"],
     pollen: { none: "None", low: "Low", moderate: "Moderate", high: "High" },
+    moon_phases: {
+      new_moon: "New Moon",
+      waxing_crescent: "Waxing Crescent",
+      first_quarter: "First Quarter",
+      waxing_gibbous: "Waxing Gibbous",
+      full_moon: "Full Moon",
+      waning_gibbous: "Waning Gibbous",
+      last_quarter: "Last Quarter",
+      waning_crescent: "Waning Crescent"
+    },
     codes: {
       0: "Clear sky",
       1: "Mainly clear",
@@ -102,6 +122,16 @@ const weatherTranslations = {
       "P\xF3\u0142nocny-zach\xF3d"
     ],
     pollen: { none: "Brak", low: "Niski", moderate: "\u015Aredni", high: "Wysoki" },
+    moon_phases: {
+      new_moon: "N\xF3w",
+      waxing_crescent: "Przyrastaj\u0105cy sierp",
+      first_quarter: "Pierwsza kwadra",
+      waxing_gibbous: "Przyrastaj\u0105cy ksi\u0119\u017Cyc",
+      full_moon: "Pe\u0142nia",
+      waning_gibbous: "Ubywaj\u0105cy ksi\u0119\u017Cyc",
+      last_quarter: "Ostatnia kwadra",
+      waning_crescent: "Ubywaj\u0105cy sierp"
+    },
     codes: {
       0: "Czyste niebo",
       1: "G\u0142\xF3wnie bezchmurnie",
@@ -136,6 +166,16 @@ const weatherTranslations = {
   ru: {
     dirs: ["\u0421\u0435\u0432\u0435\u0440", "\u0421\u0435\u0432\u0435\u0440\u043E-\u0432\u043E\u0441\u0442\u043E\u043A", "\u0412\u043E\u0441\u0442\u043E\u043A", "\u042E\u0433\u043E-\u0432\u043E\u0441\u0442\u043E\u043A", "\u042E\u0433", "\u042E\u0433\u043E-\u0437\u0430\u043F\u0430\u0434", "\u0417\u0430\u043F\u0430\u0434", "\u0421\u0435\u0432\u0435\u0440\u043E-\u0437\u0430\u043F\u0430\u0434"],
     pollen: { none: "\u041D\u0435\u0442", low: "\u041D\u0438\u0437\u043A\u0438\u0439", moderate: "\u0421\u0440\u0435\u0434\u043D\u0438\u0439", high: "\u0412\u044B\u0441\u043E\u043A\u0438\u0439" },
+    moon_phases: {
+      new_moon: "\u041D\u043E\u0432\u043E\u043B\u0443\u043D\u0438\u0435",
+      waxing_crescent: "\u0420\u0430\u0441\u0442\u0443\u0449\u0438\u0439 \u0441\u0435\u0440\u043F",
+      first_quarter: "\u041F\u0435\u0440\u0432\u0430\u044F \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C",
+      waxing_gibbous: "\u0420\u0430\u0441\u0442\u0443\u0449\u0430\u044F \u043B\u0443\u043D\u0430",
+      full_moon: "\u041F\u043E\u043B\u043D\u043E\u043B\u0443\u043D\u0438\u0435",
+      waning_gibbous: "\u0423\u0431\u044B\u0432\u0430\u044E\u0449\u0430\u044F \u043B\u0443\u043D\u0430",
+      last_quarter: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044C",
+      waning_crescent: "\u0423\u0431\u044B\u0432\u0430\u044E\u0449\u0438\u0439 \u0441\u0435\u0440\u043F"
+    },
     codes: {
       0: "\u042F\u0441\u043D\u043E\u0435 \u043D\u0435\u0431\u043E",
       1: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u043E \u044F\u0441\u043D\u043E",
@@ -170,6 +210,16 @@ const weatherTranslations = {
   fr: {
     dirs: ["Nord", "Nord-Est", "Est", "Sud-Est", "Sud", "Sud-Ouest", "Ouest", "Nord-Ouest"],
     pollen: { none: "Aucun", low: "Faible", moderate: "Mod\xE9r\xE9", high: "\xC9lev\xE9" },
+    moon_phases: {
+      new_moon: "Nouvelle lune",
+      waxing_crescent: "Premier croissant",
+      first_quarter: "Premier quartier",
+      waxing_gibbous: "Lune gibbeuse croissante",
+      full_moon: "Pleine lune",
+      waning_gibbous: "Lune gibbeuse d\xE9croissante",
+      last_quarter: "Dernier quartier",
+      waning_crescent: "Dernier croissant"
+    },
     codes: {
       0: "Ciel d\xE9gag\xE9",
       1: "Principalement clair",
@@ -204,6 +254,16 @@ const weatherTranslations = {
   it: {
     dirs: ["Nord", "Nord-Est", "Est", "Sud-Est", "Sud", "Sud-Ovest", "Ovest", "Nord-Ovest"],
     pollen: { none: "Nessuno", low: "Basso", moderate: "Moderato", high: "Alto" },
+    moon_phases: {
+      new_moon: "Luna nuova",
+      waxing_crescent: "Luna crescente",
+      first_quarter: "Primo quarto",
+      waxing_gibbous: "Luna gibbosa crescente",
+      full_moon: "Luna piena",
+      waning_gibbous: "Luna gibbosa calante",
+      last_quarter: "Ultimo quarto",
+      waning_crescent: "Luna calante"
+    },
     codes: {
       0: "Cielo sereno",
       1: "Prevalentemente sereno",
@@ -238,6 +298,16 @@ const weatherTranslations = {
   es: {
     dirs: ["Norte", "Noreste", "Este", "Sureste", "Sur", "Suroeste", "Oeste", "Noroeste"],
     pollen: { none: "Ninguno", low: "Bajo", moderate: "Moderado", high: "Alto" },
+    moon_phases: {
+      new_moon: "Luna nueva",
+      waxing_crescent: "Luna creciente",
+      first_quarter: "Cuarto creciente",
+      waxing_gibbous: "Luna gibosa creciente",
+      full_moon: "Luna llena",
+      waning_gibbous: "Luna gibosa menguante",
+      last_quarter: "Cuarto menguante",
+      waning_crescent: "Luna menguante"
+    },
     codes: {
       0: "Cielo despejado",
       1: "Principalmente despejado",
@@ -272,6 +342,16 @@ const weatherTranslations = {
   zh: {
     dirs: ["\u5317", "\u4E1C\u5317", "\u4E1C", "\u4E1C\u5357", "\u5357", "\u897F\u5357", "\u897F", "\u897F\u5317"],
     pollen: { none: "\u65E0", low: "\u4F4E", moderate: "\u4E2D\u7B49", high: "\u9AD8" },
+    moon_phases: {
+      new_moon: "\u65B0\u6708",
+      waxing_crescent: "\u5CE8\u7709\u6708",
+      first_quarter: "\u4E0A\u5F26\u6708",
+      waxing_gibbous: "\u76C8\u51F8\u6708",
+      full_moon: "\u6EE1\u6708",
+      waning_gibbous: "\u4E8F\u51F8\u6708",
+      last_quarter: "\u4E0B\u5F26\u6708",
+      waning_crescent: "\u6B8B\u6708"
+    },
     codes: {
       0: "\u6674\u6717",
       1: "\u5927\u90E8\u6674\u6717",
@@ -306,6 +386,16 @@ const weatherTranslations = {
   pt: {
     dirs: ["Norte", "Nordeste", "Este", "Sudeste", "Sul", "Sudoeste", "Oeste", "Noroeste"],
     pollen: { none: "Nenhum", low: "Baixo", moderate: "Moderado", high: "Alto" },
+    moon_phases: {
+      new_moon: "Lua nova",
+      waxing_crescent: "Lua crescente",
+      first_quarter: "Quarto crescente",
+      waxing_gibbous: "Lua gibosa crescente",
+      full_moon: "Lua cheia",
+      waning_gibbous: "Lua gibosa minguante",
+      last_quarter: "Quarto minguante",
+      waning_crescent: "Lua minguante"
+    },
     codes: {
       0: "C\xE9u limpo",
       1: "Principalmente limpo",
@@ -349,6 +439,16 @@ const weatherTranslations = {
       "\u041F\u0456\u0432\u043D\u0456\u0447\u043D\u0438\u0439 \u0437\u0430\u0445\u0456\u0434"
     ],
     pollen: { none: "\u0412\u0456\u0434\u0441\u0443\u0442\u043D\u0456\u0439", low: "\u041D\u0438\u0437\u044C\u043A\u0438\u0439", moderate: "\u0421\u0435\u0440\u0435\u0434\u043D\u0456\u0439", high: "\u0412\u0438\u0441\u043E\u043A\u0438\u0439" },
+    moon_phases: {
+      new_moon: "\u041D\u043E\u0432\u0438\u0439 \u043C\u0456\u0441\u044F\u0446\u044C",
+      waxing_crescent: "\u041C\u043E\u043B\u043E\u0434\u0438\u0439 \u043C\u0456\u0441\u044F\u0446\u044C",
+      first_quarter: "\u041F\u0435\u0440\u0448\u0430 \u0447\u0432\u0435\u0440\u0442\u044C",
+      waxing_gibbous: "\u041F\u0440\u0438\u0431\u0443\u0432\u0430\u044E\u0447\u0438\u0439 \u043C\u0456\u0441\u044F\u0446\u044C",
+      full_moon: "\u041F\u043E\u0432\u043D\u0438\u0439 \u043C\u0456\u0441\u044F\u0446\u044C",
+      waning_gibbous: "\u0429\u0435\u0440\u0431\u0430\u0442\u0438\u0439 \u043C\u0456\u0441\u044F\u0446\u044C",
+      last_quarter: "\u041E\u0441\u0442\u0430\u043D\u043D\u044F \u0447\u0432\u0435\u0440\u0442\u044C",
+      waning_crescent: "\u0421\u0442\u0430\u0440\u0438\u0439 \u043C\u0456\u0441\u044F\u0446\u044C"
+    },
     codes: {
       0: "\u042F\u0441\u043D\u0435 \u043D\u0435\u0431\u043E",
       1: "\u041F\u0435\u0440\u0435\u0432\u0430\u0436\u043D\u043E \u044F\u0441\u043D\u043E",
@@ -383,6 +483,16 @@ const weatherTranslations = {
   nl: {
     dirs: ["Noord", "Noordoost", "Oost", "Zuidoost", "Zuid", "Zuidwest", "West", "Noordwest"],
     pollen: { none: "Geen", low: "Laag", moderate: "Gemiddeld", high: "Hoog" },
+    moon_phases: {
+      new_moon: "Nieuwe maan",
+      waxing_crescent: "Wassende sikkel",
+      first_quarter: "Eerste kwartier",
+      waxing_gibbous: "Wassende maan",
+      full_moon: "Volle maan",
+      waning_gibbous: "Afnemende maan",
+      last_quarter: "Laatste kwartier",
+      waning_crescent: "Afnemende sikkel"
+    },
     codes: {
       0: "Onbewolkt",
       1: "Hoofdzakelijk onbewolkt",

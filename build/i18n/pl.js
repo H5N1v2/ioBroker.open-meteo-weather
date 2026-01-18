@@ -60,6 +60,11 @@ const pl = {
   wind_direction_10m_dominant: "Dominuj\u0105cy kierunek wiatru",
   wind_gusts_10m_max: "Maksymalne porywy wiatru",
   dew_point_2m_mean: "\u015Arednia temperatura punktu rosy (2m)",
+  moonset: "Zach\xF3d ksi\u0119\u017Cyca",
+  moonrise: "Wsch\xF3d ksi\u0119\u017Cyca",
+  moon_phase_val: "Faza ksi\u0119\u017Cyca",
+  moon_phase_text: "Opis fazy ksi\u0119\u017Cyca",
+  moon_phase_icon: "Ikona fazy ksi\u0119\u017Cyca",
   // Luftqualität (Air Quality)
   european_aqi: "Europejski indeks jako\u015Bci powietrza",
   pm10: "Py\u0142 zawieszony PM10",

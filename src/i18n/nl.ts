@@ -38,6 +38,11 @@ export const nl = {
 	wind_direction_10m_dominant: 'Overheersende windrichting',
 	wind_gusts_10m_max: 'Max. windstoten',
 	dew_point_2m_mean: 'Gemiddeld dauwpunt (2m)',
+	moonset: 'Maansondergang',
+	moonrise: 'Maansopkomst',
+	moon_phase_val: 'Maanfase',
+	moon_phase_text: 'Maanfase tekst',
+	moon_phase_icon: 'Maanfase icoon',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europese luchtkwaliteitsindex',

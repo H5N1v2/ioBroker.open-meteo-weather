@@ -38,6 +38,11 @@ export const uk = {
 	wind_direction_10m_dominant: 'Переважаючий напрямок вітру',
 	wind_gusts_10m_max: 'Макс. пориви вітру',
 	dew_point_2m_mean: 'Середня точка роси (2м)',
+	moonset: 'Захід місяця',
+	moonrise: 'Схід місяця',
+	moon_phase_val: 'Фаза місяця',
+	moon_phase_text: 'Опис фази місяця',
+	moon_phase_icon: 'Іконка фази місяця',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Європейський індекс якості повітря',

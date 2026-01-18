@@ -38,6 +38,11 @@ export const ru = {
 	wind_direction_10m_dominant: 'Преобладающее направление ветра',
 	wind_gusts_10m_max: 'Макс. порывы ветра',
 	dew_point_2m_mean: 'Средняя точка росы (2м)',
+	moonset: 'Заход луны',
+	moonrise: 'Восход луны',
+	moon_phase_val: 'Фаза луны',
+	moon_phase_text: 'Описание фазы луны',
+	moon_phase_icon: 'Иконка фазы луны',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Европейский индекс качества воздуха',

@@ -38,6 +38,11 @@ export const pl = {
 	wind_direction_10m_dominant: 'Dominujący kierunek wiatru',
 	wind_gusts_10m_max: 'Maksymalne porywy wiatru',
 	dew_point_2m_mean: 'Średnia temperatura punktu rosy (2m)',
+	moonset: 'Zachód księżyca',
+	moonrise: 'Wschód księżyca',
+	moon_phase_val: 'Faza księżyca',
+	moon_phase_text: 'Opis fazy księżyca',
+	moon_phase_icon: 'Ikona fazy księżyca',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europejski indeks jakości powietrza',

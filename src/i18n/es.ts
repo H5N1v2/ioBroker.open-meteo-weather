@@ -19,6 +19,11 @@ export const es = {
 	pressure_msl_mean: 'Presión media de la superficie',
 	wind_gust_icon: 'Icono de ráfagas de viento',
 	wind_direction_icon: 'Icono de la dirección del viento',
+	moonset: 'Puesta de la luna',
+	moonrise: 'Salida de la luna',
+	moon_phase_val: 'Fase lunar',
+	moon_phase_text: 'Texto de la fase lunar',
+	moon_phase_icon: 'Icono de la fase lunar',
 
 	// Tägliche Vorhersage (Daily&Hourly)
 	temperature_2m_max: 'Temperatura máx.',

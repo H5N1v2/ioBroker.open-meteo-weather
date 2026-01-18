@@ -38,6 +38,11 @@ export const zh = {
 	wind_direction_10m_dominant: '主导风向',
 	wind_gusts_10m_max: '最大阵风',
 	dew_point_2m_mean: '平均露点温度 (2米)',
+	moonset: '月落',
+	moonrise: '月出',
+	moon_phase_val: '月相',
+	moon_phase_text: '月相描述',
+	moon_phase_icon: '月相图标',
 
 	// Luftqualität (Air Quality)
 	european_aqi: '欧洲空气质量指数',

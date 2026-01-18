@@ -38,6 +38,11 @@ export const de = {
 	wind_direction_10m_dominant: 'Vorherrschende Windrichtung',
 	wind_gusts_10m_max: 'Max. Windböen',
 	dew_point_2m_mean: 'Durchschnittlicher Taupunkt (2m)',
+	moonset: 'Monduntergang',
+	moonrise: 'Mondaufgang',
+	moon_phase_val: 'Mondphase',
+	moon_phase_text: 'Mondphase Text',
+	moon_phase_icon: 'Mondphase Icon',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europäischer Luftqualitätsindex',

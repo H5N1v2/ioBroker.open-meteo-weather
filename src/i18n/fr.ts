@@ -38,6 +38,11 @@ export const fr = {
 	wind_direction_10m_dominant: 'Direction du vent dominante',
 	wind_gusts_10m_max: 'Rafales de vent max',
 	dew_point_2m_mean: 'Point de rosée moyen (2m)',
+	moonset: 'Coucher de la lune',
+	moonrise: 'Lever de la lune',
+	moon_phase_val: 'Phase lunaire',
+	moon_phase_text: 'Description de la phase',
+	moon_phase_icon: 'Icône de la phase',
 
 	// Luftqualität (Air Quality)
 	european_aqi: "Indice européen de qualité de l'air",
