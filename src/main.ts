@@ -3,6 +3,7 @@ import { weatherTranslations } from './lib/words';
 import { translations } from './i18n';
 import { fetchAllWeatherData } from './lib/api_caller';
 import { unitMapMetric, unitMapImperial } from './lib/units';
+import * as SunCalc from 'suncalc';
 
 class OpenMeteoWeather extends utils.Adapter {
 	private updateInterval: ioBroker.Interval | undefined = undefined;
@@ -37,6 +38,22 @@ class OpenMeteoWeather extends utils.Adapter {
 		const fileNames = ['n.png', 'no.png', 'o.png', 'so.png', 's.png', 'sw.png', 'w.png', 'nw.png'];
 		const index = Math.round(deg / 45) % 8;
 		return `/adapter/${this.name}/icons/wind_direction_icons/${fileNames[index]}`;
+	}
+
+	// Ermittelt basierend auf der Mondphase das passende Icon
+	private getMoonPhaseIcon(phaseKey: string): string {
+		const iconMap: Record<string, string> = {
+			new_moon: 'nm.png',
+			waxing_crescent: 'zsm.png',
+			first_quarter: 'ev.png',
+			waxing_gibbous: 'zdm.png',
+			full_moon: 'vm.png',
+			waning_gibbous: 'adm.png',
+			last_quarter: 'lv.png',
+			waning_crescent: 'asm.png',
+		};
+		const fileName = iconMap[phaseKey] || 'nm.png';
+		return `/adapter/${this.name}/icons/moon_phases/${fileName}`;
 	}
 
 	// Ermittelt basierend auf der Windgeschwindigkeit das passende Warn-Icon
@@ -91,7 +108,6 @@ class OpenMeteoWeather extends utils.Adapter {
 			// Cleanup veralteter Standorte
 			await this.cleanupDeletedLocations();
 		} catch {
-			// 'e' entfernt, da nicht benötigt
 			this.log.error('Initialisierung fehlgeschlagen.');
 		}
 
@@ -138,7 +154,6 @@ class OpenMeteoWeather extends utils.Adapter {
 				}
 
 				// 4. Zu viele Tage INNERHALB der stündlichen Vorhersage?
-				// Prüft Pfade wie: open-meteo-weather.0.Ort.weather.forecast.hourly.day1...
 				if (forecastHoursEnabled && objId.includes('.hourly.day')) {
 					const hourlyDayMatch = objId.match(/\.hourly\.day(\d+)/);
 					if (hourlyDayMatch) {
@@ -203,8 +218,9 @@ class OpenMeteoWeather extends utils.Adapter {
 					isImperial: config.isImperial || false,
 				});
 
+				// Verarbeitung SunCalc wird innerhalb von processWeatherData genutzt.
 				if (data.weather) {
-					await this.processWeatherData(data.weather, folderName);
+					await this.processWeatherData(data.weather, folderName, loc.latitude, loc.longitude);
 				}
 				if (data.hourly) {
 					await this.processForecastHoursData(data.hourly, folderName);
@@ -218,8 +234,8 @@ class OpenMeteoWeather extends utils.Adapter {
 		}
 	}
 
-	// Verarbeitet aktuelle Wetterdaten sowie die tägliche Vorhersage
-	private async processWeatherData(data: any, locationPath: string): Promise<void> {
+	// Verarbeitet aktuelle Wetterdaten sowie die tägliche Vorhersage inkl. lokaler Monddaten
+	private async processWeatherData(data: any, locationPath: string, lat: number, lon: number): Promise<void> {
 		const t = weatherTranslations[this.systemLang] || weatherTranslations.de;
 
 		if (data.current) {
@@ -252,7 +268,7 @@ class OpenMeteoWeather extends utils.Adapter {
 					await this.createCustomState(`${root}.weather_text`, t.codes[val] || '?', 'string', 'text', '');
 					await this.createCustomState(
 						`${root}.icon_url`,
-						`/adapter/${this.name}/icons/${val}${isDay === 1 ? '' : 'n'}.png`,
+						`/adapter/${this.name}/icons/weather_icons/${val}${isDay === 1 ? '' : 'n'}.png`,
 						'string',
 						'url',
 						'',
@@ -289,6 +305,69 @@ class OpenMeteoWeather extends utils.Adapter {
 		if (data.daily) {
 			for (let i = 0; i < (data.daily.time?.length || 0); i++) {
 				const dayPath = `${locationPath}.weather.forecast.day${i}`;
+
+				// Berechnung der Monddaten für diesen Tag (lokal via SunCalc)
+				const forecastDate = new Date(data.daily.time[i]);
+				const moonTimes = SunCalc.getMoonTimes(forecastDate, lat, lon);
+				const moonIllumination = SunCalc.getMoonIllumination(forecastDate);
+
+				// Mondaufgang und -untergang formatieren
+				const mRise = moonTimes.rise
+					? moonTimes.rise.toLocaleTimeString(this.systemLang, {
+							hour: '2-digit',
+							minute: '2-digit',
+							hour12: this.systemLang === 'en',
+						})
+					: '--:--';
+				const mSet = moonTimes.set
+					? moonTimes.set.toLocaleTimeString(this.systemLang, {
+							hour: '2-digit',
+							minute: '2-digit',
+							hour12: this.systemLang === 'en',
+						})
+					: '--:--';
+
+				await this.createCustomState(`${dayPath}.moonrise`, mRise, 'string', 'value', '');
+				await this.createCustomState(`${dayPath}.moonset`, mSet, 'string', 'value', '');
+
+				// Mondphase in Text umwandeln (nutzt Übersetzung aus words.ts)
+				const phaseValue = moonIllumination.phase;
+				let phaseKey = 'new_moon';
+				if (phaseValue >= 0.03 && phaseValue < 0.22) {
+					phaseKey = 'waxing_crescent';
+				} else if (phaseValue >= 0.22 && phaseValue < 0.28) {
+					phaseKey = 'first_quarter';
+				} else if (phaseValue >= 0.28 && phaseValue < 0.47) {
+					phaseKey = 'waxing_gibbous';
+				} else if (phaseValue >= 0.47 && phaseValue < 0.53) {
+					phaseKey = 'full_moon';
+				} else if (phaseValue >= 0.53 && phaseValue < 0.72) {
+					phaseKey = 'waning_gibbous';
+				} else if (phaseValue >= 0.72 && phaseValue < 0.78) {
+					phaseKey = 'last_quarter';
+				} else if (phaseValue >= 0.78 && phaseValue < 0.97) {
+					phaseKey = 'waning_crescent';
+				}
+
+				const phaseText = t.moon_phases ? t.moon_phases[phaseKey] : phaseKey;
+				await this.createCustomState(`${dayPath}.moon_phase_text`, phaseText, 'string', 'text', '');
+				await this.createCustomState(
+					`${dayPath}.moon_phase_val`,
+					parseFloat(phaseValue.toFixed(2)),
+					'number',
+					'value',
+					'',
+				);
+
+				// Erstellt die Icon-URL für die Mondphase
+				await this.createCustomState(
+					`${dayPath}.moon_phase_icon`,
+					this.getMoonPhaseIcon(phaseKey),
+					'string',
+					'url',
+					'',
+				);
+
 				for (const key in data.daily) {
 					let val = data.daily[key][i];
 					if (key === 'time' && typeof val === 'string') {
@@ -346,7 +425,7 @@ class OpenMeteoWeather extends utils.Adapter {
 						);
 						await this.createCustomState(
 							`${dayPath}.icon_url`,
-							`/adapter/${this.name}/icons/${val}.png`,
+							`/adapter/${this.name}/icons/weather_icons/${val}.png`,
 							'string',
 							'url',
 							'',
@@ -396,7 +475,7 @@ class OpenMeteoWeather extends utils.Adapter {
 							);
 							await this.createCustomState(
 								`${hourPath}.icon_url`,
-								`/adapter/${this.name}/icons/${val}.png`,
+								`/adapter/${this.name}/icons/weather_icons/${val}.png`,
 								'string',
 								'url',
 								'',
@@ -482,8 +561,8 @@ class OpenMeteoWeather extends utils.Adapter {
 				type,
 				role,
 				read: true,
-				write: false,
 				unit,
+				write: false,
 			},
 			native: {},
 		});
