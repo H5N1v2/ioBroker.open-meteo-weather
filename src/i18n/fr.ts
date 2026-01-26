@@ -38,7 +38,7 @@ export const fr = {
 	wind_direction_10m_dominant: 'Direction du vent dominante',
 	wind_gusts_10m_max: 'Rafales de vent max',
 	dew_point_2m_mean: 'Point de rosée moyen (2m)',
-	relative_humidity_2m_mean: "Humidité relative moyenne (2m)",
+	relative_humidity_2m_mean: 'Humidité relative moyenne (2m)',
 	moonset: 'Coucher de la lune',
 	moonrise: 'Lever de la lune',
 	moon_phase_val: 'Phase lunaire',
