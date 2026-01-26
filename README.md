@@ -71,7 +71,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 
 ---
 ## Change Log
-### **WORK IN PROGRESS**
+### 2.2.0 (2026-01-26)
 * (H5N1v2) add unit translations for improved localization in weather data
 * (H5N1v2) add additional pollen units and translations to unit maps
 * (H5N1v2) add carbon monoxide, dust, olive pollen, and ozone in air quality & translations
