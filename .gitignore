@@ -7,9 +7,11 @@
 *.code-workspace
 node_modules
 nbproject
+.npmignore
 
 # npm package files
 iobroker.*.tgz
+.releaserc.json
 
 Thumbs.db
 .commitinfo
