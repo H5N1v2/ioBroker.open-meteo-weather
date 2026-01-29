@@ -139,7 +139,6 @@ class OpenMeteoWeather extends utils.Adapter {
     const forecastDays = parseInt(config.forecastDays) || 1;
     const forecastHoursEnabled = config.forecastHoursEnabled || false;
     const airQualityEnabled = config.airQualityEnabled || false;
-    const hoursLimit = parseInt(config.forecastHours) || 24;
     const allObjects = await this.getAdapterObjectsAsync();
     let deletedCount = 0;
     for (const objId in allObjects) {
@@ -184,17 +183,6 @@ class OpenMeteoWeather extends utils.Adapter {
             }
           }
         }
-        if (forecastHoursEnabled && objId.includes(".hourly.day")) {
-          const hourMatch = objId.match(/\.hour(\d+)/);
-          if (hourMatch) {
-            const hourNum = parseInt(hourMatch[1]);
-            if (hourNum >= hoursLimit) {
-              await this.delObjectAsync(objId, { recursive: true });
-              deletedCount++;
-              continue;
-            }
-          }
-        }
       }
     }
     this.log.debug(`cleanupDeletedLocations: Finished. Objects deleted: ${deletedCount}`);
@@ -212,16 +200,19 @@ class OpenMeteoWeather extends utils.Adapter {
       for (const loc of locations) {
         const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, "_");
         this.log.debug(`updateData: Fetching data for ${loc.name} (${loc.latitude}/${loc.longitude})`);
-        const data = await (0, import_api_caller.fetchAllWeatherData)({
-          latitude: loc.latitude,
-          longitude: loc.longitude,
-          forecastDays: config.forecastDays || 7,
-          forecastHours: config.forecastHours || 1,
-          forecastHoursEnabled: config.forecastHoursEnabled || false,
-          airQualityEnabled: config.airQualityEnabled || false,
-          timezone: loc.timezone || this.systemTimeZone,
-          isImperial: config.isImperial || false
-        });
+        const data = await (0, import_api_caller.fetchAllWeatherData)(
+          {
+            latitude: loc.latitude,
+            longitude: loc.longitude,
+            forecastDays: config.forecastDays || 7,
+            forecastHours: 24,
+            forecastHoursEnabled: config.forecastHoursEnabled || false,
+            airQualityEnabled: config.airQualityEnabled || false,
+            timezone: loc.timezone || this.systemTimeZone,
+            isImperial: config.isImperial || false
+          },
+          this.log
+        );
         if (data.weather) {
           this.log.debug(`updateData: Processing weather for ${folderName}`);
           await this.processWeatherData(data.weather, folderName, loc.latitude, loc.longitude);
@@ -423,17 +414,22 @@ class OpenMeteoWeather extends utils.Adapter {
   async processForecastHoursData(data, locationPath) {
     const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
     const config = this.config;
-    const hoursPerDayLimit = parseInt(config.forecastHours) || 24;
     if (data.hourly && data.hourly.time) {
       for (let i = 0; i < data.hourly.time.length; i++) {
-        const dayNum = Math.floor(i / 24);
-        const hourInDay = i % 24;
-        if (hourInDay < hoursPerDayLimit) {
+        const forecastTime = new Date(data.hourly.time[i]);
+        const today = /* @__PURE__ */ new Date();
+        today.setHours(0, 0, 0, 0);
+        const forecastDayOnly = new Date(forecastTime);
+        forecastDayOnly.setHours(0, 0, 0, 0);
+        const dayNum = Math.round((forecastDayOnly.getTime() - today.getTime()) / (1e3 * 60 * 60 * 24));
+        const hourInDay = forecastTime.getHours();
+        if (dayNum >= 0 && dayNum < (config.forecastDays || 7)) {
           const hourPath = `${locationPath}.weather.forecast.hourly.day${dayNum}.hour${hourInDay}`;
+          const isDayHour = data.hourly.is_day ? data.hourly.is_day[i] : 1;
           for (const key in data.hourly) {
             let val = data.hourly[key][i];
             if (key === "time" && typeof val === "string") {
-              val = new Date(val).toLocaleString(this.systemLang, {
+              val = forecastTime.toLocaleString(this.systemLang, {
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",
@@ -456,7 +452,7 @@ class OpenMeteoWeather extends utils.Adapter {
               );
               await this.createCustomState(
                 `${hourPath}.icon_url`,
-                `/adapter/${this.name}/icons/weather_icons/${val}.png`,
+                `/adapter/${this.name}/icons/weather_icons/${val}${isDayHour === 1 ? "" : "n"}.png`,
                 "string",
                 "url",
                 ""
