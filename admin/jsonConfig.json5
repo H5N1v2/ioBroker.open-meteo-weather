@@ -139,19 +139,6 @@
           "default": false,
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
         },
-        "forecastHours": {
-          "type": "select",
-          "label": "forecastHours_label",
-          "default": 1,
-          "options": [
-            { "value": 1, "label": "Hours_1" },
-            { "value": 6, "label": "Hours_6" },
-            { "value": 12, "label": "Hours_12" },
-            { "value": 24, "label": "Hours_24" }
-          ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3, 
-          "hidden": "!data.forecastHoursEnabled"
-        },
 
         "divider3": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "hidden": "!data.airQualityEnabled" }, 
 

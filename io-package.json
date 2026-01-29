@@ -169,7 +169,7 @@
     "airQualityEnabled": false,
     "language": "de",
     "forecastDays": 1,
-    "forecastHours": 1,
+    "forecastHours": 24,
     "forecastHoursEnabled": false,
     "locations": []
   }
