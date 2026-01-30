@@ -31,6 +31,31 @@ class OpenMeteoWeather extends utils.Adapter {
   updateInterval = void 0;
   systemLang = "de";
   systemTimeZone = "Europe/Berlin";
+  // Cached values für Performance
+  cachedTranslations = null;
+  cachedUnitMap = null;
+  cachedIsImperial = false;
+  // Konstanten für Icon-Mapping
+  WIND_DIRECTION_FILES = [
+    "n.png",
+    "no.png",
+    "o.png",
+    "so.png",
+    "s.png",
+    "sw.png",
+    "w.png",
+    "nw.png"
+  ];
+  MOON_PHASE_ICONS = {
+    new_moon: "nm.png",
+    waxing_crescent: "zsm.png",
+    first_quarter: "ev.png",
+    waxing_gibbous: "zdm.png",
+    full_moon: "vm.png",
+    waning_gibbous: "adm.png",
+    last_quarter: "lv.png",
+    waning_crescent: "asm.png"
+  };
   // Initialisiert die Basisklasse des Adapters
   constructor(options = {}) {
     super({ ...options, name: "open-meteo-weather" });
@@ -47,37 +72,23 @@ class OpenMeteoWeather extends utils.Adapter {
   }
   // Wandelt Gradzahlen in Himmelsrichtungen als Text um
   getWindDirection(deg) {
-    const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
-    const directions = t.dirs || ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
+    const directions = this.cachedTranslations.dirs || ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
     const index = Math.round(deg / 45) % 8;
     return directions[index];
   }
   // Liefert den Pfad zum passenden Icon für die Windrichtung
   getWindDirectionIcon(deg) {
-    const fileNames = ["n.png", "no.png", "o.png", "so.png", "s.png", "sw.png", "w.png", "nw.png"];
     const index = Math.round(deg / 45) % 8;
-    return `/adapter/${this.name}/icons/wind_direction_icons/${fileNames[index]}`;
+    return `/adapter/${this.name}/icons/wind_direction_icons/${this.WIND_DIRECTION_FILES[index]}`;
   }
   // Ermittelt basierend auf der Mondphase das passende Icon
   getMoonPhaseIcon(phaseKey) {
-    const iconMap = {
-      new_moon: "nm.png",
-      waxing_crescent: "zsm.png",
-      first_quarter: "ev.png",
-      waxing_gibbous: "zdm.png",
-      full_moon: "vm.png",
-      waning_gibbous: "adm.png",
-      last_quarter: "lv.png",
-      waning_crescent: "asm.png"
-    };
-    const fileName = iconMap[phaseKey] || "nm.png";
+    const fileName = this.MOON_PHASE_ICONS[phaseKey] || "nm.png";
     return `/adapter/${this.name}/icons/moon_phases/${fileName}`;
   }
   // Ermittelt basierend auf der Windgeschwindigkeit das passende Warn-Icon
   getWindGustIcon(gusts) {
-    const config = this.config;
-    const isImperial = config.isImperial || false;
-    const factor = isImperial ? 1.60934 : 1;
+    const factor = this.cachedIsImperial ? 1.60934 : 1;
     if (gusts < 39 / factor) {
       return `/adapter/${this.name}/icons/wind_icons/z.png`;
     }
@@ -97,15 +108,13 @@ class OpenMeteoWeather extends utils.Adapter {
   }
   // Errechnet den Taupunkt unter Berücksichtigung der eingestellten Maßeinheit
   calculateDewPoint(temp, humidity) {
-    const config = this.config;
-    const isImperial = config.isImperial || false;
-    const t = isImperial ? (temp - 32) * 5 / 9 : temp;
+    const t = this.cachedIsImperial ? (temp - 32) * 5 / 9 : temp;
     const rh = humidity / 100;
     const a = 17.625;
     const b = 243.04;
     const alpha = Math.log(rh) + a * t / (b + t);
     let dewPoint = b * alpha / (a - alpha);
-    if (isImperial) {
+    if (this.cachedIsImperial) {
       dewPoint = dewPoint * 9 / 5 + 32;
     }
     return parseFloat(dewPoint.toFixed(1));
@@ -120,6 +129,10 @@ class OpenMeteoWeather extends utils.Adapter {
         this.systemTimeZone = sysConfig.common.timezone || "Europe/Berlin";
         this.log.debug(`onReady: System language: ${this.systemLang}, Timezone: ${this.systemTimeZone}`);
       }
+      const config2 = this.config;
+      this.cachedIsImperial = config2.isImperial || false;
+      this.cachedUnitMap = this.cachedIsImperial ? import_units.unitMapImperial : import_units.unitMapMetric;
+      this.cachedTranslations = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
       await this.cleanupDeletedLocations();
     } catch (err) {
       this.log.error(`Initialisierung fehlgeschlagen: ${err.message}`);
@@ -135,7 +148,7 @@ class OpenMeteoWeather extends utils.Adapter {
     this.log.debug("cleanupDeletedLocations: Starting cleanup check...");
     const config = this.config;
     const locations = config.locations || [];
-    const validFolders = locations.map((loc) => loc.name.replace(/[^a-zA-Z0-9]/g, "_"));
+    const validFolders = new Set(locations.map((loc) => loc.name.replace(/[^a-zA-Z0-9]/g, "_")));
     const forecastDays = parseInt(config.forecastDays) || 1;
     const forecastHoursEnabled = config.forecastHoursEnabled || false;
     const airQualityEnabled = config.airQualityEnabled || false;
@@ -146,7 +159,7 @@ class OpenMeteoWeather extends utils.Adapter {
       const parts = objId.split(".");
       if (parts.length > 2) {
         const folderName = parts[2];
-        if (!validFolders.includes(folderName)) {
+        if (!validFolders.has(folderName)) {
           this.log.info(`L\xF6sche veralteten Standort: ${folderName}`);
           await this.delObjectAsync(objId, { recursive: true });
           deletedCount++;
@@ -184,7 +197,7 @@ class OpenMeteoWeather extends utils.Adapter {
             }
           }
         }
-        if (forecastHoursEnabled && objId.includes(".hourly.day")) {
+        if (forecastHoursEnabled && objId.includes(".hourly.next_hours.hour")) {
           const hourMatch = objId.match(/\.hour(\d+)/);
           if (hourMatch) {
             const hourNum = parseInt(hourMatch[1]);
@@ -243,7 +256,7 @@ class OpenMeteoWeather extends utils.Adapter {
   // Verarbeitet aktuelle Wetterdaten sowie die tägliche Vorhersage inkl. lokaler Monddaten
   async processWeatherData(data, locationPath, lat, lon) {
     var _a;
-    const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
+    const t = this.cachedTranslations;
     if (data.current) {
       const isDay = data.current.is_day;
       const root = `${locationPath}.weather.current`;
@@ -421,16 +434,15 @@ class OpenMeteoWeather extends utils.Adapter {
   }
   // Verarbeitet die stündlichen Vorhersagedaten
   async processForecastHoursData(data, locationPath) {
-    const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
+    const t = this.cachedTranslations;
     const config = this.config;
-    const hoursPerDayLimit = parseInt(config.forecastHours) || 24;
+    const hoursPer_h_Limit = parseInt(config.forecastHours) || 24;
     if (data.hourly && data.hourly.time) {
       const isDay = data.hourly.is_day;
       for (let i = 0; i < data.hourly.time.length; i++) {
-        const dayNum = Math.floor(i / 24);
-        const hourInDay = i % 24;
-        if (hourInDay < hoursPerDayLimit) {
-          const hourPath = `${locationPath}.weather.forecast.hourly.day${dayNum}.hour${hourInDay}`;
+        const hourIn_h = i % 24;
+        if (hourIn_h < hoursPer_h_Limit) {
+          const hourPath = `${locationPath}.weather.forecast.hourly.next_hours.hour${hourIn_h}`;
           for (const key in data.hourly) {
             let val = data.hourly[key][i];
             if (key === "time" && typeof val === "string") {
@@ -457,7 +469,6 @@ class OpenMeteoWeather extends utils.Adapter {
               );
               const currentIsDayh = isDay ? isDay[i] : 1;
               await this.createCustomState(
-                //ÖÖ
                 `${hourPath}.icon_url`,
                 `/adapter/${this.name}/icons/weather_icons/${val}${currentIsDayh === 1 ? "" : "n"}.png`,
                 "string",
@@ -497,7 +508,7 @@ class OpenMeteoWeather extends utils.Adapter {
   }
   // Verarbeitet Daten zur Luftqualität und Pollenbelastung
   async processAirQualityData(data, locationPath) {
-    const t = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
+    const t = this.cachedTranslations;
     if (data.current) {
       const root = `${locationPath}.air.current`;
       for (const key in data.current) {
@@ -525,10 +536,12 @@ class OpenMeteoWeather extends utils.Adapter {
   async createCustomState(id, val, type, role, unit) {
     var _a, _b;
     this.log.debug(`createCustomState: Updating state ${id} (role: ${role})`);
+    const idParts = id.split(".");
+    const lastPart = idParts[idParts.length - 1] || id;
     await this.setObjectNotExistsAsync(id, {
       type: "state",
       common: {
-        name: this.getTranslation(id.split(".").pop() || id),
+        name: this.getTranslation(lastPart),
         type,
         role,
         read: true,
@@ -542,21 +555,21 @@ class OpenMeteoWeather extends utils.Adapter {
   // Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
   async extendOrCreateState(id, val, translationKey) {
     var _a, _b;
-    const config = this.config;
     let unit = "";
-    const currentUnitMap = config.isImperial ? import_units.unitMapImperial : import_units.unitMapMetric;
-    for (const k in currentUnitMap) {
+    for (const k in this.cachedUnitMap) {
       if (id.includes(k)) {
-        unit = currentUnitMap[k];
+        unit = this.cachedUnitMap[k];
         break;
       }
     }
     const displayUnit = unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit;
     this.log.debug(`extendOrCreateState: Updating state ${id} (unit: ${displayUnit})`);
+    const idParts = id.split(".");
+    const lastPart = idParts[idParts.length - 1] || id;
     await this.setObjectNotExistsAsync(id, {
       type: "state",
       common: {
-        name: this.getTranslation(translationKey || id.split(".").pop() || id),
+        name: this.getTranslation(translationKey || lastPart),
         type: typeof val,
         role: "value",
         read: true,
