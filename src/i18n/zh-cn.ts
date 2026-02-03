@@ -15,6 +15,7 @@ export const zh = {
 	weather_text: '天气文本',
 	icon_url: '图标URL',
 	time: '时间',
+	date: '日期',
 	pressure_msl: '表面压力',
 	pressure_msl_mean: '平均表面压力',
 	wind_gust_icon: '阵风图标',

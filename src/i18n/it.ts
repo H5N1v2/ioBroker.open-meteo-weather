@@ -15,6 +15,7 @@ export const it = {
 	weather_text: 'Testo del tempo',
 	icon_url: "URL dell'icona",
 	time: 'Ora',
+	date: 'Data',
 	pressure_msl: 'Presione della superficie',
 	pressure_msl_mean: 'Presione media della superficie',
 	wind_gust_icon: 'Icona di raffiche di vento',

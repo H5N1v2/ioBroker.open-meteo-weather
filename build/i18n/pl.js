@@ -38,6 +38,7 @@ const pl = {
   weather_text: "Opis pogody",
   icon_url: "URL ikony",
   time: "Czas",
+  date: "Data",
   pressure_msl: "Presione de la superficie",
   pressure_msl_mean: "\u015Arednia presione de la superficie",
   wind_gust_icon: "Icono der\xE1fagas de viento",

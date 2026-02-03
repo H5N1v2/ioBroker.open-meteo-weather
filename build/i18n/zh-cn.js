@@ -38,6 +38,7 @@ const zh = {
   weather_text: "\u5929\u6C14\u6587\u672C",
   icon_url: "\u56FE\u6807URL",
   time: "\u65F6\u95F4",
+  date: "\u65E5\u671F",
   pressure_msl: "\u8868\u9762\u538B\u529B",
   pressure_msl_mean: "\u5E73\u5747\u8868\u9762\u538B\u529B",
   wind_gust_icon: "\u9635\u98CE\u56FE\u6807",

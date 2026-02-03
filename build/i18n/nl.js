@@ -38,6 +38,7 @@ const nl = {
   weather_text: "Weertekst",
   icon_url: "Icoon URL",
   time: "Tijd",
+  date: "Datum",
   pressure_msl: "Luchtdruk",
   pressure_msl_mean: "Gemiddelde luchtdruk",
   wind_gust_icon: "Windstoten icoon",

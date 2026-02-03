@@ -38,6 +38,7 @@ const pt = {
   weather_text: "Texto do tempo",
   icon_url: "URL do \xEDcone",
   time: "Hora",
+  date: "Data",
   pressure_msl: "Pres\xE3o da superficie",
   pressure_msl_mean: "Pres\xE3o media da superficie",
   wind_gust_icon: "Icono de rajadas de vento",

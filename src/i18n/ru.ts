@@ -15,6 +15,7 @@ export const ru = {
 	weather_text: 'Текст погоды',
 	icon_url: 'URL иконки',
 	time: 'Время',
+	date: 'Дата',
 	pressure_msl: 'Давление на поверхности',
 	pressure_msl_mean: 'Среднее давление на поверхности',
 	wind_gust_icon: 'Иконка порывов ветра',

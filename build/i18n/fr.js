@@ -38,6 +38,7 @@ const fr = {
   weather_text: "Texte m\xE9t\xE9o",
   icon_url: "URL de l'ic\xF4ne",
   time: "Heure",
+  date: "Date",
   pressure_msl: "Pression de surface",
   pressure_msl_mean: "Pression de surface moyenne",
   wind_gust_icon: "Rafales de vent ic\xF4ne",

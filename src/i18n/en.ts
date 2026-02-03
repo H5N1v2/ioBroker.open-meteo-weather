@@ -15,6 +15,7 @@ export const en = {
 	weather_text: 'Weather Text',
 	icon_url: 'Icon URL',
 	time: 'Time',
+	date: 'Date',
 	pressure_msl: 'Surface Pressure',
 	pressure_msl_mean: 'Mean Surface Pressure',
 	wind_gust_icon: 'Wind Gust Icon',

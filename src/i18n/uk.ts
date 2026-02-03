@@ -15,6 +15,7 @@ export const uk = {
 	weather_text: 'Опис погоди',
 	icon_url: 'URL іконки',
 	time: 'Час',
+	date: 'Дата',
 	pressure_msl: 'Атмосферний тиск',
 	pressure_msl_mean: 'Середній атмосферний тиск',
 	wind_gust_icon: 'Іконка поривів вітру',
