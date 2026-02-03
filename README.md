@@ -77,6 +77,12 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Change Log
+### **WORK IN PROGRESS**
+* (wg25 iob-forum) Fix: In the hourly forecast, all hours were incorrectly inheriting the date from the last "day".*
+* (wg25 iob-forum) Fix: Corrected name_day for day0. Previously, it was hardcoded as "Today" (a legacy remnant). It now correctly displays the actual day of the week.
+* (H5N1v2) Updated hours*: Split date and time into separate data points ("date" and "time") based on user feedback.
+* (H5N1v2) Added 'date' key with translations to all translation files.
+
 ### 2.2.2 (2026-01-30)
 * (H5N1v2) fix: update js-controller and admin dependencies to latest versions
 * (H5N1v2) fix: add missing responsive breakpoints in jsonConfig
