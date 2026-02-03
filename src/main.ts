@@ -181,18 +181,7 @@ class OpenMeteoWeather extends utils.Adapter {
 					continue;
 				}
 
-				// 4. Zu viele Tage INNERHALB der stündlichen Vorhersage?
-				if (forecastHoursEnabled && objId.includes('.hourly.day')) {
-					const hourlyDayMatch = objId.match(/\.hourly\.day(\d+)/);
-					if (hourlyDayMatch) {
-						const hDayNum = parseInt(hourlyDayMatch[1]);
-						if (hDayNum >= forecastDays) {
-							await this.delObjectAsync(objId, { recursive: true });
-							deletedCount++;
-							continue;
-						}
-					}
-				}
+				// 4. Entfernt
 
 				// 5. Zu viele normale Vorhersage-Tage? (dayX außerhalb von hourly)
 				if (objId.includes(`${folderName}.weather.forecast.day`) && !objId.includes('.hourly.')) {
@@ -404,11 +393,8 @@ class OpenMeteoWeather extends utils.Adapter {
 					'',
 				);
 
-				// Name des Tages: Tag 0 = "today" (lokalisiert), danach Wochentag
-				const nameDay =
-					i === 0
-						? new Intl.RelativeTimeFormat(this.systemLang, { numeric: 'auto' }).format(0, 'day')
-						: forecastDate.toLocaleDateString(this.systemLang, { weekday: 'long' });
+				// Name des Tages: Wochentag
+				const nameDay = forecastDate.toLocaleDateString(this.systemLang, { weekday: 'long' });
 				await this.createCustomState(`${dayPath}.name_day`, nameDay, 'string', 'text', '');
 
 				for (const key in data.daily) {
@@ -488,16 +474,22 @@ class OpenMeteoWeather extends utils.Adapter {
 		if (data.hourly && data.hourly.time) {
 			const isDay = data.hourly.is_day;
 			for (let i = 0; i < data.hourly.time.length; i++) {
-				const hourIn_h = i % 24;
-				if (hourIn_h < hoursPer_h_Limit) {
-					const hourPath = `${locationPath}.weather.forecast.hourly.next_hours.hour${hourIn_h}`;
+				if (i < hoursPer_h_Limit) {
+					const hourPath = `${locationPath}.weather.forecast.hourly.next_hours.hour${i}`;
 					for (const key in data.hourly) {
 						let val = data.hourly[key][i];
 						if (key === 'time' && typeof val === 'string') {
-							val = new Date(val).toLocaleString(this.systemLang, {
+							const dateObj = new Date(val);
+							// Datum in separaten Datenpunkt
+							const lang = this.systemLang || 'de';
+							const dateVal = dateObj.toLocaleDateString(lang, {
 								day: '2-digit',
 								month: '2-digit',
 								year: 'numeric',
+							});
+							await this.extendOrCreateState(`${hourPath}.date`, dateVal, 'date');
+							// Zeit (nur Uhrzeit)
+							val = dateObj.toLocaleTimeString(this.systemLang, {
 								hour: '2-digit',
 								minute: '2-digit',
 								hour12: this.systemLang === 'en',
