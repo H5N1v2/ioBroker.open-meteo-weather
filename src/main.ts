@@ -15,6 +15,12 @@ class OpenMeteoWeather extends utils.Adapter {
 	private cachedUnitMap: any = null;
 	private cachedIsImperial: boolean = false;
 
+	// Objekt-Caching für bereits erstellte States (verhindert redundante DB-Zugriffe)
+	private createdObjects = new Set<string>();
+
+	// Update-Sperre um Überschneidungen zu verhindern
+	private isUpdating = false;
+
 	// Konstanten für Icon-Mapping
 	private readonly WIND_DIRECTION_FILES = [
 		'n.png',
@@ -215,7 +221,15 @@ class OpenMeteoWeather extends utils.Adapter {
 
 	// Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
 	private async updateData(): Promise<void> {
+		// Überschneidungsschutz: Wenn bereits ein Update läuft, abbrechen
+		if (this.isUpdating) {
+			this.log.warn('Update übersprungen: Vorheriges Update läuft noch.');
+			return;
+		}
+
+		this.isUpdating = true;
 		this.log.debug('updateData: Starting data fetch for all locations...');
+
 		try {
 			const config = this.config as any;
 			const locations = config.locations;
@@ -229,16 +243,19 @@ class OpenMeteoWeather extends utils.Adapter {
 				const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, '_');
 				this.log.debug(`updateData: Fetching data for ${loc.name} (${loc.latitude}/${loc.longitude})`);
 
-				const data = await fetchAllWeatherData({
-					latitude: loc.latitude,
-					longitude: loc.longitude,
-					forecastDays: config.forecastDays || 7,
-					forecastHours: config.forecastHours || 1,
-					forecastHoursEnabled: config.forecastHoursEnabled || false,
-					airQualityEnabled: config.airQualityEnabled || false,
-					timezone: loc.timezone || this.systemTimeZone,
-					isImperial: config.isImperial || false,
-				});
+				const data = await fetchAllWeatherData(
+					{
+						latitude: loc.latitude,
+						longitude: loc.longitude,
+						forecastDays: config.forecastDays || 7,
+						forecastHours: config.forecastHours || 1,
+						forecastHoursEnabled: config.forecastHoursEnabled || false,
+						airQualityEnabled: config.airQualityEnabled || false,
+						timezone: loc.timezone || this.systemTimeZone,
+						isImperial: config.isImperial || false,
+					},
+					this.log,
+				);
 
 				if (data.weather) {
 					this.log.debug(`updateData: Processing weather for ${folderName}`);
@@ -256,6 +273,9 @@ class OpenMeteoWeather extends utils.Adapter {
 			this.log.debug('updateData: All locations processed successfully.');
 		} catch (error: any) {
 			this.log.error(`Abruf fehlgeschlagen: ${error.message}`);
+		} finally {
+			// Update-Sperre immer freigeben, auch bei Fehler
+			this.isUpdating = false;
 		}
 	}
 
@@ -590,49 +610,57 @@ class OpenMeteoWeather extends utils.Adapter {
 		role: string,
 		unit: string,
 	): Promise<void> {
-		this.log.debug(`createCustomState: Updating state ${id} (role: ${role})`);
-		const idParts = id.split('.');
-		const lastPart = idParts[idParts.length - 1] || id;
-		await this.setObjectNotExistsAsync(id, {
-			type: 'state',
-			common: {
-				name: this.getTranslation(lastPart),
-				type,
-				role,
-				read: true,
-				unit: unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit,
-				write: false,
-			},
-			native: {},
-		});
+		// Objekt-Caching: Nur erstellen, wenn noch nicht im Set vorhanden
+		if (!this.createdObjects.has(id)) {
+			this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
+			const idParts = id.split('.');
+			const lastPart = idParts[idParts.length - 1] || id;
+			await this.setObjectNotExistsAsync(id, {
+				type: 'state',
+				common: {
+					name: this.getTranslation(lastPart),
+					type,
+					role,
+					read: true,
+					unit: unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit,
+					write: false,
+				},
+				native: {},
+			});
+			this.createdObjects.add(id);
+		}
 		await this.setStateAsync(id, { val, ack: true });
 	}
 
 	// Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
 	private async extendOrCreateState(id: string, val: any, translationKey?: string): Promise<void> {
-		let unit = '';
-		for (const k in this.cachedUnitMap) {
-			if (id.includes(k)) {
-				unit = this.cachedUnitMap[k];
-				break;
+		// Objekt-Caching: Nur erstellen, wenn noch nicht im Set vorhanden
+		if (!this.createdObjects.has(id)) {
+			let unit = '';
+			for (const k in this.cachedUnitMap) {
+				if (id.includes(k)) {
+					unit = this.cachedUnitMap[k];
+					break;
+				}
 			}
+			const displayUnit = unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit;
+			this.log.debug(`extendOrCreateState: Creating state ${id} (unit: ${displayUnit})`);
+			const idParts = id.split('.');
+			const lastPart = idParts[idParts.length - 1] || id;
+			await this.setObjectNotExistsAsync(id, {
+				type: 'state',
+				common: {
+					name: this.getTranslation(translationKey || lastPart),
+					type: typeof val as any,
+					role: 'value',
+					read: true,
+					write: false,
+					unit: displayUnit,
+				},
+				native: {},
+			});
+			this.createdObjects.add(id);
 		}
-		const displayUnit = unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit;
-		this.log.debug(`extendOrCreateState: Updating state ${id} (unit: ${displayUnit})`);
-		const idParts = id.split('.');
-		const lastPart = idParts[idParts.length - 1] || id;
-		await this.setObjectNotExistsAsync(id, {
-			type: 'state',
-			common: {
-				name: this.getTranslation(translationKey || lastPart),
-				type: typeof val as any,
-				role: 'value',
-				read: true,
-				write: false,
-				unit: displayUnit,
-			},
-			native: {},
-		});
 		await this.setStateAsync(id, { val, ack: true });
 	}
 

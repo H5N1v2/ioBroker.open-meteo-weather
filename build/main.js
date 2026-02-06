@@ -35,6 +35,10 @@ class OpenMeteoWeather extends utils.Adapter {
   cachedTranslations = null;
   cachedUnitMap = null;
   cachedIsImperial = false;
+  // Objekt-Caching für bereits erstellte States (verhindert redundante DB-Zugriffe)
+  createdObjects = /* @__PURE__ */ new Set();
+  // Update-Sperre um Überschneidungen zu verhindern
+  isUpdating = false;
   // Konstanten für Icon-Mapping
   WIND_DIRECTION_FILES = [
     "n.png",
@@ -203,6 +207,11 @@ class OpenMeteoWeather extends utils.Adapter {
   }
   // Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
   async updateData() {
+    if (this.isUpdating) {
+      this.log.warn("Update \xFCbersprungen: Vorheriges Update l\xE4uft noch.");
+      return;
+    }
+    this.isUpdating = true;
     this.log.debug("updateData: Starting data fetch for all locations...");
     try {
       const config = this.config;
@@ -214,16 +223,19 @@ class OpenMeteoWeather extends utils.Adapter {
       for (const loc of locations) {
         const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, "_");
         this.log.debug(`updateData: Fetching data for ${loc.name} (${loc.latitude}/${loc.longitude})`);
-        const data = await (0, import_api_caller.fetchAllWeatherData)({
-          latitude: loc.latitude,
-          longitude: loc.longitude,
-          forecastDays: config.forecastDays || 7,
-          forecastHours: config.forecastHours || 1,
-          forecastHoursEnabled: config.forecastHoursEnabled || false,
-          airQualityEnabled: config.airQualityEnabled || false,
-          timezone: loc.timezone || this.systemTimeZone,
-          isImperial: config.isImperial || false
-        });
+        const data = await (0, import_api_caller.fetchAllWeatherData)(
+          {
+            latitude: loc.latitude,
+            longitude: loc.longitude,
+            forecastDays: config.forecastDays || 7,
+            forecastHours: config.forecastHours || 1,
+            forecastHoursEnabled: config.forecastHoursEnabled || false,
+            airQualityEnabled: config.airQualityEnabled || false,
+            timezone: loc.timezone || this.systemTimeZone,
+            isImperial: config.isImperial || false
+          },
+          this.log
+        );
         if (data.weather) {
           this.log.debug(`updateData: Processing weather for ${folderName}`);
           await this.processWeatherData(data.weather, folderName, loc.latitude, loc.longitude);
@@ -240,6 +252,8 @@ class OpenMeteoWeather extends utils.Adapter {
       this.log.debug("updateData: All locations processed successfully.");
     } catch (error) {
       this.log.error(`Abruf fehlgeschlagen: ${error.message}`);
+    } finally {
+      this.isUpdating = false;
     }
   }
   // Verarbeitet aktuelle Wetterdaten sowie die tägliche Vorhersage inkl. lokaler Monddaten
@@ -528,49 +542,55 @@ class OpenMeteoWeather extends utils.Adapter {
   // Erstellt einen neuen Datenpunkt mit benutzerdefinierter Rolle und Einheit
   async createCustomState(id, val, type, role, unit) {
     var _a, _b;
-    this.log.debug(`createCustomState: Updating state ${id} (role: ${role})`);
-    const idParts = id.split(".");
-    const lastPart = idParts[idParts.length - 1] || id;
-    await this.setObjectNotExistsAsync(id, {
-      type: "state",
-      common: {
-        name: this.getTranslation(lastPart),
-        type,
-        role,
-        read: true,
-        unit: unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit,
-        write: false
-      },
-      native: {}
-    });
+    if (!this.createdObjects.has(id)) {
+      this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
+      const idParts = id.split(".");
+      const lastPart = idParts[idParts.length - 1] || id;
+      await this.setObjectNotExistsAsync(id, {
+        type: "state",
+        common: {
+          name: this.getTranslation(lastPart),
+          type,
+          role,
+          read: true,
+          unit: unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit,
+          write: false
+        },
+        native: {}
+      });
+      this.createdObjects.add(id);
+    }
     await this.setStateAsync(id, { val, ack: true });
   }
   // Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
   async extendOrCreateState(id, val, translationKey) {
     var _a, _b;
-    let unit = "";
-    for (const k in this.cachedUnitMap) {
-      if (id.includes(k)) {
-        unit = this.cachedUnitMap[k];
-        break;
+    if (!this.createdObjects.has(id)) {
+      let unit = "";
+      for (const k in this.cachedUnitMap) {
+        if (id.includes(k)) {
+          unit = this.cachedUnitMap[k];
+          break;
+        }
       }
+      const displayUnit = unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit;
+      this.log.debug(`extendOrCreateState: Creating state ${id} (unit: ${displayUnit})`);
+      const idParts = id.split(".");
+      const lastPart = idParts[idParts.length - 1] || id;
+      await this.setObjectNotExistsAsync(id, {
+        type: "state",
+        common: {
+          name: this.getTranslation(translationKey || lastPart),
+          type: typeof val,
+          role: "value",
+          read: true,
+          write: false,
+          unit: displayUnit
+        },
+        native: {}
+      });
+      this.createdObjects.add(id);
     }
-    const displayUnit = unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit;
-    this.log.debug(`extendOrCreateState: Updating state ${id} (unit: ${displayUnit})`);
-    const idParts = id.split(".");
-    const lastPart = idParts[idParts.length - 1] || id;
-    await this.setObjectNotExistsAsync(id, {
-      type: "state",
-      common: {
-        name: this.getTranslation(translationKey || lastPart),
-        type: typeof val,
-        role: "value",
-        read: true,
-        write: false,
-        unit: displayUnit
-      },
-      native: {}
-    });
     await this.setStateAsync(id, { val, ack: true });
   }
   // Bereinigt Intervalle beim Beenden des Adapters
