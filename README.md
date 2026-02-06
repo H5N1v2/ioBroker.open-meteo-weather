@@ -77,13 +77,12 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Change Log
-### **WORK IN PROGRESS**
+### 2.2.4 (2026-02-06)
 * (H5N1v2) fix: update snow depth unit from cm to m in metric unit map
 * (H5N1v2) add: precipitation in hourly & precipitation_sum (snow,rain,showers) in daily.
 * (H5N1v2) Implemented state caching to reduce redundant database I/O operations.
 * (H5N1v2) Optimized socket management with explicit connection handling and timeouts.
 * (H5N1v2) Refactored update logic for better resource management
-
 
 ### 2.2.3 (2026-02-03)
 * (wg25 iob-forum) Fix: In the hourly forecast, all hours were incorrectly inheriting the date from the last "day".*
