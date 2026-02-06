@@ -41,6 +41,7 @@ export const es = {
 	snowfall_sum: 'Suma de nieve',
 	precipitation_probability_max: 'Probabilidad de precipitación máx.',
 	precipitation_probability: 'Probabilidad de precipitación',
+	precipitation_sum: 'Precipitación total',
 	wind_speed_10m_max: 'Velocidad del viento máx.',
 	wind_direction_10m_dominant: 'Dirección del viento dominante',
 	wind_gusts_10m_max: 'Ráfagas de viento máx.',

@@ -58,6 +58,7 @@ const zh = {
   snowfall_sum: "\u603B\u964D\u96EA\u91CF",
   precipitation_probability_max: "\u6700\u5927\u964D\u6C34\u6982\u7387",
   precipitation_probability: "\u964D\u6C34\u6982\u7387",
+  precipitation_sum: "\u603B\u964D\u6C34\u91CF",
   wind_speed_10m_max: "\u6700\u5927\u98CE\u901F",
   wind_direction_10m_dominant: "\u4E3B\u5BFC\u98CE\u5411",
   wind_gusts_10m_max: "\u6700\u5927\u9635\u98CE",

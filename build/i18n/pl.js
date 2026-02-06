@@ -58,6 +58,7 @@ const pl = {
   snowfall_sum: "Suma opad\xF3w \u015Bniegu",
   precipitation_probability_max: "Maks. prawdopodobie\u0144stwo opad\xF3w",
   precipitation_probability: "Prawdopodobie\u0144stwo opad\xF3w",
+  precipitation_sum: "Suma opad\xF3w",
   wind_speed_10m_max: "Maksymalna pr\u0119dko\u015B\u0107 wiatru",
   wind_direction_10m_dominant: "Dominuj\u0105cy kierunek wiatru",
   wind_gusts_10m_max: "Maksymalne porywy wiatru",

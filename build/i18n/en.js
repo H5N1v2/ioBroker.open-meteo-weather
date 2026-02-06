@@ -58,6 +58,7 @@ const en = {
   snowfall_sum: "Snowfall Sum",
   precipitation_probability_max: "Max. Precipitation Probability",
   precipitation_probability: "Precipitation Probability",
+  precipitation_sum: "Total Precipitation",
   wind_speed_10m_max: "Max. Wind Speed",
   wind_direction_10m_dominant: "Dominant Wind Direction",
   wind_gusts_10m_max: "Max. Wind Gusts",

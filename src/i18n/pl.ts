@@ -36,6 +36,7 @@ export const pl = {
 	snowfall_sum: 'Suma opadów śniegu',
 	precipitation_probability_max: 'Maks. prawdopodobieństwo opadów',
 	precipitation_probability: 'Prawdopodobieństwo opadów',
+	precipitation_sum: 'Suma opadów',
 	wind_speed_10m_max: 'Maksymalna prędkość wiatru',
 	wind_direction_10m_dominant: 'Dominujący kierunek wiatru',
 	wind_gusts_10m_max: 'Maksymalne porywy wiatru',

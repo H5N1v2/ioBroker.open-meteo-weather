@@ -36,6 +36,7 @@ export const ru = {
 	snowfall_sum: 'Сумма снегопада',
 	precipitation_probability_max: 'Макс. вероятность осадков',
 	precipitation_probability: 'Вероятность осадков',
+	precipitation_sum: 'Общие осадки',
 	wind_speed_10m_max: 'Макс. скорость ветра',
 	wind_direction_10m_dominant: 'Преобладающее направление ветра',
 	wind_gusts_10m_max: 'Макс. порывы ветра',

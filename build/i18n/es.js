@@ -63,6 +63,7 @@ const es = {
   snowfall_sum: "Suma de nieve",
   precipitation_probability_max: "Probabilidad de precipitaci\xF3n m\xE1x.",
   precipitation_probability: "Probabilidad de precipitaci\xF3n",
+  precipitation_sum: "Precipitaci\xF3n total",
   wind_speed_10m_max: "Velocidad del viento m\xE1x.",
   wind_direction_10m_dominant: "Direcci\xF3n del viento dominante",
   wind_gusts_10m_max: "R\xE1fagas de viento m\xE1x.",

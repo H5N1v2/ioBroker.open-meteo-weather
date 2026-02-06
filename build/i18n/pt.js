@@ -58,6 +58,7 @@ const pt = {
   snowfall_sum: "Soma de neve",
   precipitation_probability_max: "Probabilidade de precipita\xE7\xE3o m\xE1x.",
   precipitation_probability: "Probabilidade de precipita\xE7\xE3o",
+  precipitation_sum: "Precipita\xE7\xE3o total",
   wind_speed_10m_max: "Velocidade do vento m\xE1x.",
   wind_direction_10m_dominant: "Dire\xE7\xE3o do vento dominante",
   wind_gusts_10m_max: "Rajadas de vento m\xE1x.",
