@@ -5,9 +5,9 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 ![Number of Installations](https://iobroker.live/badges/open-meteo-weather-installed.svg)
 
-[![NPM](https://nodei.co/npm/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
+[![NPM](https://nodei.co/npm/iobroker.open-meteo-weather.svg?data=d)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 
-**Tests:**  ![Test and Release](https://github.com/H5N1v2/iobroker.open-meteo-weather/workflows/Test%20and%20Release/badge.svg)
+![Test and Release](https://github.com/H5N1v2/iobroker.open-meteo-weather/workflows/Test%20and%20Release/badge.svg) [Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.open-meteo-weather?label=npm%20dependencies&style=flat-square) ![node-lts](https://img.shields.io/node/v-lts/iobroker.open-meteo-weather?style=flat-square)
 
 **The Open-Meteo Weather Service Adapter for ioBroker.**
 
@@ -77,6 +77,14 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Change Log
+### **WORK IN PROGRESS**
+* (H5N1v2) fix: update snow depth unit from cm to m in metric unit map
+* (H5N1v2) add: precipitation in hourly & precipitation_sum (snow,rain,showers) in daily.
+* (H5N1v2) Implemented state caching to reduce redundant database I/O operations.
+* (H5N1v2) Optimized socket management with explicit connection handling and timeouts.
+* (H5N1v2) Refactored update logic for better resource management
+
+
 ### 2.2.3 (2026-02-03)
 * (wg25 iob-forum) Fix: In the hourly forecast, all hours were incorrectly inheriting the date from the last "day".*
 * (wg25 iob-forum) Fix: Corrected name_day for day0. Previously, it was hardcoded as "Today" (a legacy remnant). It now correctly displays the actual day of the week.
