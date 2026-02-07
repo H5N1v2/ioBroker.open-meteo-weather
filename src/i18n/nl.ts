@@ -36,6 +36,8 @@ export const nl = {
 	snowfall_sum: 'Totale sneeuwval',
 	precipitation_probability_max: 'Max. neerslagkans',
 	precipitation_probability: 'Neerslagkans',
+	et0_fao_evapotranspiration: 'Verdamping',
+	et0_fao_evapotranspiration_sum: 'Totale Verdamping',
 	precipitation_sum: 'Totale neerslag',
 	wind_speed_10m_max: 'Max. windsnelheid',
 	wind_direction_10m_dominant: 'Overheersende windrichting',
@@ -48,12 +50,14 @@ export const nl = {
 	moon_phase_text: 'Maanfase tekst',
 	moon_phase_icon: 'Maanfase icoon',
 	name_day: 'Dagnaam',
+	global_tilted_irradiance: 'Zonnestraling',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europese luchtkwaliteitsindex',
 	pm10: 'Fijnstof PM10',
 	pm2_5: 'Fijnstof PM2.5',
 	carbon_monoxide: 'Koolmonoxide',
+	nitrogen_dioxide: 'Stikstofdioxide',
 	dust: 'Stof',
 	alder_pollen: 'Elzenpollen',
 	birch_pollen: 'Berkenpollen',

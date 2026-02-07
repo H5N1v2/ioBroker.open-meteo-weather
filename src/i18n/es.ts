@@ -41,6 +41,8 @@ export const es = {
 	snowfall_sum: 'Suma de nieve',
 	precipitation_probability_max: 'Probabilidad de precipitación máx.',
 	precipitation_probability: 'Probabilidad de precipitación',
+	et0_fao_evapotranspiration: 'Evapotranspiración',
+	et0_fao_evapotranspiration_sum: 'Evapotranspiración Total',
 	precipitation_sum: 'Precipitación total',
 	wind_speed_10m_max: 'Velocidad del viento máx.',
 	wind_direction_10m_dominant: 'Dirección del viento dominante',
@@ -48,12 +50,14 @@ export const es = {
 	dew_point_2m_mean: 'Punto de rocío medio (2m)',
 	relative_humidity_2m_mean: 'Humedad relativa media (2m)',
 	name_day: 'Nombre del día',
+	global_tilted_irradiance: 'Irradiancia Solar',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Índice Europeo de Calidad del Aire',
 	pm10: 'Partículas en suspensión PM10',
 	pm2_5: 'Partículas en suspensión PM2.5',
 	carbon_monoxide: 'Monóxido de carbono',
+	nitrogen_dioxide: 'Dióxido de Nitrógeno',
 	dust: 'Polvo',
 	alder_pollen: 'Polen de Aliso',
 	birch_pollen: 'Polen de Abedul',

@@ -36,6 +36,8 @@ export const ru = {
 	snowfall_sum: 'Сумма снегопада',
 	precipitation_probability_max: 'Макс. вероятность осадков',
 	precipitation_probability: 'Вероятность осадков',
+	et0_fao_evapotranspiration: 'Эвапотранспирация',
+	et0_fao_evapotranspiration_sum: 'Суммарная Эвапотранспирация',
 	precipitation_sum: 'Общие осадки',
 	wind_speed_10m_max: 'Макс. скорость ветра',
 	wind_direction_10m_dominant: 'Преобладающее направление ветра',
@@ -48,12 +50,14 @@ export const ru = {
 	moon_phase_text: 'Описание фазы луны',
 	moon_phase_icon: 'Иконка фазы луны',
 	name_day: 'Название дня',
+	global_tilted_irradiance: 'Солнечная Радиация',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Европейский индекс качества воздуха',
 	pm10: 'Мелкодисперсная пыль PM10',
 	pm2_5: 'Мелкодисперсная пыль PM2.5',
 	carbon_monoxide: 'Окись углерода',
+	nitrogen_dioxide: 'Диоксид азота',
 	dust: 'Пыль',
 	alder_pollen: 'Пыльца ольхи',
 	birch_pollen: 'Пыльца березы',

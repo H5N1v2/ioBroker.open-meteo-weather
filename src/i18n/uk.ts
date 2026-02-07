@@ -36,6 +36,8 @@ export const uk = {
 	snowfall_sum: 'Загальна кількість снігу',
 	precipitation_probability_max: 'Макс. ймовірність опадів',
 	precipitation_probability: 'Ймовірність опадів',
+	et0_fao_evapotranspiration: 'Евапотранспірація',
+	et0_fao_evapotranspiration_sum: 'Сумарна Евапотранспірація',
 	precipitation_sum: 'Загальна кількість опадів',
 	wind_speed_10m_max: 'Макс. швидкість вітру',
 	wind_direction_10m_dominant: 'Переважаючий напрямок вітру',
@@ -48,12 +50,14 @@ export const uk = {
 	moon_phase_text: 'Опис фази місяця',
 	moon_phase_icon: 'Іконка фази місяця',
 	name_day: 'Назва дня',
+	global_tilted_irradiance: 'Сонячна Радіація',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Європейський індекс якості повітря',
 	pm10: 'Пил PM10',
 	pm2_5: 'Пил PM2.5',
 	carbon_monoxide: 'Оксид вуглецю',
+	nitrogen_dioxide: 'Діоксид азоту',
 	dust: 'Пил',
 	alder_pollen: 'Пилок вільхи',
 	birch_pollen: 'Пилок берези',

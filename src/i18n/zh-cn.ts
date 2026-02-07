@@ -36,6 +36,8 @@ export const zh = {
 	snowfall_sum: '总降雪量',
 	precipitation_probability_max: '最大降水概率',
 	precipitation_probability: '降水概率',
+	et0_fao_evapotranspiration: '蒸散发',
+	et0_fao_evapotranspiration_sum: '总蒸散发',
 	precipitation_sum: '总降水量',
 	wind_speed_10m_max: '最大风速',
 	wind_direction_10m_dominant: '主导风向',
@@ -48,12 +50,14 @@ export const zh = {
 	moon_phase_text: '月相描述',
 	moon_phase_icon: '月相图标',
 	name_day: '日期名称',
+	global_tilted_irradiance: '太阳辐照度',
 
 	// Luftqualität (Air Quality)
 	european_aqi: '欧洲空气质量指数',
 	pm10: 'PM10颗粒物',
 	pm2_5: 'PM2.5颗粒物',
 	carbon_monoxide: '一氧化碳',
+	nitrogen_dioxide: '二氧化氮',
 	dust: '灰尘',
 	alder_pollen: '桤木花粉',
 	birch_pollen: '桦树花粉',

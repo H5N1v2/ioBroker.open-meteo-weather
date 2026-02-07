@@ -36,6 +36,8 @@ export const pl = {
 	snowfall_sum: 'Suma opadów śniegu',
 	precipitation_probability_max: 'Maks. prawdopodobieństwo opadów',
 	precipitation_probability: 'Prawdopodobieństwo opadów',
+	et0_fao_evapotranspiration: 'Ewapotranspiracja',
+	et0_fao_evapotranspiration_sum: 'Całkowita Ewapotranspiracja',
 	precipitation_sum: 'Suma opadów',
 	wind_speed_10m_max: 'Maksymalna prędkość wiatru',
 	wind_direction_10m_dominant: 'Dominujący kierunek wiatru',
@@ -48,12 +50,14 @@ export const pl = {
 	moon_phase_text: 'Opis fazy księżyca',
 	moon_phase_icon: 'Ikona fazy księżyca',
 	name_day: 'Nazwa dnia',
+	global_tilted_irradiance: 'Napromieniowanie Słoneczne',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europejski indeks jakości powietrza',
 	pm10: 'Pył zawieszony PM10',
 	pm2_5: 'Pył zawieszony PM2.5',
 	carbon_monoxide: 'Tlenek węgla',
+	nitrogen_dioxide: 'Dwutlenek azotu',
 	dust: 'Pył',
 	alder_pollen: 'Pyłek olchy',
 	birch_pollen: 'Pyłek brzozy',
