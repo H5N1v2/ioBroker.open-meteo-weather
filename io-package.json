@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.2.4",
+    "version": "2.2.5",
     "news": {
+      "2.2.5": {
+        "en": "Nitrogen dioxide (NO2) datapoint added to the air quality data, user request.\nAdded new datapoints for \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" in hourlyX and \"et0_fao_evapotranspiration_sum\" in dailyX.\nSome Log-messages translated in main.ts\nCorrected setStateAsync to setState in main.ts\nfix: update forecast hours handling.\nAdded an info folder with a last_update data point to check when the last update was performed.",
+        "de": "Stickstoffdioxid (NO2) Datenpunkt zu den Luftqualitätsdaten hinzugefügt, Benutzeranfrage.\nNeue Datenpunkte für \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" in stündlichX und \"et0_fao_evapotranspiration_sum\" in dailyX hinzugefügt.\nEinige Log-Nachrichten übersetzt in main.ts\nKorrigiert setStateAsync, umState in main.ts festzulegen\nfix: aktualisierung der vorausschätzungszeiten.\nEs wurde ein Info-Ordner mit einem letzten_update-Datenpunkt hinzugefügt, um zu überprüfen, wann das letzte Update durchgeführt wurde.",
+        "ru": "Точка данных диоксида азота (NO2) добавлена к данным о качестве воздуха, запрос пользователя.\nДобавлены новые точки данных для \"global_tilted_irradiance\" и \"et0_fao_evapotranspiration\" в hourlyX и \"et0_fao_evapotranspiration_sum\" в dailyX.\nЛог-сообщения, переведенные на main.ts\nИсправленный setStateAsync установит State in main.ts\nобновление прогноза часов обработки.\nДобавлена папка с информацией с точкой данных last_update, чтобы проверить, когда было выполнено последнее обновление.",
+        "pt": "Ponto de dados do dióxido de azoto (NO2) adicionado aos dados da qualidade do ar, pedido do utilizador.\nAdicionados novos pontos de dados para \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" em cada horaX e \"et0_fao_evapotranspiration_sum\" em cada diaX.\nAlgumas mensagens de log traduzidas no main.ts\nSet corrigidoStateAsync para setState no main.ts\ncorreção: atualização das horas de previsão de manuseio.\nAdicionamos uma pasta de informações com um ponto de dados last_update para verificar quando a última atualização foi realizada.",
+        "nl": "Stikstofdioxide (NO2) -gegevenspunt toegevoegd aan de luchtkwaliteitsgegevens, verzoek van de gebruiker.\nNieuwe datapunten toegevoegd voor \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" in uur X en \"et0_fao_evapotranspiration_sum\" in dag X.\nSommige Log-berichten vertaald in main.ts\nGecorrigeerdStateAsync instellenState in main.ts\nfix: update voorspelling uren behandeling.\nEen infomap toegevoegd met een laatste_update-gegevenspunt om te controleren wanneer de laatste update werd uitgevoerd.",
+        "fr": "Point de données sur le dioxyde d'azote (NO2) ajouté aux données sur la qualité de l'air, demande de l'utilisateur.\nAjout de nouveaux points de données pour \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" en heuresX et \"et0_fao_evapotranspiration_sum\" en joursX.\nQuelques messages de journal traduits dans main.ts\nSet corrigéStateAsync pour définirState dans main.ts\ncorrection: mise à jour de la gestion des heures de prévision.\nAjout d'un dossier info avec un point de données last_update pour vérifier quand la dernière mise à jour a été effectuée.",
+        "it": "Anidride carbonica (NO2) datapoint aggiunto ai dati di qualità dell'aria, richiesta dell'utente.\nAggiunto nuovi datapoints per \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" in hourlyX e \"et0_fao_evapotranspiration_sum\" in dayX.\nAlcuni messaggi di log tradotti in main.ts\nSet correttoStateAsync per impostareState in main.ts\ncorrezione: aggiornamento ore di gestione previsioni.\nAggiunta una cartella di informazioni con un punto di dati last_update per verificare quando l'ultimo aggiornamento è stato eseguito.",
+        "es": "Punto de datos de dióxido de nitrógeno (NO2) añadido a los datos de calidad del aire, solicitud del usuario.\nNuevos puntos de datos añadidos para \"global_tilted_irradiance\" \"et0_fao_evapotranspiration\" en horaX y \"et0_fao_evapotranspiration_sum\" en diariamenteX.\nAlgunos mensajes de registro traducidos en main.ts\nCorregido setStateAsync para establecer el estado en main.ts\nsolucion: actualización de las horas de tratamiento.\nSe agregó una carpeta de información con un punto de datos último_actualizar para comprobar cuando se realizó la última actualización.",
+        "pl": "Dwutlenek azotu (NO2) punkt danych dodany do danych dotyczących jakości powietrza, żądanie użytkownika.\nDodano nowe punkty danych dla \"global _ tilted _ irradiance\" & \"et0 _ fao _ evapotranspiration\" w hourlyX i \"et0 _ fao _ evapotranspiration _ sum\" w dailyX.\nNiektóre komunikaty Log- przetłumaczone w main.ts\nPoprawiony setStateAsync do setState w main.ts\nfix: aktualizacja przewidywanych godzin obsługi.\nDodano folder informacyjny z punktem danych last _ update do sprawdzenia, kiedy ostatnia aktualizacja została wykonana.",
+        "uk": "Нікооксид азоту (NO2) додано до даних про якість повітря, запит користувача.\nДодано нові точки даних для \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" в часіX і \"et0_fao_evapotranspiration_sum\" в щоденному режиміX.\nДеякі лог-повідомлення, перекладені в main.ts\nВиправлено setStateAsync для setState в main.ts\nвиправити: оновити час обробки.\nДодано інформаційну папку з останню_оновленою точкою для перевірки при виконанні останнього оновлення.",
+        "zh-cn": "二氧化氮(NO2)数据点加入空气质量数据,用户请求.\n为\"global_tilted_iradiance\"和\"et0_fao_evapotranching\"在小时X和\"et0_fao_evapotranching_sum\"在日X中添加了新的数据点.\n主要.ts翻译的一些日志消息\n更正 set StateAsync 到主.ts 设置状态\n固定:更新预测时间处理.\n添加了信息文件夹, 包含最后的_ 更新数据点, 以检查上次更新何时完成 ."
+      },
       "2.2.4": {
         "en": "fix: update snow depth unit from cm to m in metric unit map\nadd: precipitation in hourly & precipitation_sum (snow,rain,showers) in daily.\nImplemented state caching to reduce redundant database I/O operations.\nOptimized socket management with explicit connection handling and timeouts.\nRefactored update logic for better resource management",
         "de": "fix: schneetiefe von cm bis m in metrische einheitskarte aktualisieren\nadd: niederschlag in stündlich & niederschlag_sum (snow,rain,showers) im täglichen.\nErgänzte Zustandscaching, um redundante Datenbank-I/O-Betriebe zu reduzieren.\nOptimiertes Steckdosenmanagement mit explizitem Anschlusshandling und Timeouts.\nRefactored Update-Logik für bessere Ressourcenverwaltung",
@@ -80,19 +93,6 @@
         "pl": "dodaj moduł suncalc\ndodaj Księżyc Wartość fazowa, tekst i ikona punktów danych url\ndodaj Księżyc Ikony fazy\ndodaj tłumaczenia dla Moon Fases\nZmieniona lokalizacja ikon pogodowych dla lepszego przeglądu",
         "uk": "додати модуль solarc\nдодати Місяць Фази значення, текстові та значкові точки даних\nдодати Місяць Фази ікони\nдодавати переклади для Moon Phases\nЗміна розташування для метеорологічних ікон для кращого огляду",
         "zh-cn": "添加模块太阳算法\n添加月亮 阶段值、 文本和图标url 数据点\n添加月亮 阶段图标\n为月球相位添加翻译\n更改天气图标位置, 以更好地进行概览"
-      },
-      "2.0.1": {
-        "en": "Fix wind direction icons",
-        "de": "Icons der Windrichtung fixieren",
-        "ru": "Исправьте иконки направления ветра",
-        "pt": "Corrigir os ícones de direção do vento",
-        "nl": "Windrichtingpictogrammen herstellen",
-        "fr": "Correction des icônes de direction du vent",
-        "it": "Fissare le icone della direzione del vento",
-        "es": "Fijar iconos de dirección del viento",
-        "pl": "Napraw ikony kierunku wiatru",
-        "uk": "Виправлення значків напрямку вітру",
-        "zh-cn": "修整风向图标"
       }
     },
     "titleLang": {

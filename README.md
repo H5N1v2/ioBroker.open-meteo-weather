@@ -78,13 +78,13 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Change Log
-### **WORK IN PROGRESS**
+### 2.2.5 (2026-02-07)
 * (H5N1v2) Nitrogen dioxide (NO2) datapoint added to the air quality data, user request.
 * (H5N1v2) Added new datapoints for "global_tilted_irradiance" & "et0_fao_evapotranspiration" in hourlyX and "et0_fao_evapotranspiration_sum" in dailyX.
 * (H5N1v2) Some Log-messages translated in main.ts
 * (H5N1v2) Corrected setStateAsync to setState in main.ts
 * (H5N1v2) fix: update forecast hours handling.
-* (H5N1v2) Added an info folder with a last_update data point to check when the last update was performed. 
+* (H5N1v2) Added an info folder with a last_update data point to check when the last update was performed.
 
 ### 2.2.4 (2026-02-06)
 * (H5N1v2) fix: update snow depth unit from cm to m in metric unit map
