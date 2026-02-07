@@ -30,11 +30,13 @@ const unitMapMetric = {
   precipitation: "mm",
   rain: "mm",
   precipitation_sum: "mm",
+  et0_fao: "mm",
   wind_speed: "km/h",
   wind_gusts: "km/h",
   pm: "\xB5g/m\xB3",
   dust: "\xB5g/m\xB3",
   carbon_monoxide: "\xB5g/m\xB3",
+  nitrogen_dioxide: "\xB5g/m\xB3",
   ozone: "\xB5g/m\xB3",
   cloud: "%",
   wind_direction: "\xB0",
@@ -48,7 +50,8 @@ const unitMapMetric = {
   grass_pollen: "grains/m\xB3",
   mugwort_pollen: "grains/m\xB3",
   ragweed_pollen: "grains/m\xB3",
-  olive_pollen: "grains/m\xB3"
+  olive_pollen: "grains/m\xB3",
+  global_tilted_irradiance: "W/m\xB2"
 };
 const unitMapImperial = {
   temperature: "\xB0F",
@@ -56,12 +59,14 @@ const unitMapImperial = {
   precipitation_probability: "%",
   precipitation: "inch",
   precipitation_sum: "inch",
+  et0_fao: "inch",
   rain: "inch",
   wind_speed: "mph",
   wind_gusts: "mph",
   pm: "\xB5g/m\xB3",
   dust: "\xB5g/m\xB3",
   carbon_monoxide: "\xB5g/m\xB3",
+  nitrogen_dioxide: "\xB5g/m\xB3",
   ozone: "\xB5g/m\xB3",
   cloud: "%",
   wind_direction: "\xB0",
@@ -69,7 +74,8 @@ const unitMapImperial = {
   pressure: "inHg",
   sunshine: "h",
   snowfall: "inch",
-  snow_depth: "inch"
+  snow_depth: "inch",
+  global_tilted_irradiance: "W/m\xB2"
 };
 const unitTranslations = {
   de: {

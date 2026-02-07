@@ -7,11 +7,13 @@ export const unitMapMetric: Record<string, string> = {
 	precipitation: 'mm',
 	rain: 'mm',
 	precipitation_sum: 'mm',
+	et0_fao: 'mm',
 	wind_speed: 'km/h',
 	wind_gusts: 'km/h',
 	pm: 'µg/m³',
 	dust: 'µg/m³',
 	carbon_monoxide: 'µg/m³',
+	nitrogen_dioxide: 'µg/m³',
 	ozone: 'µg/m³',
 	cloud: '%',
 	wind_direction: '°',
@@ -26,6 +28,7 @@ export const unitMapMetric: Record<string, string> = {
 	mugwort_pollen: 'grains/m³',
 	ragweed_pollen: 'grains/m³',
 	olive_pollen: 'grains/m³',
+	global_tilted_irradiance: 'W/m²',
 };
 
 export const unitMapImperial: Record<string, string> = {
@@ -34,12 +37,14 @@ export const unitMapImperial: Record<string, string> = {
 	precipitation_probability: '%',
 	precipitation: 'inch',
 	precipitation_sum: 'inch',
+	et0_fao: 'inch',
 	rain: 'inch',
 	wind_speed: 'mph',
 	wind_gusts: 'mph',
 	pm: 'µg/m³',
 	dust: 'µg/m³',
 	carbon_monoxide: 'µg/m³',
+	nitrogen_dioxide: 'µg/m³',
 	ozone: 'µg/m³',
 	cloud: '%',
 	wind_direction: '°',
@@ -48,6 +53,7 @@ export const unitMapImperial: Record<string, string> = {
 	sunshine: 'h',
 	snowfall: 'inch',
 	snow_depth: 'inch',
+	global_tilted_irradiance: 'W/m²',
 };
 
 export const unitTranslations: Record<string, Record<string, string>> = {
