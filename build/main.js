@@ -138,8 +138,19 @@ class OpenMeteoWeather extends utils.Adapter {
       this.cachedUnitMap = this.cachedIsImperial ? import_units.unitMapImperial : import_units.unitMapMetric;
       this.cachedTranslations = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
       await this.cleanupDeletedLocations();
+      await this.extendObject("info.lastUpdate", {
+        type: "state",
+        common: {
+          name: "Last Update",
+          type: "string",
+          role: "text",
+          read: true,
+          write: false
+        },
+        native: {}
+      });
     } catch (err) {
-      this.log.error(`Initialisierung fehlgeschlagen: ${err.message}`);
+      this.log.error(`Initialization failed: ${err.message}`);
     }
     await this.updateData();
     const config = this.config;
@@ -208,7 +219,7 @@ class OpenMeteoWeather extends utils.Adapter {
   // Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
   async updateData() {
     if (this.isUpdating) {
-      this.log.warn("Update \xFCbersprungen: Vorheriges Update l\xE4uft noch.");
+      this.log.warn("Update skipped: Previous update is still running.");
       return;
     }
     this.isUpdating = true;
@@ -217,7 +228,7 @@ class OpenMeteoWeather extends utils.Adapter {
       const config = this.config;
       const locations = config.locations;
       if (!locations || !Array.isArray(locations) || locations.length === 0) {
-        this.log.warn("Keine Standorte konfiguriert.");
+        this.log.warn("No locations configured.");
         return;
       }
       for (const loc of locations) {
@@ -250,8 +261,17 @@ class OpenMeteoWeather extends utils.Adapter {
         }
       }
       this.log.debug("updateData: All locations processed successfully.");
+      const now = /* @__PURE__ */ new Date();
+      const day = String(now.getDate()).padStart(2, "0");
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+      const timestamp = `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
+      await this.setState("info.lastUpdate", { val: timestamp, ack: true });
     } catch (error) {
-      this.log.error(`Abruf fehlgeschlagen: ${error.message}`);
+      this.log.error(`Retrieval failed: ${error.message}`);
     } finally {
       this.isUpdating = false;
     }
@@ -560,7 +580,7 @@ class OpenMeteoWeather extends utils.Adapter {
       });
       this.createdObjects.add(id);
     }
-    await this.setStateAsync(id, { val, ack: true });
+    await this.setState(id, { val, ack: true });
   }
   // Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
   async extendOrCreateState(id, val, translationKey) {
@@ -591,7 +611,7 @@ class OpenMeteoWeather extends utils.Adapter {
       });
       this.createdObjects.add(id);
     }
-    await this.setStateAsync(id, { val, ack: true });
+    await this.setState(id, { val, ack: true });
   }
   // Bereinigt Intervalle beim Beenden des Adapters
   onUnload(callback) {
