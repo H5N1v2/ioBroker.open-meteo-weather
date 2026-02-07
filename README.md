@@ -7,7 +7,8 @@
 
 [![NPM](https://nodei.co/npm/iobroker.open-meteo-weather.svg?data=d)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 
-![Test and Release](https://github.com/H5N1v2/iobroker.open-meteo-weather/workflows/Test%20and%20Release/badge.svg) [Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.open-meteo-weather?label=npm%20dependencies&style=flat-square) ![node-lts](https://img.shields.io/node/v-lts/iobroker.open-meteo-weather?style=flat-square)
+![Test and Release](https://github.com/H5N1v2/iobroker.open-meteo-weather/workflows/Test%20and%20Release/badge.svg) 
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.open-meteo-weather?label=npm%20dependencies&style=flat-square) ![node-lts](https://img.shields.io/node/v-lts/iobroker.open-meteo-weather?style=flat-square)
 
 **The Open-Meteo Weather Service Adapter for ioBroker.**
 
