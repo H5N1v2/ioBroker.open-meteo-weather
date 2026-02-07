@@ -45,12 +45,12 @@ async function fetchAllWeatherData(config, logger) {
   let fHoursParam = "";
   let fHoursParam_keys = "";
   if (config.forecastHoursEnabled) {
-    const totalHours = config.forecastDays * 24;
+    const totalHours = config.forecastHours;
     fHoursParam = `&forecast_hours=${totalHours}`;
-    fHoursParam_keys = `&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,precipitation,rain,weather_code,pressure_msl,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,soil_temperature_0cm,uv_index,sunshine_duration,is_day,snowfall,snow_depth`;
+    fHoursParam_keys = `&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,precipitation,et0_fao_evapotranspiration,rain,weather_code,pressure_msl,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,soil_temperature_0cm,uv_index,sunshine_duration,is_day,snowfall,snow_depth,global_tilted_irradiance`;
   }
   const currentparam_keys = "temperature_2m,relative_humidity_2m,pressure_msl,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day";
-  const dailyparam_keys = "relative_humidity_2m_mean,weather_code,temperature_2m_max,temperature_2m_min,pressure_msl_mean,sunrise,sunshine_duration,sunset,uv_index_max,precipitation_sum,rain_sum,snowfall_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,dew_point_2m_mean";
+  const dailyparam_keys = "relative_humidity_2m_mean,weather_code,temperature_2m_max,temperature_2m_min,pressure_msl_mean,sunrise,sunshine_duration,sunset,uv_index_max,precipitation_sum,rain_sum,snowfall_sum,precipitation_probability_max,et0_fao_evapotranspiration_sum,cloud_cover_max,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,dew_point_2m_mean";
   const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${config.latitude}&longitude=${config.longitude}&current=${currentparam_keys}&daily=${dailyparam_keys}${fHoursParam_keys}&timezone=${tz}&forecast_days=${config.forecastDays}${fHoursParam}${unitParams}`;
   if (logger) {
     logger.debug(`Open-Meteo Weather URL: ${weatherUrl}`);
@@ -66,11 +66,11 @@ async function fetchAllWeatherData(config, logger) {
     }
   } catch (error) {
     if (logger) {
-      logger.error(`Fehler beim Abrufen der Wetterdaten: ${error.message}`);
+      logger.error(`Error retrieving weather data: ${error.message}`);
     }
     throw new Error(`Weather API request failed: ${error.message}`);
   }
-  const pollenparam_keys = "pm10,pm2_5,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen,carbon_monoxide,dust,olive_pollen,ozone";
+  const pollenparam_keys = "pm10,pm2_5,nitrogen_dioxide,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen,carbon_monoxide,dust,olive_pollen,ozone";
   if (config.airQualityEnabled) {
     const airUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${config.latitude}&longitude=${config.longitude}&current=european_aqi,${pollenparam_keys}&timezone=${tz}&forecast_days=${config.forecastDays > 7 ? 7 : config.forecastDays}`;
     if (logger) {
@@ -84,7 +84,7 @@ async function fetchAllWeatherData(config, logger) {
       results.air = resA.data;
     } catch (error) {
       if (logger) {
-        logger.warn(`Fehler beim Abrufen der Luftqualit\xE4tsdaten: ${error.message}`);
+        logger.warn(`Error retrieving air quality data: ${error.message}`);
       }
     }
   }
