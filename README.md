@@ -77,7 +77,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
-## Change Log
+## Changelog
 ### 2.2.5 (2026-02-07)
 * (H5N1v2) Nitrogen dioxide (NO2) datapoint added to the air quality data, user request.
 * (H5N1v2) Added new datapoints for "global_tilted_irradiance" & "et0_fao_evapotranspiration" in hourlyX and "et0_fao_evapotranspiration_sum" in dailyX.
