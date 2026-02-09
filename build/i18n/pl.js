@@ -92,7 +92,19 @@ const pl = {
   mugwort_pollen_text: "St\u0119\u017Cenie py\u0142k\xF3w bylicy",
   grass_pollen_text: "St\u0119\u017Cenie py\u0142k\xF3w traw",
   birch_pollen_text: "St\u0119\u017Cenie py\u0142k\xF3w brzozy",
-  alder_pollen_text: "St\u0119\u017Cenie py\u0142k\xF3w olchy"
+  alder_pollen_text: "St\u0119\u017Cenie py\u0142k\xF3w olchy",
+  alder_pollen_max: "Py\u0142ek Olchy Maks.",
+  birch_pollen_max: "Py\u0142ek Brzozy Maks.",
+  carbon_monoxide_max: "Tlenek W\u0119gla Maks.",
+  dust_max: "Py\u0142 Maks.",
+  grass_pollen_max: "Py\u0142ek Traw Maks.",
+  mugwort_pollen_max: "Py\u0142ek Bylicy Maks.",
+  nitrogen_dioxide_max: "Dwutlenek Azotu Maks.",
+  olive_pollen_max: "Py\u0142ek Oliwki Maks.",
+  ozone_max: "Ozon Maks.",
+  pm10_max: "PM10 Maks.",
+  pm2_5_max: "PM2.5 Maks.",
+  ragweed_pollen_max: "Py\u0142ek Ambrozji Maks."
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

@@ -92,7 +92,19 @@ const it = {
   mugwort_pollen_text: "Carico di polline di artemisia",
   grass_pollen_text: "Carico di polline di graminacee",
   birch_pollen_text: "Carico di polline di betulla",
-  alder_pollen_text: "Carico di polline di ontano"
+  alder_pollen_text: "Carico di polline di ontano",
+  alder_pollen_max: "Polline di Ontano Max.",
+  birch_pollen_max: "Polline di Betulla Max.",
+  carbon_monoxide_max: "Monossido di Carbonio Max.",
+  dust_max: "Polvere Max.",
+  grass_pollen_max: "Polline di Graminacee Max.",
+  mugwort_pollen_max: "Polline di Artemisia Max.",
+  nitrogen_dioxide_max: "Diossido di Azoto Max.",
+  olive_pollen_max: "Polline di Olivo Max.",
+  ozone_max: "Ozono Max.",
+  pm10_max: "PM10 Max.",
+  pm2_5_max: "PM2.5 Max.",
+  ragweed_pollen_max: "Polline di Ambrosia Max."
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

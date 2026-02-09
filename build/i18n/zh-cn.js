@@ -92,7 +92,19 @@ const zh = {
   mugwort_pollen_text: "\u827E\u8349\u82B1\u7C89\u8FC7\u654F\u6307\u6570",
   grass_pollen_text: "\u7267\u8349\u82B1\u7C89\u8FC7\u654F\u6307\u6570",
   birch_pollen_text: "\u6866\u6811\u82B1\u7C89\u8FC7\u654F\u6307\u6570",
-  alder_pollen_text: "\u8D64\u6768\u82B1\u7C89\u8FC7\u654F\u6307\u6570"
+  alder_pollen_text: "\u8D64\u6768\u82B1\u7C89\u8FC7\u654F\u6307\u6570",
+  alder_pollen_max: "\u6864\u6728\u82B1\u7C89\u6700\u5927\u503C",
+  birch_pollen_max: "\u6866\u6811\u82B1\u7C89\u6700\u5927\u503C",
+  carbon_monoxide_max: "\u4E00\u6C27\u5316\u78B3\u6700\u5927\u503C",
+  dust_max: "\u7070\u5C18\u6700\u5927\u503C",
+  grass_pollen_max: "\u8349\u82B1\u7C89\u6700\u5927\u503C",
+  mugwort_pollen_max: "\u827E\u84BF\u82B1\u7C89\u6700\u5927\u503C",
+  nitrogen_dioxide_max: "\u4E8C\u6C27\u5316\u6C2E\u6700\u5927\u503C",
+  olive_pollen_max: "\u6A44\u6984\u82B1\u7C89\u6700\u5927\u503C",
+  ozone_max: "\u81ED\u6C27\u6700\u5927\u503C",
+  pm10_max: "PM10\u6700\u5927\u503C",
+  pm2_5_max: "PM2.5\u6700\u5927\u503C",
+  ragweed_pollen_max: "\u8C5A\u8349\u82B1\u7C89\u6700\u5927\u503C"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

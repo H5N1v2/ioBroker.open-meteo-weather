@@ -92,7 +92,19 @@ const fr = {
   mugwort_pollen_text: "Charge de pollen d'armoise",
   grass_pollen_text: "Charge de pollen de gramin\xE9es",
   birch_pollen_text: "Charge de pollen de bouleau",
-  alder_pollen_text: "Charge de pollen d'aulne"
+  alder_pollen_text: "Charge de pollen d'aulne",
+  alder_pollen_max: "Pollen d'Aulne Max.",
+  birch_pollen_max: "Pollen de Bouleau Max.",
+  carbon_monoxide_max: "Monoxyde de Carbone Max.",
+  dust_max: "Poussi\xE8re Max.",
+  grass_pollen_max: "Pollen d'Herbe Max.",
+  mugwort_pollen_max: "Pollen d'Armoise Max.",
+  nitrogen_dioxide_max: "Dioxyde d'Azote Max.",
+  olive_pollen_max: "Pollen d'Olivier Max.",
+  ozone_max: "Ozone Max.",
+  pm10_max: "PM10 Max.",
+  pm2_5_max: "PM2.5 Max.",
+  ragweed_pollen_max: "Pollen d'Ambroisie Max."
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

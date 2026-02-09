@@ -92,7 +92,19 @@ const en = {
   mugwort_pollen_text: "Mugwort pollen levels",
   grass_pollen_text: "Grass pollen levels",
   birch_pollen_text: "Birch pollen levels",
-  alder_pollen_text: "Alder pollen levels"
+  alder_pollen_text: "Alder pollen levels",
+  alder_pollen_max: "Alder Pollen Max.",
+  birch_pollen_max: "Birch Pollen Max.",
+  carbon_monoxide_max: "Carbon Monoxide Max.",
+  dust_max: "Dust Max.",
+  grass_pollen_max: "Grass Pollen Max.",
+  mugwort_pollen_max: "Mugwort Pollen Max.",
+  nitrogen_dioxide_max: "Nitrogen Dioxide Max.",
+  olive_pollen_max: "Olive Pollen Max.",
+  ozone_max: "Ozone Max.",
+  pm10_max: "PM10 Max.",
+  pm2_5_max: "PM2.5 Max.",
+  ragweed_pollen_max: "Ragweed Pollen Max."
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

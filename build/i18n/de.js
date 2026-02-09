@@ -78,7 +78,7 @@ const de = {
   pm10: "Feinstaub PM10",
   pm2_5: "Feinstaub PM2.5",
   carbon_monoxide: "Kohlenmonoxid",
-  nitrogen_dioxide: "Stickstoffdioxid",
+  nitrogen_dioxide: "Stickstoffdioxid NO\xB2",
   dust: "Staub",
   alder_pollen: "Erlenpollen",
   birch_pollen: "Birkenpollen",
@@ -92,7 +92,19 @@ const de = {
   mugwort_pollen_text: "Beifu\xDFpollen Belasung",
   grass_pollen_text: "Graspollen Belastung",
   birch_pollen_text: "Birkenpollen Belastung",
-  alder_pollen_text: "Erlenpollen Belastung"
+  alder_pollen_text: "Erlenpollen Belastung",
+  alder_pollen_max: "Erlenpollen Max.",
+  birch_pollen_max: "Birkenpollen Max.",
+  carbon_monoxide_max: "Kohlenmonoxid Max.",
+  dust_max: "Staub Max.",
+  grass_pollen_max: "Graspollen Max.",
+  mugwort_pollen_max: "Beifu\xDFpollen Max.",
+  nitrogen_dioxide_max: "Stickstoffdioxid NO\xB2 Max.",
+  olive_pollen_max: "Olivenpollen Max.",
+  ozone_max: "Ozon Max",
+  pm10_max: "Feinstaub PM10 Max.",
+  pm2_5_max: "Feinstaub pm2.5 Max.",
+  ragweed_pollen_max: "Ambrosiapollen Max."
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
