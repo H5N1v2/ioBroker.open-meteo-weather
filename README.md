@@ -29,11 +29,17 @@ This adapter provides precise weather data, forecasts, air quality, and pollen i
 * **Multi Location:** Add multible Locations.
 
 ### Air Quality Data
-Currently, only **real-time data (Current)** is supported. 
+The adapter provides current air quality data and a daily forecast for the upcoming days (configurable for 1, 3, or 6 days).
 
-**Why no forecasts?** The Open-Meteo Air Quality API provides forecast data exclusively on an hourly basis. Processing and storing these large datasets (168+ data points per variable) would result in a disproportionately high system and database load. To keep the adapter lightweight and performant, hourly forecasts are currently omitted. 
+Efficient Data Processing: While the Open-Meteo API only provides raw hourly data, this adapter intelligently aggregates these values. It automatically calculates the daily maximum for all pollutants and pollen levels. This gives you the most relevant data (peak exposure levels) without bloating your database with hundreds of hourly data points.
 
-*Note: As soon as the API provider offers native daily aggregates, this feature will be integrated.*
+Features:
+
+* Daily Peaks: Get the highest expected value for PM2.5, PM10, Ozone, and various pollen types.
+
+* Human Readable: Pollen levels are automatically mapped to descriptive categories (e.g., "None", "Low", "Moderate", "High").
+
+* Smart Cleanup: Objects for forecast days are automatically created or removed based on your settings to keep your object tree clean.
 
 ---
 
@@ -78,6 +84,13 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) Added: Daily air quality & pollen aggregation (configurable 1, 3, or 6 days).
+* (H5N1v2) Added: Human-readable text mapping for pollen levels (None, Low, Moderate, High).
+* (H5N1v2) Added: Weekday names (name_day) for air quality forecast days.
+* (H5N1v2) Changed: Optimized object tree – only daily peak values are stored instead of bulky hourly data.
+* (H5N1v2) Changed: Improved cleanup logic – obsolete forecast objects are automatically removed.
+
 ### 2.2.5 (2026-02-07)
 * (H5N1v2) Nitrogen dioxide (NO2) datapoint added to the air quality data, user request.
 * (H5N1v2) Added new datapoints for "global_tilted_irradiance" & "et0_fao_evapotranspiration" in hourlyX and "et0_fao_evapotranspiration_sum" in dailyX.
