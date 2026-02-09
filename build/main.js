@@ -201,6 +201,21 @@ class OpenMeteoWeather extends utils.Adapter {
             }
           }
         }
+        if (objId.includes(`${folderName}.air.forecast.day`)) {
+          const aqDayMatch = objId.match(/\.day(\d+)/);
+          if (aqDayMatch) {
+            const aqDayNum = parseInt(aqDayMatch[1]);
+            const aqLimit = airQualityEnabled ? parseInt(config.airQualityForecastDays) || 0 : 0;
+            if (aqDayNum >= aqLimit) {
+              this.log.info(
+                `Bereinige veralteten Luftqualit\xE4ts-Vorhersagetag: ${folderName}.air.forecast.day${aqDayNum}`
+              );
+              await this.delObjectAsync(objId, { recursive: true });
+              deletedCount++;
+              continue;
+            }
+          }
+        }
         if (forecastHoursEnabled && objId.includes(".hourly.next_hours.hour")) {
           const hourMatch = objId.match(/\.hour(\d+)/);
           if (hourMatch) {
@@ -242,6 +257,7 @@ class OpenMeteoWeather extends utils.Adapter {
             forecastHours: config.forecastHours || 1,
             forecastHoursEnabled: config.forecastHoursEnabled || false,
             airQualityEnabled: config.airQualityEnabled || false,
+            airQualityForecastDays: parseInt(config.airQualityForecastDays) || 0,
             timezone: loc.timezone || this.systemTimeZone,
             isImperial: config.isImperial || false
           },
@@ -536,6 +552,8 @@ class OpenMeteoWeather extends utils.Adapter {
   // Verarbeitet Daten zur Luftqualität und Pollenbelastung
   async processAirQualityData(data, locationPath) {
     const t = this.cachedTranslations;
+    const config = this.config;
+    const aqForecastDays = parseInt(config.airQualityForecastDays) || 0;
     if (data.current) {
       const root = `${locationPath}.air.current`;
       for (const key in data.current) {
@@ -552,12 +570,47 @@ class OpenMeteoWeather extends utils.Adapter {
         }
         await this.extendOrCreateState(`${root}.${key}`, val, key);
         if (key.includes("pollen")) {
-          const valPollen = data.current[key];
-          const pollenText = valPollen > 2 ? t.pollen.high : valPollen > 1 ? t.pollen.moderate : valPollen > 0 ? t.pollen.low : t.pollen.none;
+          const pollenText = this.mapPollenToText(val, t, key);
           await this.createCustomState(`${root}.${key}_text`, pollenText, "string", "text", "");
         }
       }
     }
+    if (data.hourly && data.hourly.time && aqForecastDays > 0) {
+      for (let day = 0; day < aqForecastDays; day++) {
+        const dayPath = `${locationPath}.air.forecast.day${day}`;
+        const startIdx = day * 24;
+        const endIdx = startIdx + 24;
+        const forecastDate = new Date(data.hourly.time[startIdx]);
+        const nameDay = forecastDate.toLocaleDateString(this.systemLang, { weekday: "long" });
+        const dayDate = forecastDate.toLocaleDateString(this.systemLang);
+        await this.createCustomState(`${dayPath}.name_day`, nameDay, "string", "text", "");
+        await this.createCustomState(`${dayPath}.date`, dayDate, "string", "value", "");
+        for (const key in data.hourly) {
+          if (key === "time") {
+            continue;
+          }
+          const hourlyValues = data.hourly[key].slice(startIdx, endIdx);
+          if (hourlyValues.length > 0) {
+            const maxVal = Math.max(...hourlyValues);
+            await this.extendOrCreateState(`${dayPath}.${key}_max`, maxVal, `${key}_max`);
+            if (key.includes("pollen")) {
+              const pollenText = this.mapPollenToText(maxVal, t, key);
+              await this.createCustomState(`${dayPath}.${key}_text`, pollenText, "string", "text", "");
+            }
+          }
+        }
+      }
+    }
+  }
+  mapPollenToText(val, t, key) {
+    if (!t.pollen) {
+      return val.toString();
+    }
+    const k = key || "";
+    if (k.includes("mugwort") || k.includes("ragweed")) {
+      return val > 20 ? t.pollen.high : val > 5 ? t.pollen.moderate : val > 0 ? t.pollen.low : t.pollen.none;
+    }
+    return val > 50 ? t.pollen.high : val > 10 ? t.pollen.moderate : val > 0 ? t.pollen.low : t.pollen.none;
   }
   // Erstellt einen neuen Datenpunkt mit benutzerdefinierter Rolle und Einheit
   async createCustomState(id, val, type, role, unit) {
