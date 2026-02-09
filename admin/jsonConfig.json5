@@ -164,10 +164,23 @@
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3, 
           "newLine": true
         },
+        "airQualityForecastDays": {
+          "type": "select",
+          "label": "airQualityForecastDays_label",
+          "default": 1,
+          "options": [
+            { "value": 0, "label": "no_forecast" },
+            { "value": 1, "label": "days_1" },
+            { "value": 3, "label": "days_3" },
+            { "value": 6, "label": "days_6" }
+          ],
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3,
+          "hidden": "!data.airQualityEnabled"
+        },
         "airQualityHint": {
           "type": "staticText",
           "text": "airQualityHint_text",
-          "xs": 12, "sm": 6, "md": 6, "lg": 6, "xl": 6,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3,
           "hidden": "!data.airQualityEnabled",
           "style": { "color": "grey", "paddingTop": "15px" }
         }
