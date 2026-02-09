@@ -84,7 +84,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.3.0 (2026-02-09)
 * (H5N1v2) Added: Daily air quality & pollen aggregation (configurable 1, 3, or 6 days).
 * (H5N1v2) Added: Human-readable text mapping for pollen levels (None, Low, Moderate, High).
 * (H5N1v2) Added: Weekday names (name_day) for air quality forecast days.
