@@ -17,6 +17,8 @@ export interface WeatherConfig {
 	forecastHoursEnabled: boolean;
 	/** Ob Luftqualitätsdaten abgerufen werden sollen */
 	airQualityEnabled: boolean;
+	/** Ob Luftqualtität Tage abgerufen werden sollen */
+	airQualityForecastDays: number;
 	/** Die Zeitzone (z.B. Europe/Berlin) */
 	timezone: string;
 	/** Ob imperiale Einheiten genutzt werden sollen */
@@ -89,8 +91,9 @@ export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBrok
 
 	const pollenparam_keys =
 		'pm10,pm2_5,nitrogen_dioxide,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen,carbon_monoxide,dust,olive_pollen,ozone';
+	const pollenparam_keys_hourly = `&hourly=${pollenparam_keys}`;
 	if (config.airQualityEnabled) {
-		const airUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${config.latitude}&longitude=${config.longitude}&current=european_aqi,${pollenparam_keys}&timezone=${tz}&forecast_days=${config.forecastDays > 7 ? 7 : config.forecastDays}`;
+		const airUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${config.latitude}&longitude=${config.longitude}&current=european_aqi,${pollenparam_keys}${pollenparam_keys_hourly}&timezone=${tz}&forecast_days=${config.forecastDays > 7 ? 7 : config.forecastDays}`;
 
 		if (logger) {
 			logger.debug(`Open-Meteo Air Quality URL: ${airUrl}`);
