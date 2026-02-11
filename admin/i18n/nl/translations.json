@@ -34,5 +34,8 @@
     "locations_help": "Voeg locaties toe, verwijder of bewerk deze.",
     "location_name_label": "Naam van de locatie",
     "timezone_label": "Tijdzone",
-    "airQualityHint_text": "Activeer extra luchtkwaliteitgegevens voor deze locatie."
+    "airQualityHint_text": "Activeer extra luchtkwaliteitgegevens voor deze locatie.",
+    "windicon_system_label": "Windrichting icoon weergave",
+    "direct1_label": "Windrichting (waar de wind heen waait)",
+    "direct2_label": "Windoorsprong (waar de wind vandaan komt)"
 }

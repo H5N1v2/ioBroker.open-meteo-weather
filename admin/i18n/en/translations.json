@@ -35,5 +35,8 @@
     "locations_help": "Add, remove, or edit locations.",
     "location_name_label": "Location Name",
     "timezone_label": "Timezone",
-    "airQualityHint_text": "Enable additional air quality data for this location."
+    "airQualityHint_text": "Enable additional air quality data for this location.",
+    "windicon_system_label": "Wind direction icon display",
+    "direct1_label": "Wind direction (where the wind is blowing to)",
+    "direct2_label": "Wind origin (where the wind is coming from)"
 }

@@ -35,5 +35,8 @@
     "locations_help": "Añadir, eliminar o editar ubicaciones.",
     "location_name_label": "Nombre de ubicación",
     "timezone_label": "Zona horaria",
-    "airQualityHint_text": "Activar datos adicionales de calidad del aire para esta ubicación."
+    "airQualityHint_text": "Activar datos adicionales de calidad del aire para esta ubicación.",
+    "windicon_system_label": "Visualización del icono de dirección del viento",
+    "direct1_label": "Dirección del viento (hacia dónde sopla)",
+    "direct2_label": "Origen del viento (de dónde viene)"
 }

@@ -35,5 +35,8 @@
     "locations_help": "Adicionar, eliminar ou editar localizações.",
     "location_name_label": "Nome de localização",
     "timezone_label": "Fuso horário",
-    "airQualityHint_text": "Ativar dados adicionais de qualidade do ar para esta localização."
+    "airQualityHint_text": "Ativar dados adicionais de qualidade do ar para esta localização.",
+    "windicon_system_label": "Exibição do ícone de direção do vento",
+    "direct1_label": "Direção do vento (para onde o vento sopra)",
+    "direct2_label": "Origem do vento (de onde o vento vem)"
 }
