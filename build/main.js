@@ -83,7 +83,9 @@ class OpenMeteoWeather extends utils.Adapter {
   // Liefert den Pfad zum passenden Icon für die Windrichtung
   getWindDirectionIcon(deg) {
     const index = Math.round(deg / 45) % 8;
-    return `/adapter/${this.name}/icons/wind_direction_icons/${this.WIND_DIRECTION_FILES[index]}`;
+    const useDirect2 = this.config.isWinddirection_icon;
+    const subFolder = useDirect2 ? "direct_2/" : "";
+    return `/adapter/${this.name}/icons/wind_direction_icons/${subFolder}${this.WIND_DIRECTION_FILES[index]}`;
   }
   // Ermittelt basierend auf der Mondphase das passende Icon
   getMoonPhaseIcon(phaseKey) {
@@ -372,20 +374,22 @@ class OpenMeteoWeather extends utils.Adapter {
         await this.createCustomState(`${dayPath}.moonrise`, mRise, "string", "value", "");
         await this.createCustomState(`${dayPath}.moonset`, mSet, "string", "value", "");
         const phaseValue = moonIllumination.phase;
-        let phaseKey = "new_moon";
-        if (phaseValue >= 0.03 && phaseValue < 0.22) {
+        let phaseKey = "";
+        if (phaseValue < 0.02 || phaseValue > 0.98) {
+          phaseKey = "new_moon";
+        } else if (phaseValue >= 0.02 && phaseValue < 0.23) {
           phaseKey = "waxing_crescent";
-        } else if (phaseValue >= 0.22 && phaseValue < 0.28) {
+        } else if (phaseValue >= 0.23 && phaseValue < 0.27) {
           phaseKey = "first_quarter";
-        } else if (phaseValue >= 0.28 && phaseValue < 0.47) {
+        } else if (phaseValue >= 0.27 && phaseValue < 0.48) {
           phaseKey = "waxing_gibbous";
-        } else if (phaseValue >= 0.47 && phaseValue < 0.53) {
+        } else if (phaseValue >= 0.48 && phaseValue < 0.52) {
           phaseKey = "full_moon";
-        } else if (phaseValue >= 0.53 && phaseValue < 0.72) {
+        } else if (phaseValue >= 0.52 && phaseValue < 0.73) {
           phaseKey = "waning_gibbous";
-        } else if (phaseValue >= 0.72 && phaseValue < 0.78) {
+        } else if (phaseValue >= 0.73 && phaseValue < 0.77) {
           phaseKey = "last_quarter";
-        } else if (phaseValue >= 0.78 && phaseValue < 0.97) {
+        } else {
           phaseKey = "waning_crescent";
         }
         const phaseText = t.moon_phases ? t.moon_phases[phaseKey] : phaseKey;

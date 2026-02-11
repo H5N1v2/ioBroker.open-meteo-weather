@@ -68,7 +68,9 @@ class OpenMeteoWeather extends utils.Adapter {
 	// Liefert den Pfad zum passenden Icon für die Windrichtung
 	private getWindDirectionIcon(deg: number): string {
 		const index = Math.round(deg / 45) % 8;
-		return `/adapter/${this.name}/icons/wind_direction_icons/${this.WIND_DIRECTION_FILES[index]}`;
+		const useDirect2 = this.config.isWinddirection_icon;
+		const subFolder = useDirect2 ? 'direct_2/' : '';
+		return `/adapter/${this.name}/icons/wind_direction_icons/${subFolder}${this.WIND_DIRECTION_FILES[index]}`;
 	}
 
 	// Ermittelt basierend auf der Mondphase das passende Icon
@@ -421,20 +423,23 @@ class OpenMeteoWeather extends utils.Adapter {
 
 				// Mondphase in Text umwandeln (nutzt Übersetzung aus words.ts)
 				const phaseValue = moonIllumination.phase;
-				let phaseKey = 'new_moon';
-				if (phaseValue >= 0.03 && phaseValue < 0.22) {
+				let phaseKey = '';
+
+				if (phaseValue < 0.02 || phaseValue > 0.98) {
+					phaseKey = 'new_moon';
+				} else if (phaseValue >= 0.02 && phaseValue < 0.23) {
 					phaseKey = 'waxing_crescent';
-				} else if (phaseValue >= 0.22 && phaseValue < 0.28) {
-					phaseKey = 'first_quarter';
-				} else if (phaseValue >= 0.28 && phaseValue < 0.47) {
+				} else if (phaseValue >= 0.23 && phaseValue < 0.27) {
+					phaseKey = 'first_quarter'; // Zentriert um 0.25
+				} else if (phaseValue >= 0.27 && phaseValue < 0.48) {
 					phaseKey = 'waxing_gibbous';
-				} else if (phaseValue >= 0.47 && phaseValue < 0.53) {
-					phaseKey = 'full_moon';
-				} else if (phaseValue >= 0.53 && phaseValue < 0.72) {
+				} else if (phaseValue >= 0.48 && phaseValue < 0.52) {
+					phaseKey = 'full_moon'; // Zentriert um 0.50
+				} else if (phaseValue >= 0.52 && phaseValue < 0.73) {
 					phaseKey = 'waning_gibbous';
-				} else if (phaseValue >= 0.72 && phaseValue < 0.78) {
-					phaseKey = 'last_quarter';
-				} else if (phaseValue >= 0.78 && phaseValue < 0.97) {
+				} else if (phaseValue >= 0.73 && phaseValue < 0.77) {
+					phaseKey = 'last_quarter'; // Zentriert um 0.75
+				} else {
 					phaseKey = 'waning_crescent';
 				}
 
