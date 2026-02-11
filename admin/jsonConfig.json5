@@ -129,6 +129,16 @@
             ],
             "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
         },
+        "isWinddirection_icon": {
+            "type": "select",
+            "label": "windicon_system_label",
+            "default": false,
+            "options": [
+                { "value": false, "label": "direct1_label" },
+                { "value": true, "label": "direct2_label" }
+            ],
+            "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
+        },
 
         "divider2": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }, 
 
