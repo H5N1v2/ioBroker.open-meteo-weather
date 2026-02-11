@@ -27,6 +27,18 @@ This adapter provides precise weather data, forecasts, air quality, and pollen i
 * **Multi-Language Support:** Supports 11 languages (including English, German, Polish, Russian, French, Chinese, etc.).
 * **Unit System:** Seamless switching between Metric (°C, km/h) and Imperial (°F, mph) systems.
 * **Multi Location:** Add multible Locations.
+### Wind Direction Icons
+
+In the adapter settings, you can choose between two different visualization styles for the wind direction:
+
+* Wind direction (where the wind is blowing to): This is the standard setting. The arrow points in the direction the wind is moving. (Example: A north wind shows an arrow pointing South).
+
+* Wind origin (where the wind is coming from): This style uses icons from the direct_2 subfolder. The arrow indicates the source of the wind. (Example: A north wind shows an arrow pointing North or a specific "origin" icon).
+
+|Setting | Icon Path | Behavior |
+|:---|:---|:---|
+|Wind direction (where the wind is blowing to) | /icons/wind_direction_icons/*.png | Points to destination |
+|Wind origin (where the wind is coming from) |/icons/wind_direction_icons/direct_2/*.png |	Points to origin |
 
 ### Air Quality Data
 The adapter provides current air quality data and a daily forecast for the upcoming days (configurable for 1, 3, or 6 days).
@@ -72,10 +84,12 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 
 | Folder | Description |
 |:---|:---|
+| `air.current` | Air quality and pollen levels as text and value |
+| `air.forecast.dayX` |  Daily air quality forecast for Day X |
 | `weather.current` | Current measurements (Temp, Dew point, Wind, etc.) |
 | `weather.forecast.dayX` | Daily forecast for Day X |
 | `weather.forecast.hourly.hourX` | Hourly details per full hour |
-| `air.current` | Air quality and pollen levels as text and value |
+| `info.lastUpdate` | Shows Date and Time from last Update |
 
 ---
 
@@ -84,6 +98,12 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) fix: adjust moon phase calculation for accurate phase key assignment
+* (H5N1v2) chore: update dependencies
+* (H5N1v2) Added option to choose between wind direction (destination) and wind origin (source) icons in Admin.
+* (H5N1v2) New subfolder structure for alternative wind icons (direct_2).
+
 ### 2.3.0 (2026-02-09)
 * (H5N1v2) Added: Daily air quality & pollen aggregation (configurable 1, 3, or 6 days).
 * (H5N1v2) Added: Human-readable text mapping for pollen levels (None, Low, Moderate, High).
