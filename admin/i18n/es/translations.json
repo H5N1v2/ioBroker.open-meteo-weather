@@ -38,5 +38,6 @@
     "airQualityHint_text": "Activar datos adicionales de calidad del aire para esta ubicación.",
     "windicon_system_label": "Visualización del icono de dirección del viento",
     "direct1_label": "Dirección del viento (hacia dónde sopla)",
-    "direct2_label": "Origen del viento (de dónde viene)"
+    "direct2_label": "Origen del viento (de dónde viene)",
+    "widget_text": "Enlace a un widget adecuado"
 }

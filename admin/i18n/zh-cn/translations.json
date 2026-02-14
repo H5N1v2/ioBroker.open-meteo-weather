@@ -38,5 +38,6 @@
     "airQualityHint_text": "为此位置启用额外的空气质量数据。",
     "windicon_system_label": "风向图标显示",
     "direct1_label": "风向 (风吹向哪里)",
-    "direct2_label": "风源 (风从哪里来)"
+    "direct2_label": "风源 (风从哪里来)",
+    "widget_text": "链接到合适的部件"
 }

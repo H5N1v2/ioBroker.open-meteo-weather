@@ -38,5 +38,6 @@
     "airQualityHint_text": "Włącz dodatkowe dane o jakości powietrza dla tej lokalizacji.",
     "windicon_system_label": "Wyświetlanie ikony kierunku wiatru",
     "direct1_label": "Kierunek wiatru (dokąd wieje)",
-    "direct2_label": "Pochodzenie wiatru (skąd wieje)"
+    "direct2_label": "Pochodzenie wiatru (skąd wieje)",
+    "widget_text": "Link do odpowiedniego widgetu"
     }

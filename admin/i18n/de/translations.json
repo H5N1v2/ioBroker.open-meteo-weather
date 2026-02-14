@@ -37,6 +37,7 @@
     "airQualityHint_text": "Aktiviert zusätzliche Luftqualitätsdaten für diesen Standort.",
     "windicon_system_label": "Windrichtungssymbol Anzeige",
     "direct1_label": "Windrichtung (wohin der Wind weht)",
-    "direct2_label": "Windherkunft (woher der Wind kommt)"
+    "direct2_label": "Windherkunft (woher der Wind kommt)",
+    "widget_text": "Link zu einem passenden Widget"
 
 }
