@@ -99,7 +99,8 @@ After a new adapter update, it is recommended to delete the entire directory tre
 
 ## Changelog
 ### **WORK IN PROGRESS**
-* (H5N1v2) chore: update release script dependencies to latest versions
+* (H5N1v2) chore: update dependencies to latest versions.
+* (H5N1v2) add link to Widget in instanz configuration.
 
 ### 2.4.0 (2026-02-11)
 * (H5N1v2) fix: adjust moon phase calculation for accurate phase key assignment
