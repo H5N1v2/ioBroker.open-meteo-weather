@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.4.0",
+    "version": "2.4.1",
     "news": {
+      "2.4.1": {
+        "en": "chore: update dependencies to latest versions.\nadd link to Widget in instanz configuration.",
+        "de": "chore: aktualisieren abhängigkeiten auf neueste versionen.\nlink zu Widget in in instanz Konfiguration hinzufügen.",
+        "ru": "chore: обновление зависимостей до последних версий.\nдобавить ссылку на Widget в конфигурации instanz.",
+        "pt": "tarefa: atualizar dependências para versões mais recentes.\nadicionar link ao Widget na configuração do instanz.",
+        "nl": "klus: update afhankelijkheden van de nieuwste versies.\nlink naar Widget toevoegen in instanz configuratie.",
+        "fr": "core: mettre à jour les dépendances aux dernières versions.\najouter un lien vers Widget en configuration Instanz.",
+        "it": "core: aggiornare le dipendenze alle ultime versioni.\naggiungere link a Widget in configurazione instanz.",
+        "es": "coro: actualizar las dependencias a las últimas versiones.\nañadir enlace a Widget en configuración instanz.",
+        "pl": "core: aktualizacja zależności do najnowszych wersji.\ndodaj link do Widget w konfiguracji instanz.",
+        "uk": "chore: оновлення залежності до останніх версій.\nдодати посилання на Widget в конфігурації instanz.",
+        "zh-cn": "chore:更新对最新版本的依赖性.\n在Instanz配置中添加链接."
+      },
       "2.4.0": {
         "en": "fix: adjust moon phase calculation for accurate phase key assignment\nchore: update dependencies\nAdded option to choose between wind direction (destination) and wind origin (source) icons in Admin.\nNew subfolder structure for alternative wind icons (direct_2).",
         "de": "fix: mondphasenberechnung für genaue phasenschlüsselzuweisung einstellen\nchore: abhängigkeiten aktualisieren\nOption hinzugefügt, um zwischen Windrichtung (Destination) und Wind Herkunft (Quelle) Icons in Admin zu wählen.\nNeue Unterordnerstruktur für alternative Windsymbole (direct_2).",
@@ -80,19 +93,6 @@
         "pl": "fix: update js- controller i zależności admin do najnowszych wersji\nfix: dodaj brakujące punkty zwrotne w jsonConfig\nfix: Chińskie tłumaczenia plików i poprawna ścieżka importu dla chińskich tłumaczeń\nfix: dodać brak tłumaczenia na prawdopodobieństwo opadów do tłumaczenia\nfix: Dostosował tworzenie ikon stanu godzinowego do warunków dnia / nocy.\ndodaj: Dodano logi debugowania do śledzenia przepływu wykonania i przetwarzania danych dla lepszej identyfikowalności.\nZwiększenie wydajności i czytelności poprzez buforowanie tłumaczeń, map jednostkowych i ustawień imperialnych.\nRefactor metody pobierania ikon dla kierunku wiatru i fazy Księżyca, zoptymalizować logikę czyszczenia dla usuniętych lokalizacji, poprawić tworzenie stanu i aktualizację ze spójną obsługą tłumaczenia.",
         "uk": "виправити: оновити js-controller і адміністратор залежності до останніх версій\nвиправити: додати відсутні чуйні точки розриву в jsonConfig\nвиправити: Китайські переклади файлів та правильний шлях імпорту для китайських перекладів\nвиправити: додавати відсутній переклад для ймовірності опадів до перекладів\nфіксувати: регулювати створення часових державних ікон до облікового запису на день / нічні умови.\nдодати: Додано дебвугові колоди для відстеження потоку виконання та обробки даних для кращої мікроелементності.\nПідвищення продуктивності та читабельності за допомогою кешування перекладів, блокових карт та налаштування імперських.\nРефакторні іконки ретривальні методи для вітрового напрямку та місячних фази, оптимізують логіку очищення для видалених локацій, покращують стан створення та оновлення з послідовним перекладом.",
         "zh-cn": "固定: 更新 js 控制器和对最新版本的依赖性\n固定: 在 jsonConfig 中添加缺失的响应断点\n修补:中文翻译文件及中文翻译的正确导入路径\n修补: 在翻译中添加缺少的降水概率翻译\n固定 : 调整了小时状态图标的创建,以反映日/夜条件.\n加:添加调试日志以跟踪执行流程和数据处理,以更好的可追溯性.\n通过缓存翻译、单位地图和帝国设置提高性能和可读性.\n重构风向和月相的图标检索方法,优化被删除位置的清理逻辑,改进状态创建,并采用一致的翻译处理方式进行更新."
-      },
-      "2.2.1": {
-        "en": "fix: Correct quotation marks for relative humidity translation in French",
-        "de": "fix: Richtige Anführungszeichen für relative Luftfeuchtigkeit Übersetzung auf Französisch",
-        "ru": "правильные кавычки для перевода относительной влажности на французский язык",
-        "pt": "correção: Aspas corretas para a tradução de umidade relativa em francês",
-        "nl": "fix: Correcte aanhalingstekens voor relatieve vochtigheid vertaling in het Frans",
-        "fr": "correctif: correct guillemets pour la traduction d'humidité relative en français",
-        "it": "correzione: Corretto segno di quotazione per la traduzione relativa di umidità in francese",
-        "es": "fijado: Marcas de citas correctas para la traducción de humedad relativa en francés",
-        "pl": "fix: Prawidłowe znaki cytowania dla tłumaczenia wilgotności względnej w języku francuskim",
-        "uk": "виправити: Правильні оцінки цін на відносний переклад вологості французьким",
-        "zh-cn": "fix: 法文相对湿度翻译的正确引号"
       }
     },
     "titleLang": {

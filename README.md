@@ -98,7 +98,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.4.1 (2026-02-14)
 * (H5N1v2) chore: update dependencies to latest versions.
 * (H5N1v2) add link to Widget in instanz configuration.
 
