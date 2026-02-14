@@ -73,11 +73,25 @@
         "meteoredURL": {
           "type": "staticLink",
           "text": "koordinates_text",
-          "href": "https://www.openstreetmap.org",
+          "href": "https://nominatim.openstreetmap.org/ui/search.html",
           "button": true,
           "color": "primary",
-          "xs": 12, "sm": 12, "md": 6, "lg": 4, "xl": 4,
+          "xs": 12, "sm": 6, "md": 6, "lg": 6, "xl": 6,
           "newLine": true,
+          "style": {
+            "marginTop": "20px",
+            "marginBottom": "20px",
+            "fontWeight": "bold",
+            "border": "2px solid #f3d421"
+          }
+        },
+        "widgetURL": {
+          "type": "staticLink",
+          "text": "widget_text",
+          "href": "https://github.com/H5N1v2/VIS2-widget-script-om-weather",
+          "button": true,
+          "color": "primary",
+          "xs": 12, "sm": 6, "md": 6, "lg": 6, "xl": 6,
           "style": {
             "marginTop": "20px",
             "marginBottom": "20px",
