@@ -118,7 +118,7 @@
             { "value": 30, "label": "interval_30_min" },
             { "value": 60, "label": "interval_60_min" }
           ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
+          "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
         },
         "forecastDays": {
           "type": "select",
@@ -131,7 +131,7 @@
             { "value": 14, "label": "days_14" },
             { "value": 16, "label": "days_16" }
           ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
+          "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
         },
         "isImperial": {
             "type": "select",
@@ -141,7 +141,7 @@
                 { "value": false, "label": "metric_label" },
                 { "value": true, "label": "imperial_label" }
             ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
+            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
         },
         "isWinddirection_icon": {
             "type": "select",
@@ -151,7 +151,17 @@
                 { "value": false, "label": "direct1_label" },
                 { "value": true, "label": "direct2_label" }
             ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
+            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
+        },
+            "isNight_icon": {
+            "type": "select",
+            "label": "isnight_system_label",
+            "default": false,
+            "options": [
+                { "value": false, "label": "dark_label" },
+                { "value": true, "label": "bright_label" }
+            ],
+            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
         },
 
         "divider2": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }, 
