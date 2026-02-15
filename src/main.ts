@@ -357,13 +357,17 @@ class OpenMeteoWeather extends utils.Adapter {
 
 				if (key === 'weather_code') {
 					await this.createCustomState(`${root}.weather_text`, t.codes[val] || '?', 'string', 'text', '');
-					await this.createCustomState(
-						`${root}.icon_url`,
-						`/adapter/${this.name}/icons/weather_icons/${val}${isDay === 1 ? '' : 'n'}.png`,
-						'string',
-						'url',
-						'',
-					);
+
+					// Nacht-Icon Logik
+					const useNightBright = this.config.isNight_icon;
+					const iconPath =
+						isDay === 1
+							? `/adapter/${this.name}/icons/weather_icons/${val}.png`
+							: useNightBright
+								? `/adapter/${this.name}/icons/night_bright/${val}nh.png`
+								: `/adapter/${this.name}/icons/night_dark/${val}n.png`;
+
+					await this.createCustomState(`${root}.icon_url`, iconPath, 'string', 'url', '');
 				}
 				if (key === 'wind_direction_10m' && typeof val === 'number') {
 					await this.createCustomState(
@@ -578,13 +582,15 @@ class OpenMeteoWeather extends utils.Adapter {
 								'',
 							);
 							const currentIsDayh = isDay ? isDay[i] : 1;
-							await this.createCustomState(
-								`${hourPath}.icon_url`,
-								`/adapter/${this.name}/icons/weather_icons/${val}${currentIsDayh === 1 ? '' : 'n'}.png`,
-								'string',
-								'url',
-								'',
-							);
+							const useNightBright = this.config.isNight_icon;
+							const iconPathHourly =
+								currentIsDayh === 1
+									? `/adapter/${this.name}/icons/weather_icons/${val}.png`
+									: useNightBright
+										? `/adapter/${this.name}/icons/night_bright/${val}nh.png`
+										: `/adapter/${this.name}/icons/night_dark/${val}n.png`;
+
+							await this.createCustomState(`${hourPath}.icon_url`, iconPathHourly, 'string', 'url', '');
 						}
 						if (key === 'wind_direction_10m' && typeof val === 'number') {
 							await this.createCustomState(
