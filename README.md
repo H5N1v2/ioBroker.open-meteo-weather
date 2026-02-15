@@ -100,7 +100,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.5.0 (2026-02-15)
 * (H5N1v2) New: Added "Bright Night Icons" option. You can now choose between dark and bright icons for better visibility on different backgrounds.
 * (H5N1v2) New: Added new icon set directory /admin/icons/night_bright/ for enhanced night-time visualization.
 * (H5N1v2) New: Move night icons from /admin/icons/weather_icons to /admin/icons/night_dark.
