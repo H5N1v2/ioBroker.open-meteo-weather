@@ -39,5 +39,8 @@
     "windicon_system_label": "风向图标显示",
     "direct1_label": "风向 (风吹向哪里)",
     "direct2_label": "风源 (风从哪里来)",
-    "widget_text": "链接到合适的部件"
+    "widget_text": "链接到合适的小部件",
+    "isnight_system_label": "夜间图标显示 明亮/暗色",
+    "dark_label": "暗色图标",
+    "bright_label": "明亮图标"
 }

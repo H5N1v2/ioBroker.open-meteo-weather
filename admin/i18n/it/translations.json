@@ -39,5 +39,8 @@
     "windicon_system_label": "Visualizzazione dell'icona della direzione del vento",
     "direct1_label": "Direzione del vento (verso dove soffia)",
     "direct2_label": "Origine del vento (da dove proviene)",
-    "widget_text": "Link a un widget adatto"
+    "widget_text": "Link a un widget adatto",
+    "isnight_system_label": "Visualizzazione icone notturne Chiaro/Scuro",
+    "dark_label": "Icona Scura",
+    "bright_label": "Icona Chiara"
 }

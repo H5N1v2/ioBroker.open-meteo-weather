@@ -39,5 +39,8 @@
     "windicon_system_label": "Wyświetlanie ikony kierunku wiatru",
     "direct1_label": "Kierunek wiatru (dokąd wieje)",
     "direct2_label": "Pochodzenie wiatru (skąd wieje)",
-    "widget_text": "Link do odpowiedniego widgetu"
+    "widget_text": "Link do odpowiedniego widgetu",
+    "isnight_system_label": "Wyświetlanie ikon nocnych Jasny/Ciemny",
+    "dark_label": "Ciemna Ikona",
+    "bright_label": "Jasna Ikona"
     }

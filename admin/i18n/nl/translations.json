@@ -38,5 +38,8 @@
     "windicon_system_label": "Windrichting icoon weergave",
     "direct1_label": "Windrichting (waar de wind heen waait)",
     "direct2_label": "Windoorsprong (waar de wind vandaan komt)",
-    "widget_text": "Link naar een geschikt widget"
+    "widget_text": "Link naar een geschikt widget",
+    "isnight_system_label": "Nacht Icoon Weergave Licht/Donker",
+    "dark_label": "Donker Icoon",
+    "bright_label": "Licht Icoon"
 }

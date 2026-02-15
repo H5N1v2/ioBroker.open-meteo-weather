@@ -38,6 +38,8 @@
     "windicon_system_label": "Windrichtungssymbol Anzeige",
     "direct1_label": "Windrichtung (wohin der Wind weht)",
     "direct2_label": "Windherkunft (woher der Wind kommt)",
-    "widget_text": "Link zu einem passenden Widget"
-
+    "widget_text": "Link zu einem passenden Widget",
+    "isnight_system_label": "Nacht-Icon Anzeige Hell/Dunkel",
+    "dark_label": "Dunkeles Icon",
+    "bright_label": "Helles Icon"
 }
