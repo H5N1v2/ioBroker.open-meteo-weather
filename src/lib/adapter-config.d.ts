@@ -13,6 +13,7 @@ declare global {
                 tz: string;
                 country?: string;
             }[];
+            isNight_icon: boolean;
             isWinddirection_icon: boolean;
             pollenEnabled: boolean;
             airQualityEnabled: boolean;
