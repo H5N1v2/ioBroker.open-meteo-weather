@@ -101,8 +101,8 @@ After a new adapter update, it is recommended to delete the entire directory tre
 
 ## Changelog
 ### 2.5.1 (2026-02-17)
-(oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.
-(H5N1) chore: update dependencies to latest versions
+* (oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.
+* (H5N1) chore: update dependencies to latest versions
 
 ### 2.5.0 (2026-02-15)
 * (H5N1v2) New: Added "Bright Night Icons" option. You can now choose between dark and bright icons for better visibility on different backgrounds.
