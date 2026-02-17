@@ -100,7 +100,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.5.1 (2026-02-17)
 (oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.
 (H5N1) chore: update dependencies to latest versions
 
