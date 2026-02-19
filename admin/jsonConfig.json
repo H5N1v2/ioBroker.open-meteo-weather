@@ -1,4 +1,3 @@
-
 {
   "i18n": true,
   "type": "tabs",
@@ -7,7 +6,6 @@
       "type": "panel",
       "label": "settings_label",
       "items": {
-        // --- HEADER BEREICH ---
         "headerPanel": {
           "type": "panel",
           "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, 
@@ -30,7 +28,6 @@
           }
         },
 
-        // --- STANDORT BEREICH ---
         "locationLabel": {
           "type": "header",
           "text": "location_header_text",
@@ -46,27 +43,76 @@
             {
               "type": "text",
               "attr": "name",
-              "label": "location_name_label",
+              "title": "location_name_label",
+              "label": "",
               "width": "200px"
             },
             {
-              "type": "number",
+              "type": "text",
               "attr": "latitude",
-              "label": "latitude_label",
-              "width": "120px"
-            },
-            {
-              "type": "number",
-              "attr": "longitude",
-              "label": "longitude_label",
-              "width": "120px"
+              "title": "latitude_label",
+              "label": "",
+              "width": "150px",
+              "help": {
+                "en": "Leave empty to use system latitude",
+                "de": "Leer lassen, um System-Breitengrad zu verwenden",
+                "fr": "Laissez vide pour utiliser la latitude du système",
+                "es": "Dejar vacío para usar la latitud del sistema",
+                "it": "Lascia vuoto per utilizzare la latitudine del sistema",
+                "pt": "Deixe vazio para usar a latitude do sistema",
+                "nl": "Leeg laten om systeem breedtegraad te verwenden",
+                "pl": "Pozostaw puste, aby użyć szerokości geograficznej systemu",
+                "ru": "Оставьте пустым, чтобы использовать широту системы",
+                "uk": "Залиште порожнім, щоб використовувати широту системы",
+                "zh-cn": "留空以使用系统纬度"
+              }              
             },
             {
               "type": "text",
+              "attr": "longitude",
+              "title": "longitude_label",
+              "label": "",
+              "width": "150px",
+              "help": {
+                "en": "Leave empty to use system longitude",
+                "de": "Leer lassen, um System-Längengrad zu verwenden",
+                "fr": "Laissez vide pour utiliser la longitude du système",
+                "es": "Dejar vacío para usar la longitud del sistema",
+                "it": "Lascia vuoto per utilizzare la longitudine del sistema",
+                "pt": "Deixe vazio para usar a longitude do sistema",
+                "nl": "Leeg laten om systeem lengtegraad te verwenden",
+                "pl": "Pozostaw puste, aby użyć długości geograficznej systemu",
+                "ru": "Оставьте пустым, чтобы использовать долгоtu системы",
+                "uk": "Залиште порожнім, щоб використовувати долгоtu системы",
+                "zh-cn": "留空以使用系统经度"
+              }
+            },
+            {
+              "type": "select",
               "attr": "timezone",
-              "label": "timezone_label",
-              "default": "Europe/Berlin",
-              "width": "150px"
+              "title": "timezone_label",
+              "label": "",
+              "width": "150px",
+              "options":[
+                  { "value": "auto", "label": "autom" },
+                  { "value": "GMT", "label": "GMT / UTC" },
+                  { "value": "Europe/Berlin", "label": "Europa/Berlin" },
+                  { "value": "Europe/London", "label": "Europe/London" },
+                  { "value": "Europe/Moscow", "label": "Europe/Moscow" },
+                  { "value": "America/New_York", "label": "America/New York" },
+                  { "value": "America/Chicago", "label": "America/Chicago" },
+                  { "value": "America/Denver", "label": "America/Denver" },
+                  { "value": "America/Los_Angeles", "label": "America/Los Angeles" },
+                  { "value": "America/Sao_Paulo", "label": "America/Sao Paulo" },
+                  { "value": "America/Anchorage", "label": "America/Anchorage" },
+                  { "value": "Asia/Tokyo", "label": "Asia/Tokyo" },
+                  { "value": "Asia/Bangkok", "label": "Asia/Bangkok" },
+                  { "value": "Asia/Singapore", "label": "Asia/Singapore" },
+                  { "value": "Australia/Sydney", "label": "Australia/Sydney" },
+                  { "value": "Africa/Cairo", "label": "Afrika/Cairo" },
+                  { "value": "Pacific/Auckland", "label": "Pacific/Auckland" }
+                ],
+                "default": "auto"
             }
           ]
         },
@@ -102,7 +148,6 @@
 
         "divider1": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }, 
 
-        // --- OPTIONEN BEREICH ---
         "options_header": {
           "type": "header",
           "text": "options_header_text",
@@ -153,7 +198,7 @@
             ],
             "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
         },
-            "isNight_icon": {
+        "isNight_icon": {
             "type": "select",
             "label": "isnight_system_label",
             "default": false,
@@ -166,7 +211,6 @@
 
         "divider2": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }, 
 
-        // --- STÜNDLICHE VORHERSAGE ---
         "forecastHoursEnabled": {
           "type": "checkbox",
           "label": "forecastHoursEnabled_label",
@@ -190,10 +234,10 @@
 
         "divider3": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "hidden": "!data.airQualityEnabled" }, 
 
-        // --- LUFTQUALITÄT ---
         "airQualityEnabled": {
           "type": "checkbox",
           "label": "airQualityEnabled_label",
+          "help": "airQualityHint_text",
           "default": false,
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3, 
           "newLine": true
@@ -210,13 +254,6 @@
           ],
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3,
           "hidden": "!data.airQualityEnabled"
-        },
-        "airQualityHint": {
-          "type": "staticText",
-          "text": "airQualityHint_text",
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3,
-          "hidden": "!data.airQualityEnabled",
-          "style": { "color": "grey", "paddingTop": "15px" }
         }
       }
     }
