@@ -39,6 +39,9 @@ class OpenMeteoWeather extends utils.Adapter {
   createdObjects = /* @__PURE__ */ new Set();
   // Update-Sperre um Überschneidungen zu verhindern
   isUpdating = false;
+  // System-Koordinaten aus ioBroker-Systemkonfiguration
+  systemLatitude = null;
+  systemLongitude = null;
   // Konstanten für Icon-Mapping
   WIND_DIRECTION_FILES = [
     "n.png",
@@ -133,6 +136,12 @@ class OpenMeteoWeather extends utils.Adapter {
       if (sysConfig && sysConfig.common) {
         this.systemLang = sysConfig.common.language || "de";
         this.systemTimeZone = sysConfig.common.timezone || "Europe/Berlin";
+        const sysLat = sysConfig.common.latitude;
+        const sysLon = sysConfig.common.longitude;
+        if (sysLat != null && sysLat !== "" && sysLon != null && sysLon !== "") {
+          this.systemLatitude = parseFloat(sysLat);
+          this.systemLongitude = parseFloat(sysLon);
+        }
         this.log.debug(`onReady: System language: ${this.systemLang}, Timezone: ${this.systemTimeZone}`);
       }
       const config2 = this.config;
@@ -250,11 +259,28 @@ class OpenMeteoWeather extends utils.Adapter {
       }
       for (const loc of locations) {
         const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, "_");
-        this.log.debug(`updateData: Fetching data for ${loc.name} (${loc.latitude}/${loc.longitude})`);
+        let latitude = loc.latitude;
+        let longitude = loc.longitude;
+        const latMissing = loc.latitude == null || loc.latitude === "" || isNaN(Number(loc.latitude));
+        const lonMissing = loc.longitude == null || loc.longitude === "" || isNaN(Number(loc.longitude));
+        if (latMissing || lonMissing) {
+          this.log.debug("longitude and/or latitude not set, try loading system configuration");
+          if (this.systemLatitude != null && this.systemLongitude != null) {
+            latitude = this.systemLatitude;
+            longitude = this.systemLongitude;
+            this.log.info(`Using system coordinates for location "${loc.name}": ${latitude}/${longitude}`);
+          } else {
+            this.log.error(
+              "Please set the longitude and latitude manual in the adapter or in your system configuration!"
+            );
+            continue;
+          }
+        }
+        this.log.debug(`updateData: Fetching data for ${loc.name} (${latitude}/${longitude})`);
         const data = await (0, import_api_caller.fetchAllWeatherData)(
           {
-            latitude: loc.latitude,
-            longitude: loc.longitude,
+            latitude,
+            longitude,
             forecastDays: config.forecastDays || 7,
             forecastHours: config.forecastHours || 1,
             forecastHoursEnabled: config.forecastHoursEnabled || false,
@@ -267,7 +293,7 @@ class OpenMeteoWeather extends utils.Adapter {
         );
         if (data.weather) {
           this.log.debug(`updateData: Processing weather for ${folderName}`);
-          await this.processWeatherData(data.weather, folderName, loc.latitude, loc.longitude);
+          await this.processWeatherData(data.weather, folderName, latitude, longitude);
         }
         if (data.hourly) {
           this.log.debug(`updateData: Processing hourly forecast for ${folderName}`);
