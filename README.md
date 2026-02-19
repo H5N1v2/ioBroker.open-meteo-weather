@@ -101,7 +101,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.6.0 (2026-02-19)
 * (H5N1v2) feat: Leave latitude and longitude empty to use system coordinates in settings. 
 * (H5N1v2) feat: Added dropdown menu for timezones in settings.
 

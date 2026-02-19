@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.5.1",
+    "version": "2.6.0",
     "news": {
+      "2.6.0": {
+        "en": "feat: Leave latitude and longitude empty to use system coordinates in settings. \nfeat: Added dropdown menu for timezones in settings.",
+        "de": "feat: Lassen Sie Breite und Länge leer, um Systemkoordinaten in Einstellungen zu verwenden.\nfeat: Dropdown-Menü für Zeitzonen in Einstellungen hinzugefügt.",
+        "ru": "подвиг: оставьте широту и долготу пустыми для использования системных координат в настройках.\nfeat: Добавлено выпадающее меню для часовых поясов в настройках.",
+        "pt": "feat: Deixe a latitude e longitude vazias para usar as coordenadas do sistema nas configurações.\nfeat: Added dropdown menu for timezones in settings.",
+        "nl": "feat: Laat breedte- en lengtegraad leeg om systeemcoördinaten te gebruiken in instellingen.\nfeat: Dropdown menu toegevoegd voor tijdzones in instellingen.",
+        "fr": "feat: Laissez la latitude et la longitude vides pour utiliser les coordonnées système dans les réglages.\nfeat: Ajout du menu déroulant pour les fuseaux horaires dans les paramètres.",
+        "it": "feat: Lasciare latitudine e longitudine vuota per usare le coordinate di sistema nelle impostazioni.\nfeat: Aggiunta menu a discesa per fusi orari nelle impostazioni.",
+        "es": "haz: Deja la latitud y la longitud vacías para usar las coordenadas del sistema en la configuración.\nhazaña: Menú desplegable añadido para las zonas del tiempo en la configuración.",
+        "pl": "feat: pozostawić szerokość geograficzną i długość geograficzną pustą, aby użyć współrzędnych systemowych w ustawieniach.\nfeat: Dodano rozwijane menu dla stref czasowych w ustawieniach.",
+        "uk": "feat: Залишити широтість і довготи порожній для використання системних координат в налаштуваннях.\nfeat: Додано випадаюче меню для таймерів в налаштуваннях.",
+        "zh-cn": "功绩:将纬度和经度空置,以便在设置中使用系统坐标.\n成就: 添加了设置时区下拉菜单 ."
+      },
       "2.5.1": {
         "en": "(oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.\n(H5N1) chore: update dependencies to latest versions",
         "de": "(oFbEQnpoLKl6mbY5e13) Fix: Der Icon 61n.png wird nicht angezeigt und befindet sich im falschen Ordner.\n(H5N1) chore: Anpassung der Abhängigkeiten an neueste Versionen",
@@ -80,19 +93,6 @@
         "pl": "Dwutlenek azotu (NO2) punkt danych dodany do danych dotyczących jakości powietrza, żądanie użytkownika.\nDodano nowe punkty danych dla \"global _ tilted _ irradiance\" & \"et0 _ fao _ evapotranspiration\" w hourlyX i \"et0 _ fao _ evapotranspiration _ sum\" w dailyX.\nNiektóre komunikaty Log- przetłumaczone w main.ts\nPoprawiony setStateAsync do setState w main.ts\nfix: aktualizacja przewidywanych godzin obsługi.\nDodano folder informacyjny z punktem danych last _ update do sprawdzenia, kiedy ostatnia aktualizacja została wykonana.",
         "uk": "Нікооксид азоту (NO2) додано до даних про якість повітря, запит користувача.\nДодано нові точки даних для \"global_tilted_irradiance\" & \"et0_fao_evapotranspiration\" в часіX і \"et0_fao_evapotranspiration_sum\" в щоденному режиміX.\nДеякі лог-повідомлення, перекладені в main.ts\nВиправлено setStateAsync для setState в main.ts\nвиправити: оновити час обробки.\nДодано інформаційну папку з останню_оновленою точкою для перевірки при виконанні останнього оновлення.",
         "zh-cn": "二氧化氮(NO2)数据点加入空气质量数据,用户请求.\n为\"global_tilted_iradiance\"和\"et0_fao_evapotranching\"在小时X和\"et0_fao_evapotranching_sum\"在日X中添加了新的数据点.\n主要.ts翻译的一些日志消息\n更正 set StateAsync 到主.ts 设置状态\n固定:更新预测时间处理.\n添加了信息文件夹, 包含最后的_ 更新数据点, 以检查上次更新何时完成 ."
-      },
-      "2.2.4": {
-        "en": "fix: update snow depth unit from cm to m in metric unit map\nadd: precipitation in hourly & precipitation_sum (snow,rain,showers) in daily.\nImplemented state caching to reduce redundant database I/O operations.\nOptimized socket management with explicit connection handling and timeouts.\nRefactored update logic for better resource management",
-        "de": "fix: schneetiefe von cm bis m in metrische einheitskarte aktualisieren\nadd: niederschlag in stündlich & niederschlag_sum (snow,rain,showers) im täglichen.\nErgänzte Zustandscaching, um redundante Datenbank-I/O-Betriebe zu reduzieren.\nOptimiertes Steckdosenmanagement mit explizitem Anschlusshandling und Timeouts.\nRefactored Update-Logik für bessere Ressourcenverwaltung",
-        "ru": "исправление: обновление блока глубины снега от см до м на карте метрической единицы\nдобавить: осадки почасовые и осадки_сумма (снег, дождь, душ) ежедневно.\nВнедрение кэширования состояния для сокращения избыточных операций ввода/вывода базы данных.\nОптимизированное управление сокетами с явной обработкой подключения и тайм-аутами.\nРефакторированная логика обновления для лучшего управления ресурсами",
-        "pt": "correção: atualizar unidade de profundidade de neve de cm para m no mapa unitário métrico\nadicionar: precipitação em hora & precipitação_sum (neve, chuva, chuveiros) em dia.\nCache de estado implementado para reduzir as operações de E/S de banco de dados redundantes.\nGerenciamento otimizado de soquete com manuseio explícito de conexão e timeouts.\nLógica de atualização refatorada para melhor gerenciamento de recursos",
-        "nl": "fix: update sneeuwdiepte eenheid van cm tot m in metrische eenheid kaart\nadd: neerslag in per uur en neerslag_sum (sneeuw, regen, douches) in dagelijks.\nGeïmplementeerde state caching om overbodige database I/O operaties te verminderen.\nGeoptimaliseerd socketbeheer met expliciete aansluitingen en time-outs.\nGerefactoreerde updatelogica voor beter beheer van hulpbronnen",
-        "fr": "correctif: mise à jour de l'unité de profondeur de neige de cm à m dans la carte de l'unité métrique\najouter: précipitations en heures et précipitations_somme (neige, pluie, douche) par jour.\nMise en place d'une mise en cache d'état pour réduire les opérations d'E/S de base de données redondantes.\nGestion optimisée des prises avec manipulation explicite des connexions et délais.\nUne nouvelle logique de mise à jour pour une meilleure gestion des ressources",
-        "it": "fix: aggiornare l'unità di profondità della neve da cm a m nella mappa dell'unità metrica\naggiungere: precipitazioni in orario & precipitazioni_sum (snow,rain,doccia) in ogni giorno.\nCaching dello stato implementato per ridurre le operazioni di database ridondanti I/O.\nGestione ottimizzata delle prese con gestione esplicita della connessione e timeout.\nLogica di aggiornamento rifatto per una migliore gestione delle risorse",
-        "es": "fijado: actualizar unidad de profundidad de nieve de cm a m en el mapa de unidad métrica\nañadir: precipitación en hora \" precipitation_sum (snow,rain,showers) en diario.\nCaché estatal implementado para reducir las operaciones de base de datos I/O redundantes.\nOptimizada gestión de tomas con manejo de conexión explícito y timeouts.\nLógica de actualización refactorizada para mejorar la gestión de los recursos",
-        "pl": "fix: aktualizacja jednostki głębokości śniegu od cm do m na mapie jednostki metrycznej\ndodać: opady w godzinowym i opadów _ sumy (śnieg, deszcz, prysznice) w ciągu dnia.\nWdrożenie buforowania stanu w celu zmniejszenia zbędnej bazy danych I / O.\nZoptymalizowane zarządzanie gniazdem z wyraźną obsługą połączeń i timeout.\nZmieniona logika aktualizacji dla lepszego zarządzania zasobami",
-        "uk": "виправити: оновити глибинний блок снігу від см до м в метричній одиниці карті\nдодайте: опади в часті та опади_сума (сніго, стримані, шоуери) щодня.\nВпровадження державного кешування для зменшення надмірної бази даних I/O операцій.\nОптимізоване управління розетками з використанням чіткого з'єднання та своєчасності.\nРефакторна логіка оновлення для кращого управління ресурсами",
-        "zh-cn": "固定: 将测量单位地图中的雪深单位从 cm 更新到 m\n加:每日以小时和降水量(雪,雨,雨)计.\n执行状态缓存以减少冗余数据库一/O操作.\n优化套接字管理,明确连接处理和超时.\n改进资源管理的更新逻辑"
       }
     },
     "titleLang": {
