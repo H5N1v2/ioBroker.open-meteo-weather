@@ -53,7 +53,7 @@ async function fetchAllWeatherData(config, logger) {
   const dailyparam_keys = "relative_humidity_2m_mean,weather_code,temperature_2m_max,temperature_2m_min,pressure_msl_mean,sunrise,sunshine_duration,sunset,uv_index_max,precipitation_sum,rain_sum,snowfall_sum,precipitation_probability_max,et0_fao_evapotranspiration_sum,cloud_cover_max,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,dew_point_2m_mean";
   const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${config.latitude}&longitude=${config.longitude}&current=${currentparam_keys}&daily=${dailyparam_keys}${fHoursParam_keys}&timezone=${tz}&forecast_days=${config.forecastDays}${fHoursParam}${unitParams}`;
   if (logger) {
-    logger.debug(`Open-Meteo Weather URL from ${config.location}: ${weatherUrl}`);
+    logger.debug(`Open-Meteo Weather URL: ${weatherUrl}`);
   }
   try {
     const resW = await import_axios.default.get(weatherUrl, axiosConfig);
