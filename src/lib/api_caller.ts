@@ -1,6 +1,5 @@
 // api_caller.ts
 import axios from 'axios';
-
 /**
  * Konfiguration für den Wetter-API-Abruf
  */
