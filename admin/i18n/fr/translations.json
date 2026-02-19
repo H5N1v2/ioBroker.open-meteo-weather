@@ -42,5 +42,6 @@
     "widget_text": "Lien vers un widget approprié",
     "isnight_system_label": "Affichage des icônes de nuit Clair/Sombre",
     "dark_label": "Icône Sombre",
-    "bright_label": "Icône Clair"
+    "bright_label": "Icône claire",
+    "autom": "Automatique (selon les coordonnées)"
 }

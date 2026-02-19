@@ -28,6 +28,7 @@ const de = {
   apparent_temperature: "Gef\xFChlte Temperatur",
   precipitation: "Niederschlag",
   weather_code: "Wetter-Code",
+  cloud_cover_max: "Max. Bew\xF6lkung",
   cloud_cover: "Bew\xF6lkung",
   wind_speed_10m: "Windgeschwindigkeit (10m)",
   wind_direction_10m: "Windrichtung (10m)",

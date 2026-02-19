@@ -5,6 +5,7 @@ export const uk = {
 	apparent_temperature: 'Відчувається як',
 	precipitation: 'Опади',
 	weather_code: 'Код погоди',
+	cloud_cover_max: 'Хмарність макс.',
 	cloud_cover: 'Хмарність',
 	wind_speed_10m: 'Швидкість вітру (10м)',
 	wind_direction_10m: 'Напрямок вітру (10м)',

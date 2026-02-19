@@ -28,6 +28,7 @@ const es = {
   apparent_temperature: "Sensaci\xF3n t\xE9rmica",
   precipitation: "Precipitaci\xF3n",
   weather_code: "C\xF3digo del tiempo",
+  cloud_cover_max: "Nubosidad m\xE1x.",
   cloud_cover: "Nubosidad",
   wind_speed_10m: "Velocidad del viento (10m)",
   wind_direction_10m: "Direcci\xF3n del viento (10m)",

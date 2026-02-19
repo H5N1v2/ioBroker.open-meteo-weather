@@ -5,6 +5,7 @@ export const pt = {
 	apparent_temperature: 'Temperatura aparente',
 	precipitation: 'Precipitação',
 	weather_code: 'Código meteorológico',
+	cloud_cover_max: 'Cobertura de nuvens max.',
 	cloud_cover: 'Cobertura de nuvens',
 	wind_speed_10m: 'Velocidade do vento (10m)',
 	wind_direction_10m: 'Direção do vento (10m)',

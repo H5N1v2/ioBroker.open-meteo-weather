@@ -28,6 +28,7 @@ const nl = {
   apparent_temperature: "Gevoelstemperatuur",
   precipitation: "Neerslag",
   weather_code: "Weercode",
+  cloud_cover_max: "Bewolking max.",
   cloud_cover: "Bewolking",
   wind_speed_10m: "Windsnelheid (10m)",
   wind_direction_10m: "Windrichting (10m)",

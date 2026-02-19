@@ -41,5 +41,6 @@
     "widget_text": "Link naar een geschikt widget",
     "isnight_system_label": "Nacht Icoon Weergave Licht/Donker",
     "dark_label": "Donker Icoon",
-    "bright_label": "Licht Icoon"
+    "bright_label": "Licht icoon",
+    "autom": "Automatisch (op basis van coördinaten)"
 }

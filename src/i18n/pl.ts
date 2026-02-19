@@ -5,6 +5,7 @@ export const pl = {
 	apparent_temperature: 'Temperatura odczuwalna',
 	precipitation: 'Opad',
 	weather_code: 'Kod pogodowy',
+	cloud_cover_max: 'Zachmurzenie max.',
 	cloud_cover: 'Zachmurzenie',
 	wind_speed_10m: 'Prędkość wiatru (10m)',
 	wind_direction_10m: 'Kierunek wiatru (10m)',

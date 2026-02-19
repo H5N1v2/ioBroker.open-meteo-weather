@@ -42,5 +42,6 @@
     "widget_text": "Link to a suitable widget",
     "isnight_system_label": "Night Icon Display Bright/Dark",
     "dark_label": "Dark Icon",
-    "bright_label": "Bright Icon"
+    "bright_label": "Bright Icon",
+    "autom": "Automatic (by coordinates)"
 }

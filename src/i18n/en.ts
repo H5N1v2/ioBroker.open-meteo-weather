@@ -5,6 +5,7 @@ export const en = {
 	apparent_temperature: 'Apparent Temperature',
 	precipitation: 'Precipitation',
 	weather_code: 'Weather Code',
+	cloud_cover_max: 'Max. Cloud Cover',
 	cloud_cover: 'Cloud Cover',
 	wind_speed_10m: 'Wind Speed (10m)',
 	wind_direction_10m: 'Wind Direction (10m)',

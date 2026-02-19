@@ -5,6 +5,7 @@ export const zh = {
 	apparent_temperature: '体感温度',
 	precipitation: '降水量',
 	weather_code: '天气代码',
+	cloud_cover_max: '云量最大值',
 	cloud_cover: '云量',
 	wind_speed_10m: '风速 (10米)',
 	wind_direction_10m: '风向 (10米)',

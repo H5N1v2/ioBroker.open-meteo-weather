@@ -28,6 +28,7 @@ const it = {
   apparent_temperature: "Temperatura percepita",
   precipitation: "Precipitazioni",
   weather_code: "Codice meteo",
+  cloud_cover_max: "Copertura nuvolosa max",
   cloud_cover: "Copertura nuvolosa",
   wind_speed_10m: "Velocit\xE0 del vento (10m)",
   wind_direction_10m: "Direzione del vento (10m)",

@@ -5,6 +5,7 @@ export const es = {
 	apparent_temperature: 'Sensación térmica',
 	precipitation: 'Precipitación',
 	weather_code: 'Código del tiempo',
+	cloud_cover_max: 'Nubosidad máx.',
 	cloud_cover: 'Nubosidad',
 	wind_speed_10m: 'Velocidad del viento (10m)',
 	wind_direction_10m: 'Dirección del viento (10m)',

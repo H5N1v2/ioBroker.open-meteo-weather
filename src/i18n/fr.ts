@@ -5,6 +5,7 @@ export const fr = {
 	apparent_temperature: 'Température ressentie',
 	precipitation: 'Précipitations',
 	weather_code: 'Code météo',
+	cloud_cover_max: 'Couverture nuageuse max',
 	cloud_cover: 'Couverture nuageuse',
 	wind_speed_10m: 'Vitesse du vent (10m)',
 	wind_direction_10m: 'Direction du vent (10m)',

@@ -42,5 +42,6 @@
     "widget_text": "链接到合适的小部件",
     "isnight_system_label": "夜间图标显示 明亮/暗色",
     "dark_label": "暗色图标",
-    "bright_label": "明亮图标"
+    "bright_label": "浅色图标",
+    "autom": "自动（根据坐标）"
 }

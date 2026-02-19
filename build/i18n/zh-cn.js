@@ -28,6 +28,7 @@ const zh = {
   apparent_temperature: "\u4F53\u611F\u6E29\u5EA6",
   precipitation: "\u964D\u6C34\u91CF",
   weather_code: "\u5929\u6C14\u4EE3\u7801",
+  cloud_cover_max: "\u4E91\u91CF\u6700\u5927\u503C",
   cloud_cover: "\u4E91\u91CF",
   wind_speed_10m: "\u98CE\u901F (10\u7C73)",
   wind_direction_10m: "\u98CE\u5411 (10\u7C73)",

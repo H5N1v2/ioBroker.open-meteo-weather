@@ -42,5 +42,6 @@
     "widget_text": "Link para um widget adequado",
     "isnight_system_label": "Exibição de ícones noturnos Claro/Escuro",
     "dark_label": "Ícone Escuro",
-    "bright_label": "Ícone Claro"
+    "bright_label": "Ícone claro",
+    "autom": "Automático (por coordenadas)"
 }

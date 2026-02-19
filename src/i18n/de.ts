@@ -5,6 +5,7 @@ export const de = {
 	apparent_temperature: 'Gefühlte Temperatur',
 	precipitation: 'Niederschlag',
 	weather_code: 'Wetter-Code',
+	cloud_cover_max: 'Max. Bewölkung',
 	cloud_cover: 'Bewölkung',
 	wind_speed_10m: 'Windgeschwindigkeit (10m)',
 	wind_direction_10m: 'Windrichtung (10m)',

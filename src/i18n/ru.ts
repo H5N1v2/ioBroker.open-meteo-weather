@@ -5,6 +5,7 @@ export const ru = {
 	apparent_temperature: 'Ощущаемая температура',
 	precipitation: 'Осадки',
 	weather_code: 'Код погоды',
+	cloud_cover_max: 'Облачность макс.',
 	cloud_cover: 'Облачность',
 	wind_speed_10m: 'Скорость ветра (10м)',
 	wind_direction_10m: 'Направление ветра (10м)',
