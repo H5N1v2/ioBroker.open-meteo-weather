@@ -62,12 +62,13 @@ Features:
 After installation, configure the following fields in the instance settings:
 
 1.  **Location:** Add your Location or a name you want.
-2.  **Coordinates (Latitude & Longitude):** Determine your location (you can find these on openstreetmap.org).
-3.  **Update Interval:** Time interval in minutes (Default: 30 min).
-4.  **Forecast Days:** Number of days for the daily overview (0–16 days).
-5.  **Hourly Forecast:** Enable or disable this option and set the number of hours (e.g., the next 24 hours). For example, hour0 is the current hour, hour1 is the next hour, and so on.
-6.  **Optional Data:** Checkboxes for pollen and air quality data.
-7.  **Units:** Choose between Metric and Imperial.
+2.  **Coordinates (Latitude & Longitude):** Add your coordinates. You can find them by clicking the 'Find coordinates with OpenStreetMap' button, or leave the fields empty to use the system coordinates.
+3.  **Time Zone:** Set the timezone in the dropdown menu, the default is 'Auto', which automatically adjusts based on your coordinates.
+4.  **Update Interval:** Time interval in minutes (Default: 30 min).
+5.  **Forecast Days:** Number of days for the daily overview (0–16 days).
+6.  **Hourly Forecast:** Enable or disable this option and set the number of hours (e.g., the next 24 hours). For example, hour0 is the current hour, hour1 is the next hour, and so on.
+7.  **Optional Data:** Checkboxes for pollen and air quality data.
+8.  **Units:** Choose between Metric and Imperial.
 
 ---
 
@@ -100,6 +101,10 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) feat: Leave latitude and longitude empty to use system coordinates in settings. 
+* (H5N1v2) feat: Added dropdown menu for timezones in settings.
+
 ### 2.5.1 (2026-02-17)
 * (oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.
 * (H5N1) chore: update dependencies to latest versions
