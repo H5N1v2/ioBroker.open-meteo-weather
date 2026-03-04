@@ -70,6 +70,13 @@ class OpenMeteoWeather extends utils.Adapter {
     this.on("unload", this.onUnload.bind(this));
   }
   // Holt die passende Übersetzung für Objektnamen aus den i18n Dateien
+  getI18nObject(key) {
+    const obj = {};
+    for (const lang in import_i18n.translations) {
+      obj[lang] = import_i18n.translations[lang][key] || import_i18n.translations.en[key] || key;
+    }
+    return obj;
+  }
   getTranslation(key) {
     var _a, _b;
     if (!import_i18n.translations) {
@@ -144,17 +151,67 @@ class OpenMeteoWeather extends utils.Adapter {
         }
         this.log.debug(`onReady: System language: ${this.systemLang}, Timezone: ${this.systemTimeZone}`);
       }
+      await this.extendForeignObjectAsync(this.namespace, {
+        type: "meta",
+        common: {
+          name: {
+            en: "Open-Meteo Weather Service",
+            de: "Open-Meteo Wetterdienst",
+            pl: "Us\u0142uga pogodowa Open-Meteo",
+            ru: "\u0421\u0435\u0440\u0432\u0438\u0441 \u043F\u043E\u0433\u043E\u0434\u044B Open-Meteo",
+            it: "Servizio meteo Open-Meteo",
+            es: "Servicio meteorol\xF3gico Open-Meteo",
+            "zh-cn": "Open-Meteo \u5929\u6C14\u670D\u52A1",
+            fr: "Service m\xE9t\xE9o Open-Meteo",
+            pt: "Servi\xE7o meteorol\xF3gico Open-Meteo",
+            nl: "Open-Meteo Weerdienst",
+            uk: "\u0421\u0435\u0440\u0432\u0456\u0441 \u043F\u043E\u0433\u043E\u0434\u0438 Open-Meteo"
+          },
+          type: "meta.user"
+        }
+      });
       const config2 = this.config;
       this.cachedIsImperial = config2.isImperial || false;
       this.cachedUnitMap = this.cachedIsImperial ? import_units.unitMapImperial : import_units.unitMapMetric;
       this.cachedTranslations = import_words.weatherTranslations[this.systemLang] || import_words.weatherTranslations.de;
       await this.cleanupDeletedLocations();
+      await this.setObjectNotExistsAsync("info", {
+        type: "channel",
+        common: {
+          name: {
+            en: "Information",
+            de: "Information",
+            pl: "Informacja",
+            ru: "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F",
+            it: "Informazione",
+            es: "Informaci\xF3n",
+            "zh-cn": "\u4FE1\u606F",
+            fr: "Information",
+            pt: "Informa\xE7\xE3o",
+            nl: "Informatie",
+            uk: "\u0406\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044F"
+          }
+        },
+        native: {}
+      });
       await this.extendObject("info.lastUpdate", {
         type: "state",
         common: {
-          name: "Last Update",
+          name: {
+            en: "Last Update",
+            de: "Letztes Update",
+            pl: "Ostatnia aktualizacja",
+            ru: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0435\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435",
+            it: "Ultimo aggiornamento",
+            es: "\xDAltima actualizaci\xF3n",
+            "zh-cn": "\u6700\u540E\u66F4\u65B0",
+            fr: "Derni\xE8re mise \xE0 jour",
+            pt: "\xDAltima atualiza\xE7\xE3o",
+            nl: "Laatste update",
+            uk: "\u041E\u0441\u0442\u0430\u043D\u043D\u0454 \u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044F"
+          },
           type: "string",
-          role: "text",
+          role: "date",
           read: true,
           write: false
         },
@@ -186,7 +243,7 @@ class OpenMeteoWeather extends utils.Adapter {
       if (parts.length > 2) {
         const folderName = parts[2];
         if (!validFolders.has(folderName)) {
-          this.log.info(`L\xF6sche veralteten Standort: ${folderName}`);
+          this.log.info(`Delete outdated location:: ${folderName}`);
           await this.delObjectAsync(objId, { recursive: true });
           deletedCount++;
           continue;
@@ -259,6 +316,147 @@ class OpenMeteoWeather extends utils.Adapter {
       }
       for (const loc of locations) {
         const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, "_");
+        await this.setObjectNotExistsAsync(folderName, {
+          type: "device",
+          common: {
+            name: {
+              en: "location",
+              de: "Standort",
+              ru: "\u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435",
+              pt: "localiza\xE7\xE3o",
+              nl: "locatie",
+              fr: "emplacement",
+              it: "posizione",
+              es: "ubicaci\xF3n",
+              pl: "lokalizacja",
+              uk: "\u043C\u0456\u0441\u0446\u0435\u0437\u043D\u0430\u0445\u043E\u0434\u0436\u0435\u043D\u043D\u044F",
+              "zh-cn": "\u5730\u70B9"
+            },
+            desc: {
+              en: "Your configured location",
+              de: "Ihr konfigurierter Standort",
+              ru: "\u0412\u0430\u0448\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0435 \u043C\u0435\u0441\u0442\u043E\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435",
+              pt: "Sua localiza\xE7\xE3o configurada",
+              nl: "Uw geconfigureerde locatie",
+              fr: "Votre emplacement configur\xE9",
+              it: "La tua posizione configurata",
+              es: "Su ubicaci\xF3n configurada",
+              pl: "Twoja skonfigurowana lokalizacja",
+              uk: "\u0412\u0430\u0448\u0435 \u043D\u0430\u043B\u0430\u0448\u0442\u043E\u0432\u0430\u043D\u0435 \u043C\u0456\u0441\u0446\u0435\u0437\u043D\u0430\u0445\u043E\u0434\u0436\u0435\u043D\u043D\u044F",
+              "zh-cn": "\u60A8\u914D\u7F6E\u7684\u4F4D\u7F6E"
+            }
+          },
+          native: {}
+        });
+        let channels = [
+          {
+            id: "weather",
+            name: {
+              en: "Weather",
+              de: "Wetter",
+              pl: "Pogoda",
+              ru: "\u041F\u043E\u0433\u043E\u0434\u0430",
+              it: "Meteo",
+              es: "Clima",
+              "zh-cn": "\u5929\u6C14",
+              fr: "M\xE9t\xE9o",
+              pt: "Clima",
+              nl: "Weer",
+              uk: "\u041F\u043E\u0433\u043E\u0434\u0430"
+            }
+          },
+          {
+            id: "weather.current",
+            name: {
+              en: "Current weather",
+              de: "Aktuelles Wetter",
+              pl: "Aktualna pogoda",
+              ru: "\u0422\u0435\u043A\u0443\u0449\u0430\u044F \u043F\u043E\u0433\u043E\u0434\u0430",
+              it: "Meteo attuale",
+              es: "Clima actual",
+              "zh-cn": "\u5F53\u524D\u5929\u6C14",
+              fr: "M\xE9t\xE9o actuelle",
+              pt: "Clima atual",
+              nl: "Huidige weer",
+              uk: "\u041F\u043E\u0442\u043E\u0447\u043D\u0430 \u043F\u043E\u0433\u043E\u0434\u0430"
+            }
+          },
+          {
+            id: "weather.forecast",
+            name: {
+              en: "Weather forecast",
+              de: "Wettervorhersage",
+              pl: "Prognoza pogody",
+              ru: "\u041F\u0440\u043E\u0433\u043D\u043E\u0437 pogody",
+              it: "Previsioni meteo",
+              es: "Pron\xF3stico del tiempo",
+              "zh-cn": "\u5929\u6C14\u9884\u62A5",
+              fr: "Pr\xE9visions m\xE9t\xE9o",
+              pt: "Previs\xE3o do tempo",
+              nl: "Weersverwachting",
+              uk: "\u041F\u0440\u043E\u0433\u043D\u043E\u0437 \u043F\u043E\u0433\u043E\u0434\u0438"
+            }
+          },
+          {
+            id: "air",
+            name: {
+              en: "Air quality",
+              de: "Luftqualit\xE4t",
+              pl: "Jako\u015B\u0107 powietrza",
+              ru: "\u041A\u0430\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u043E\u0437\u0434\u0443\u0445\u0430",
+              it: "Qualit\xE0 dell'aria",
+              es: "Calidad del aire",
+              "zh-cn": "\u7A7A\u6C14\u8D28\u91CF",
+              fr: "Qualit\xE9 de l'air",
+              pt: "Qualidade do ar",
+              nl: "Luchtkwaliteit",
+              uk: "\u042F\u043A\u0456\u0441\u0442\u044C \u043F\u043E\u0432\u0456\u0442\u0440\u044F"
+            }
+          },
+          {
+            id: "air.current",
+            name: {
+              en: "Current air quality",
+              de: "Aktuelle Luftqualit\xE4t",
+              pl: "Aktualna jako\u015B\u0107 powietrza",
+              ru: "\u0422\u0435\u043A\u0443\u0449\u0435\u0435 \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u043E \u0432\u043E\u0437\u0434\u0443\u0445\u0430",
+              it: "Qualit\xE0 dell'aria attuale",
+              es: "Calidad del aire actual",
+              "zh-cn": "\u5F53\u524D\u7A7A\u6C14\u8D28\u91CF",
+              fr: "Qualit\xE9 de l'air actuelle",
+              pt: "Qualidade do ar atual",
+              nl: "Huidige luchtkwaliteit",
+              uk: "\u041F\u043E\u0442\u043E\u0447\u043D\u0430 \u044F\u043A\u0456\u0441\u0442\u044C \u043F\u043E\u0432\u0456\u0442\u0440\u044F"
+            }
+          },
+          {
+            id: "air.forecast",
+            name: {
+              en: "Air quality forecast",
+              de: "Luftqualit\xE4ts-Vorhersage",
+              pl: "Prognoza jako\u015Bci powietrza",
+              ru: "\u041F\u0440\u043E\u0433\u043D\u043E\u0437 \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u0430 \u0432\u043E\u0437\u0434\u0443\u0445\u0430",
+              it: "Previsioni qualit\xE0 dell'aria",
+              es: "Pron\xF3stico de calidad del aire",
+              "zh-cn": "\u7A7A\u6C14\u8D28\u91CF\u9810\u5831",
+              fr: "Pr\xE9visions qualit\xE9 de l'air",
+              pt: "Previs\xE3o de qualidade do ar",
+              nl: "Luchtkwaliteit verwachting",
+              uk: "\u041F\u0440\u043E\u0433\u043D\u043E\u0437 \u044F\u043A\u043E\u0441\u0442\u0456 \u043F\u043E\u0432\u0456\u0442\u0440\u044F"
+            }
+          }
+        ];
+        if (!config.airQualityEnabled) {
+          this.log.debug(`Skipping air quality channels for ${loc.name} because it is disabled in config`);
+          channels = channels.filter((chan) => !chan.id.startsWith("air"));
+        }
+        for (const chan of channels) {
+          await this.setObjectNotExistsAsync(`${folderName}.${chan.id}`, {
+            type: "channel",
+            common: { name: chan.name },
+            native: {}
+          });
+        }
         let latitude = loc.latitude;
         let longitude = loc.longitude;
         const latMissing = loc.latitude == null || loc.latitude === "" || isNaN(Number(loc.latitude));
@@ -380,6 +578,25 @@ class OpenMeteoWeather extends utils.Adapter {
     if (data.daily) {
       for (let i = 0; i < (((_a = data.daily.time) == null ? void 0 : _a.length) || 0); i++) {
         const dayPath = `${locationPath}.weather.forecast.day${i}`;
+        const dayId = `day${i}`;
+        const dayName = {
+          en: `Day ${i}`,
+          de: `Tag ${i}`,
+          pl: `Dzie\u0144 ${i}`,
+          ru: `\u0414\u0435\u043D\u044C ${i}`,
+          it: `Giorno ${i}`,
+          es: `D\xEDa ${i}`,
+          "zh-cn": `\u7B2C ${i} \u5929`,
+          fr: `Jour ${i}`,
+          pt: `Dia ${i}`,
+          nl: `Dag ${i}`,
+          uk: `\u0414\u0435\u043D\u044C ${i}`
+        };
+        await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.${dayId}`, {
+          type: "channel",
+          common: { name: dayName },
+          native: {}
+        });
         const forecastDate = new Date(data.daily.time[i]);
         const moonTimes = SunCalc.getMoonTimes(forecastDate, lat, lon);
         const moonIllumination = SunCalc.getMoonIllumination(forecastDate);
@@ -504,9 +721,66 @@ class OpenMeteoWeather extends utils.Adapter {
     const hoursPer_h_Limit = parseInt(config.forecastHours) || 24;
     if (data.hourly && data.hourly.time) {
       const isDay = data.hourly.is_day;
+      await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.hourly`, {
+        type: "channel",
+        common: {
+          name: {
+            en: "Hourly forecast",
+            de: "St\xFCndliche Vorhersage",
+            pl: "Prognoza godzinowa",
+            ru: "\u041F\u043E\u0447\u0430\u0441\u043E\u0432\u043E\u0439 \u043F\u0440\u043E\u0433\u043D\u043E\u0437",
+            it: "Previsioni orarie",
+            es: "Pron\xF3stico por hora",
+            "zh-cn": "\u6BCF\u5C0F\u65F6\u9884\u62A5",
+            fr: "Pr\xE9visions horaires",
+            pt: "Previs\xE3o hor\xE1ria",
+            nl: "Uurlijkse verwachting",
+            uk: "\u041F\u043E\u0433\u043E\u0434\u0438\u043D\u043D\u0438\u0439 \u043F\u0440\u043E\u0433\u043D\u043E\u0437"
+          }
+        },
+        native: {}
+      });
+      await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.hourly.next_hours`, {
+        type: "channel",
+        common: {
+          name: {
+            en: "Next hours",
+            de: "Kommende Stunden",
+            pl: "Najbli\u017Csze godziny",
+            ru: "\u0411\u043B\u0438\u0436\u0430\u0439\u0448\u0438\u0435 \u0447\u0430\u0441\u044B",
+            it: "Prossime ore",
+            es: "Pr\xF3ximas horas",
+            "zh-cn": "\u63A5\u4E0B\u6765\u7684\u51E0\u5C0F\u65F6",
+            fr: "Heures suivantes",
+            pt: "Pr\xF3ximas horas",
+            nl: "Komende uren",
+            uk: "\u041D\u0430\u0439\u0431\u043B\u0438\u0436\u0447\u0456 \u0433\u043E\u0434\u0438\u043D\u0438"
+          }
+        },
+        native: {}
+      });
       for (let i = 0; i < data.hourly.time.length; i++) {
         if (i < hoursPer_h_Limit) {
           const hourPath = `${locationPath}.weather.forecast.hourly.next_hours.hour${i}`;
+          await this.setObjectNotExistsAsync(hourPath, {
+            type: "channel",
+            common: {
+              name: {
+                en: `Hour ${i}`,
+                de: `Stunde ${i}`,
+                pl: `Godzina ${i}`,
+                ru: `\u0427\u0430\u0441 ${i}`,
+                it: `Ora ${i}`,
+                es: `Hora ${i}`,
+                "zh-cn": `\u5C0F\u65F6 ${i}`,
+                fr: `Heure ${i}`,
+                pt: `Hora ${i}`,
+                nl: `Uur ${i}`,
+                uk: `\u0413\u043E\u0434\u0438\u043D\u0430 ${i}`
+              }
+            },
+            native: {}
+          });
           for (const key in data.hourly) {
             let val = data.hourly[key][i];
             if (key === "time" && typeof val === "string") {
@@ -600,6 +874,24 @@ class OpenMeteoWeather extends utils.Adapter {
     if (data.hourly && data.hourly.time && aqForecastDays > 0) {
       for (let day = 0; day < aqForecastDays; day++) {
         const dayPath = `${locationPath}.air.forecast.day${day}`;
+        const dayName = {
+          en: `Day ${day}`,
+          de: `Tag ${day}`,
+          pl: `Dzie\u0144 ${day}`,
+          ru: `\u0414\u0435\u043D\u044C ${day}`,
+          it: `Giorno ${day}`,
+          es: `D\xEDa ${day}`,
+          "zh-cn": `\u7B2C ${day} \u5929`,
+          fr: `Jour ${day}`,
+          pt: `Dia ${day}`,
+          nl: `Dag ${day}`,
+          uk: `\u0414\u0435\u043D\u044C ${day}`
+        };
+        await this.setObjectNotExistsAsync(dayPath, {
+          type: "channel",
+          common: { name: dayName },
+          native: {}
+        });
         const startIdx = day * 24;
         const endIdx = startIdx + 24;
         const forecastDate = new Date(data.hourly.time[startIdx]);
@@ -644,7 +936,7 @@ class OpenMeteoWeather extends utils.Adapter {
       await this.setObjectNotExistsAsync(id, {
         type: "state",
         common: {
-          name: this.getTranslation(lastPart),
+          name: this.getI18nObject(lastPart),
           type,
           role,
           read: true,
@@ -672,10 +964,11 @@ class OpenMeteoWeather extends utils.Adapter {
       this.log.debug(`extendOrCreateState: Creating state ${id} (unit: ${displayUnit})`);
       const idParts = id.split(".");
       const lastPart = idParts[idParts.length - 1] || id;
+      const key = translationKey || lastPart;
       await this.setObjectNotExistsAsync(id, {
         type: "state",
         common: {
-          name: this.getTranslation(translationKey || lastPart),
+          name: this.getI18nObject(key),
           type: typeof val,
           role: "value",
           read: true,

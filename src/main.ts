@@ -55,6 +55,14 @@ class OpenMeteoWeather extends utils.Adapter {
 	}
 
 	// Holt die passende Übersetzung für Objektnamen aus den i18n Dateien
+	private getI18nObject(key: string): ioBroker.StringOrTranslated {
+		const obj: any = {};
+		for (const lang in translations) {
+			obj[lang] = translations[lang][key] || translations.en[key] || key;
+		}
+		return obj;
+	}
+
 	private getTranslation(key: string): string {
 		if (!translations) {
 			return key;
@@ -135,6 +143,25 @@ class OpenMeteoWeather extends utils.Adapter {
 				}
 				this.log.debug(`onReady: System language: ${this.systemLang}, Timezone: ${this.systemTimeZone}`);
 			}
+			await this.extendForeignObjectAsync(this.namespace, {
+				type: 'meta',
+				common: {
+					name: {
+						en: 'Open-Meteo Weather Service',
+						de: 'Open-Meteo Wetterdienst',
+						pl: 'Usługa pogodowa Open-Meteo',
+						ru: 'Сервис погоды Open-Meteo',
+						it: 'Servizio meteo Open-Meteo',
+						es: 'Servicio meteorológico Open-Meteo',
+						'zh-cn': 'Open-Meteo 天气服务',
+						fr: 'Service météo Open-Meteo',
+						pt: 'Serviço meteorológico Open-Meteo',
+						nl: 'Open-Meteo Weerdienst',
+						uk: 'Сервіс погоди Open-Meteo',
+					},
+					type: 'meta.user',
+				},
+			});
 
 			// Cache häufig verwendete Werte
 			const config = this.config as any;
@@ -146,12 +173,45 @@ class OpenMeteoWeather extends utils.Adapter {
 			await this.cleanupDeletedLocations();
 
 			// Info-Datenpunkt für letztes Update erstellen
+			await this.setObjectNotExistsAsync('info', {
+				type: 'channel',
+				common: {
+					name: {
+						en: 'Information',
+						de: 'Information',
+						pl: 'Informacja',
+						ru: 'Информация',
+						it: 'Informazione',
+						es: 'Información',
+						'zh-cn': '信息',
+						fr: 'Information',
+						pt: 'Informação',
+						nl: 'Informatie',
+						uk: 'Інформація',
+					},
+				},
+				native: {},
+			});
+
+			// 2. Den Datenpunkt lastUpdate erstellen
 			await this.extendObject('info.lastUpdate', {
 				type: 'state',
 				common: {
-					name: 'Last Update',
+					name: {
+						en: 'Last Update',
+						de: 'Letztes Update',
+						pl: 'Ostatnia aktualizacja',
+						ru: 'Последнее обновление',
+						it: 'Ultimo aggiornamento',
+						es: 'Última actualización',
+						'zh-cn': '最后更新',
+						fr: 'Dernière mise à jour',
+						pt: 'Última atualização',
+						nl: 'Laatste update',
+						uk: 'Останнє оновлення',
+					},
 					type: 'string',
-					role: 'text',
+					role: 'date',
 					read: true,
 					write: false,
 				},
@@ -188,11 +248,11 @@ class OpenMeteoWeather extends utils.Adapter {
 		for (const objId in allObjects) {
 			const parts = objId.split('.');
 			if (parts.length > 2) {
-				const folderName = parts[2]; // Der Stadt-Ordner
+				const folderName = parts[2];
 
 				// 1. Ganze Stadt gelöscht?
 				if (!validFolders.has(folderName)) {
-					this.log.info(`Lösche veralteten Standort: ${folderName}`);
+					this.log.info(`Delete outdated location:: ${folderName}`);
 					await this.delObjectAsync(objId, { recursive: true });
 					deletedCount++;
 					continue;
@@ -285,6 +345,152 @@ class OpenMeteoWeather extends utils.Adapter {
 
 			for (const loc of locations) {
 				const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, '_');
+
+				// 1. Das Gerät (Device) für den Standort
+				await this.setObjectNotExistsAsync(folderName, {
+					type: 'device',
+					common: {
+						name: {
+							en: 'location',
+							de: 'Standort',
+							ru: 'расположение',
+							pt: 'localização',
+							nl: 'locatie',
+							fr: 'emplacement',
+							it: 'posizione',
+							es: 'ubicación',
+							pl: 'lokalizacja',
+							uk: 'місцезнаходження',
+							'zh-cn': '地点',
+						},
+						desc: {
+							en: 'Your configured location',
+							de: 'Ihr konfigurierter Standort',
+							ru: 'Ваше указанное местоположение',
+							pt: 'Sua localização configurada',
+							nl: 'Uw geconfigureerde locatie',
+							fr: 'Votre emplacement configuré',
+							it: 'La tua posizione configurata',
+							es: 'Su ubicación configurada',
+							pl: 'Twoja skonfigurowana lokalizacja',
+							uk: 'Ваше налаштоване місцезнаходження',
+							'zh-cn': '您配置的位置',
+						},
+					},
+					native: {},
+				});
+
+				// 2. Kanäle (Channels)
+				let channels = [
+					{
+						id: 'weather',
+						name: {
+							en: 'Weather',
+							de: 'Wetter',
+							pl: 'Pogoda',
+							ru: 'Погода',
+							it: 'Meteo',
+							es: 'Clima',
+							'zh-cn': '天气',
+							fr: 'Météo',
+							pt: 'Clima',
+							nl: 'Weer',
+							uk: 'Погода',
+						},
+					},
+					{
+						id: 'weather.current',
+						name: {
+							en: 'Current weather',
+							de: 'Aktuelles Wetter',
+							pl: 'Aktualna pogoda',
+							ru: 'Текущая погода',
+							it: 'Meteo attuale',
+							es: 'Clima actual',
+							'zh-cn': '当前天气',
+							fr: 'Météo actuelle',
+							pt: 'Clima atual',
+							nl: 'Huidige weer',
+							uk: 'Поточна погода',
+						},
+					},
+					{
+						id: 'weather.forecast',
+						name: {
+							en: 'Weather forecast',
+							de: 'Wettervorhersage',
+							pl: 'Prognoza pogody',
+							ru: 'Прогноз pogody',
+							it: 'Previsioni meteo',
+							es: 'Pronóstico del tiempo',
+							'zh-cn': '天气预报',
+							fr: 'Prévisions météo',
+							pt: 'Previsão do tempo',
+							nl: 'Weersverwachting',
+							uk: 'Прогноз погоди',
+						},
+					},
+					{
+						id: 'air',
+						name: {
+							en: 'Air quality',
+							de: 'Luftqualität',
+							pl: 'Jakość powietrza',
+							ru: 'Качество воздуха',
+							it: "Qualità dell'aria",
+							es: 'Calidad del aire',
+							'zh-cn': '空气质量',
+							fr: "Qualité de l'air",
+							pt: 'Qualidade do ar',
+							nl: 'Luchtkwaliteit',
+							uk: 'Якість повітря',
+						},
+					},
+					{
+						id: 'air.current',
+						name: {
+							en: 'Current air quality',
+							de: 'Aktuelle Luftqualität',
+							pl: 'Aktualna jakość powietrza',
+							ru: 'Текущее качество воздуха',
+							it: "Qualità dell'aria attuale",
+							es: 'Calidad del aire actual',
+							'zh-cn': '当前空气质量',
+							fr: "Qualité de l'air actuelle",
+							pt: 'Qualidade do ar atual',
+							nl: 'Huidige luchtkwaliteit',
+							uk: 'Поточна якість повітря',
+						},
+					},
+					{
+						id: 'air.forecast',
+						name: {
+							en: 'Air quality forecast',
+							de: 'Luftqualitäts-Vorhersage',
+							pl: 'Prognoza jakości powietrza',
+							ru: 'Прогноз качества воздуха',
+							it: "Previsioni qualità dell'aria",
+							es: 'Pronóstico de calidad del aire',
+							'zh-cn': '空气质量預報',
+							fr: "Prévisions qualité de l'air",
+							pt: 'Previsão de qualidade do ar',
+							nl: 'Luchtkwaliteit verwachting',
+							uk: 'Прогноз якості повітря',
+						},
+					},
+				];
+				if (!config.airQualityEnabled) {
+					this.log.debug(`Skipping air quality channels for ${loc.name} because it is disabled in config`);
+					channels = channels.filter(chan => !chan.id.startsWith('air'));
+				}
+
+				for (const chan of channels) {
+					await this.setObjectNotExistsAsync(`${folderName}.${chan.id}`, {
+						type: 'channel',
+						common: { name: chan.name as any },
+						native: {},
+					});
+				}
 
 				// Koordinaten prüfen und ggf. Systemkonfiguration verwenden
 				let latitude: number = loc.latitude;
@@ -431,6 +637,27 @@ class OpenMeteoWeather extends utils.Adapter {
 		if (data.daily) {
 			for (let i = 0; i < (data.daily.time?.length || 0); i++) {
 				const dayPath = `${locationPath}.weather.forecast.day${i}`;
+				const dayId = `day${i}`;
+				const dayName = {
+					en: `Day ${i}`,
+					de: `Tag ${i}`,
+					pl: `Dzień ${i}`,
+					ru: `День ${i}`,
+					it: `Giorno ${i}`,
+					es: `Día ${i}`,
+					'zh-cn': `第 ${i} 天`,
+					fr: `Jour ${i}`,
+					pt: `Dia ${i}`,
+					nl: `Dag ${i}`,
+					uk: `День ${i}`,
+				};
+
+				// Ordner für Wetter-Tagesvorhersage
+				await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.${dayId}`, {
+					type: 'channel',
+					common: { name: dayName },
+					native: {},
+				});
 
 				// Berechnung der Monddaten für diesen Tag (lokal via SunCalc)
 				const forecastDate = new Date(data.daily.time[i]);
@@ -577,9 +804,68 @@ class OpenMeteoWeather extends utils.Adapter {
 
 		if (data.hourly && data.hourly.time) {
 			const isDay = data.hourly.is_day;
+			await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.hourly`, {
+				type: 'channel',
+				common: {
+					name: {
+						en: 'Hourly forecast',
+						de: 'Stündliche Vorhersage',
+						pl: 'Prognoza godzinowa',
+						ru: 'Почасовой прогноз',
+						it: 'Previsioni orarie',
+						es: 'Pronóstico por hora',
+						'zh-cn': '每小时预报',
+						fr: 'Prévisions horaires',
+						pt: 'Previsão horária',
+						nl: 'Uurlijkse verwachting',
+						uk: 'Погодинний прогноз',
+					},
+				},
+				native: {},
+			});
+
+			// 2. Kanal für 'next_hours'
+			await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.hourly.next_hours`, {
+				type: 'channel',
+				common: {
+					name: {
+						en: 'Next hours',
+						de: 'Kommende Stunden',
+						pl: 'Najbliższe godziny',
+						ru: 'Ближайшие часы',
+						it: 'Prossime ore',
+						es: 'Próximas horas',
+						'zh-cn': '接下来的几小时',
+						fr: 'Heures suivantes',
+						pt: 'Próximas horas',
+						nl: 'Komende uren',
+						uk: 'Найближчі години',
+					},
+				},
+				native: {},
+			});
 			for (let i = 0; i < data.hourly.time.length; i++) {
 				if (i < hoursPer_h_Limit) {
 					const hourPath = `${locationPath}.weather.forecast.hourly.next_hours.hour${i}`;
+					await this.setObjectNotExistsAsync(hourPath, {
+						type: 'channel',
+						common: {
+							name: {
+								en: `Hour ${i}`,
+								de: `Stunde ${i}`,
+								pl: `Godzina ${i}`,
+								ru: `Час ${i}`,
+								it: `Ora ${i}`,
+								es: `Hora ${i}`,
+								'zh-cn': `小时 ${i}`,
+								fr: `Heure ${i}`,
+								pt: `Hora ${i}`,
+								nl: `Uur ${i}`,
+								uk: `Година ${i}`,
+							},
+						},
+						native: {},
+					});
 					for (const key in data.hourly) {
 						let val = data.hourly[key][i];
 						if (key === 'time' && typeof val === 'string') {
@@ -684,10 +970,32 @@ class OpenMeteoWeather extends utils.Adapter {
 			}
 		}
 
-		// 2. Daily Aggregation (Hourly to Daily) Airquality
 		if (data.hourly && data.hourly.time && aqForecastDays > 0) {
 			for (let day = 0; day < aqForecastDays; day++) {
 				const dayPath = `${locationPath}.air.forecast.day${day}`;
+
+				// --- NEU: Intermediate Objects (Channels) ---
+				const dayName = {
+					en: `Day ${day}`,
+					de: `Tag ${day}`,
+					pl: `Dzień ${day}`,
+					ru: `День ${day}`,
+					it: `Giorno ${day}`,
+					es: `Día ${day}`,
+					'zh-cn': `第 ${day} 天`,
+					fr: `Jour ${day}`,
+					pt: `Dia ${day}`,
+					nl: `Dag ${day}`,
+					uk: `День ${day}`,
+				};
+
+				// Sicher stellen, dass der Ordner für diesen Tag existiert
+				await this.setObjectNotExistsAsync(dayPath, {
+					type: 'channel',
+					common: { name: dayName },
+					native: {},
+				});
+
 				const startIdx = day * 24;
 				const endIdx = startIdx + 24;
 
@@ -747,10 +1055,11 @@ class OpenMeteoWeather extends utils.Adapter {
 			this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
 			const idParts = id.split('.');
 			const lastPart = idParts[idParts.length - 1] || id;
+
 			await this.setObjectNotExistsAsync(id, {
 				type: 'state',
 				common: {
-					name: this.getTranslation(lastPart),
+					name: this.getI18nObject(lastPart),
 					type,
 					role,
 					read: true,
@@ -775,14 +1084,19 @@ class OpenMeteoWeather extends utils.Adapter {
 					break;
 				}
 			}
+
 			const displayUnit = unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit;
+
 			this.log.debug(`extendOrCreateState: Creating state ${id} (unit: ${displayUnit})`);
+
 			const idParts = id.split('.');
 			const lastPart = idParts[idParts.length - 1] || id;
+			const key = translationKey || lastPart;
+
 			await this.setObjectNotExistsAsync(id, {
 				type: 'state',
 				common: {
-					name: this.getTranslation(translationKey || lastPart),
+					name: this.getI18nObject(key),
 					type: typeof val as any,
 					role: 'value',
 					read: true,
