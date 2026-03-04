@@ -85,4 +85,5 @@ export const zh = {
 	pm10_max: 'PM10最大值',
 	pm2_5_max: 'PM2.5最大值',
 	ragweed_pollen_max: '豚草花粉最大值',
+	interval: '间隔',
 };

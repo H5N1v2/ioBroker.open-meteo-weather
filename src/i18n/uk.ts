@@ -85,4 +85,5 @@ export const uk = {
 	pm10_max: 'PM10 Макс.',
 	pm2_5_max: 'PM2.5 Макс.',
 	ragweed_pollen_max: 'Пилок Амброзії Макс.',
+	interval: 'Інтервал',
 };

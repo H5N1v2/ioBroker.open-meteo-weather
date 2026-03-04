@@ -105,7 +105,8 @@ const pl = {
   ozone_max: "Ozon Maks.",
   pm10_max: "PM10 Maks.",
   pm2_5_max: "PM2.5 Maks.",
-  ragweed_pollen_max: "Py\u0142ek Ambrozji Maks."
+  ragweed_pollen_max: "Py\u0142ek Ambrozji Maks.",
+  interval: "Interwa\u0142"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

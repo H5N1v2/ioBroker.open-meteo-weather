@@ -105,7 +105,8 @@ const uk = {
   ozone_max: "\u041E\u0437\u043E\u043D \u041C\u0430\u043A\u0441.",
   pm10_max: "PM10 \u041C\u0430\u043A\u0441.",
   pm2_5_max: "PM2.5 \u041C\u0430\u043A\u0441.",
-  ragweed_pollen_max: "\u041F\u0438\u043B\u043E\u043A \u0410\u043C\u0431\u0440\u043E\u0437\u0456\u0457 \u041C\u0430\u043A\u0441."
+  ragweed_pollen_max: "\u041F\u0438\u043B\u043E\u043A \u0410\u043C\u0431\u0440\u043E\u0437\u0456\u0457 \u041C\u0430\u043A\u0441.",
+  interval: "\u0406\u043D\u0442\u0435\u0440\u0432\u0430\u043B"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

@@ -105,7 +105,8 @@ const de = {
   ozone_max: "Ozon Max",
   pm10_max: "Feinstaub PM10 Max.",
   pm2_5_max: "Feinstaub pm2.5 Max.",
-  ragweed_pollen_max: "Ambrosiapollen Max."
+  ragweed_pollen_max: "Ambrosiapollen Max.",
+  interval: "Intervall"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

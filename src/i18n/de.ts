@@ -85,4 +85,5 @@ export const de = {
 	pm10_max: 'Feinstaub PM10 Max.',
 	pm2_5_max: 'Feinstaub pm2.5 Max.',
 	ragweed_pollen_max: 'Ambrosiapollen Max.',
+	interval: 'Intervall',
 };

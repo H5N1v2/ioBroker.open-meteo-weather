@@ -85,4 +85,5 @@ export const it = {
 	pm10_max: 'PM10 Max.',
 	pm2_5_max: 'PM2.5 Max.',
 	ragweed_pollen_max: 'Polline di Ambrosia Max.',
+	interval: 'Intervallo',
 };

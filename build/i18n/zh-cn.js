@@ -105,7 +105,8 @@ const zh = {
   ozone_max: "\u81ED\u6C27\u6700\u5927\u503C",
   pm10_max: "PM10\u6700\u5927\u503C",
   pm2_5_max: "PM2.5\u6700\u5927\u503C",
-  ragweed_pollen_max: "\u8C5A\u8349\u82B1\u7C89\u6700\u5927\u503C"
+  ragweed_pollen_max: "\u8C5A\u8349\u82B1\u7C89\u6700\u5927\u503C",
+  interval: "\u95F4\u9694"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

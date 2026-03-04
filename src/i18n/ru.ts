@@ -84,4 +84,5 @@ export const ru = {
 	pm10_max: 'PM10 Макс.',
 	pm2_5_max: 'PM2.5 Макс.',
 	ragweed_pollen_max: 'Пыльца Амброзии Макс.',
+	interval: 'Интервал',
 };
