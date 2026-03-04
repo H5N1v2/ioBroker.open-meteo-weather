@@ -101,6 +101,12 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) chore: update dependencies to latest versions
+* (mcm1957) fix: axios seems to be missing in dependencies
+* (mcm1957) fix: language used for stateIds and names
+* (mcm1957) fix: creation of intermediate objects missing
+
 ### 2.6.0 (2026-02-19)
 * (H5N1v2) feat: Leave latitude and longitude empty to use system coordinates in settings. 
 * (H5N1v2) feat: Added dropdown menu for timezones in settings.
