@@ -101,7 +101,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.6.2 (2026-03-25)
 * (H5N1v2) update @types/node dependency to version 22.19.15
 
 ### 2.6.1 (2026-03-04)

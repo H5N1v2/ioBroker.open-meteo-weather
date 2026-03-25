@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.6.1",
+    "version": "2.6.2",
     "news": {
+      "2.6.2": {
+        "en": "update @types/node dependency to version 22.19.15",
+        "de": "update @types/node abhängigkeit von version 22.19.15",
+        "ru": "обновление @types/node dependency до версии 22.19.15",
+        "pt": "atualizar @types/node dependência para a versão 22.19.15",
+        "nl": "update @types/node afhankelijkheid naar versie 22.19.15",
+        "fr": "mettre à jour la dépendance @types/node vers la version 22.19.15",
+        "it": "aggiornamento @types/node dipendenza alla versione 22.19.15",
+        "es": "actualización @tipos/node dependencia a la versión 22.19.15",
+        "pl": "aktualizacja @ types / zależność węzła od wersji 22.19.15",
+        "uk": "оновлення @types/node залежностей до версії 22.19.15",
+        "zh-cn": "将@types/节点依赖性更新到22.19.15版本"
+      },
       "2.6.1": {
         "en": "chore: update dependencies to latest versions\nfix: axios seems to be missing in dependencies\nfix: language used for stateIds and names\nfix: creation of intermediate objects missing",
         "de": "chore: die abhängigkeiten der neuesten versionen aktualisieren\nfix: axios scheint in abhängigkeiten zu fehlen\nfix: Sprache für Staat Ids und Namen\nfix: erstellung von zwischenobjekten fehlt",
@@ -80,19 +93,6 @@
         "pl": "fix: dostosować obliczenia fazy księżycowej dla dokładnego przypisania klucza fazy\ncore: update dependences\nDodano opcję wyboru między kierunkiem wiatru (docelowym) a ikonami pochodzenia wiatru (źródłowym) w Administracji.\nNowa struktura podfolderu dla alternatywnych ikon wiatrowych (direct _ 2).",
         "uk": "виправити: налаштувати розрахунок фази місяця для точного завдання фази\nchore: оновлення залежності\nДодана можливість вибрати між вітровим напрямком (випадання) і вітровим походженням (джерело) ікони в Admin.\nНова структура підпаперів для альтернативних значків вітру (direct_2).",
         "zh-cn": "固定:为精确的相键任务调整月相计算\n字符串:更新依赖关系\n在Admin中添加了选择风向(命运)和风源(源)图标的选项.\n替代风力图标的新子文件夹结构( direct_2)."
-      },
-      "2.3.0": {
-        "en": "Added: Daily air quality & pollen aggregation (configurable 1, 3, or 6 days).\nAdded: Human-readable text mapping for pollen levels (None, Low, Moderate, High).\nAdded: Weekday names (name_day) for air quality forecast days.\nChanged: Optimized object tree – only daily peak values are stored instead of bulky hourly data.\nChanged: Improved cleanup logic – obsolete forecast objects are automatically removed.",
-        "de": "Hinzugefügt: Tägliche Luftqualität & Pollenaggregation (konfigurierbar 1, 3, oder 6 Tage).\nHinzugefügt: Human lesbare Text-Mapping für Pollen-Level (Nein, Low, Moderate, High).\nHinzugefügt: Weekday-Namen (name_day) für die Luftqualität Vorhersage Tage.\nGeändert: Optimierter Objektbaum – anstelle von sperrigen Stundendaten werden nur tägliche Spitzenwerte gespeichert.\nGeändert: Verbesserte Aufräumlogik – veraltete Prognoseobjekte werden automatisch entfernt.",
-        "ru": "Ежедневное качество воздуха и агрегация пыльцы (настраиваемые 1, 3 или 6 дней).\nДобавлено: Человеческое текстовое отображение для уровней пыльцы (ни один, низкий, умеренный, высокий).\nДобавлено: Названия дней недели (name_day) для прогнозируемых дней качества воздуха.\nИзменилось: Оптимизированное дерево объектов — вместо громоздких почасовых данных хранятся только суточные пиковые значения.\nИзменилось: Улучшенная логика очистки - устаревшие прогнозируемые объекты автоматически удаляются.",
-        "pt": "Adicionado: Qualidade diária do ar e agregação de pólen (configurável 1, 3 ou 6 dias).\nAdicionado: Mapeamento de texto legível por humanos para níveis de pólen (Nenhum, Baixo, Moderado, Alto).\nAdicionado: Nomes de semana (nome_dia) para dias de previsão da qualidade do ar.\nAlterado: Árvore de objetos otimizada – apenas os valores de pico diários são armazenados em vez de dados horários volumosos.\nAlterado: Lógica de limpeza melhorada – objetos de previsão obsoletos são removidos automaticamente.",
-        "nl": "Toegevoegd: dagelijkse luchtkwaliteit & pollenaggregatie (configureerbare 1, 3 of 6 dagen).\nToegevoegd: Menselijk leesbare tekst mapping voor pollenniveaus (Geen, Laag, Matig, Hoog).\nToegevoegd: Weekdag namen (name_day) voor de luchtkwaliteit voorspelling dagen.\nGewijzigd: Geoptimaliseerde object boom .\nGewijzigd: Verbeterde opschoningslogica De verouderde voorspellingobjecten worden automatisch verwijderd.",
-        "fr": "Ajouté: Qualité de l'air quotidienne et agrégation du pollen (configurable 1, 3 ou 6 jours).\nAjout : cartographie textuelle lisible par l'homme pour les niveaux de pollen (Aucun, Faible, Modéré, Élevé).\nAjouté : Noms en semaine (nom_jour) pour les jours de prévision de la qualité de l'air.\nChangement : Arbre d'objets optimisé – seules les valeurs maximales quotidiennes sont stockées au lieu de données horaires volumineuses.\nChangement : Amélioration de la logique de nettoyage – les objets de prévision obsolètes sont automatiquement supprimés.",
-        "it": "Aggiunto: Daily air quality & pollen aggregation (configurabile 1, 3, o 6 giorni).\nAggiunto: Human-readable text mapping per i livelli di polline (None, Low, Moderate, High).\nAggiunto: Weekday names (name_day) per i giorni di previsione di qualità dell'aria.\nCambiato: Albero di oggetti ottimizzato – solo i valori di picco giornalieri vengono memorizzati al posto dei dati orari ingombranti.\nCambiato: Migliore logica di pulizia – gli oggetti previsionali obsoleti vengono rimossi automaticamente.",
-        "es": "Añadido: Calidad diaria del aire & agregación de polen (configurable 1, 3, o 6 días).\nAñadido: Cartografía de texto legible por humanos para niveles de polen (None, Low, Moderate, High).\nAñadido: Nombres semanales (nombre_día) para días de pronóstico de calidad del aire.\nCambio: Árbol de objeto optimizado - sólo los valores máximos diarios se almacenan en lugar de datos voluminosos por hora.\nCambio: Lógica de limpieza mejorada – objetos de pronóstico obsoletos se eliminan automáticamente.",
-        "pl": "Dodano: Dzienna jakość powietrza i agregacja pyłków (konfigurowalne 1, 3 lub 6 dni).\nDodano: Mapowanie tekstu do odczytu ludzkiego dla poziomów pyłków (None, Low, Moderate, High).\nDodano: Tygodniowe nazwy (name _ day) dla dni prognozowania jakości powietrza.\nZmieniono: Zoptymalizowane drzewo obiektów - zamiast dużych danych godzinowych przechowywane są tylko dzienne wartości szczytowe.\nZmieniono: Ulepszona logika czyszczenia - przestarzałe obiekty prognozowania są automatycznie usuwane.",
-        "uk": "Додано: Щоденна якість повітря та агрегатація забруднених речовин (налаштувати 1, 3, або 6 днів).\nДодано: Випробувано текстове картографування для рівня пилки (не, низький, помірний, високий).\nДодано: Щоденні імена (name_day) для прогнозування якості повітря.\nЗмінено: Оптимізоване дерево об'єкта – тільки добові пікові значення зберігаються замість об'ємних часових даних.\nЗмінено: Удосконалена логіка очищення – автоматично видаляються застарілі прогнозні об’єкти.",
-        "zh-cn": "添加:每日空气质量和花粉聚合(配置1,3或6天).\n添加:用于花粉水平(无,低,中,高)的人类可读文本映射.\n新增:空气质量预报日的周名(名称_天).\n已更改 : 优化对象树 — 仅存储日峰值而不是大块小时数据.\n已更改 : 改进后的清理逻辑 – 过时的预测对象会被自动删除."
       }
     },
     "titleLang": {
