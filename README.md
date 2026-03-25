@@ -101,6 +101,9 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) update @types/node dependency to version 22.19.15
+
 ### 2.6.1 (2026-03-04)
 * (H5N1v2) chore: update dependencies to latest versions
 * (mcm1957) fix: axios seems to be missing in dependencies
