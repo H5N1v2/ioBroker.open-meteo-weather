@@ -106,7 +106,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.6.3 (2026-03-26)
 * (H5N1v2) add sentry plugin to automatically report errors to developer
 
 ### 2.6.2 (2026-03-25)

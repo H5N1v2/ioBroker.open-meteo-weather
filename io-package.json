@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.6.2",
+    "version": "2.6.3",
     "news": {
+      "2.6.3": {
+        "en": "add sentry plugin to automatically report errors to developer",
+        "de": "sendry plugin hinzufügen, um automatisch fehler an entwickler zu melden",
+        "ru": "добавляйте шторный плагин для автоматического сообщения об ошибках разработчику",
+        "pt": "adicionar um 'plugin' de sentinela para comunicar automaticamente erros ao programador",
+        "nl": "toe te voegen wachtwoord plugin om automatisch fouten melden aan ontwikkelaar",
+        "fr": "ajouter le plugin sentiry pour signaler automatiquement les erreurs au développeur",
+        "it": "aggiungere plug-in inviato per segnalare automaticamente gli errori allo sviluppatore",
+        "es": "añadir plugin centry para reportar automáticamente errores al desarrollador",
+        "pl": "dodaj wtyczkę sentry do automatycznego zgłaszania błędów deweloperowi",
+        "uk": "додати плагін відправки, щоб автоматично звітувати помилки розробника",
+        "zh-cn": "添加哨兵插件以自动向开发者报告错误"
+      },
       "2.6.2": {
         "en": "update @types/node dependency to version 22.19.15",
         "de": "update @types/node abhängigkeit von version 22.19.15",
@@ -80,26 +93,13 @@
         "pl": "core: aktualizacja zależności do najnowszych wersji.\ndodaj link do Widget w konfiguracji instanz.",
         "uk": "chore: оновлення залежності до останніх версій.\nдодати посилання на Widget в конфігурації instanz.",
         "zh-cn": "chore:更新对最新版本的依赖性.\n在Instanz配置中添加链接."
-      },
-      "2.4.0": {
-        "en": "fix: adjust moon phase calculation for accurate phase key assignment\nchore: update dependencies\nAdded option to choose between wind direction (destination) and wind origin (source) icons in Admin.\nNew subfolder structure for alternative wind icons (direct_2).",
-        "de": "fix: mondphasenberechnung für genaue phasenschlüsselzuweisung einstellen\nchore: abhängigkeiten aktualisieren\nOption hinzugefügt, um zwischen Windrichtung (Destination) und Wind Herkunft (Quelle) Icons in Admin zu wählen.\nNeue Unterordnerstruktur für alternative Windsymbole (direct_2).",
-        "ru": "исправление: корректировка расчета фазы луны для точного назначения ключа фазы\nchore: зависимость от обновлений\nДобавлена опция выбора между иконками направления ветра (назначения) и происхождения ветра (источника) в Admin.\nНовая структура подпапки для альтернативных иконок ветра (direct_2).",
-        "pt": "correção: ajustar o cálculo da fase da lua para a atribuição precisa da chave da fase\ntarefa: atualizar dependências\nAdicionada opção para escolher entre direção do vento (destino) e ícones de origem do vento (fonte) no Admin.\nNova estrutura de subpastas para ícones de vento alternativos (direct_2).",
-        "nl": "fix: aanpassing maan fase berekening voor nauwkeurige fase sleutel toewijzing\nklus: update afhankelijkheden\nToegevoegd optie om te kiezen tussen windrichting (bestemming) en wind herkomst (bron) pictogrammen in Admin.\nNieuwe submappenstructuur voor alternatieve windpictogrammen (direct_2).",
-        "fr": "correctif: ajuster le calcul de la phase de lune pour l'attribution précise de la clé de phase\ncore: mise à jour des dépendances\nAjout d'une option pour choisir entre la direction du vent (destination) et l'origine du vent (source) icônes dans Admin.\nNouvelle structure de sous-dossier pour les icônes de vent alternatives (direct_2).",
-        "it": "correzione: regolare il calcolo della fase lunare per l'assegnazione accurata delle chiavi di fase\ncore: aggiornamento dipendenze\nAggiunta opzione per scegliere tra direzione del vento (destinazione) e icone di origine del vento (fonte) in Admin.\nNuova struttura sottocartelle per icone eoliche alternative (direct_2).",
-        "es": "fijación: ajuste el cálculo de fase lunar para una asignación precisa de claves de fase\ncoro: dependencias de actualización\nOpción agregada para elegir entre la dirección del viento (destinación) y el origen del viento (fuente) iconos en Admin.\nNueva estructura de subcarpeta para iconos de viento alternativos (direct_2).",
-        "pl": "fix: dostosować obliczenia fazy księżycowej dla dokładnego przypisania klucza fazy\ncore: update dependences\nDodano opcję wyboru między kierunkiem wiatru (docelowym) a ikonami pochodzenia wiatru (źródłowym) w Administracji.\nNowa struktura podfolderu dla alternatywnych ikon wiatrowych (direct _ 2).",
-        "uk": "виправити: налаштувати розрахунок фази місяця для точного завдання фази\nchore: оновлення залежності\nДодана можливість вибрати між вітровим напрямком (випадання) і вітровим походженням (джерело) ікони в Admin.\nНова структура підпаперів для альтернативних значків вітру (direct_2).",
-        "zh-cn": "固定:为精确的相键任务调整月相计算\n字符串:更新依赖关系\n在Admin中添加了选择风向(命运)和风源(源)图标的选项.\n替代风力图标的新子文件夹结构( direct_2)."
       }
     },
     "plugins": {
       "sentry": {
         "dsn": "https://b5bb6f5302fa433d9e0bfa5660a6320b@sentry.iknox.de/2"
       }
-    },    
+    },
     "titleLang": {
       "en": "Open-Meteo Weather Service",
       "de": "Open-Meteo Wetterdienst",
