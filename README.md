@@ -4,11 +4,16 @@
 [![NPM version](https://img.shields.io/npm/v/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.open-meteo-weather.svg)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 ![Number of Installations](https://iobroker.live/badges/open-meteo-weather-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/open-meteo-weather-stable.svg)
 
 [![NPM](https://nodei.co/npm/iobroker.open-meteo-weather.svg?data=d)](https://www.npmjs.com/package/iobroker.open-meteo-weather)
 
 ![Test and Release](https://github.com/H5N1v2/iobroker.open-meteo-weather/workflows/Test%20and%20Release/badge.svg) 
-![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.open-meteo-weather?label=npm%20dependencies&style=flat-square) ![node-lts](https://img.shields.io/node/v-lts/iobroker.open-meteo-weather?style=flat-square)
+![node-lts](https://img.shields.io/node/v-lts/iobroker.open-meteo-weather?style=flat-square)
+
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and instructions on disabling error reporting, please refer to the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Use of Sentry reporting starts with js-controller 3.0.
+
+I use my own Sentry server based on Glitchtip.
 
 **The Open-Meteo Weather Service Adapter for ioBroker.**
 
@@ -101,6 +106,9 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) add sentry plugin to automatically report errors to developer
+
 ### 2.6.2 (2026-03-25)
 * (H5N1v2) update @types/node dependency to version 22.19.15
 
