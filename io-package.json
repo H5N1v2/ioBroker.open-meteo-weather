@@ -95,6 +95,11 @@
         "zh-cn": "固定:为精确的相键任务调整月相计算\n字符串:更新依赖关系\n在Admin中添加了选择风向(命运)和风源(源)图标的选项.\n替代风力图标的新子文件夹结构( direct_2)."
       }
     },
+    "plugins": {
+      "sentry": {
+        "dsn": "https://b5bb6f5302fa433d9e0bfa5660a6320b@sentry.iknox.de/2"
+      }
+    },    
     "titleLang": {
       "en": "Open-Meteo Weather Service",
       "de": "Open-Meteo Wetterdienst",
