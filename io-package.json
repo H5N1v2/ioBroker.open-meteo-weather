@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "2.6.3",
+    "version": "2.6.4",
     "news": {
+      "2.6.4": {
+        "en": "Update axios dependency to version 1.14.0",
+        "de": "Update axios Abhängigkeit von Version 1.14.0",
+        "ru": "Зависимость аксиоса от версии 1.14.0",
+        "pt": "Atualizar dependência de axios para a versão 1.14.0",
+        "nl": "Axios afhankelijkheid bijwerken naar versie 1.14.0",
+        "fr": "Mettre à jour la dépendance axios vers la version 1.14.0",
+        "it": "Aggiornare la dipendenza dagli assi nella versione 1.14.0",
+        "es": "Actualizar la dependencia de axios a la versión 1.14.0",
+        "pl": "Aktualizuj zależność aksjosu od wersji 1.14.0",
+        "uk": "Update axios залежність до версії 1.14.0",
+        "zh-cn": "将轴依赖性更新到1.14.0版本"
+      },
       "2.6.3": {
         "en": "add sentry plugin to automatically report errors to developer",
         "de": "sendry plugin hinzufügen, um automatisch fehler an entwickler zu melden",
@@ -80,19 +93,6 @@
         "pl": "(H5N1v2) Nowy: Dodano opcję \"Bright Night Icons\". Możesz teraz wybrać między ciemnymi i jasnymi ikonami, aby uzyskać lepszą widoczność na różnych tle.\n(H5N1v2) Nowy: Dodano nowy katalog zestawu ikon / admin / icon / night _ bright / dla ulepszonej wizualizacji czasu nocnego.\n(H5N1v2) Nowy: Przenieś ikony nocy z / admin / ikony / ikony pogody _ ikony do / admin / ikony / noc _ dark.\n* (H5N1v2) Fix: Aktualizacja typów AdapterConfig do obsługi nowych pól konfiguracyjnych.\n* (H5N1v2) Fix: Ulepszona logika ścieżki ikon dla aktualnych prognoz pogody i godzinowych.",
         "uk": "* (H5N1v2) Новий: Додано варіант \"Брайт Night Icons\". Ви можете вибрати між темними і яскравими іконами для кращого видимості на різних фонах.\n* (H5N1v2) Нові: Додано новий каталог іконок /admin/icons/night_bright/ для розширеної візуалізації нічного часу.\n* (H5N1v2) Нові: Перемістити нічні іконки з /адмін / кремнію / weather_icons to /admin/icons/night_dark.\n* (H5N1v2) Фіксація: Оновлений адаптерНалаштування типів для підтримки нових конфігураційних полів.\n* (H5N1v2) Фіксація: Покращує логіку та часових прогнозів.",
         "zh-cn": "* (H5N1v2) (韩语). New: 添加了\"闪亮的夜晚图标\"选项. 现在可以在黑暗和光明的图标之间作出选择,以便在不同的背景上提高能见度.\n* (H5N1v2) (韩语). 新建 : 新增图标集目录/admin/icons/ night_bright/,用于增强夜间可视化.\n* (H5N1v2) (韩语). 新建 : 将夜间图标从/admin/icons/weather_icons移动到/admin/icons/ night_dark.\n* (H5N1v2) 固定号: 更新适配器Config类型以支持新的配置字段.\n* (H5N1v2) 固定号: 改进当前天气和小时预报的图标路径逻辑."
-      },
-      "2.4.1": {
-        "en": "chore: update dependencies to latest versions.\nadd link to Widget in instanz configuration.",
-        "de": "chore: aktualisieren abhängigkeiten auf neueste versionen.\nlink zu Widget in in instanz Konfiguration hinzufügen.",
-        "ru": "chore: обновление зависимостей до последних версий.\nдобавить ссылку на Widget в конфигурации instanz.",
-        "pt": "tarefa: atualizar dependências para versões mais recentes.\nadicionar link ao Widget na configuração do instanz.",
-        "nl": "klus: update afhankelijkheden van de nieuwste versies.\nlink naar Widget toevoegen in instanz configuratie.",
-        "fr": "core: mettre à jour les dépendances aux dernières versions.\najouter un lien vers Widget en configuration Instanz.",
-        "it": "core: aggiornare le dipendenze alle ultime versioni.\naggiungere link a Widget in configurazione instanz.",
-        "es": "coro: actualizar las dependencias a las últimas versiones.\nañadir enlace a Widget en configuración instanz.",
-        "pl": "core: aktualizacja zależności do najnowszych wersji.\ndodaj link do Widget w konfiguracji instanz.",
-        "uk": "chore: оновлення залежності до останніх версій.\nдодати посилання на Widget в конфігурації instanz.",
-        "zh-cn": "chore:更新对最新版本的依赖性.\n在Instanz配置中添加链接."
       }
     },
     "plugins": {
