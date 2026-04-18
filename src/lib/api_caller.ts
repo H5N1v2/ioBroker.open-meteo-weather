@@ -54,7 +54,7 @@ export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBrok
 	if (config.forecastHoursEnabled) {
 		const totalHours = config.forecastHours;
 		fHoursParam = `&forecast_hours=${totalHours}`;
-		fHoursParam_keys = `&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,precipitation,et0_fao_evapotranspiration,rain,weather_code,pressure_msl,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,soil_temperature_0cm,uv_index,sunshine_duration,is_day,snowfall,snow_depth,global_tilted_irradiance`;
+		fHoursParam_keys = `&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,precipitation,et0_fao_evapotranspiration,rain,weather_code,pressure_msl,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,soil_temperature_0cm,uv_index,sunshine_duration,is_day,snowfall,snow_depth,freezing_level_height,snowfall_height`;
 	}
 	const currentparam_keys =
 		'temperature_2m,relative_humidity_2m,pressure_msl,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day';
