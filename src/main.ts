@@ -2,11 +2,14 @@ import * as utils from '@iobroker/adapter-core';
 import { weatherTranslations } from './lib/words';
 import { translations } from './i18n';
 import { fetchAllWeatherData } from './lib/api_caller';
+import { PVService } from './lib/pv-service';
 import { unitMapMetric, unitMapImperial, unitTranslations } from './lib/units';
+import { getRole } from './lib/role_mapping';
 import * as SunCalc from 'suncalc';
 
 class OpenMeteoWeather extends utils.Adapter {
 	private updateInterval: ioBroker.Interval | undefined = undefined;
+	private pvService: PVService | undefined = undefined;
 	private systemLang: string = 'de';
 	private systemTimeZone: string = 'Europe/Berlin';
 
@@ -194,21 +197,21 @@ class OpenMeteoWeather extends utils.Adapter {
 			});
 
 			// 2. Den Datenpunkt lastUpdate erstellen
-			await this.extendObject('info.lastUpdate', {
+			await this.extendObject('info.lastUpdate_weather', {
 				type: 'state',
 				common: {
 					name: {
-						en: 'Last Update',
-						de: 'Letztes Update',
-						pl: 'Ostatnia aktualizacja',
-						ru: 'Последнее обновление',
-						it: 'Ultimo aggiornamento',
-						es: 'Última actualización',
-						'zh-cn': '最后更新',
-						fr: 'Dernière mise à jour',
-						pt: 'Última atualização',
-						nl: 'Laatste update',
-						uk: 'Останнє оновлення',
+						en: 'Last Update Weather Data',
+						de: 'Letztes Update Wetterdaten',
+						pl: 'Ostatnia aktualizacja danych pogodowych',
+						ru: 'Последнее обновление данных о погоде',
+						it: 'Ultimo aggiornamento dati meteo',
+						es: 'Última actualización de datos meteorológicos',
+						'zh-cn': '最后更新天气数据',
+						fr: 'Dernière mise à jour des données météorologiques',
+						pt: 'Última atualização dos dados meteorológicos',
+						nl: 'Laatste update van de weersgegevens',
+						uk: 'Останнє оновлення даних про погоду',
 					},
 					type: 'string',
 					role: 'date',
@@ -228,6 +231,26 @@ class OpenMeteoWeather extends utils.Adapter {
 
 		this.updateInterval = this.setInterval(() => this.updateData(), intervalMs);
 		this.log.debug(`onReady: Scheduled update every ${minutes} minutes.`);
+
+		if (this.config.enablePV) {
+			this.log.info('PV Service is enabled, initializing...');
+			try {
+				const pvService = new PVService(this);
+				await pvService.init();
+			} catch (err: any) {
+				this.log.error(`Failed to initialize PV Service: ${err}`);
+			}
+		} else {
+			// PV-Cleanup if PV is disabled
+			this.log.info('PV Service is disabled, checking for cleanup...');
+			try {
+				await this.delObjectAsync('pv-forecast', { recursive: true });
+				await this.delObjectAsync('info.lastUpdate_PV_Forecast');
+				this.log.debug('PV-Forecast data points cleaned up.');
+			} catch {
+				//silent catch
+			}
+		}
 	}
 
 	private async cleanupDeletedLocations(): Promise<void> {
@@ -251,6 +274,9 @@ class OpenMeteoWeather extends utils.Adapter {
 				const folderName = parts[2];
 
 				// 1. Ganze Stadt gelöscht?
+				if (folderName === 'pv-forecast' || folderName === 'info') {
+					continue;
+				}
 				if (!validFolders.has(folderName)) {
 					this.log.info(`Delete outdated location:: ${folderName}`);
 					await this.delObjectAsync(objId, { recursive: true });
@@ -339,7 +365,14 @@ class OpenMeteoWeather extends utils.Adapter {
 			const locations = config.locations;
 
 			if (!locations || !Array.isArray(locations) || locations.length === 0) {
-				this.log.warn('No locations configured.');
+				if (!this.config.enablePV) {
+					this.log.warn(
+						'No locations configured. Please add at least one weather location or enable PV-Forecast.',
+					);
+				} else {
+					this.log.debug('Skipping weather update because no locations are defined (PV-Forecast is active).');
+					await this.delObjectAsync('info.lastUpdate_weather');
+				}
 				return;
 			}
 
@@ -542,7 +575,7 @@ class OpenMeteoWeather extends utils.Adapter {
 					await this.processAirQualityData(data.air, folderName);
 				}
 			}
-			this.log.debug('updateData: All locations processed successfully.');
+			this.log.debug('updateData: All Weather locations processed successfully.');
 
 			// Zeitstempel für letztes Update setzen
 			const now = new Date();
@@ -553,7 +586,7 @@ class OpenMeteoWeather extends utils.Adapter {
 			const minutes = String(now.getMinutes()).padStart(2, '0');
 			const seconds = String(now.getSeconds()).padStart(2, '0');
 			const timestamp = `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
-			await this.setState('info.lastUpdate', { val: timestamp, ack: true });
+			await this.setState('info.lastUpdate_weather', { val: timestamp, ack: true });
 		} catch (error: any) {
 			this.log.error(`Retrieval failed: ${error.message}`);
 		} finally {
@@ -575,7 +608,11 @@ class OpenMeteoWeather extends utils.Adapter {
 				typeof data.current.relative_humidity_2m === 'number'
 			) {
 				const dp = this.calculateDewPoint(data.current.temperature_2m, data.current.relative_humidity_2m);
-				await this.extendOrCreateState(`${root}.dew_point_2m`, dp, 'dew_point_2m');
+				// Wir nutzen getRole, damit auch hier die Logik (Stunde 0 vs andere) greift
+				const dpRole = getRole('current', 'dew_point_2m');
+
+				// Jetzt korrekt: ID, Wert, ROLLE, TranslationKey
+				await this.extendOrCreateState(`${root}.dew_point_2m`, dp, dpRole, 'dew_point_2m');
 			}
 
 			for (const key in data.current) {
@@ -590,21 +627,26 @@ class OpenMeteoWeather extends utils.Adapter {
 						hour12: this.systemLang === 'en',
 					});
 				}
-				await this.extendOrCreateState(`${root}.${key}`, val, key);
+				const role = getRole('current', key);
+				await this.extendOrCreateState(`${root}.${key}`, val, role, key);
 
 				if (key === 'weather_code') {
 					await this.createCustomState(`${root}.weather_text`, t.codes[val] || '?', 'string', 'text', '');
 
-					// Nacht-Icon Logik
+					// Konfiguration auslesen
 					const useNightBright = this.config.isNight_icon;
-					const iconPath =
-						isDay === 1
+					const useAnimated = this.config.select_icon === 0;
+
+					// Icon Pfad Logik
+					const iconPath = useAnimated
+						? `/adapter/${this.name}/icons/animated/${isDay === 1 ? 'day' : 'night'}/${val}.svg`
+						: isDay === 1
 							? `/adapter/${this.name}/icons/weather_icons/${val}.png`
 							: useNightBright
 								? `/adapter/${this.name}/icons/night_bright/${val}nh.png`
 								: `/adapter/${this.name}/icons/night_dark/${val}n.png`;
 
-					await this.createCustomState(`${root}.icon_url`, iconPath, 'string', 'url', '');
+					await this.createCustomState(`${root}.icon_url`, iconPath, 'string', 'weather.icon', '');
 				}
 				if (key === 'wind_direction_10m' && typeof val === 'number') {
 					await this.createCustomState(
@@ -618,7 +660,7 @@ class OpenMeteoWeather extends utils.Adapter {
 						`${root}.wind_direction_icon`,
 						this.getWindDirectionIcon(val),
 						'string',
-						'url',
+						'weather.icon.wind',
 						'',
 					);
 				}
@@ -627,7 +669,7 @@ class OpenMeteoWeather extends utils.Adapter {
 						`${root}.wind_gust_icon`,
 						this.getWindGustIcon(val),
 						'string',
-						'url',
+						'weather.icon.wind',
 						'',
 					);
 				}
@@ -723,6 +765,16 @@ class OpenMeteoWeather extends utils.Adapter {
 					'url',
 					'',
 				);
+				const sunTimes = SunCalc.getTimes(forecastDate, lat, lon);
+				const solarNoon = sunTimes.solarNoon
+					? sunTimes.solarNoon.toLocaleTimeString(this.systemLang, {
+							hour: '2-digit',
+							minute: '2-digit',
+							hour12: this.systemLang === 'en',
+						})
+					: '--:--';
+
+				await this.createCustomState(`${dayPath}.solar_noon`, solarNoon, 'string', 'value', '');
 
 				// Name des Tages: Wochentag
 				const nameDay = forecastDate.toLocaleDateString(this.systemLang, { weekday: 'long' });
@@ -748,7 +800,8 @@ class OpenMeteoWeather extends utils.Adapter {
 						});
 					}
 
-					await this.extendOrCreateState(`${dayPath}.${key}`, val, key);
+					const role = getRole('daily', key, i);
+					await this.extendOrCreateState(`${dayPath}.${key}`, val, role, key);
 
 					if (key === 'wind_direction_10m_dominant' && typeof val === 'number') {
 						await this.createCustomState(
@@ -785,9 +838,11 @@ class OpenMeteoWeather extends utils.Adapter {
 						);
 						await this.createCustomState(
 							`${dayPath}.icon_url`,
-							`/adapter/${this.name}/icons/weather_icons/${val}.png`,
+							this.config.select_icon === 0
+								? `/adapter/${this.name}/icons/animated/day/${val}.svg`
+								: `/adapter/${this.name}/icons/weather_icons/${val}.png`,
 							'string',
-							'url',
+							`weather.icon.forecast.${i}`,
 							'',
 						);
 					}
@@ -888,7 +943,27 @@ class OpenMeteoWeather extends utils.Adapter {
 						if (key === 'sunshine_duration' && typeof val === 'number') {
 							val = parseFloat((val / 3600).toFixed(2));
 						}
-						await this.extendOrCreateState(`${hourPath}.${key}`, val, key);
+						const role = getRole('hourly', key, i);
+						await this.extendOrCreateState(`${hourPath}.${key}`, val, role, key);
+
+						if (key === 'snowfall_height' && typeof val === 'number') {
+							const currentPrecip = data.hourly.precipitation ? data.hourly.precipitation[i] : 0;
+
+							let finalValue = 0;
+
+							// Logik: Nur wenn Niederschlag > 0 UND die Höhe nicht negativ ist
+							if (currentPrecip > 0 && val >= 0) {
+								finalValue = val;
+							} else {
+								const freezingLevel = data.hourly.freezing_level_height
+									? data.hourly.freezing_level_height[i]
+									: 0;
+
+								finalValue = Math.max(0, freezingLevel - 300);
+							}
+
+							await this.createCustomState(`${hourPath}.snowfall_height`, finalValue, 'number', role, '');
+						}
 
 						if (key === 'weather_code') {
 							await this.createCustomState(
@@ -898,16 +973,30 @@ class OpenMeteoWeather extends utils.Adapter {
 								'text',
 								'',
 							);
-							const currentIsDayh = isDay ? isDay[i] : 1;
+
+							// Vorbereitungen für die Icon-Logik
+							const currentIsDayh = isDay ? isDay[i] : 1; // 1 = Tag, 0 = Nacht
 							const useNightBright = this.config.isNight_icon;
-							const iconPathHourly =
-								currentIsDayh === 1
+							const useAnimated = this.config.select_icon === 0;
+
+							// Die kombinierte Pfad-Logik für stündliche Icons
+							const iconPathHourly = useAnimated
+								? `/adapter/${this.name}/icons/animated/${currentIsDayh === 1 ? 'day' : 'night'}/${val}.svg`
+								: currentIsDayh === 1
 									? `/adapter/${this.name}/icons/weather_icons/${val}.png`
 									: useNightBright
 										? `/adapter/${this.name}/icons/night_bright/${val}nh.png`
 										: `/adapter/${this.name}/icons/night_dark/${val}n.png`;
 
-							await this.createCustomState(`${hourPath}.icon_url`, iconPathHourly, 'string', 'url', '');
+							//await this.createCustomState(`${hourPath}.icon_url`, iconPathHourly, 'string', 'url', '');
+							const iconRole = `weather.icon.forecast.${i}`;
+							await this.createCustomState(
+								`${hourPath}.icon_url`,
+								iconPathHourly,
+								'string',
+								iconRole,
+								'',
+							);
 						}
 						if (key === 'wind_direction_10m' && typeof val === 'number') {
 							await this.createCustomState(
@@ -961,7 +1050,8 @@ class OpenMeteoWeather extends utils.Adapter {
 						hour12: this.systemLang === 'en',
 					});
 				}
-				await this.extendOrCreateState(`${root}.${key}`, val, key);
+				const role = getRole('current', key);
+				await this.extendOrCreateState(`${root}.${key}`, val, role, key);
 
 				if (key.includes('pollen')) {
 					const pollenText = this.mapPollenToText(val, t, key);
@@ -1006,7 +1096,7 @@ class OpenMeteoWeather extends utils.Adapter {
 
 				// States für Zeit/Tag schreiben
 				await this.createCustomState(`${dayPath}.name_day`, nameDay, 'string', 'text', '');
-				await this.createCustomState(`${dayPath}.date`, dayDate, 'string', 'value', '');
+				await this.createCustomState(`${dayPath}.date`, dayDate, 'string', `date.forecast.${day}`, '');
 
 				for (const key in data.hourly) {
 					if (key === 'time') {
@@ -1016,7 +1106,7 @@ class OpenMeteoWeather extends utils.Adapter {
 					const hourlyValues = data.hourly[key].slice(startIdx, endIdx);
 					if (hourlyValues.length > 0) {
 						const maxVal = Math.max(...hourlyValues);
-						await this.extendOrCreateState(`${dayPath}.${key}_max`, maxVal, `${key}_max`);
+						await this.extendOrCreateState(`${dayPath}.${key}_max`, maxVal, 'value', `${key}_max`);
 
 						if (key.includes('pollen')) {
 							const pollenText = this.mapPollenToText(maxVal, t, key);
@@ -1073,8 +1163,13 @@ class OpenMeteoWeather extends utils.Adapter {
 		await this.setState(id, { val, ack: true });
 	}
 
-	// Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten zu
-	private async extendOrCreateState(id: string, val: any, translationKey?: string): Promise<void> {
+	// Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten und Rollen zu
+	private async extendOrCreateState(
+		id: string,
+		val: any,
+		role: string = 'value',
+		translationKey?: string,
+	): Promise<void> {
 		// Objekt-Caching: Nur erstellen, wenn noch nicht im Set vorhanden
 		if (!this.createdObjects.has(id)) {
 			let unit = '';
@@ -1087,7 +1182,7 @@ class OpenMeteoWeather extends utils.Adapter {
 
 			const displayUnit = unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit;
 
-			this.log.debug(`extendOrCreateState: Creating state ${id} (unit: ${displayUnit})`);
+			this.log.debug(`extendOrCreateState: Creating state ${id} (role: ${role}, unit: ${displayUnit})`);
 
 			const idParts = id.split('.');
 			const lastPart = idParts[idParts.length - 1] || id;
@@ -1098,7 +1193,7 @@ class OpenMeteoWeather extends utils.Adapter {
 				common: {
 					name: this.getI18nObject(key),
 					type: typeof val as any,
-					role: 'value',
+					role: role,
 					read: true,
 					write: false,
 					unit: displayUnit,
@@ -1115,6 +1210,10 @@ class OpenMeteoWeather extends utils.Adapter {
 		this.log.debug('onUnload: Cleaning up intervals.');
 		if (this.updateInterval) {
 			this.clearInterval(this.updateInterval);
+		}
+		if (this.pvService) {
+			this.log.debug('onUnload: Stopping PV-Service.');
+			this.pvService.destroy();
 		}
 		callback();
 	}
