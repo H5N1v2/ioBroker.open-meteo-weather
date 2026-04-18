@@ -1,3 +1,4 @@
+
 {
   "i18n": true,
   "type": "tabs",
@@ -31,7 +32,7 @@
         "locationLabel": {
           "type": "header",
           "text": "location_header_text",
-          "size": 5,
+          "size": 2,
           "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
         },
         "locations": {
@@ -53,19 +54,7 @@
               "title": "latitude_label",
               "label": "",
               "width": "150px",
-              "help": {
-                "en": "Leave empty to use system latitude",
-                "de": "Leer lassen, um System-Breitengrad zu verwenden",
-                "fr": "Laissez vide pour utiliser la latitude du système",
-                "es": "Dejar vacío para usar la latitud del sistema",
-                "it": "Lascia vuoto per utilizzare la latitudine del sistema",
-                "pt": "Deixe vazio para usar a latitude do sistema",
-                "nl": "Leeg laten om systeem breedtegraad te verwenden",
-                "pl": "Pozostaw puste, aby użyć szerokości geograficznej systemu",
-                "ru": "Оставьте пустым, чтобы использовать широту системы",
-                "uk": "Залиште порожнім, щоб використовувати широту системы",
-                "zh-cn": "留空以使用系统纬度"
-              }              
+              "help": "coordinates_help_label"              
             },
             {
               "type": "text",
@@ -73,19 +62,7 @@
               "title": "longitude_label",
               "label": "",
               "width": "150px",
-              "help": {
-                "en": "Leave empty to use system longitude",
-                "de": "Leer lassen, um System-Längengrad zu verwenden",
-                "fr": "Laissez vide pour utiliser la longitude du système",
-                "es": "Dejar vacío para usar la longitud del sistema",
-                "it": "Lascia vuoto per utilizzare la longitudine del sistema",
-                "pt": "Deixe vazio para usar a longitude do sistema",
-                "nl": "Leeg laten om systeem lengtegraad te verwenden",
-                "pl": "Pozostaw puste, aby użyć długości geograficznej systemu",
-                "ru": "Оставьте пустым, чтобы использовать долгоtu системы",
-                "uk": "Залиште порожнім, щоб використовувати долгоtu системы",
-                "zh-cn": "留空以使用系统经度"
-              }
+              "help": "coordinates_help_label"
             },
             {
               "type": "select",
@@ -151,7 +128,7 @@
         "options_header": {
           "type": "header",
           "text": "options_header_text",
-          "size": 5,
+          "size": 2,
           "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
         },
         "updateInterval": {
@@ -185,26 +162,6 @@
             "options": [
                 { "value": false, "label": "metric_label" },
                 { "value": true, "label": "imperial_label" }
-            ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
-        },
-        "isWinddirection_icon": {
-            "type": "select",
-            "label": "windicon_system_label",
-            "default": false,
-            "options": [
-                { "value": false, "label": "direct1_label" },
-                { "value": true, "label": "direct2_label" }
-            ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
-        },
-        "isNight_icon": {
-            "type": "select",
-            "label": "isnight_system_label",
-            "default": false,
-            "options": [
-                { "value": false, "label": "dark_label" },
-                { "value": true, "label": "bright_label" }
             ],
             "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
         },
@@ -254,8 +211,420 @@
           ],
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3,
           "hidden": "!data.airQualityEnabled"
-        }
+        },
+                  "divider4": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }
       }
-    }
+    },
+    "tab": {
+      "type": "panel",
+      "label": "settings_label2",
+      "items": {
+          "IconLabel": {
+          "type": "header",
+          "text": "icon_select_label",
+          "size": 2,
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
+        },
+        "select_icon": {
+            "type": "select",
+            "label": "icon_system_label",
+            "default": 1,
+            "options": [
+                { "value": 0, "label": "animated_label" },
+                { "value": 1, "label": "static_label" }
+            ],
+            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
+        },
+        "ico_preview_static_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/0.png","newLine": true,"hidden": "data.select_icon !== 1"},
+        "ico_preview_static_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/3.png","hidden": "data.select_icon !== 1"}, 
+        "ico_preview_static_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/51.png","hidden": "data.select_icon !== 1"}, 
+        "ico_preview_static_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/61.png","hidden": "data.select_icon !== 1"},
+        "ico_preview_animated_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/0.svg","newLine": true,"hidden": "data.select_icon !== 0"},
+        "ico_preview_animated_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/3.svg","hidden": "data.select_icon !== 0"}, 
+        "ico_preview_animated_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/51.svg","hidden": "data.select_icon !== 0"}, 
+        "ico_preview_animated_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/61.svg","hidden": "data.select_icon !== 0"},
+        "isNight_icon": {
+            "type": "select",
+            "label": "isnight_system_label",
+            "default": false,
+            "options": [
+                { "value": false, "label": "dark_label" },
+                { "value": true, "label": "bright_label" }
+            ],
+            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2,
+            "disabled": "!data.select_icon==1",
+            "newLine": true
+        },
+        "ico_preview_static_dn_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/0n.png","newLine": true,"hidden": "data.isNight_icon !== false || data.select_icon !== 1"},
+        "ico_preview_static_dn_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/3n.png","hidden": "data.isNight_icon !== false || data.select_icon !== 1"}, 
+        "ico_preview_static_dn_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/51n.png","hidden": "data.isNight_icon !== false || data.select_icon !== 1"}, 
+        "ico_preview_static_dn_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/61n.png","hidden": "data.isNight_icon !== false || data.select_icon !== 1"}, 
+        "ico_preview_static_bn_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/0nh.png","newLine": true,"hidden": "data.isNight_icon !== true || data.select_icon !== 1"},
+        "ico_preview_static_bn_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/3nh.png","hidden": "data.isNight_icon !== true || data.select_icon !== 1"}, 
+        "ico_preview_static_bn_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/51nh.png","hidden": "data.isNight_icon !== true || data.select_icon !== 1"}, 
+        "ico_preview_static_bn_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/61nh.png","hidden": "data.isNight_icon !== true || data.select_icon !== 1"},
+            
+            "isWinddirection_icon": {
+            "type": "select",
+            "label": "windicon_system_label",
+            "default": false,
+            "options": [
+                { "value": false, "label": "direct1_label" },
+                { "value": true, "label": "direct2_label" }
+            ],
+            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2,
+            "newLine": true 
+          },
+          "ico_preview_wind1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/wind_direction_icons/n.png","newLine": true,"hidden": "data.isWinddirection_icon !== true"},
+          "text_preview_wind1": {"type": "staticText","xs": 10, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== true"},
+          "ico_preview_wind2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/wind_direction_icons/direct_2/n.png","newLine": true,"hidden": "data.isWinddirection_icon !== false"},
+          "text_preview_wind2": {"type": "staticText","xs": 10, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_from_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== false"}
+        }
+    },
+    "tab3": {
+      "type": "panel",
+      "label": "settings_label3",
+      "items": {
+          "IconLabel": {
+          "type": "header",
+          "text": "pv_select_label",
+          "size": 2,
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
+        },
+            "enablePV": {
+            "type": "checkbox",
+            "label": "enablePV_label",
+            "help": "enablePV_help",
+            "default": false,
+            "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+          "help_logo": {
+            "newLine": true,
+            "type": "staticImage",
+            "src": "img/doc.png",
+			"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
+			"style": {
+					"width": "800px",
+					"height": "436px",
+					"marginBottom": "20px",
+					"display": "block",
+					"marginLeft": "auto",
+					"marginRight": "auto"
+				}
+        },
+        "_info": {
+            "type": "header",
+            "text": "info_header_label",
+            "size": 2,
+			"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
+        },  
+        "pv_forecastHours": {
+          "disabled": "!data.enablePV",
+          "type": "select",
+          "label": "forecastHours_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,
+          "options": [
+            {"label": "3", "value": 3},
+            {"label": "6", "value": 6},
+            {"label": "12", "value": 12},
+            {"label": "24", "value": 24},
+            {"label": "48", "value": 48}
+          ],
+          "newLine": true
+        },
+        "forecastDays_pv": {
+          "disabled": "!data.enablePV",
+          "type": "select",
+          "label": "forecastDays_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,
+          "default": 7,
+          "options": [
+            {"label": "3", "value": 3},
+            {"label": "5", "value": 5},
+            {"label": "7", "value": 7},
+            {"label": "14", "value": 14}
+          ]
+        },		
+        "pv_updateInterval": {
+          "disabled": "!data.enablePV",
+          "type": "select",
+          "label": "updateInterval_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,
+          "default": 15,
+          "options": [
+            { "value": 15, "label": "interval_15_min" },
+            { "value": 30, "label": "interval_30_min" },
+            { "value": 60, "label": "interval_60_min" },
+            { "value": "sunrise", "label": "Once_before_sunrise" }
+          ],
+          "help": "updateInterval_help"
+        },
+          "_settingsHeader": {
+          "type": "header",
+          "text": "settingsHeader_help_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,			
+          "size": 2,
+          "newLine": true
+        },
+          "hourlyUpdate": {
+          "disabled": "!data.enablePV",
+          "type": "select",
+          "label": "hourlyUpdate_help_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,
+          "default": 0,
+          "options": [
+            { "value": 0, "label": "rolling_hours_label" },
+            { "value": 1, "label": "fixed_hours_label"}
+          ],
+          "help": "fixed_rolling_help_label"
+        },		
+        "minutes_15": {
+          "disabled": "!data.enablePV",
+          "type": "checkbox",
+          "label": "minutes_15_label",
+          "help": "minutes_15_help_label",
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },		
+          "hours_json": {
+          "disabled": "!data.enablePV",
+          "type": "checkbox",
+          "label": "hours_json_label",
+          "help": "hours_json_help_label",
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },		
+          "minutes_15_json": {
+          "disabled": "!data.enablePV",
+          "type": "checkbox",
+          "label": "minutes_15_json_label",
+          "help": "minutes_15_json_help_label",
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "divider5": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 },
+        "text_preview_extradbs": {"type": "staticText","xs": 10, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "extra_dbs_help","style": {"color": "yellow", "fontStyle": "italic", "marginTop": "20px","newLine": true}},
+
+          "sunshine_duration": {
+          "disabled": "!data.enablePV",
+          "type": "checkbox",
+          "label": "sunshine_duration_label",
+          "default": false,
+          "newLine": true,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+           "cloud_cover": {
+          "disabled": "!data.enablePV",
+          "type": "checkbox",
+          "label": "cloud_cover_label",
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },        
+        "_locationsHeader": {
+          "type": "header",
+          "text": "locations_header_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,			
+          "size": 2,
+          "newLine": true
+        },
+          "pv_loc_help_text": {
+          "hidden": "data.enablePV",
+          "type": "staticText",
+          "text": "pv_loc_info_label",
+          "style": {"fontStyle": "italic", "fontSize": "large", "color": "red"},
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
+          "newLine": true
+        },
+        "pv_locations": {
+          "type": "table",
+          "hidden": "!data.enablePV",
+          "newLine": true,
+          "label": "locations_pv_label",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
+          "items": [
+            {
+              "type": "text",
+              "title": "name",
+              "attr": "name",
+              "width": "20%",
+              "filter": false,
+              "sort": true,
+              "validator": "data.name && data.name.length > 0"
+            },
+            {
+              "type": "text",
+              "title": "latitude_label",
+              "attr": "pv_latitude",
+              "width": "13%",
+              "filter": false,
+              "sort": false,
+              "help": "coordinates_help_label"
+            },
+            { 
+              "type": "text",
+              "title": "longitude_label",
+              "attr": "pv_longitude",
+              "width": "13%",
+              "filter": false,
+              "sort": false,
+              "help": "coordinates_help_label"
+            },
+            {
+              "type": "number",
+              "title": "tilt_label",
+              "attr": "tilt",
+              "width": "13%",
+              "filter": false,
+              "sort": false,
+              "min": 0,
+              "max": 90,
+              "validator": "data.tilt !== undefined && data.tilt >= 0 && data.tilt <= 90"
+            },
+            {
+              "type": "number",
+              "title": "azimuth_label",
+              "attr": "azimuth",
+              "width": "13%",
+              "filter": false,
+              "sort": false,
+              "min": -180,
+              "max": 180,
+              "validator": "data.azimuth !== undefined && data.azimuth >= -180 && data.azimuth <= 180"
+            },
+            {
+              "type": "number",
+              "title": "kwp_label",
+              "attr": "kwp",
+              "width": "13%",
+              "filter": false,
+              "sort": false,
+              "min": 0,
+              "validator": "data.kwp !== undefined && data.kwp >= 0"
+            },
+            {
+              "type": "select",
+              "title": "pv_timezone_label",
+              "attr": "pv_timezone",
+              "width": "18%",
+              "filter": false,
+              "sort": false,
+              "validator": "data.pv_timezone && data.pv_timezone.length > 0",
+              "options":[
+                  { "value": "auto", "label": "autom" },
+                  { "value": "GMT", "label": "GMT / UTC" },
+                  { "value": "Europe/Berlin", "label": "Europa/Berlin" },
+                  { "value": "Europe/London", "label": "Europe/London" },
+                  { "value": "Europe/Moscow", "label": "Europe/Moscow" },
+                  { "value": "America/New_York", "label": "America/New York" },
+                  { "value": "America/Chicago", "label": "America/Chicago" },
+                  { "value": "America/Denver", "label": "America/Denver" },
+                  { "value": "America/Los_Angeles", "label": "America/Los Angeles" },
+                  { "value": "America/Sao_Paulo", "label": "America/Sao Paulo" },
+                  { "value": "America/Anchorage", "label": "America/Anchorage" },
+                  { "value": "Asia/Tokyo", "label": "Asia/Tokyo" },
+                  { "value": "Asia/Bangkok", "label": "Asia/Bangkok" },
+                  { "value": "Asia/Singapore", "label": "Asia/Singapore" },
+                  { "value": "Australia/Sydney", "label": "Australia/Sydney" },
+                  { "value": "Africa/Cairo", "label": "Afrika/Cairo" },
+                  { "value": "Pacific/Auckland", "label": "Pacific/Auckland" }
+                ],
+                "default": "auto"
+            },
+            {
+              "type": "custom",
+              "label": "actions",
+              "i18n": true
+            }
+          ]
+        },
+        "_locationHelp": {
+          "type": "staticText",
+          "text": "location_help",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
+          "style": {
+            "fontSize": "smaller",
+            "fontStyle": "italic"
+          }		
+        },
+          "_settingsHeader_sum": {
+          "type": "header",
+          "text": "_settingsHeader_sum_help",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4,			
+          "size": 2,
+          "newLine": true
+        },
+        "locationsTotal": 
+            {
+          "type": "checkbox",
+          "label": "locationsTotal_label",
+          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",		
+          "default": false,
+          "help": "locationsTotal_help",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+            },
+        "locationsTotal_hourly": {
+          "type": "checkbox",
+          "label": "locationsTotal_hourly_label",
+          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",	
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+            },
+        "locationsTotal_minutely": {
+          "type": "checkbox",
+          "label": "locationsTotal_minutely_label",
+          "disabled": "!data.enablePV || !data.minutes_15 || !data.pv_locations || data.pv_locations.length < 2",	
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+            },
+          "locationsTotal_minutely_json": {
+          "type": "checkbox",
+          "label": "locationsTotal_minutely_json_label",
+          "disabled": "!data.enablePV || !data.minutes_15 || !data.pv_locations || data.pv_locations.length < 2",	
+          "default": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+            },
+          "locationsTotal_hourly_json": {
+          "type": "checkbox",
+          "label": "locationsTotal_hourly_json_label",
+          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",	
+          "default": false,
+          "help": "locationsTotal_hourly_json_help_label",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3        
+          }
+      } 
+    } 
   }
 }
