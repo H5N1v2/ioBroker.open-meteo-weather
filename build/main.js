@@ -851,7 +851,7 @@ class OpenMeteoWeather extends utils.Adapter {
                 finalValue = val;
               } else {
                 const freezingLevel = data.hourly.freezing_level_height ? data.hourly.freezing_level_height[i] : 0;
-                finalValue = Math.max(0, freezingLevel - 250);
+                finalValue = Math.max(0, freezingLevel - 300);
               }
               await this.createCustomState(`${hourPath}.snowfall_height`, finalValue, "number", role, "");
             }
