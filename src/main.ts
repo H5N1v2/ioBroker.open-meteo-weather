@@ -611,7 +611,6 @@ class OpenMeteoWeather extends utils.Adapter {
 				// Wir nutzen getRole, damit auch hier die Logik (Stunde 0 vs andere) greift
 				const dpRole = getRole('current', 'dew_point_2m');
 
-				// Jetzt korrekt: ID, Wert, ROLLE, TranslationKey
 				await this.extendOrCreateState(`${root}.dew_point_2m`, dp, dpRole, 'dew_point_2m');
 			}
 
@@ -757,7 +756,7 @@ class OpenMeteoWeather extends utils.Adapter {
 					'',
 				);
 
-				// Erstellt die Icon-URL für die Mondphase
+				// Erstellt Icon-URL für die Mondphase
 				await this.createCustomState(
 					`${dayPath}.moon_phase_icon`,
 					this.getMoonPhaseIcon(phaseKey),
@@ -974,12 +973,12 @@ class OpenMeteoWeather extends utils.Adapter {
 								'',
 							);
 
-							// Vorbereitungen für die Icon-Logik
+							// Vorbereitungen Icon-Logik
 							const currentIsDayh = isDay ? isDay[i] : 1; // 1 = Tag, 0 = Nacht
 							const useNightBright = this.config.isNight_icon;
 							const useAnimated = this.config.select_icon === 0;
 
-							// Die kombinierte Pfad-Logik für stündliche Icons
+							// Kombinierte Pfad-Logik für stündliche Icons
 							const iconPathHourly = useAnimated
 								? `/adapter/${this.name}/icons/animated/${currentIsDayh === 1 ? 'day' : 'night'}/${val}.svg`
 								: currentIsDayh === 1
@@ -1064,7 +1063,7 @@ class OpenMeteoWeather extends utils.Adapter {
 			for (let day = 0; day < aqForecastDays; day++) {
 				const dayPath = `${locationPath}.air.forecast.day${day}`;
 
-				// --- NEU: Intermediate Objects (Channels) ---
+				// Intermediate Objects (Channels)
 				const dayName = {
 					en: `Day ${day}`,
 					de: `Tag ${day}`,
