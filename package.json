@@ -1,6 +1,6 @@
 {
   "name": "iobroker.open-meteo-weather",
-  "version": "2.6.4",
+  "version": "3.0.0",
   "description": "Get local weather, air quality, pollen and Photovoltaic Forecast data from Open-Meteo.com",
   "author": {
     "name": "H5N1",

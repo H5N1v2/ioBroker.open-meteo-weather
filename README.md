@@ -248,7 +248,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.0 (2026-04-18)
 * (H5N1v2) merged open-meteo-weather and open-meteo-pv-forecast
 * (H5N1v2) adding icon selection tab and animated icons for weather by Bas Milius
 * (H5N1v2) adding solar_noon in daily, freezing_level_height and snowfall_height in hourly
