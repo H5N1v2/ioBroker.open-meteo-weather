@@ -2,15 +2,19 @@
 	"cli": true,
 	"target": "directory",
 	"adapterName": "open-meteo-weather",
-	"title": "Open-Meteo Weather Service",
-	"description": "Get local weather, air quality and pollen data from Open-Meteo.com",
+	"title": "Open-Meteo Weather & PV Forecast Service",
+	"description": "Get local weather, air quality, pollen data and Photovoltaic Forecast from Open-Meteo.com",
 	"keywords": [
-      "weather",
-      "forecast",
-      "open-meteo",
-      "pollen",
-      "air quality"
-	],
+		"weather",
+		"forecast",
+		"open-meteo",
+		"pollen",
+		"air quality",
+		"solar",
+		"pv",
+		"photovoltaics",
+		"photovoltaik"
+		],
 	"expert": "no",
 	"features": [
 		"adapter"
