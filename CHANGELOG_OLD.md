@@ -1,5 +1,9 @@
 ## CHANGELOG OLD
 
+### 2.6.0 (2026-02-19)
+* (H5N1v2) feat: Leave latitude and longitude empty to use system coordinates in settings. 
+* (H5N1v2) feat: Added dropdown menu for timezones in settings.
+
 ### 2.5.1 (2026-02-17)
 * (oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.
 * (H5N1) chore: update dependencies to latest versions
