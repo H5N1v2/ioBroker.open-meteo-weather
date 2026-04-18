@@ -1,7 +1,7 @@
 {
   "name": "iobroker.open-meteo-weather",
   "version": "2.6.4",
-  "description": "Get local weather, air quality and pollen data from Open-Meteo.com",
+  "description": "Get local weather, air quality, pollen and Photovoltaic Forecast data from Open-Meteo.com",
   "author": {
     "name": "H5N1",
     "email": "h5n1@iknox.de"
@@ -15,7 +15,11 @@
     "forecast",
     "open-meteo",
     "pollen",
-    "air quality"
+    "air quality",
+    "solar",
+    "pv",
+    "photovoltaics",
+    "photovoltaik"
   ],
   "repository": {
     "type": "git",
@@ -37,7 +41,7 @@
     "@iobroker/adapter-dev": "^1.5.0",
     "@iobroker/eslint-config": "^2.2.0",
     "@iobroker/testing": "^5.2.2",
-    "@iobroker/types": "^7.1.0",
+    "@iobroker/types": "^7.1.1",
     "@tsconfig/node20": "^20.1.8",
     "@types/node": "^22.19.15",
     "@types/suncalc": "^1.9.2",
