@@ -74,6 +74,9 @@ const pt = {
   moon_phase_icon: "Icono da fase lunar",
   name_day: "Nome do dia",
   global_tilted_irradiance: "Irradi\xE2ncia Solar",
+  snowfall_height: "Cota de neve",
+  solar_noon: "Meio-dia solar",
+  freezing_level_height: "Altitude de congelamento",
   // Luftqualität (Air Quality)
   european_aqi: "\xCDndice Europeu de Qualidade do Ar",
   pm10: "Part\xEDculas em suspens\xE3o PM10",

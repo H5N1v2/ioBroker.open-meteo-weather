@@ -74,6 +74,9 @@ const fr = {
   moon_phase_icon: "Ic\xF4ne de la phase",
   name_day: "Nom du jour",
   global_tilted_irradiance: "Irradiance Solaire",
+  snowfall_height: "Limite de chute de neige",
+  solar_noon: "Midi solaire",
+  freezing_level_height: "Altitude de gel",
   // Luftqualität (Air Quality)
   european_aqi: "Indice europ\xE9en de qualit\xE9 de l'air",
   pm10: "Particules en suspension PM10",

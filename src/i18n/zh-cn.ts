@@ -52,6 +52,9 @@ export const zh = {
 	moon_phase_icon: '月相图标',
 	name_day: '日期名称',
 	global_tilted_irradiance: '太阳辐照度',
+	snowfall_height: '雪线高度',
+	solar_noon: '正午',
+	freezing_level_height: '零度层高度',
 
 	// Luftqualität (Air Quality)
 	european_aqi: '欧洲空气质量指数',

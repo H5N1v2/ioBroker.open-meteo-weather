@@ -74,6 +74,9 @@ const es = {
   relative_humidity_2m_mean: "Humedad relativa media (2m)",
   name_day: "Nombre del d\xEDa",
   global_tilted_irradiance: "Irradiancia Solar",
+  snowfall_height: "Cota de nieve",
+  solar_noon: "Mediod\xEDa solar",
+  freezing_level_height: "Nivel de congelaci\xF3n",
   // Luftqualität (Air Quality)
   european_aqi: "\xCDndice Europeo de Calidad del Aire",
   pm10: "Part\xEDculas en suspensi\xF3n PM10",

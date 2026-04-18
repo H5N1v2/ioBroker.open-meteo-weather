@@ -74,6 +74,9 @@ const de = {
   moon_phase_icon: "Mondphase Icon",
   name_day: "Tagesname",
   global_tilted_irradiance: "Solareinstrahlung",
+  snowfall_height: "Schneefallgrenze",
+  solar_noon: "Sonnenh\xF6chststand",
+  freezing_level_height: "Frostgrenze",
   // Luftqualität (Air Quality)
   european_aqi: "Europ\xE4ischer Luftqualit\xE4tsindex",
   pm10: "Feinstaub PM10",
@@ -90,7 +93,7 @@ const de = {
   olive_pollen_text: "Olivenpollen Belastung",
   ozone: "Ozon",
   ragweed_pollen_text: "Ambrosiapollen Belastung",
-  mugwort_pollen_text: "Beifu\xDFpollen Belasung",
+  mugwort_pollen_text: "Beifu\xDFpollen Belastung",
   grass_pollen_text: "Graspollen Belastung",
   birch_pollen_text: "Birkenpollen Belastung",
   alder_pollen_text: "Erlenpollen Belastung",

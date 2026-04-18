@@ -52,6 +52,9 @@ export const es = {
 	relative_humidity_2m_mean: 'Humedad relativa media (2m)',
 	name_day: 'Nombre del día',
 	global_tilted_irradiance: 'Irradiancia Solar',
+	snowfall_height: 'Cota de nieve',
+	solar_noon: 'Mediodía solar',
+	freezing_level_height: 'Nivel de congelación',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Índice Europeo de Calidad del Aire',

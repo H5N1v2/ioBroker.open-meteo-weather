@@ -52,6 +52,9 @@ export const fr = {
 	moon_phase_icon: 'Icône de la phase',
 	name_day: 'Nom du jour',
 	global_tilted_irradiance: 'Irradiance Solaire',
+	snowfall_height: 'Limite de chute de neige',
+	solar_noon: 'Midi solaire',
+	freezing_level_height: 'Altitude de gel',
 
 	// Luftqualität (Air Quality)
 	european_aqi: "Indice européen de qualité de l'air",

@@ -74,6 +74,9 @@ const pl = {
   moon_phase_icon: "Ikona fazy ksi\u0119\u017Cyca",
   name_day: "Nazwa dnia",
   global_tilted_irradiance: "Napromieniowanie S\u0142oneczne",
+  snowfall_height: "Granica opadu \u015Bniegu",
+  solar_noon: "Po\u0142udnie s\u0142oneczne",
+  freezing_level_height: "Wysoko\u015B\u0107 granicy zamarzania",
   // Luftqualität (Air Quality)
   european_aqi: "Europejski indeks jako\u015Bci powietrza",
   pm10: "Py\u0142 zawieszony PM10",

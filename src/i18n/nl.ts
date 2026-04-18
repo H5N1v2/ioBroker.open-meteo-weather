@@ -52,6 +52,9 @@ export const nl = {
 	moon_phase_icon: 'Maanfase icoon',
 	name_day: 'Dagnaam',
 	global_tilted_irradiance: 'Zonnestraling',
+	snowfall_height: 'Sneeuwgrens',
+	solar_noon: 'Zonsmiddag',
+	freezing_level_height: 'Vriespunthoogte',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europese luchtkwaliteitsindex',

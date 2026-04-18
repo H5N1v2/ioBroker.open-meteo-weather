@@ -52,6 +52,9 @@ export const ru = {
 	moon_phase_icon: 'Иконка фазы луны',
 	name_day: 'Название дня',
 	global_tilted_irradiance: 'Солнечная Радиация',
+	snowfall_height: 'Граница снегопада',
+	solar_noon: 'Солнечный полдень',
+	freezing_level_height: 'Высота нулевой изотермы',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Европейский индекс качества воздуха',

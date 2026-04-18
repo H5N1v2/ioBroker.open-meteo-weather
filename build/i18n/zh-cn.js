@@ -74,6 +74,9 @@ const zh = {
   moon_phase_icon: "\u6708\u76F8\u56FE\u6807",
   name_day: "\u65E5\u671F\u540D\u79F0",
   global_tilted_irradiance: "\u592A\u9633\u8F90\u7167\u5EA6",
+  snowfall_height: "\u96EA\u7EBF\u9AD8\u5EA6",
+  solar_noon: "\u6B63\u5348",
+  freezing_level_height: "\u96F6\u5EA6\u5C42\u9AD8\u5EA6",
   // Luftqualität (Air Quality)
   european_aqi: "\u6B27\u6D32\u7A7A\u6C14\u8D28\u91CF\u6307\u6570",
   pm10: "PM10\u9897\u7C92\u7269",

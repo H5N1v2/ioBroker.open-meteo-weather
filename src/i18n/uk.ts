@@ -52,6 +52,9 @@ export const uk = {
 	moon_phase_icon: 'Іконка фази місяця',
 	name_day: 'Назва дня',
 	global_tilted_irradiance: 'Сонячна Радіація',
+	snowfall_height: 'Межа снігопаду',
+	solar_noon: 'Сонячний полудень',
+	freezing_level_height: 'Висота рівня замерзання',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Європейський індекс якості повітря',

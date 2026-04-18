@@ -52,6 +52,9 @@ export const it = {
 	moon_phase_icon: 'Icona fase lunare',
 	name_day: 'Nome del giorno',
 	global_tilted_irradiance: 'Irradianza Solare',
+	snowfall_height: 'Quota neve',
+	solar_noon: 'Mezzogiorno solare',
+	freezing_level_height: 'Quota dello zero termico',
 
 	// Luftqualität (Air Quality)
 	european_aqi: "Indice europeo di qualità dell'aria",
