@@ -248,6 +248,13 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1) update dependencies
+* (H5N1) improve error handling in API calls with detailed messages
+* (H5N1) fix: attribute in jsonConfig.
+* (Negalein) fix: yellow help text in admin for pv-forecast extra dp's, poor recognition on white background
+* (H5N1v2) fix: update interval for pv-forecast "once before sunrise" time incorrectly calculated
+
 ### 3.0.0 (2026-04-18)
 * (H5N1v2) merged open-meteo-weather and open-meteo-pv-forecast
 * (H5N1v2) adding icon selection tab and animated icons for weather by Bas Milius
