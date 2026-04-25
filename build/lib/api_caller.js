@@ -32,6 +32,47 @@ __export(api_caller_exports, {
 });
 module.exports = __toCommonJS(api_caller_exports);
 var import_axios = __toESM(require("axios"));
+function buildAxiosErrorMessage(error, context) {
+  var _a, _b;
+  const reason = (_b = (_a = error.response) == null ? void 0 : _a.data) == null ? void 0 : _b.reason;
+  const reasonSuffix = reason ? ` \u2013 API reason: "${reason}"` : "";
+  if (error.response) {
+    const status = error.response.status;
+    if (status === 429) {
+      return `[${context}] Rate limit exceeded (429). Please increase the polling interval in the instance settings.${reasonSuffix}`;
+    }
+    if (status === 400) {
+      return `[${context}] Invalid parameters (400 Bad Request). Please check coordinates and settings.${reasonSuffix}`;
+    }
+    if (status >= 500) {
+      return `[${context}] Open-Meteo server error (${status}). The service may be temporarily unavailable.${reasonSuffix}`;
+    }
+    return `[${context}] HTTP ${status} error: ${error.message}${reasonSuffix}`;
+  }
+  if (error.request) {
+    if (error.code === "ECONNABORTED") {
+      return `[${context}] Request timed out. The server did not respond in time.`;
+    }
+    return `[${context}] No response received from server. Check network connectivity or DNS.`;
+  }
+  return `[${context}] Failed to build API request: ${error.message}`;
+}
+function handleApiError(error, context, log, shouldThrow) {
+  let message;
+  if (import_axios.default.isAxiosError(error)) {
+    message = buildAxiosErrorMessage(error, context);
+  } else if (error instanceof Error) {
+    message = `[${context}] Unexpected error: ${error.message}`;
+  } else {
+    message = `[${context}] Unknown error occurred.`;
+  }
+  if (log) {
+    log(message);
+  }
+  if (shouldThrow) {
+    throw new Error(message);
+  }
+}
 async function fetchAllWeatherData(config, logger) {
   const tz = encodeURIComponent(config.timezone);
   const results = {};
@@ -65,10 +106,7 @@ async function fetchAllWeatherData(config, logger) {
       results.hourly = resW.data;
     }
   } catch (error) {
-    if (logger) {
-      logger.error(`Error retrieving weather data: ${error.message}`);
-    }
-    throw new Error(`Weather API request failed: ${error.message}`);
+    handleApiError(error, "Weather", logger == null ? void 0 : logger.error.bind(logger), true);
   }
   const pollenparam_keys = "pm10,pm2_5,nitrogen_dioxide,alder_pollen,birch_pollen,grass_pollen,mugwort_pollen,ragweed_pollen,carbon_monoxide,dust,olive_pollen,ozone";
   const pollenparam_keys_hourly = `&hourly=${pollenparam_keys}`;
@@ -84,9 +122,7 @@ async function fetchAllWeatherData(config, logger) {
       }
       results.air = resA.data;
     } catch (error) {
-      if (logger) {
-        logger.warn(`Error retrieving air quality data: ${error.message}`);
-      }
+      handleApiError(error, "Air Quality", logger == null ? void 0 : logger.warn.bind(logger), false);
     }
   }
   return results;

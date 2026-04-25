@@ -1,5 +1,76 @@
 // api_caller.ts
+import type { AxiosError } from 'axios';
 import axios from 'axios';
+
+/**
+ * Builds a descriptive error message from an Axios error, including the
+ * Open-Meteo `reason` field when present in the response body.
+ *
+ * @param error - A confirmed Axios error
+ * @param context - Short label used as prefix in the message (e.g. "Weather")
+ * @returns A human-readable error message string
+ */
+function buildAxiosErrorMessage(error: AxiosError, context: string): string {
+	const reason: string | undefined = (error.response?.data as { reason?: string } | undefined)?.reason;
+	const reasonSuffix = reason ? ` – API reason: "${reason}"` : '';
+
+	if (error.response) {
+		const status = error.response.status;
+		if (status === 429) {
+			return `[${context}] Rate limit exceeded (429). Please increase the polling interval in the instance settings.${reasonSuffix}`;
+		}
+		if (status === 400) {
+			return `[${context}] Invalid parameters (400 Bad Request). Please check coordinates and settings.${reasonSuffix}`;
+		}
+		if (status >= 500) {
+			return `[${context}] Open-Meteo server error (${status}). The service may be temporarily unavailable.${reasonSuffix}`;
+		}
+		return `[${context}] HTTP ${status} error: ${error.message}${reasonSuffix}`;
+	}
+
+	if (error.request) {
+		if (error.code === 'ECONNABORTED') {
+			return `[${context}] Request timed out. The server did not respond in time.`;
+		}
+		return `[${context}] No response received from server. Check network connectivity or DNS.`;
+	}
+
+	return `[${context}] Failed to build API request: ${error.message}`;
+}
+
+/**
+ * Handles an API error for a given context. Logs with the supplied log
+ * function and optionally re-throws.
+ *
+ * @param error - The caught error (unknown)
+ * @param context - Label used in log messages (e.g. "Weather")
+ * @param log - Log function to call with the message (e.g. `logger.error`)
+ * @param shouldThrow - Whether to re-throw after logging
+ */
+function handleApiError(
+	error: unknown,
+	context: string,
+	log: ((msg: string) => void) | undefined,
+	shouldThrow: boolean,
+): void {
+	let message: string;
+
+	if (axios.isAxiosError(error)) {
+		message = buildAxiosErrorMessage(error, context);
+	} else if (error instanceof Error) {
+		message = `[${context}] Unexpected error: ${error.message}`;
+	} else {
+		message = `[${context}] Unknown error occurred.`;
+	}
+
+	if (log) {
+		log(message);
+	}
+
+	if (shouldThrow) {
+		throw new Error(message);
+	}
+}
 /**
  * Konfiguration für den Wetter-API-Abruf
  */
@@ -81,11 +152,8 @@ export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBrok
 		if (resW.data.hourly) {
 			results.hourly = resW.data;
 		}
-	} catch (error: any) {
-		if (logger) {
-			logger.error(`Error retrieving weather data: ${error.message}`);
-		}
-		throw new Error(`Weather API request failed: ${error.message}`);
+	} catch (error: unknown) {
+		handleApiError(error, 'Weather', logger?.error.bind(logger), true);
 	}
 
 	const pollenparam_keys =
@@ -106,11 +174,8 @@ export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBrok
 			}
 
 			results.air = resA.data;
-		} catch (error: any) {
-			if (logger) {
-				logger.warn(`Error retrieving air quality data: ${error.message}`);
-			}
-			// Luftqualität ist optional, daher kein throw
+		} catch (error: unknown) {
+			handleApiError(error, 'Air Quality', logger?.warn.bind(logger), false);
 		}
 	}
 

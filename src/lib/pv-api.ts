@@ -82,8 +82,38 @@ export class ApiCaller {
 			return response.data;
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
-				this.log.error(`Error retrieving PV data: ${error.config?.url}`);
-				throw new Error(`PV API request failed: ${error.message}`);
+				const reason: string | undefined = (error.response?.data as { reason?: string })?.reason;
+				const reasonSuffix = reason ? ` – Open-Meteo reason: "${reason}"` : '';
+
+				if (error.response) {
+					const status = error.response.status;
+
+					if (status === 429) {
+						this.log.warn(
+							`[${location.name}] Rate limit reached (429 Too Many Requests). Please increase the query interval.${reasonSuffix}`,
+						);
+					} else if (status === 400) {
+						this.log.error(
+							`[${location.name}] Invalid parameters (400 Bad Request) – please check coordinates and configuration.${reasonSuffix}`,
+						);
+					} else if (status >= 500) {
+						this.log.error(
+							`[${location.name}] Open-Meteo Server error (${status}) – the service may be temporarily unavailable.${reasonSuffix}`,
+						);
+					} else {
+						this.log.error(
+							`[${location.name}] API error (HTTP ${status}): ${error.message}${reasonSuffix}`,
+						);
+					}
+				} else if (error.request) {
+					this.log.error(
+						`[${location.name}] No response received from server – please check network connection or DNS. (${error.message})`,
+					);
+				} else {
+					this.log.error(`[${location.name}] Error setting up API request: ${error.message}`);
+				}
+
+				throw new Error(`PV API request failed: ${error.message}${reasonSuffix}`);
 			}
 			throw error;
 		}

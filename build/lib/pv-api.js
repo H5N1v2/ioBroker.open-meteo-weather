@@ -54,7 +54,7 @@ class ApiCaller {
    * @returns Promise with forecast data
    */
   async fetchForecastData(location, forecastDays_pv) {
-    var _a;
+    var _a, _b;
     const hourlyparam_keys = "global_tilted_irradiance,cloud_cover,temperature_2m,wind_speed_10m,sunshine_duration";
     const minutlyparam_keys = "global_tilted_irradiance,cloud_cover,temperature_2m,wind_speed_10m,sunshine_duration";
     const url = `https://api.open-meteo.com/v1/forecast`;
@@ -76,8 +76,35 @@ class ApiCaller {
       return response.data;
     } catch (error) {
       if (import_axios.default.isAxiosError(error)) {
-        this.log.error(`Error retrieving PV data: ${(_a = error.config) == null ? void 0 : _a.url}`);
-        throw new Error(`PV API request failed: ${error.message}`);
+        const reason = (_b = (_a = error.response) == null ? void 0 : _a.data) == null ? void 0 : _b.reason;
+        const reasonSuffix = reason ? ` \u2013 Open-Meteo reason: "${reason}"` : "";
+        if (error.response) {
+          const status = error.response.status;
+          if (status === 429) {
+            this.log.warn(
+              `[${location.name}] Rate limit reached (429 Too Many Requests). Please increase the query interval.${reasonSuffix}`
+            );
+          } else if (status === 400) {
+            this.log.error(
+              `[${location.name}] Invalid parameters (400 Bad Request) \u2013 please check coordinates and configuration.${reasonSuffix}`
+            );
+          } else if (status >= 500) {
+            this.log.error(
+              `[${location.name}] Open-Meteo Server error (${status}) \u2013 the service may be temporarily unavailable.${reasonSuffix}`
+            );
+          } else {
+            this.log.error(
+              `[${location.name}] API error (HTTP ${status}): ${error.message}${reasonSuffix}`
+            );
+          }
+        } else if (error.request) {
+          this.log.error(
+            `[${location.name}] No response received from server \u2013 please check network connection or DNS. (${error.message})`
+          );
+        } else {
+          this.log.error(`[${location.name}] Error setting up API request: ${error.message}`);
+        }
+        throw new Error(`PV API request failed: ${error.message}${reasonSuffix}`);
       }
       throw error;
     }
