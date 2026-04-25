@@ -276,9 +276,9 @@
             "newLine": true 
           },
           "ico_preview_wind1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/wind_direction_icons/n.png","newLine": true,"hidden": "data.isWinddirection_icon !== true"},
-          "text_preview_wind1": {"type": "staticText","xs": 10, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== true"},
+          "text_preview_wind1": {"type": "staticText","xs": 12, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== true"},
           "ico_preview_wind2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/wind_direction_icons/direct_2/n.png","newLine": true,"hidden": "data.isWinddirection_icon !== false"},
-          "text_preview_wind2": {"type": "staticText","xs": 10, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_from_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== false"}
+          "text_preview_wind2": {"type": "staticText","xs": 12, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_from_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== false"}
         }
     },
     "tab3": {
@@ -423,7 +423,7 @@
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
         },
         "divider5": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 },
-        "text_preview_extradbs": {"type": "staticText","xs": 10, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "extra_dbs_help","style": {"color": "yellow", "fontStyle": "italic", "marginTop": "20px","newLine": true}},
+        "text_preview_extradbs": {"type": "staticText","xs": 12, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "extra_dbs_help","style": {"fontStyle": "italic", "marginTop": "20px"},"newLine": true},
 
           "sunshine_duration": {
           "disabled": "!data.enablePV",
