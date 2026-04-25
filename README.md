@@ -248,7 +248,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.1 (2026-04-25)
 * (H5N1) update dependencies
 * (H5N1) improve error handling in API calls with detailed messages
 * (H5N1) fix: attribute in jsonConfig.
@@ -269,14 +269,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 
 ### 2.6.2 (2026-03-25)
 * (H5N1v2) update @types/node dependency to version 22.19.15
-
-### 2.6.1 (2026-03-04)
-* (H5N1v2) chore: update dependencies to latest versions
-* (mcm1957) fix: axios seems to be missing in dependencies
-* (mcm1957) fix: language used for stateIds and names
-* (mcm1957) fix: creation of intermediate objects missing
-
-[OLDER CHANGELOG](CHANGELOG_OLD.md)
 
 ## Legal & Copyright
 

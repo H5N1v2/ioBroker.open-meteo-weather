@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "news": {
       "3.0.1": {
         "en": "update dependencies\nimprove error handling in API calls with detailed messages\nfix: attribute in jsonConfig.\nfix: yellow help text in admin for pv-forecast extra dp's, poor recognition on white background\nfix: update interval for pv-forecast \"once before sunrise\" time incorrectly calculated",
@@ -93,19 +93,6 @@
         "pl": "feat: pozostawić szerokość geograficzną i długość geograficzną pustą, aby użyć współrzędnych systemowych w ustawieniach.\nfeat: Dodano rozwijane menu dla stref czasowych w ustawieniach.",
         "uk": "feat: Залишити широтість і довготи порожній для використання системних координат в налаштуваннях.\nfeat: Додано випадаюче меню для таймерів в налаштуваннях.",
         "zh-cn": "功绩:将纬度和经度空置,以便在设置中使用系统坐标.\n成就: 添加了设置时区下拉菜单 ."
-      },
-      "2.5.1": {
-        "en": "(oFbEQnpoLKKl6mbY5e13) Fix: The Icon 61n.png is not displayed and is in the wrong folder.\n(H5N1) chore: update dependencies to latest versions",
-        "de": "(oFbEQnpoLKl6mbY5e13) Fix: Der Icon 61n.png wird nicht angezeigt und befindet sich im falschen Ordner.\n(H5N1) chore: Anpassung der Abhängigkeiten an neueste Versionen",
-        "ru": "(oFbEQnpoLKKl6mbY5e13) Исправление: Иконка 61n.png не отображается и находится в неправильной папке.\nH5N1 chore: зависимость от обновлений",
-        "pt": "(oFbEQnpoLKKL6mbY5e13) Corrigir: O ícone 61n.png não é exibido e está na pasta errada.\n(H5N1) tarefa: atualizar dependências para versões mais recentes",
-        "nl": "(oFbeQnpoLKKl6mbY5e13) Fix: Het Icon 61n.png wordt niet weergegeven en bevindt zich in de verkeerde map.\n(H5N1) klus: update afhankelijkheden van de nieuwste versies",
-        "fr": "(oFbEQnpoLKKl6mbY5e13) Correction : L'icône 61n.png n'est pas affichée et se trouve dans le mauvais dossier.\n(H5N1) core: mise à jour des dépendances aux dernières versions",
-        "it": "(oFbEQnpoLKKl6mbY5e13) Fix: L'icona 61n.png non viene visualizzata e si trova nella cartella sbagliata.\n(H5N1) core: aggiornamento dipendenze alle ultime versioni",
-        "es": "(oFbEQnpoLKl6mbY5e13) Fijar: El Icon 61n.png no se muestra y está en la carpeta incorrecta.\n(H5N1) coro: actualizar las dependencias a las versiones más recientes",
-        "pl": "(oFbEQnpoLKKL6mbY5e13) Fix: Icon 61n.png nie jest wyświetlany i znajduje się w złym folderze.\n(H5N1) core: aktualizacja zależności do najnowszych wersji",
-        "uk": "(oFbEQnpoLKKl6mbY5e13) Фіксація: Ікона 61n.png не відображається і знаходиться в неправильній папці.\n(H5N1) chore: оновлення залежності до останніх версій",
-        "zh-cn": "(oFbEQnpoLKKl6mbY5e13) Fix:图标61n.png没有显示,在错误的文件夹中.\n(H5N1) 弦: 更新对最新版本的依赖性"
       }
     },
     "plugins": {
@@ -152,7 +139,7 @@
       "pv",
       "photovoltaics",
       "photovoltaik"
-      ],
+    ],
     "licenseInformation": {
       "type": "free",
       "license": "MIT"
