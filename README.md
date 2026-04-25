@@ -270,6 +270,9 @@ After a new adapter update, it is recommended to delete the entire directory tre
 ### 2.6.2 (2026-03-25)
 * (H5N1v2) update @types/node dependency to version 22.19.15
 
+## Older Changelog
+[OLDER CHANGELOG](CHANGELOG_OLD.md)
+
 ## Legal & Copyright
 
 ### Icons & Images
