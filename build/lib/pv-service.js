@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var pv_service_exports = {};
 __export(pv_service_exports, {
@@ -22,6 +32,7 @@ __export(pv_service_exports, {
 });
 module.exports = __toCommonJS(pv_service_exports);
 var import_pv_api = require("./pv-api");
+var SunCalc = __toESM(require("suncalc"));
 class PVService {
   adapter;
   apiCaller;
@@ -59,22 +70,24 @@ class PVService {
       this.astroTimeout = null;
     }
     const configValue = this.adapter.config.pv_updateInterval;
-    this.adapter.getForeignObject("system.config", (err, obj) => {
-      var _a, _b;
-      if (err) {
-        this.adapter.log.error(`System Check - Error reading config: ${err.message}`);
-        return;
-      }
-      if (((_a = obj == null ? void 0 : obj.common) == null ? void 0 : _a.latitude) && ((_b = obj == null ? void 0 : obj.common) == null ? void 0 : _b.longitude)) {
-        this.adapter.log.debug(
-          `System Check for once before sunrise - Lat: ${obj.common.latitude}, Long: ${obj.common.longitude}`
-        );
-      } else {
-        this.adapter.log.warn(
-          "System Check for once before sunrise - Latitude/Longitude missing in ioBroker system settings!"
-        );
-      }
-    });
+    if (configValue === "sunrise") {
+      this.adapter.getForeignObject("system.config", (err, obj) => {
+        var _a, _b;
+        if (err) {
+          this.adapter.log.error(`System Check - Error reading config: ${err.message}`);
+          return;
+        }
+        if (((_a = obj == null ? void 0 : obj.common) == null ? void 0 : _a.latitude) && ((_b = obj == null ? void 0 : obj.common) == null ? void 0 : _b.longitude)) {
+          this.adapter.log.debug(
+            `System Check for once before sunrise - Lat: ${obj.common.latitude}, Long: ${obj.common.longitude}`
+          );
+        } else {
+          this.adapter.log.warn(
+            "System Check for once before sunrise - Latitude/Longitude missing in ioBroker system settings!"
+          );
+        }
+      });
+    }
     if (configValue === "sunrise") {
       this.adapter.log.info("PV update scheduled: daily before sunrise");
       this.scheduleSunriseUpdate();
@@ -94,59 +107,41 @@ class PVService {
   scheduleSunriseUpdate() {
     this.adapter.getForeignObject("system.config", (err, obj) => {
       if (err || !obj || !obj.common || obj.common.latitude === void 0) {
-        this.adapter.log.error("PV-Service: Could not read system coordinates.");
+        this.adapter.log.error("PV-Service: Coordinates could not be read from system.config.");
         return;
       }
       const lat = obj.common.latitude;
       const lng = obj.common.longitude;
       const now = /* @__PURE__ */ new Date();
       try {
-        const getSunrise = (date, latitude, longitude) => {
-          const dayOfYear = Math.floor(
-            (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 864e5
-          );
-          const zenith = 90.83;
-          const D2R = Math.PI / 180;
-          const R2D = 180 / Math.PI;
-          const lnHour = longitude / 15;
-          const t = dayOfYear + (6 - lnHour) / 24;
-          const M = 0.9856 * t - 3.289;
-          let L = M + 1.916 * Math.sin(M * D2R) + 0.02 * Math.sin(2 * M * D2R) + 282.634;
-          L = (L + 360) % 360;
-          const sinDec = 0.39782 * Math.sin(L * D2R);
-          const cosDec = Math.cos(Math.asin(sinDec));
-          const cosH = (Math.cos(zenith * D2R) - sinDec * Math.sin(latitude * D2R)) / (cosDec * Math.cos(latitude * D2R));
-          if (cosH > 1 || cosH < -1) {
-            return new Date(date.setHours(6, 0, 0));
-          }
-          const h = 360 - R2D * Math.acos(cosH);
-          const H = h / 15;
-          const T = H + L / 15 * -0.06571 - 0.06571 * t - 6.622;
-          const UT = (T - lnHour + 24) % 24;
-          const sunriseDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-          sunriseDate.setHours(Math.floor(UT), (UT - Math.floor(UT)) * 60);
-          const offset = now.getTimezoneOffset() / -60;
-          sunriseDate.setHours(sunriseDate.getHours() + offset);
-          return sunriseDate;
-        };
-        const sunrise = getSunrise(now, lat, lng);
+        const times = SunCalc.getTimes(now, lat, lng);
+        let sunrise = times.sunrise;
         let targetTime = new Date(sunrise.getTime() - 15 * 60 * 1e3);
-        if (targetTime < now) {
+        if (targetTime <= now) {
           const tomorrow = /* @__PURE__ */ new Date();
           tomorrow.setDate(tomorrow.getDate() + 1);
-          const nextSunrise = getSunrise(tomorrow, lat, lng);
-          targetTime = new Date(nextSunrise.getTime() - 15 * 60 * 1e3);
+          const tomorrowTimes = SunCalc.getTimes(tomorrow, lat, lng);
+          sunrise = tomorrowTimes.sunrise;
+          targetTime = new Date(sunrise.getTime() - 15 * 60 * 1e3);
         }
         const msToWait = targetTime.getTime() - Date.now();
-        this.adapter.log.info(`Manual Sunrise Calculation: ${String(sunrise.toLocaleTimeString())}`);
-        this.adapter.log.info(`Next PV update scheduled at ${String(targetTime.toLocaleString())}`);
-        this.astroTimeout = setTimeout(async () => {
-          this.adapter.log.info("Performing scheduled sunrise update...");
-          await this.updateAllLocations();
+        this.adapter.log.info(
+          `Next PV call-off planned for: ${targetTime.toLocaleString()} (Sunrise is at ${sunrise.toLocaleTimeString()})`
+        );
+        if (this.astroTimeout) {
+          this.adapter.clearTimeout(this.astroTimeout);
+        }
+        this.astroTimeout = this.adapter.setTimeout(async () => {
+          this.adapter.log.info("Scheduled PV update is being executed...");
+          try {
+            await this.updateAllLocations();
+          } catch (error) {
+            this.adapter.log.error(`Error during PV update: ${String(error)}`);
+          }
           this.scheduleSunriseUpdate();
         }, msToWait);
       } catch (e) {
-        this.adapter.log.error(`Manual Astro Error: ${String(e)}`);
+        this.adapter.log.error(`Error during astro calculation: ${String(e)}`);
       }
     });
   }

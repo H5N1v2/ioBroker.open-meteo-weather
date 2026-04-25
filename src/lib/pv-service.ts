@@ -1,4 +1,5 @@
 import { ApiCaller } from './pv-api';
+import * as SunCalc from 'suncalc';
 
 /**
  * Service for fetching, processing, and exposing PV forecast data.
@@ -37,7 +38,7 @@ export class PVService {
 		await this.createStatesForLocations();
 		await this.updateAllLocations();
 
-		// Timer aufräumen (hier ohne "adapter", da sie in dieser Klasse liegen)
+		// Timer aufräumen
 		if (this.updateInterval) {
 			clearInterval(this.updateInterval);
 			this.updateInterval = null;
@@ -48,22 +49,24 @@ export class PVService {
 		}
 
 		const configValue = this.adapter.config.pv_updateInterval;
-		this.adapter.getForeignObject('system.config', (err: Error | null | undefined, obj: any) => {
-			if (err) {
-				this.adapter.log.error(`System Check - Error reading config: ${err.message}`);
-				return;
-			}
+		if (configValue === 'sunrise') {
+			this.adapter.getForeignObject('system.config', (err: Error | null | undefined, obj: any) => {
+				if (err) {
+					this.adapter.log.error(`System Check - Error reading config: ${err.message}`);
+					return;
+				}
 
-			if (obj?.common?.latitude && obj?.common?.longitude) {
-				this.adapter.log.debug(
-					`System Check for once before sunrise - Lat: ${obj.common.latitude}, Long: ${obj.common.longitude}`,
-				);
-			} else {
-				this.adapter.log.warn(
-					'System Check for once before sunrise - Latitude/Longitude missing in ioBroker system settings!',
-				);
-			}
-		});
+				if (obj?.common?.latitude && obj?.common?.longitude) {
+					this.adapter.log.debug(
+						`System Check for once before sunrise - Lat: ${obj.common.latitude}, Long: ${obj.common.longitude}`,
+					);
+				} else {
+					this.adapter.log.warn(
+						'System Check for once before sunrise - Latitude/Longitude missing in ioBroker system settings!',
+					);
+				}
+			});
+		}
 
 		if (configValue === 'sunrise') {
 			this.adapter.log.info('PV update scheduled: daily before sunrise');
@@ -85,7 +88,7 @@ export class PVService {
 	private scheduleSunriseUpdate(): void {
 		this.adapter.getForeignObject('system.config', (err: Error | null | undefined, obj: any) => {
 			if (err || !obj || !obj.common || obj.common.latitude === undefined) {
-				this.adapter.log.error('PV-Service: Could not read system coordinates.');
+				this.adapter.log.error('PV-Service: Coordinates could not be read from system.config.');
 				return;
 			}
 
@@ -94,82 +97,39 @@ export class PVService {
 			const now = new Date();
 
 			try {
-				// Berechnung Sonnenaufgang manuell (Approximation für ioBroker)
-				const getSunrise = (date: Date, latitude: number, longitude: number): Date => {
-					const dayOfYear = Math.floor(
-						(date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000,
-					);
-					const zenith = 90.83; // Standard für Sonnenaufgang
-					const D2R = Math.PI / 180;
-					const R2D = 180 / Math.PI;
-
-					// 1. Berechne ungefähre Zeit
-					const lnHour = longitude / 15;
-					const t = dayOfYear + (6 - lnHour) / 24;
-
-					// 2. Sonnenanomalie
-					const M = 0.9856 * t - 3.289;
-
-					// 3. Wahre Länge der Sonne
-					let L = M + 1.916 * Math.sin(M * D2R) + 0.02 * Math.sin(2 * M * D2R) + 282.634;
-					L = (L + 360) % 360;
-
-					// 4. Deklination
-					const sinDec = 0.39782 * Math.sin(L * D2R);
-					const cosDec = Math.cos(Math.asin(sinDec));
-
-					// 5. Stundenwinkel
-					const cosH =
-						(Math.cos(zenith * D2R) - sinDec * Math.sin(latitude * D2R)) /
-						(cosDec * Math.cos(latitude * D2R));
-
-					if (cosH > 1 || cosH < -1) {
-						return new Date(date.setHours(6, 0, 0));
-					} // Polar-Tag/Nacht Fallback
-
-					const h = 360 - R2D * Math.acos(cosH);
-					const H = h / 15;
-
-					// 6. Lokale Zeit
-					const T = H + (L / 15) * -0.06571 - 0.06571 * t - 6.622;
-					const UT = (T - lnHour + 24) % 24;
-
-					// Korrektur für Zeitzone (MESZ/MEZ)
-					const sunriseDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-					sunriseDate.setHours(Math.floor(UT), (UT - Math.floor(UT)) * 60);
-
-					// Da UT in Weltzeit ist, addieren von lokalen Offset (z.B. +2 für Sommerzeit)
-					const offset = now.getTimezoneOffset() / -60;
-					sunriseDate.setHours(sunriseDate.getHours() + offset);
-
-					return sunriseDate;
-				};
-
-				const sunrise = getSunrise(now, lat, lng);
-
-				// 15 Minuten vor Sonnenaufgang
+				const times = SunCalc.getTimes(now, lat, lng);
+				let sunrise = times.sunrise;
 				let targetTime = new Date(sunrise.getTime() - 15 * 60 * 1000);
 
-				// Falls für heute schon vorbei, für morgen berechnen
-				if (targetTime < now) {
+				if (targetTime <= now) {
 					const tomorrow = new Date();
 					tomorrow.setDate(tomorrow.getDate() + 1);
-					const nextSunrise = getSunrise(tomorrow, lat, lng);
-					targetTime = new Date(nextSunrise.getTime() - 15 * 60 * 1000);
+					const tomorrowTimes = SunCalc.getTimes(tomorrow, lat, lng);
+					sunrise = tomorrowTimes.sunrise;
+					targetTime = new Date(sunrise.getTime() - 15 * 60 * 1000);
 				}
 
 				const msToWait = targetTime.getTime() - Date.now();
 
-				this.adapter.log.info(`Manual Sunrise Calculation: ${String(sunrise.toLocaleTimeString())}`);
-				this.adapter.log.info(`Next PV update scheduled at ${String(targetTime.toLocaleString())}`);
+				this.adapter.log.info(
+					`Next PV call-off planned for: ${targetTime.toLocaleString()} (Sunrise is at ${sunrise.toLocaleTimeString()})`,
+				);
 
-				this.astroTimeout = setTimeout(async () => {
-					this.adapter.log.info('Performing scheduled sunrise update...');
-					await this.updateAllLocations();
+				if (this.astroTimeout) {
+					this.adapter.clearTimeout(this.astroTimeout);
+				}
+
+				this.astroTimeout = this.adapter.setTimeout(async () => {
+					this.adapter.log.info('Scheduled PV update is being executed...');
+					try {
+						await this.updateAllLocations();
+					} catch (error) {
+						this.adapter.log.error(`Error during PV update: ${String(error)}`);
+					}
 					this.scheduleSunriseUpdate();
 				}, msToWait);
 			} catch (e: any) {
-				this.adapter.log.error(`Manual Astro Error: ${String(e)}`);
+				this.adapter.log.error(`Error during astro calculation: ${String(e)}`);
 			}
 		});
 	}
