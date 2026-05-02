@@ -248,6 +248,9 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
+
 ### 3.0.1 (2026-04-25)
 * (H5N1) update dependencies
 * (H5N1) improve error handling in API calls with detailed messages
