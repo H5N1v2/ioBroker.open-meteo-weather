@@ -1,13 +1,7 @@
 {
-	"typescript.tsdk": "node_modules/typescript/lib",
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
 	"eslint.enable": true,
 	"json.schemas": [
-		{
-			"fileMatch": [
-				"io-package.json"
-			],
-			"url": "https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/schemas/io-package.json"
-		},
 		{
 			"fileMatch": [
 				"admin/jsonConfig.json",
