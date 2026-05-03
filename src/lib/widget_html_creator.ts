@@ -165,7 +165,18 @@ export async function generateWeatherHtml(cfg: WidgetLocationConfig, getState: S
 	const rainColor = rainValue > 10 ? '#f30f0f' : '#ffffff';
 	const uvColor = uvValue > 11 ? '#a855f7' : uvValue > 7 ? '#f87171' : uvValue > 3 ? '#fbbf24' : '#34d399';
 	const weatherCodeColor =
-		wcodeValue === 95 ? '#f36a0f' : wcodeValue === 96 ? '#ff004c' : wcodeValue === 99 ? '#a855f7' : '#38bdf8';
+		wcodeValue === 95 ||
+		wcodeValue === 81 ||
+		wcodeValue === 73 ||
+		wcodeValue === 66 ||
+		wcodeValue === 63 ||
+		wcodeValue === 56
+			? '#f36a0f'
+			: wcodeValue === 96 || wcodeValue === 86 || wcodeValue === 75 || wcodeValue === 57
+				? '#ff004c'
+				: wcodeValue === 99 || wcodeValue === 67 || wcodeValue === 65
+					? '#a855f7'
+					: '#38bdf8';
 
 	// -----------------------------------------------------------------------
 	// Build CSS + header section
@@ -298,7 +309,18 @@ export async function generateWeatherHtml(cfg: WidgetLocationConfig, getState: S
 		const minTempColor = minTempValue > 32 ? '#a855f7' : minTempValue < -10 ? '#06b6d4' : '#ffffff';
 		const rainColor = rainValue > 10 ? '#f30f0f' : '#94a3b8';
 		const weatherCodeColor =
-			wcodeValue === 95 ? '#f36a0f' : wcodeValue === 96 ? '#ff004c' : wcodeValue === 99 ? '#a855f7' : '#94a3b8';
+			wcodeValue === 95 ||
+			wcodeValue === 81 ||
+			wcodeValue === 73 ||
+			wcodeValue === 66 ||
+			wcodeValue === 63 ||
+			wcodeValue === 56
+				? '#f36a0f'
+				: wcodeValue === 96 || wcodeValue === 86 || wcodeValue === 75 || wcodeValue === 57
+					? '#ff004c'
+					: wcodeValue === 99 || wcodeValue === 67 || wcodeValue === 65
+						? '#a855f7'
+						: '#94a3b8';
 		html += `
   <div class="w-fc-day">
     <div>

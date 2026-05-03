@@ -116,7 +116,7 @@ async function generateWeatherHtml(cfg, getState) {
   const minTempColor = minTempValue > 32 ? "#a855f7" : minTempValue < -10 ? "#06b6d4" : "#60a5fa";
   const rainColor = rainValue > 10 ? "#f30f0f" : "#ffffff";
   const uvColor = uvValue > 11 ? "#a855f7" : uvValue > 7 ? "#f87171" : uvValue > 3 ? "#fbbf24" : "#34d399";
-  const weatherCodeColor = wcodeValue === 95 ? "#f36a0f" : wcodeValue === 96 ? "#ff004c" : wcodeValue === 99 ? "#a855f7" : "#38bdf8";
+  const weatherCodeColor = wcodeValue === 95 || wcodeValue === 81 || wcodeValue === 73 || wcodeValue === 66 || wcodeValue === 63 || wcodeValue === 56 ? "#f36a0f" : wcodeValue === 96 || wcodeValue === 86 || wcodeValue === 75 || wcodeValue === 57 ? "#ff004c" : wcodeValue === 99 || wcodeValue === 67 || wcodeValue === 65 ? "#a855f7" : "#38bdf8";
   let html = `<style>
 .w-container{font-family:'Segoe UI',sans-serif;background:linear-gradient(160deg,#1e293b 0%,#0f172a 100%);color:#f1f5f9;padding:20px;border-radius:24px;border:1px solid #334155;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
 .w-header{display:grid;grid-template-columns:1.2fr 1.5fr 1fr;gap:15px;background:rgba(255,255,255,0.05);padding:20px;border-radius:20px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.1);}
@@ -234,7 +234,7 @@ async function generateWeatherHtml(cfg, getState) {
     const maxTempColor2 = maxTempValue2 > 32 ? "#a855f7" : maxTempValue2 < -10 ? "#06b6d4" : "#ffffff";
     const minTempColor2 = minTempValue2 > 32 ? "#a855f7" : minTempValue2 < -10 ? "#06b6d4" : "#ffffff";
     const rainColor2 = rainValue2 > 10 ? "#f30f0f" : "#94a3b8";
-    const weatherCodeColor2 = wcodeValue2 === 95 ? "#f36a0f" : wcodeValue2 === 96 ? "#ff004c" : wcodeValue2 === 99 ? "#a855f7" : "#94a3b8";
+    const weatherCodeColor2 = wcodeValue2 === 95 || wcodeValue2 === 81 || wcodeValue2 === 73 || wcodeValue2 === 66 || wcodeValue2 === 63 || wcodeValue2 === 56 ? "#f36a0f" : wcodeValue2 === 96 || wcodeValue2 === 86 || wcodeValue2 === 75 || wcodeValue2 === 57 ? "#ff004c" : wcodeValue2 === 99 || wcodeValue2 === 67 || wcodeValue2 === 65 ? "#a855f7" : "#94a3b8";
     html += `
   <div class="w-fc-day">
     <div>
