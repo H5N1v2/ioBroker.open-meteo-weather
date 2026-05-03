@@ -5,10 +5,11 @@ import { fetchAllWeatherData } from './lib/api_caller';
 import { PVService } from './lib/pv-service';
 import { unitMapMetric, unitMapImperial, unitTranslations } from './lib/units';
 import { getRole } from './lib/role_mapping';
+import { generateWeatherHtml } from './lib/widget_html_creator';
 import * as SunCalc from 'suncalc';
 
 class OpenMeteoWeather extends utils.Adapter {
-	private updateInterval: ioBroker.Interval | undefined = undefined;
+	private updateInterval: ioBroker.Timeout | undefined = undefined;
 	private pvService: PVService | undefined = undefined;
 	private systemLang: string = 'de';
 	private systemTimeZone: string = 'Europe/Berlin';
@@ -133,6 +134,49 @@ class OpenMeteoWeather extends utils.Adapter {
 	// Setzt die Grundeinstellungen beim Start und startet den Update-Zyklus
 	private async onReady(): Promise<void> {
 		this.log.debug('onReady: Adapter starting...');
+		// --- Konfigurations-Migration für bestehende Installationen ---
+		const locations = this.config.locations || [];
+		let configChanged = false;
+
+		for (const loc of locations) {
+			// Prüfe jedes neue Feld und setze den Default, falls es fehlt
+			if (loc.create_widget === undefined) {
+				loc.create_widget = false;
+				configChanged = true;
+			}
+			if (loc.daysCount === undefined) {
+				loc.daysCount = 6;
+				configChanged = true;
+			}
+			if (loc.hoursCount === undefined) {
+				loc.hoursCount = 6;
+				configChanged = true;
+			}
+			if (loc.fSizeTemp === undefined) {
+				loc.fSizeTemp = 40;
+				configChanged = true;
+			}
+			if (loc.fSizeAll === undefined) {
+				loc.fSizeAll = 15;
+				configChanged = true;
+			}
+			if (loc.fSizeDay === undefined) {
+				loc.fSizeDay = 15;
+				configChanged = true;
+			}
+			if (loc.fSizeHour === undefined) {
+				loc.fSizeHour = 15;
+				configChanged = true;
+			}
+		}
+
+		if (configChanged) {
+			this.log.info('Old configuration detected: Default values ​​for widget settings have been added.');
+			await this.extendForeignObjectAsync(`system.adapter.${this.namespace}`, { native: { locations } });
+
+			return;
+		}
+		// -------------------------------------------------------------
 		try {
 			const sysConfig = await this.getForeignObjectAsync('system.config');
 			if (sysConfig && sysConfig.common) {
@@ -225,12 +269,39 @@ class OpenMeteoWeather extends utils.Adapter {
 		}
 
 		await this.updateData();
+
 		const config = this.config as any;
 		const minutes = parseInt(config.updateInterval) || 30;
-		const intervalMs = minutes * 60000;
 
-		this.updateInterval = this.setInterval(() => this.updateData(), intervalMs);
-		this.log.debug(`onReady: Scheduled update every ${minutes} minutes.`);
+		const scheduleNext = (): void => {
+			const now = new Date();
+
+			// nächster Slot
+			const nextMinute = Math.ceil(now.getMinutes() / minutes) * minutes;
+
+			const nextRun = new Date(now);
+			nextRun.setSeconds(0, 0);
+
+			if (nextMinute >= 60) {
+				nextRun.setHours(nextRun.getHours() + 1);
+				nextRun.setMinutes(3);
+			} else {
+				nextRun.setMinutes(nextMinute + 3);
+			}
+
+			const delay = nextRun.getTime() - now.getTime();
+
+			this.log.info(`Next Weather update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1000)}s)`);
+
+			this.updateInterval = this.setTimeout(async () => {
+				await this.updateData();
+				scheduleNext();
+			}, delay);
+		};
+
+		scheduleNext();
+
+		this.log.debug(`onReady: Scheduled update every ${minutes} minutes (+3 min offset).`);
 
 		if (this.config.enablePV) {
 			this.log.info('PV Service is enabled, initializing...');
@@ -273,12 +344,19 @@ class OpenMeteoWeather extends utils.Adapter {
 			if (parts.length > 2) {
 				const folderName = parts[2];
 
+				if (objId.endsWith('.info.lastUpdate')) {
+					this.log.debug(`Clean up outdated state from previous version: ${objId}`);
+					await this.delObjectAsync(objId);
+					deletedCount++;
+					continue;
+				}
+
 				// 1. Ganze Stadt gelöscht?
 				if (folderName === 'pv-forecast' || folderName === 'info') {
 					continue;
 				}
 				if (!validFolders.has(folderName)) {
-					this.log.info(`Delete outdated location:: ${folderName}`);
+					this.log.debug(`Delete outdated location:: ${folderName}`);
 					await this.delObjectAsync(objId, { recursive: true });
 					deletedCount++;
 					continue;
@@ -318,12 +396,11 @@ class OpenMeteoWeather extends utils.Adapter {
 					const aqDayMatch = objId.match(/\.day(\d+)/);
 					if (aqDayMatch) {
 						const aqDayNum = parseInt(aqDayMatch[1]);
-						// Holen des Limits aus der Config (0 wenn deaktiviert oder nicht gesetzt)
 						const aqLimit = airQualityEnabled ? parseInt(config.airQualityForecastDays) || 0 : 0;
 
 						if (aqDayNum >= aqLimit) {
-							this.log.info(
-								`Bereinige veralteten Luftqualitäts-Vorhersagetag: ${folderName}.air.forecast.day${aqDayNum}`,
+							this.log.debug(
+								`Correct outdated air quality forecast day: ${folderName}.air.forecast.day${aqDayNum}`,
 							);
 							await this.delObjectAsync(objId, { recursive: true });
 							deletedCount++;
@@ -536,7 +613,9 @@ class OpenMeteoWeather extends utils.Adapter {
 					if (this.systemLatitude != null && this.systemLongitude != null) {
 						latitude = this.systemLatitude;
 						longitude = this.systemLongitude;
-						this.log.info(`Using system coordinates for location "${loc.name}": ${latitude}/${longitude}`);
+						this.log.info(
+							`Update: Using system coordinates for location "${loc.name}": ${latitude}/${longitude}`,
+						);
 					} else {
 						this.log.error(
 							'Please set the longitude and latitude manual in the adapter or in your system configuration!',
@@ -574,6 +653,9 @@ class OpenMeteoWeather extends utils.Adapter {
 					this.log.debug(`updateData: Processing air quality for ${folderName}`);
 					await this.processAirQualityData(data.air, folderName);
 				}
+
+				// ---- Widget HTML generieren ----
+				await this.updateWidgetHtml(loc, folderName);
 			}
 			this.log.debug('updateData: All Weather locations processed successfully.');
 
@@ -1204,11 +1286,62 @@ class OpenMeteoWeather extends utils.Adapter {
 		await this.setState(id, { val, ack: true });
 	}
 
+	// Generiert (oder leert) den Widget-HTML-State für einen Standort
+	private async updateWidgetHtml(loc: any, folderName: string): Promise<void> {
+		const widgetStateId = `${folderName}.weather.htmlWidget`;
+
+		if (loc.create_widget !== true) {
+			// Widget deaktiviert – vorhandenen State leeren, damit VIS2 nichts mehr anzeigt
+			const existing = await this.getStateAsync(widgetStateId);
+			if (existing !== null && existing !== undefined) {
+				await this.setState(widgetStateId, { val: '', ack: true });
+			}
+			return;
+		}
+
+		this.log.debug(`updateWidgetHtml: Generating widget HTML for ${folderName}`);
+
+		try {
+			await this.setObjectNotExistsAsync(widgetStateId, {
+				type: 'state',
+				common: {
+					name: this.getI18nObject('htmlWidget'),
+					type: 'string',
+					role: 'html',
+					read: true,
+					write: false,
+				},
+				native: {},
+			});
+
+			const html = await generateWeatherHtml(
+				{
+					locationName: loc.name,
+					folderName,
+					daysCount: loc.daysCount ?? 6,
+					hoursCount: loc.hoursCount ?? 6,
+					fSizeTemp: loc.fSizeTemp ?? 40,
+					fSizeAll: loc.fSizeAll ?? 15,
+					fSizeDay: loc.fSizeDay ?? 15,
+					fSizeHour: loc.fSizeHour ?? 15,
+					adapterName: this.name,
+					systemLang: this.systemLang,
+				},
+				(relId: string) => this.getStateAsync(`${folderName}.${relId}`),
+			);
+
+			await this.setState(widgetStateId, { val: html, ack: true });
+			this.log.debug(`updateWidgetHtml: Widget HTML updated for ${folderName}`);
+		} catch (err: any) {
+			this.log.error(`updateWidgetHtml: Failed for ${folderName}: ${err.message}`);
+		}
+	}
+
 	// Bereinigt Intervalle beim Beenden des Adapters
 	private onUnload(callback: () => void): void {
 		this.log.debug('onUnload: Cleaning up intervals.');
 		if (this.updateInterval) {
-			this.clearInterval(this.updateInterval);
+			this.clearTimeout(this.updateInterval);
 		}
 		if (this.pvService) {
 			this.log.debug('onUnload: Stopping PV-Service.');

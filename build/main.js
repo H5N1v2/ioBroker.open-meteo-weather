@@ -28,6 +28,7 @@ var import_api_caller = require("./lib/api_caller");
 var import_pv_service = require("./lib/pv-service");
 var import_units = require("./lib/units");
 var import_role_mapping = require("./lib/role_mapping");
+var import_widget_html_creator = require("./lib/widget_html_creator");
 var SunCalc = __toESM(require("suncalc"));
 class OpenMeteoWeather extends utils.Adapter {
   updateInterval = void 0;
@@ -141,6 +142,43 @@ class OpenMeteoWeather extends utils.Adapter {
   // Setzt die Grundeinstellungen beim Start und startet den Update-Zyklus
   async onReady() {
     this.log.debug("onReady: Adapter starting...");
+    const locations = this.config.locations || [];
+    let configChanged = false;
+    for (const loc of locations) {
+      if (loc.create_widget === void 0) {
+        loc.create_widget = false;
+        configChanged = true;
+      }
+      if (loc.daysCount === void 0) {
+        loc.daysCount = 6;
+        configChanged = true;
+      }
+      if (loc.hoursCount === void 0) {
+        loc.hoursCount = 6;
+        configChanged = true;
+      }
+      if (loc.fSizeTemp === void 0) {
+        loc.fSizeTemp = 40;
+        configChanged = true;
+      }
+      if (loc.fSizeAll === void 0) {
+        loc.fSizeAll = 15;
+        configChanged = true;
+      }
+      if (loc.fSizeDay === void 0) {
+        loc.fSizeDay = 15;
+        configChanged = true;
+      }
+      if (loc.fSizeHour === void 0) {
+        loc.fSizeHour = 15;
+        configChanged = true;
+      }
+    }
+    if (configChanged) {
+      this.log.info("Old configuration detected: Default values \u200B\u200Bfor widget settings have been added.");
+      await this.extendForeignObjectAsync(`system.adapter.${this.namespace}`, { native: { locations } });
+      return;
+    }
     try {
       const sysConfig = await this.getForeignObjectAsync("system.config");
       if (sysConfig && sysConfig.common) {
@@ -226,9 +264,26 @@ class OpenMeteoWeather extends utils.Adapter {
     await this.updateData();
     const config = this.config;
     const minutes = parseInt(config.updateInterval) || 30;
-    const intervalMs = minutes * 6e4;
-    this.updateInterval = this.setInterval(() => this.updateData(), intervalMs);
-    this.log.debug(`onReady: Scheduled update every ${minutes} minutes.`);
+    const scheduleNext = () => {
+      const now = /* @__PURE__ */ new Date();
+      const nextMinute = Math.ceil(now.getMinutes() / minutes) * minutes;
+      const nextRun = new Date(now);
+      nextRun.setSeconds(0, 0);
+      if (nextMinute >= 60) {
+        nextRun.setHours(nextRun.getHours() + 1);
+        nextRun.setMinutes(3);
+      } else {
+        nextRun.setMinutes(nextMinute + 3);
+      }
+      const delay = nextRun.getTime() - now.getTime();
+      this.log.info(`Next Weather update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1e3)}s)`);
+      this.updateInterval = this.setTimeout(async () => {
+        await this.updateData();
+        scheduleNext();
+      }, delay);
+    };
+    scheduleNext();
+    this.log.debug(`onReady: Scheduled update every ${minutes} minutes (+3 min offset).`);
     if (this.config.enablePV) {
       this.log.info("PV Service is enabled, initializing...");
       try {
@@ -262,11 +317,17 @@ class OpenMeteoWeather extends utils.Adapter {
       const parts = objId.split(".");
       if (parts.length > 2) {
         const folderName = parts[2];
+        if (objId.endsWith(".info.lastUpdate")) {
+          this.log.debug(`Clean up outdated state from previous version: ${objId}`);
+          await this.delObjectAsync(objId);
+          deletedCount++;
+          continue;
+        }
         if (folderName === "pv-forecast" || folderName === "info") {
           continue;
         }
         if (!validFolders.has(folderName)) {
-          this.log.info(`Delete outdated location:: ${folderName}`);
+          this.log.debug(`Delete outdated location:: ${folderName}`);
           await this.delObjectAsync(objId, { recursive: true });
           deletedCount++;
           continue;
@@ -298,8 +359,8 @@ class OpenMeteoWeather extends utils.Adapter {
             const aqDayNum = parseInt(aqDayMatch[1]);
             const aqLimit = airQualityEnabled ? parseInt(config.airQualityForecastDays) || 0 : 0;
             if (aqDayNum >= aqLimit) {
-              this.log.info(
-                `Bereinige veralteten Luftqualit\xE4ts-Vorhersagetag: ${folderName}.air.forecast.day${aqDayNum}`
+              this.log.debug(
+                `Correct outdated air quality forecast day: ${folderName}.air.forecast.day${aqDayNum}`
               );
               await this.delObjectAsync(objId, { recursive: true });
               deletedCount++;
@@ -496,7 +557,9 @@ class OpenMeteoWeather extends utils.Adapter {
           if (this.systemLatitude != null && this.systemLongitude != null) {
             latitude = this.systemLatitude;
             longitude = this.systemLongitude;
-            this.log.info(`Using system coordinates for location "${loc.name}": ${latitude}/${longitude}`);
+            this.log.info(
+              `Update: Using system coordinates for location "${loc.name}": ${latitude}/${longitude}`
+            );
           } else {
             this.log.error(
               "Please set the longitude and latitude manual in the adapter or in your system configuration!"
@@ -531,6 +594,7 @@ class OpenMeteoWeather extends utils.Adapter {
           this.log.debug(`updateData: Processing air quality for ${folderName}`);
           await this.processAirQualityData(data.air, folderName);
         }
+        await this.updateWidgetHtml(loc, folderName);
       }
       this.log.debug("updateData: All Weather locations processed successfully.");
       const now = /* @__PURE__ */ new Date();
@@ -1043,11 +1107,56 @@ class OpenMeteoWeather extends utils.Adapter {
     }
     await this.setState(id, { val, ack: true });
   }
+  // Generiert (oder leert) den Widget-HTML-State für einen Standort
+  async updateWidgetHtml(loc, folderName) {
+    var _a, _b, _c, _d, _e, _f;
+    const widgetStateId = `${folderName}.weather.htmlWidget`;
+    if (loc.create_widget !== true) {
+      const existing = await this.getStateAsync(widgetStateId);
+      if (existing !== null && existing !== void 0) {
+        await this.setState(widgetStateId, { val: "", ack: true });
+      }
+      return;
+    }
+    this.log.debug(`updateWidgetHtml: Generating widget HTML for ${folderName}`);
+    try {
+      await this.setObjectNotExistsAsync(widgetStateId, {
+        type: "state",
+        common: {
+          name: this.getI18nObject("htmlWidget"),
+          type: "string",
+          role: "html",
+          read: true,
+          write: false
+        },
+        native: {}
+      });
+      const html = await (0, import_widget_html_creator.generateWeatherHtml)(
+        {
+          locationName: loc.name,
+          folderName,
+          daysCount: (_a = loc.daysCount) != null ? _a : 6,
+          hoursCount: (_b = loc.hoursCount) != null ? _b : 6,
+          fSizeTemp: (_c = loc.fSizeTemp) != null ? _c : 40,
+          fSizeAll: (_d = loc.fSizeAll) != null ? _d : 15,
+          fSizeDay: (_e = loc.fSizeDay) != null ? _e : 15,
+          fSizeHour: (_f = loc.fSizeHour) != null ? _f : 15,
+          adapterName: this.name,
+          systemLang: this.systemLang
+        },
+        (relId) => this.getStateAsync(`${folderName}.${relId}`)
+      );
+      await this.setState(widgetStateId, { val: html, ack: true });
+      this.log.debug(`updateWidgetHtml: Widget HTML updated for ${folderName}`);
+    } catch (err) {
+      this.log.error(`updateWidgetHtml: Failed for ${folderName}: ${err.message}`);
+    }
+  }
   // Bereinigt Intervalle beim Beenden des Adapters
   onUnload(callback) {
     this.log.debug("onUnload: Cleaning up intervals.");
     if (this.updateInterval) {
-      this.clearInterval(this.updateInterval);
+      this.clearTimeout(this.updateInterval);
     }
     if (this.pvService) {
       this.log.debug("onUnload: Stopping PV-Service.");
