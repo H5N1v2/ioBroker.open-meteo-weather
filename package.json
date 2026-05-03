@@ -26,11 +26,11 @@
     "url": "https://github.com/H5N1v2/ioBroker.open-meteo-weather"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.3.2",
-    "axios": "^1.15.2",
+    "axios": "^1.16.0",
     "suncalc": "^1.9.0"
   },
   "devDependencies": {
