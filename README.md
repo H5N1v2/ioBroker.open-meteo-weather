@@ -23,7 +23,6 @@ I use my own Sentry server based on Glitchtip.
 
 **The Open-Meteo Weather & PV Forecast Service Adapter for ioBroker.**
 
-## First: If you are looking for a widget (only Weather) specifically for this adapter, then create it using [VIS2-widget-script-om-weather](https://github.com/H5N1v2/VIS2-widget-script-om-weather).
 
 This adapter provides precise weather data, forecasts, air quality, pollen & Photovoltaic Forecast information powered by [Open-Meteo.com](https://open-meteo.com/). It is free for non-commercial use (under 10,000 daily API calls) and requires no API key registration, making the setup process extremely simple.
 
@@ -80,6 +79,33 @@ After installation, configure the following fields in the instance settings:
 6.  **Hourly Forecast:** Enable or disable this option and set the number of hours (e.g., the next 24 hours). For example, hour0 is the current hour, hour1 is the next hour, and so on.
 7.  **Optional Data:** Checkboxes for pollen and air quality data.
 8.  **Units:** Choose between Metric and Imperial.
+
+---
+
+## Weather Widget
+
+This adapter offers two ways to display weather data in your visualization:
+
+### 1. Built-in Widget (Standard)
+Since version **3.2.0**, the adapter can automatically generate a pre-configured HTML widget for each location. 
+
+**How to use:** 
+1. **Enable:** Check the "Create Widget" checkbox in the instance settings for your location.
+2. **Find State:** The adapter will create a state called `htmlWidget` (under `open-meteo-weather.0.yourLocation.htmlWidget`).
+3. **In VIS/VIS2:** * Drag a standard **"HTML" widget** onto your view.
+   * Set the "HTML" property of that widget to the binding of your state: `{open-meteo-weather.0.yourLocation.htmlWidget}`.
+   * Adjust the width and height of the widget container to fit the content.
+
+**Customization:** You can only adjust basic settings like font sizes, forecast hours and days directly in the adapter configuration.
+
+**Best for:** Users who want a quick, beautiful, and maintenance-free display.
+
+**Note:** For optimal display on desktop browsers, do not use additional CSS borders or shadows in the VIS editor settings. The widget comes with its own optimized styling.
+
+### 2. Advanced Widget Script (Full Customization)
+If you want to make deep changes to the design, add your own CSS, or extend the logic:
+* **Link:** Use the [VIS2-widget-script-om-weather](https://github.com/H5N1v2/VIS2-widget-script-om-weather).
+* **Best for:** Power users who want full control over every HTML tag and CSS property.
 
 ---
 
@@ -248,6 +274,16 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) Changed update routine for weather and PV forecast to fixed fetch times.
+* (H5N1v2) Add a customizable HTML weather widget in the admin area.
+* (H5N1v2) Adaptation for version jumps from older configurations.
+* (H5N1v2) Description added to the admin area.
+* (H5N1v2) Readme updated in widget section.
+* (H5N1v2) Adapter internal widget adapted, hazards are highlighted in color (currently only in the internal adapter widget).
+* (copilot) Adapter requires node.js >= 22 now.
+* (H5N1v2) Update axios to v.1.16.0.
+
 ### 3.0.1 (2026-04-25)
 * (H5N1) update dependencies
 * (H5N1) improve error handling in API calls with detailed messages
