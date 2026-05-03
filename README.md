@@ -274,9 +274,9 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.1.0 (2026-05-03)
 * (H5N1v2) Changed update routine for weather and PV forecast to fixed fetch times.
-* (H5N1v2) Add a customizable HTML weather widget in the admin area.
+* (H5N1v2) Added a customizable HTML weather widget in the admin area.
 * (H5N1v2) Adaptation for version jumps from older configurations.
 * (H5N1v2) Description added to the admin area.
 * (H5N1v2) Readme updated in widget section.
@@ -302,9 +302,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 
 ### 2.6.3 (2026-03-26)
 * (H5N1v2) add sentry plugin to automatically report errors to developer
-
-### 2.6.2 (2026-03-25)
-* (H5N1v2) update @types/node dependency to version 22.19.15
 
 ## Older Changelog
 [OLDER CHANGELOG](CHANGELOG_OLD.md)
