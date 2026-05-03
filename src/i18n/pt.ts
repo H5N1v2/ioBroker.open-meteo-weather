@@ -89,4 +89,5 @@ export const pt = {
 	pm2_5_max: 'PM2.5 Máx.',
 	ragweed_pollen_max: 'Pólen de Ambrósia Máx.',
 	interval: 'Intervalo',
+	htmlWidget: 'Widget Tempo HTML',
 };

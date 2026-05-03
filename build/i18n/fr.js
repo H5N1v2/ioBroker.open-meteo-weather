@@ -109,7 +109,8 @@ const fr = {
   pm10_max: "PM10 Max.",
   pm2_5_max: "PM2.5 Max.",
   ragweed_pollen_max: "Pollen d'Ambroisie Max.",
-  interval: "Intervalle"
+  interval: "Intervalle",
+  htmlWidget: "Widget M\xE9t\xE9o HTML"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

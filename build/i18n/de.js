@@ -109,7 +109,8 @@ const de = {
   pm10_max: "Feinstaub PM10 Max.",
   pm2_5_max: "Feinstaub pm2.5 Max.",
   ragweed_pollen_max: "Ambrosiapollen Max.",
-  interval: "Intervall"
+  interval: "Intervall",
+  htmlWidget: "Wetter Widget HTML"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

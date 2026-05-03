@@ -89,4 +89,5 @@ export const en = {
 	pm2_5_max: 'PM2.5 Max.',
 	ragweed_pollen_max: 'Ragweed Pollen Max.',
 	interval: 'Interval',
+	htmlWidget: 'Weather Widget HTML',
 };

@@ -89,4 +89,5 @@ export const pl = {
 	pm2_5_max: 'PM2.5 Maks.',
 	ragweed_pollen_max: 'Pyłek Ambrozji Maks.',
 	interval: 'Interwał',
+	htmlWidget: 'Widget Pogodowy HTML',
 };

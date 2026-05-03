@@ -109,7 +109,8 @@ const pl = {
   pm10_max: "PM10 Maks.",
   pm2_5_max: "PM2.5 Maks.",
   ragweed_pollen_max: "Py\u0142ek Ambrozji Maks.",
-  interval: "Interwa\u0142"
+  interval: "Interwa\u0142",
+  htmlWidget: "Widget Pogodowy HTML"
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

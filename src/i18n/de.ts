@@ -89,4 +89,5 @@ export const de = {
 	pm2_5_max: 'Feinstaub pm2.5 Max.',
 	ragweed_pollen_max: 'Ambrosiapollen Max.',
 	interval: 'Intervall',
+	htmlWidget: 'Wetter Widget HTML',
 };

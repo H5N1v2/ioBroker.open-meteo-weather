@@ -89,4 +89,5 @@ export const uk = {
 	pm2_5_max: 'PM2.5 Макс.',
 	ragweed_pollen_max: 'Пилок Амброзії Макс.',
 	interval: 'Інтервал',
+	htmlWidget: 'Віджет Погоди HTML',
 };
