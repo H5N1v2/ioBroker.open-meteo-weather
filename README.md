@@ -303,6 +303,8 @@ After a new adapter update, it is recommended to delete the entire directory tre
 ### 2.6.3 (2026-03-26)
 * (H5N1v2) add sentry plugin to automatically report errors to developer
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## Older Changelog
 [OLDER CHANGELOG](CHANGELOG_OLD.md)
 
