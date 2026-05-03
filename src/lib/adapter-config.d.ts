@@ -22,7 +22,13 @@ declare global {
                 lon: number;
                 tz: string;
                 country?: string;
-            }[];
+                create_widget?: boolean;
+                daysCount?: number;
+                hoursCount?: number;
+                fSizeTemp?: number;
+                fSizeAll?: number;
+                fSizeDay?: number;
+                fSizeHour?: number;            }[];
             isNight_icon: boolean;
             isWinddirection_icon: boolean;
             pollenEnabled: boolean;
@@ -53,5 +59,4 @@ declare global {
     }
 }
 
-// Erforderlich, damit TypeScript die Datei als Modul erkennt
 export {};
