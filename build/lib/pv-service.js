@@ -62,11 +62,11 @@ class PVService {
     await this.createStatesForLocations();
     await this.updateAllLocations();
     if (this.updateInterval) {
-      clearInterval(this.updateInterval);
+      this.adapter.clearTimeout(this.updateInterval);
       this.updateInterval = null;
     }
     if (this.astroTimeout) {
-      clearTimeout(this.astroTimeout);
+      this.adapter.clearTimeout(this.astroTimeout);
       this.astroTimeout = null;
     }
     const configValue = this.adapter.config.pv_updateInterval;
@@ -94,13 +94,28 @@ class PVService {
     } else {
       const intervalMinutes = Number(configValue || 60);
       if (intervalMinutes > 0) {
-        this.adapter.log.info(`PV update scheduled: every ${intervalMinutes} minutes`);
-        this.updateInterval = setInterval(
-          () => {
-            void this.updateAllLocations();
-          },
-          intervalMinutes * 60 * 1e3
-        );
+        this.adapter.log.debug(`PV update scheduled: every ${intervalMinutes} minutes (+2 min offset).`);
+        const scheduleNext = () => {
+          const now = /* @__PURE__ */ new Date();
+          const nextMinute = Math.ceil(now.getMinutes() / intervalMinutes) * intervalMinutes;
+          const nextRun = new Date(now);
+          nextRun.setSeconds(0, 0);
+          if (nextMinute >= 60) {
+            nextRun.setHours(nextRun.getHours() + 1);
+            nextRun.setMinutes(2);
+          } else {
+            nextRun.setMinutes(nextMinute + 2);
+          }
+          const delay = nextRun.getTime() - now.getTime();
+          this.adapter.log.info(
+            `PV: Next update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1e3)}s)`
+          );
+          this.updateInterval = this.adapter.setTimeout(async () => {
+            await this.updateAllLocations();
+            scheduleNext();
+          }, delay);
+        };
+        scheduleNext();
       }
     }
   }
@@ -160,7 +175,7 @@ class PVService {
         const sumObj = await this.adapter.getObjectAsync(channel.id);
         if (sumObj) {
           await this.adapter.delObjectAsync(channel.id, { recursive: true });
-          this.adapter.log.info(`Cleanup: Deleted summary channel ${channel.id}`);
+          this.adapter.log.debug(`Cleanup: Deleted summary channel ${channel.id}`);
         }
       }
     }
@@ -183,7 +198,7 @@ class PVService {
       if (!configuredNames.has(locName)) {
         if (parts.length === 2) {
           await this.adapter.delObjectAsync(localId, { recursive: true });
-          this.adapter.log.info(`Cleanup: Deleted removed PV location: ${locName}`);
+          this.adapter.log.debug(`Cleanup: Deleted removed PV location: ${locName}`);
         }
         continue;
       }
@@ -1602,12 +1617,12 @@ class PVService {
    */
   destroy() {
     if (this.updateInterval) {
-      clearInterval(this.updateInterval);
+      this.adapter.clearTimeout(this.updateInterval);
       this.updateInterval = null;
       this.adapter.log.debug("PV-Service interval cleared.");
     }
     if (this.astroTimeout) {
-      clearTimeout(this.astroTimeout);
+      this.adapter.clearTimeout(this.astroTimeout);
       this.astroTimeout = null;
       this.adapter.log.debug("PV-Service astro timer cleared.");
     }

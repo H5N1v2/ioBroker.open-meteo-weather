@@ -7,7 +7,7 @@ import * as SunCalc from 'suncalc';
 export class PVService {
 	private adapter: any;
 	private apiCaller!: ApiCaller;
-	private updateInterval: NodeJS.Timeout | null = null;
+	private updateInterval: ioBroker.Timeout | null = null;
 	private astroTimeout: NodeJS.Timeout | null = null;
 
 	/**
@@ -40,11 +40,11 @@ export class PVService {
 
 		// Timer aufräumen
 		if (this.updateInterval) {
-			clearInterval(this.updateInterval);
+			this.adapter.clearTimeout(this.updateInterval);
 			this.updateInterval = null;
 		}
 		if (this.astroTimeout) {
-			clearTimeout(this.astroTimeout);
+			this.adapter.clearTimeout(this.astroTimeout);
 			this.astroTimeout = null;
 		}
 
@@ -70,17 +70,41 @@ export class PVService {
 
 		if (configValue === 'sunrise') {
 			this.adapter.log.info('PV update scheduled: daily before sunrise');
-			this.scheduleSunriseUpdate(); // Aufruf ohne "adapter", da die Methode hier unten drunter steht
+			this.scheduleSunriseUpdate();
 		} else {
 			const intervalMinutes = Number(configValue || 60);
 			if (intervalMinutes > 0) {
-				this.adapter.log.info(`PV update scheduled: every ${intervalMinutes} minutes`);
-				this.updateInterval = setInterval(
-					() => {
-						void this.updateAllLocations();
-					},
-					intervalMinutes * 60 * 1000,
-				);
+				this.adapter.log.debug(`PV update scheduled: every ${intervalMinutes} minutes (+2 min offset).`);
+
+				const scheduleNext = (): void => {
+					const now = new Date();
+
+					// nächster fester Slot
+					const nextMinute = Math.ceil(now.getMinutes() / intervalMinutes) * intervalMinutes;
+
+					const nextRun = new Date(now);
+					nextRun.setSeconds(0, 0);
+
+					if (nextMinute >= 60) {
+						nextRun.setHours(nextRun.getHours() + 1);
+						nextRun.setMinutes(2);
+					} else {
+						nextRun.setMinutes(nextMinute + 2);
+					}
+
+					const delay = nextRun.getTime() - now.getTime();
+
+					this.adapter.log.info(
+						`PV: Next update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1000)}s)`,
+					);
+
+					this.updateInterval = this.adapter.setTimeout(async () => {
+						await this.updateAllLocations();
+						scheduleNext();
+					}, delay);
+				};
+
+				scheduleNext();
 			}
 		}
 	}
@@ -153,7 +177,7 @@ export class PVService {
 				const sumObj = await this.adapter.getObjectAsync(channel.id);
 				if (sumObj) {
 					await this.adapter.delObjectAsync(channel.id, { recursive: true });
-					this.adapter.log.info(`Cleanup: Deleted summary channel ${channel.id}`);
+					this.adapter.log.debug(`Cleanup: Deleted summary channel ${channel.id}`);
 				}
 			}
 		}
@@ -188,7 +212,7 @@ export class PVService {
 			if (!configuredNames.has(locName)) {
 				if (parts.length === 2) {
 					await this.adapter.delObjectAsync(localId, { recursive: true });
-					this.adapter.log.info(`Cleanup: Deleted removed PV location: ${locName}`);
+					this.adapter.log.debug(`Cleanup: Deleted removed PV location: ${locName}`);
 				}
 				continue;
 			}
@@ -200,7 +224,7 @@ export class PVService {
 				if (!this.adapter.config.cloud_cover) {
 					await this.adapter.delObjectAsync(localId);
 					this.adapter.log.debug(`Cleanup: Removed disabled cloud_cover: ${localId}`);
-					continue; // Objekt gelöscht, weiter zum nächsten
+					continue;
 				}
 			}
 
@@ -219,7 +243,7 @@ export class PVService {
 				continue;
 			}
 
-			// 4. Tage Check (wie gehabt)
+			// 4. Tage Check
 			const dayMatch = localId.match(/\.daily-forecast\.day(\d+)$/);
 			if (dayMatch) {
 				const dayIndex = parseInt(dayMatch[1]);
@@ -229,7 +253,7 @@ export class PVService {
 				}
 			}
 
-			// 5. Stunden Check (wie gehabt)
+			// 5. Stunden Check
 			const hourMatch = localId.match(/\.hourly-forecast\.hour(\d+)$/);
 			if (hourMatch) {
 				const hourIndex = parseInt(hourMatch[1]);
@@ -239,7 +263,7 @@ export class PVService {
 				}
 			}
 
-			// 6. JSON Charts (wie gehabt)
+			// 6. JSON Charts
 			if (localId.endsWith('.15-min-json_chart') && !this.adapter.config.minutes_15_json) {
 				await this.adapter.delObjectAsync(localId);
 				continue;
@@ -1800,13 +1824,13 @@ export class PVService {
 	 */
 	public destroy(): void {
 		if (this.updateInterval) {
-			clearInterval(this.updateInterval);
-			this.updateInterval = null; // Hier null statt undefined
+			this.adapter.clearTimeout(this.updateInterval);
+			this.updateInterval = null;
 			this.adapter.log.debug('PV-Service interval cleared.');
 		}
 
 		if (this.astroTimeout) {
-			clearTimeout(this.astroTimeout);
+			this.adapter.clearTimeout(this.astroTimeout);
 			this.astroTimeout = null;
 			this.adapter.log.debug('PV-Service astro timer cleared.');
 		}
