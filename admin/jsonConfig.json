@@ -90,6 +90,86 @@
                   { "value": "Pacific/Auckland", "label": "Pacific/Auckland" }
                 ],
                 "default": "auto"
+            },
+            {
+              "type": "checkbox",
+              "attr": "create_widget",
+              "title": "widget_create_label",
+              "label": "",
+              "width": "130px",
+              "default": false
+            },
+            {
+              "type": "number",
+              "attr": "daysCount",
+              "title": "widget_daysCount_label",
+              "label": "",
+              "width": "100px",
+              "default": 6,
+              "min": 1,
+              "max": 16,
+              "help": "sum_days_help_label",
+              "disabled": "!data.create_widget"
+            },
+         {
+              "type": "number",
+              "attr": "hoursCount",
+              "title": "widget_hoursCount_label",
+              "label": "",
+              "width": "100px",
+              "default": 6,
+              "min": 1,
+              "max": 24,
+              "help": "sum_hours_help_label",
+              "disabled": "!data.create_widget"
+            },   
+            {
+              "type": "number",
+              "attr": "fSizeTemp",
+              "title": "widget_fSizeTemp_label",
+              "label": "",
+              "width": "120px",
+              "default": 40,
+              "min": 16,
+              "max": 80,
+              "help": "px",
+              "disabled": "!data.create_widget"
+            },
+            {
+              "type": "number",
+              "attr": "fSizeAll",
+              "title": "widget_fSizeAll_label",
+              "label": "",
+              "width": "120px",
+              "default": 15,
+              "min": 6,
+              "max": 24,
+              "help": "px",
+              "disabled": "!data.create_widget"
+            },
+            {
+              "type": "number",
+              "attr": "fSizeHour",
+              "title": "widget_fSizeHour_label",
+              "label": "",
+              "width": "120px",
+              "default": 15,
+              "min": 6,
+              "max": 24,
+              "help": "px",
+              "disabled": "!data.create_widget"
+            },
+            {
+              "type": "number",
+              "attr": "fSizeDay",
+              "title": "widget_fSizeDay_label",
+              "label": "",
+              "width": "120px",
+              "default": 15,
+              "min": 6,
+              "max": 24,
+              "help": "px",
+              "disabled": "!data.create_widget"
             }
           ]
         },
