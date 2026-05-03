@@ -87,7 +87,7 @@ After installation, configure the following fields in the instance settings:
 This adapter offers two ways to display weather data in your visualization:
 
 ### 1. Built-in Widget (Standard)
-Since version **3.2.0**, the adapter can automatically generate a pre-configured HTML widget for each location. 
+Since version **3.1.0**, the adapter can automatically generate a pre-configured HTML widget for each location. 
 
 **How to use:** 
 1. **Enable:** Check the "Create Widget" checkbox in the instance settings for your location.
