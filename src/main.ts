@@ -597,7 +597,7 @@ class OpenMeteoWeather extends utils.Adapter {
 				for (const chan of channels) {
 					await this.setObjectNotExistsAsync(`${folderName}.${chan.id}`, {
 						type: 'channel',
-						common: { name: chan.name as any },
+						common: { name: chan.name },
 						native: {},
 					});
 				}
