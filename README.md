@@ -28,7 +28,7 @@ This adapter provides precise weather data, forecasts, air quality, pollen & Pho
 
 ---
 
-# Features Weather
+## Features Weather
 
 * **Current Weather Data:** Real-time retrieval of temperature, humidity, air pressure, and wind data.
 * **Flexible Forecasts:** Configurable number of forecast days and hourly resolution.
@@ -137,7 +137,7 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 ---
 ---
 
-# Features PV Forecast (if enabled)
+## Features PV Forecast (if enabled)
 
 * **Multiple Locations:** Support for multiple PV systems/locations, e.g., for East/West orientations.
 * **Hourly Forecast:** Detailed prediction of power output, temperature, cloud cover, and sunshine duration.
