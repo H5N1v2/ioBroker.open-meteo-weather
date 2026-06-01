@@ -637,11 +637,6 @@
                   { "value": "Pacific/Auckland", "label": "Pacific/Auckland" }
                 ],
                 "default": "auto"
-            },
-            {
-              "type": "custom",
-              "label": "actions",
-              "i18n": true
             }
           ]
         },
