@@ -1,4 +1,3 @@
-
 {
   "i18n": true,
   "type": "tabs",
@@ -9,35 +8,54 @@
       "items": {
         "headerPanel": {
           "type": "panel",
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, 
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
           "items": {
             "icontest": {
               "type": "staticImage",
               "src": "open-meteo.png",
-              "xs": 12, "sm": 3, "md": 2, "lg": 2, "xl": 2 
+              "xs": 12,
+              "sm": 3,
+              "md": 2,
+              "lg": 2,
+              "xl": 2
             },
             "descriptionText": {
               "type": "staticText",
               "text": "descriptionText_text",
-              "style": { 
+              "style": {
                 "fontStyle": "italic",
                 "fontSize": "20px",
                 "fontWeight": "bold"
               },
-              "xs": 12, "sm": 9, "md": 9, "lg": 9, "xl": 9 
+              "xs": 12,
+              "sm": 9,
+              "md": 9,
+              "lg": 9,
+              "xl": 9
             }
           }
         },
-
         "locationLabel": {
           "type": "header",
           "text": "location_header_text",
           "size": 2,
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "locations": {
           "type": "table",
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
           "label": "locations_label",
           "help": "locations_help",
           "items": [
@@ -54,7 +72,7 @@
               "title": "latitude_label",
               "label": "",
               "width": "150px",
-              "help": "coordinates_help_label"              
+              "help": "coordinates_help_label"
             },
             {
               "type": "text",
@@ -70,26 +88,77 @@
               "title": "timezone_label",
               "label": "",
               "width": "150px",
-              "options":[
-                  { "value": "auto", "label": "autom" },
-                  { "value": "GMT", "label": "GMT / UTC" },
-                  { "value": "Europe/Berlin", "label": "Europa/Berlin" },
-                  { "value": "Europe/London", "label": "Europe/London" },
-                  { "value": "Europe/Moscow", "label": "Europe/Moscow" },
-                  { "value": "America/New_York", "label": "America/New York" },
-                  { "value": "America/Chicago", "label": "America/Chicago" },
-                  { "value": "America/Denver", "label": "America/Denver" },
-                  { "value": "America/Los_Angeles", "label": "America/Los Angeles" },
-                  { "value": "America/Sao_Paulo", "label": "America/Sao Paulo" },
-                  { "value": "America/Anchorage", "label": "America/Anchorage" },
-                  { "value": "Asia/Tokyo", "label": "Asia/Tokyo" },
-                  { "value": "Asia/Bangkok", "label": "Asia/Bangkok" },
-                  { "value": "Asia/Singapore", "label": "Asia/Singapore" },
-                  { "value": "Australia/Sydney", "label": "Australia/Sydney" },
-                  { "value": "Africa/Cairo", "label": "Afrika/Cairo" },
-                  { "value": "Pacific/Auckland", "label": "Pacific/Auckland" }
-                ],
-                "default": "auto"
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "autom"
+                },
+                {
+                  "value": "GMT",
+                  "label": "GMT / UTC"
+                },
+                {
+                  "value": "Europe/Berlin",
+                  "label": "Europa/Berlin"
+                },
+                {
+                  "value": "Europe/London",
+                  "label": "Europe/London"
+                },
+                {
+                  "value": "Europe/Moscow",
+                  "label": "Europe/Moscow"
+                },
+                {
+                  "value": "America/New_York",
+                  "label": "America/New York"
+                },
+                {
+                  "value": "America/Chicago",
+                  "label": "America/Chicago"
+                },
+                {
+                  "value": "America/Denver",
+                  "label": "America/Denver"
+                },
+                {
+                  "value": "America/Los_Angeles",
+                  "label": "America/Los Angeles"
+                },
+                {
+                  "value": "America/Sao_Paulo",
+                  "label": "America/Sao Paulo"
+                },
+                {
+                  "value": "America/Anchorage",
+                  "label": "America/Anchorage"
+                },
+                {
+                  "value": "Asia/Tokyo",
+                  "label": "Asia/Tokyo"
+                },
+                {
+                  "value": "Asia/Bangkok",
+                  "label": "Asia/Bangkok"
+                },
+                {
+                  "value": "Asia/Singapore",
+                  "label": "Asia/Singapore"
+                },
+                {
+                  "value": "Australia/Sydney",
+                  "label": "Australia/Sydney"
+                },
+                {
+                  "value": "Africa/Cairo",
+                  "label": "Afrika/Cairo"
+                },
+                {
+                  "value": "Pacific/Auckland",
+                  "label": "Pacific/Auckland"
+                }
+              ],
+              "default": "auto"
             },
             {
               "type": "checkbox",
@@ -111,7 +180,7 @@
               "help": "sum_days_help_label",
               "disabled": "!data.create_widget"
             },
-         {
+            {
               "type": "number",
               "attr": "hoursCount",
               "title": "widget_hoursCount_label",
@@ -122,7 +191,7 @@
               "max": 24,
               "help": "sum_hours_help_label",
               "disabled": "!data.create_widget"
-            },   
+            },
             {
               "type": "number",
               "attr": "fSizeTemp",
@@ -179,7 +248,11 @@
           "href": "https://nominatim.openstreetmap.org/ui/search.html",
           "button": true,
           "color": "primary",
-          "xs": 12, "sm": 6, "md": 6, "lg": 6, "xl": 6,
+          "xs": 12,
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
           "newLine": true,
           "style": {
             "marginTop": "20px",
@@ -194,7 +267,11 @@
           "href": "https://github.com/H5N1v2/VIS2-widget-script-om-weather",
           "button": true,
           "color": "primary",
-          "xs": 12, "sm": 6, "md": 6, "lg": 6, "xl": 6,
+          "xs": 12,
+          "sm": 6,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
           "style": {
             "marginTop": "20px",
             "marginBottom": "20px",
@@ -202,81 +279,167 @@
             "border": "2px solid #f3d421"
           }
         },
-
-        "divider1": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }, 
-
+        "divider1": {
+          "type": "divider",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        },
         "options_header": {
           "type": "header",
           "text": "options_header_text",
           "size": 2,
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "updateInterval": {
           "type": "select",
           "label": "interval_label",
           "default": 30,
           "options": [
-            { "value": 15, "label": "interval_15_min" },
-            { "value": 30, "label": "interval_30_min" },
-            { "value": 60, "label": "interval_60_min" }
+            {
+              "value": 15,
+              "label": "interval_15_min"
+            },
+            {
+              "value": 30,
+              "label": "interval_30_min"
+            },
+            {
+              "value": 60,
+              "label": "interval_60_min"
+            }
           ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 2,
+          "xl": 2
         },
         "forecastDays": {
           "type": "select",
           "label": "forecastDays_label",
           "default": 1,
           "options": [
-            { "value": 1, "label": "days_1" },
-            { "value": 3, "label": "days_3" },
-            { "value": 7, "label": "days_7" },
-            { "value": 14, "label": "days_14" },
-            { "value": 16, "label": "days_16" }
+            {
+              "value": 1,
+              "label": "days_1"
+            },
+            {
+              "value": 3,
+              "label": "days_3"
+            },
+            {
+              "value": 7,
+              "label": "days_7"
+            },
+            {
+              "value": 14,
+              "label": "days_14"
+            },
+            {
+              "value": 16,
+              "label": "days_16"
+            }
           ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 2,
+          "xl": 2
         },
         "isImperial": {
-            "type": "select",
-            "label": "unit_system_label",
-            "default": false,
-            "options": [
-                { "value": false, "label": "metric_label" },
-                { "value": true, "label": "imperial_label" }
-            ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
+          "type": "select",
+          "label": "unit_system_label",
+          "default": false,
+          "options": [
+            {
+              "value": false,
+              "label": "metric_label"
+            },
+            {
+              "value": true,
+              "label": "imperial_label"
+            }
+          ],
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 2,
+          "xl": 2
         },
-
-        "divider2": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }, 
-
+        "divider2": {
+          "type": "divider",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        },
         "forecastHoursEnabled": {
           "type": "checkbox",
           "label": "forecastHoursEnabled_label",
           "help": "forecastHoursEnabled_help",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3 
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
         },
         "forecastHours": {
           "type": "select",
           "label": "forecastHours_label",
           "default": 1,
           "options": [
-            { "value": 1, "label": "Hours_1" },
-            { "value": 6, "label": "Hours_6" },
-            { "value": 12, "label": "Hours_12" },
-            { "value": 24, "label": "Hours_24" }
+            {
+              "value": 1,
+              "label": "Hours_1"
+            },
+            {
+              "value": 6,
+              "label": "Hours_6"
+            },
+            {
+              "value": 12,
+              "label": "Hours_12"
+            },
+            {
+              "value": 24,
+              "label": "Hours_24"
+            }
           ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3, 
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3,
           "hidden": "!data.forecastHoursEnabled"
         },
-
-        "divider3": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12, "hidden": "!data.airQualityEnabled" }, 
-
+        "divider3": {
+          "type": "divider",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
+          "hidden": "!data.airQualityEnabled"
+        },
         "airQualityEnabled": {
           "type": "checkbox",
           "label": "airQualityEnabled_label",
           "help": "airQualityHint_text",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3, 
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3,
           "newLine": true
         },
         "airQualityForecastDays": {
@@ -284,120 +447,460 @@
           "label": "airQualityForecastDays_label",
           "default": 1,
           "options": [
-            { "value": 0, "label": "no_forecast" },
-            { "value": 1, "label": "days_1" },
-            { "value": 3, "label": "days_3" },
-            { "value": 6, "label": "days_6" }
+            {
+              "value": 0,
+              "label": "no_forecast"
+            },
+            {
+              "value": 1,
+              "label": "days_1"
+            },
+            {
+              "value": 3,
+              "label": "days_3"
+            },
+            {
+              "value": 6,
+              "label": "days_6"
+            }
           ],
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3,
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3,
           "hidden": "!data.airQualityEnabled"
         },
-                  "divider4": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 }
+        "divider4": {
+          "type": "divider",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        }
       }
     },
     "tab": {
       "type": "panel",
       "label": "settings_label2",
       "items": {
-          "IconLabel": {
+        "IconLabel": {
           "type": "header",
           "text": "icon_select_label",
           "size": 2,
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "select_icon": {
-            "type": "select",
-            "label": "icon_system_label",
-            "default": 1,
-            "options": [
-                { "value": 0, "label": "animated_label" },
-                { "value": 1, "label": "static_label" }
-            ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2 
+          "type": "select",
+          "label": "icon_system_label",
+          "default": 1,
+          "options": [
+            {
+              "value": 0,
+              "label": "animated_label"
+            },
+            {
+              "value": 1,
+              "label": "static_label"
+            }
+          ],
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 2,
+          "xl": 2
         },
-        "ico_preview_static_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/0.png","newLine": true,"hidden": "data.select_icon !== 1"},
-        "ico_preview_static_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/3.png","hidden": "data.select_icon !== 1"}, 
-        "ico_preview_static_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/51.png","hidden": "data.select_icon !== 1"}, 
-        "ico_preview_static_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/weather_icons/61.png","hidden": "data.select_icon !== 1"},
-        "ico_preview_animated_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/0.svg","newLine": true,"hidden": "data.select_icon !== 0"},
-        "ico_preview_animated_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/3.svg","hidden": "data.select_icon !== 0"}, 
-        "ico_preview_animated_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/51.svg","hidden": "data.select_icon !== 0"}, 
-        "ico_preview_animated_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/animated/day/61.svg","hidden": "data.select_icon !== 0"},
-        "isNight_icon": {
-            "type": "select",
-            "label": "isnight_system_label",
-            "default": false,
-            "options": [
-                { "value": false, "label": "dark_label" },
-                { "value": true, "label": "bright_label" }
-            ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2,
-            "disabled": "!data.select_icon==1",
-            "newLine": true
-        },
-        "ico_preview_static_dn_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/0n.png","newLine": true,"hidden": "data.isNight_icon !== false || data.select_icon !== 1"},
-        "ico_preview_static_dn_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/3n.png","hidden": "data.isNight_icon !== false || data.select_icon !== 1"}, 
-        "ico_preview_static_dn_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/51n.png","hidden": "data.isNight_icon !== false || data.select_icon !== 1"}, 
-        "ico_preview_static_dn_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_dark/61n.png","hidden": "data.isNight_icon !== false || data.select_icon !== 1"}, 
-        "ico_preview_static_bn_0": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/0nh.png","newLine": true,"hidden": "data.isNight_icon !== true || data.select_icon !== 1"},
-        "ico_preview_static_bn_1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/3nh.png","hidden": "data.isNight_icon !== true || data.select_icon !== 1"}, 
-        "ico_preview_static_bn_2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/51nh.png","hidden": "data.isNight_icon !== true || data.select_icon !== 1"}, 
-        "ico_preview_static_bn_3": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "40px","height": "40px"},"src": "icons/night_bright/61nh.png","hidden": "data.isNight_icon !== true || data.select_icon !== 1"},
-            
-            "isWinddirection_icon": {
-            "type": "select",
-            "label": "windicon_system_label",
-            "default": false,
-            "options": [
-                { "value": false, "label": "direct1_label" },
-                { "value": true, "label": "direct2_label" }
-            ],
-            "xs": 12, "sm": 6, "md": 4, "lg": 2, "xl": 2,
-            "newLine": true 
+        "ico_preview_static_0": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
           },
-          "ico_preview_wind1": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/wind_direction_icons/n.png","newLine": true,"hidden": "data.isWinddirection_icon !== true"},
-          "text_preview_wind1": {"type": "staticText","xs": 12, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== true"},
-          "ico_preview_wind2": {"type": "staticImage", "xs": 2, "sm": 2, "md": 2, "lg": 2, "xl": 2,"style": {"width": "50px","height": "50px"},"src": "icons/wind_direction_icons/direct_2/n.png","newLine": true,"hidden": "data.isWinddirection_icon !== false"},
-          "text_preview_wind2": {"type": "staticText","xs": 12, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "windicon_help_from_where_label","style": {"color": "red", "fontStyle": "italic", "marginTop": "20px"},"hidden": "data.isWinddirection_icon !== false"}
+          "src": "icons/weather_icons/0.png",
+          "newLine": true,
+          "hidden": "data.select_icon !== 1"
+        },
+        "ico_preview_static_1": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/weather_icons/3.png",
+          "hidden": "data.select_icon !== 1"
+        },
+        "ico_preview_static_2": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/weather_icons/51.png",
+          "hidden": "data.select_icon !== 1"
+        },
+        "ico_preview_static_3": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/weather_icons/61.png",
+          "hidden": "data.select_icon !== 1"
+        },
+        "ico_preview_animated_0": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/animated/day/0.svg",
+          "newLine": true,
+          "hidden": "data.select_icon !== 0"
+        },
+        "ico_preview_animated_1": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/animated/day/3.svg",
+          "hidden": "data.select_icon !== 0"
+        },
+        "ico_preview_animated_2": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/animated/day/51.svg",
+          "hidden": "data.select_icon !== 0"
+        },
+        "ico_preview_animated_3": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/animated/day/61.svg",
+          "hidden": "data.select_icon !== 0"
+        },
+        "isNight_icon": {
+          "type": "select",
+          "label": "isnight_system_label",
+          "default": false,
+          "options": [
+            {
+              "value": false,
+              "label": "dark_label"
+            },
+            {
+              "value": true,
+              "label": "bright_label"
+            }
+          ],
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 2,
+          "xl": 2,
+          "disabled": "!data.select_icon==1",
+          "newLine": true
+        },
+        "ico_preview_static_dn_0": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_dark/0n.png",
+          "newLine": true,
+          "hidden": "data.isNight_icon !== false || data.select_icon !== 1"
+        },
+        "ico_preview_static_dn_1": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_dark/3n.png",
+          "hidden": "data.isNight_icon !== false || data.select_icon !== 1"
+        },
+        "ico_preview_static_dn_2": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_dark/51n.png",
+          "hidden": "data.isNight_icon !== false || data.select_icon !== 1"
+        },
+        "ico_preview_static_dn_3": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_dark/61n.png",
+          "hidden": "data.isNight_icon !== false || data.select_icon !== 1"
+        },
+        "ico_preview_static_bn_0": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_bright/0nh.png",
+          "newLine": true,
+          "hidden": "data.isNight_icon !== true || data.select_icon !== 1"
+        },
+        "ico_preview_static_bn_1": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_bright/3nh.png",
+          "hidden": "data.isNight_icon !== true || data.select_icon !== 1"
+        },
+        "ico_preview_static_bn_2": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_bright/51nh.png",
+          "hidden": "data.isNight_icon !== true || data.select_icon !== 1"
+        },
+        "ico_preview_static_bn_3": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "40px",
+            "height": "40px"
+          },
+          "src": "icons/night_bright/61nh.png",
+          "hidden": "data.isNight_icon !== true || data.select_icon !== 1"
+        },
+        "isWinddirection_icon": {
+          "type": "select",
+          "label": "windicon_system_label",
+          "default": false,
+          "options": [
+            {
+              "value": false,
+              "label": "direct1_label"
+            },
+            {
+              "value": true,
+              "label": "direct2_label"
+            }
+          ],
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 2,
+          "xl": 2,
+          "newLine": true
+        },
+        "ico_preview_wind1": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/wind_direction_icons/n.png",
+          "newLine": true,
+          "hidden": "data.isWinddirection_icon !== true"
+        },
+        "text_preview_wind1": {
+          "type": "staticText",
+          "xs": 12,
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4,
+          "text": "windicon_help_where_label",
+          "style": {
+            "color": "red",
+            "fontStyle": "italic",
+            "marginTop": "20px"
+          },
+          "hidden": "data.isWinddirection_icon !== true"
+        },
+        "ico_preview_wind2": {
+          "type": "staticImage",
+          "xs": 2,
+          "sm": 2,
+          "md": 2,
+          "lg": 2,
+          "xl": 2,
+          "style": {
+            "width": "50px",
+            "height": "50px"
+          },
+          "src": "icons/wind_direction_icons/direct_2/n.png",
+          "newLine": true,
+          "hidden": "data.isWinddirection_icon !== false"
+        },
+        "text_preview_wind2": {
+          "type": "staticText",
+          "xs": 12,
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4,
+          "text": "windicon_help_from_where_label",
+          "style": {
+            "color": "red",
+            "fontStyle": "italic",
+            "marginTop": "20px"
+          },
+          "hidden": "data.isWinddirection_icon !== false"
         }
+      }
     },
     "tab3": {
       "type": "panel",
       "label": "settings_label3",
       "items": {
-          "IconLabel": {
+        "IconLabel": {
           "type": "header",
           "text": "pv_select_label",
           "size": 2,
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
-            "enablePV": {
-            "type": "checkbox",
-            "label": "enablePV_label",
-            "help": "enablePV_help",
-            "default": false,
-            "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        "enablePV": {
+          "type": "checkbox",
+          "label": "enablePV_label",
+          "help": "enablePV_help",
+          "default": false,
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
         },
-          "help_logo": {
-            "newLine": true,
-            "type": "staticImage",
-            "src": "img/doc.png",
-			"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
-			"style": {
-					"width": "800px",
-					"height": "436px",
-					"marginBottom": "20px",
-					"display": "block",
-					"marginLeft": "auto",
-					"marginRight": "auto"
-				}
+        "help_logo": {
+          "newLine": true,
+          "type": "staticImage",
+          "src": "img/doc.png",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
+          "style": {
+            "width": "800px",
+            "height": "436px",
+            "marginBottom": "20px",
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto"
+          }
         },
         "_info": {
-            "type": "header",
-            "text": "info_header_label",
-            "size": 2,
-			"xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
-        },  
+          "type": "header",
+          "text": "info_header_label",
+          "size": 2,
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        },
         "pv_forecastHours": {
           "disabled": "!data.enablePV",
           "type": "select",
@@ -408,11 +911,26 @@
           "lg": 4,
           "xl": 4,
           "options": [
-            {"label": "3", "value": 3},
-            {"label": "6", "value": 6},
-            {"label": "12", "value": 12},
-            {"label": "24", "value": 24},
-            {"label": "48", "value": 48}
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "6",
+              "value": 6
+            },
+            {
+              "label": "12",
+              "value": 12
+            },
+            {
+              "label": "24",
+              "value": 24
+            },
+            {
+              "label": "48",
+              "value": 48
+            }
           ],
           "newLine": true
         },
@@ -427,12 +945,24 @@
           "xl": 4,
           "default": 7,
           "options": [
-            {"label": "3", "value": 3},
-            {"label": "5", "value": 5},
-            {"label": "7", "value": 7},
-            {"label": "14", "value": 14}
+            {
+              "label": "3",
+              "value": 3
+            },
+            {
+              "label": "5",
+              "value": 5
+            },
+            {
+              "label": "7",
+              "value": 7
+            },
+            {
+              "label": "14",
+              "value": 14
+            }
           ]
-        },		
+        },
         "pv_updateInterval": {
           "disabled": "!data.enablePV",
           "type": "select",
@@ -444,25 +974,37 @@
           "xl": 4,
           "default": 15,
           "options": [
-            { "value": 15, "label": "interval_15_min" },
-            { "value": 30, "label": "interval_30_min" },
-            { "value": 60, "label": "interval_60_min" },
-            { "value": "sunrise", "label": "Once_before_sunrise" }
+            {
+              "value": 15,
+              "label": "interval_15_min"
+            },
+            {
+              "value": 30,
+              "label": "interval_30_min"
+            },
+            {
+              "value": 60,
+              "label": "interval_60_min"
+            },
+            {
+              "value": "sunrise",
+              "label": "Once_before_sunrise"
+            }
           ],
           "help": "updateInterval_help"
         },
-          "_settingsHeader": {
+        "_settingsHeader": {
           "type": "header",
           "text": "settingsHeader_help_label",
           "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 4,
-          "xl": 4,			
+          "xl": 4,
           "size": 2,
           "newLine": true
         },
-          "hourlyUpdate": {
+        "hourlyUpdate": {
           "disabled": "!data.enablePV",
           "type": "select",
           "label": "hourlyUpdate_help_label",
@@ -473,53 +1015,98 @@
           "xl": 4,
           "default": 0,
           "options": [
-            { "value": 0, "label": "rolling_hours_label" },
-            { "value": 1, "label": "fixed_hours_label"}
+            {
+              "value": 0,
+              "label": "rolling_hours_label"
+            },
+            {
+              "value": 1,
+              "label": "fixed_hours_label"
+            }
           ],
           "help": "fixed_rolling_help_label"
-        },		
+        },
         "minutes_15": {
           "disabled": "!data.enablePV",
           "type": "checkbox",
           "label": "minutes_15_label",
           "help": "minutes_15_help_label",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-        },		
-          "hours_json": {
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
+        "hours_json": {
           "disabled": "!data.enablePV",
           "type": "checkbox",
           "label": "hours_json_label",
           "help": "hours_json_help_label",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-        },		
-          "minutes_15_json": {
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
+        "minutes_15_json": {
           "disabled": "!data.enablePV",
           "type": "checkbox",
           "label": "minutes_15_json_label",
           "help": "minutes_15_json_help_label",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
         },
-        "divider5": { "type": "divider", "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12 },
-        "text_preview_extradbs": {"type": "staticText","xs": 12, "sm": 4, "md": 4, "lg": 4, "xl": 4,"text": "extra_dbs_help","style": {"fontStyle": "italic", "marginTop": "20px"},"newLine": true},
-
-          "sunshine_duration": {
+        "divider5": {
+          "type": "divider",
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
+        },
+        "text_preview_extradbs": {
+          "type": "staticText",
+          "xs": 12,
+          "sm": 4,
+          "md": 4,
+          "lg": 4,
+          "xl": 4,
+          "text": "extra_dbs_help",
+          "style": {
+            "fontStyle": "italic",
+            "marginTop": "20px"
+          },
+          "newLine": true
+        },
+        "sunshine_duration": {
           "disabled": "!data.enablePV",
           "type": "checkbox",
           "label": "sunshine_duration_label",
           "default": false,
           "newLine": true,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
         },
-           "cloud_cover": {
+        "cloud_cover": {
           "disabled": "!data.enablePV",
           "type": "checkbox",
           "label": "cloud_cover_label",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-        },        
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
         "_locationsHeader": {
           "type": "header",
           "text": "locations_header_label",
@@ -527,16 +1114,24 @@
           "sm": 12,
           "md": 6,
           "lg": 4,
-          "xl": 4,			
+          "xl": 4,
           "size": 2,
           "newLine": true
         },
-          "pv_loc_help_text": {
+        "pv_loc_help_text": {
           "hidden": "data.enablePV",
           "type": "staticText",
           "text": "pv_loc_info_label",
-          "style": {"fontStyle": "italic", "fontSize": "large", "color": "red"},
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
+          "style": {
+            "fontStyle": "italic",
+            "fontSize": "large",
+            "color": "red"
+          },
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
           "newLine": true
         },
         "pv_locations": {
@@ -568,7 +1163,7 @@
               "sort": false,
               "help": "coordinates_help_label"
             },
-            { 
+            {
               "type": "text",
               "title": "longitude_label",
               "attr": "pv_longitude",
@@ -617,26 +1212,77 @@
               "filter": false,
               "sort": false,
               "validator": "data.pv_timezone && data.pv_timezone.length > 0",
-              "options":[
-                  { "value": "auto", "label": "autom" },
-                  { "value": "GMT", "label": "GMT / UTC" },
-                  { "value": "Europe/Berlin", "label": "Europa/Berlin" },
-                  { "value": "Europe/London", "label": "Europe/London" },
-                  { "value": "Europe/Moscow", "label": "Europe/Moscow" },
-                  { "value": "America/New_York", "label": "America/New York" },
-                  { "value": "America/Chicago", "label": "America/Chicago" },
-                  { "value": "America/Denver", "label": "America/Denver" },
-                  { "value": "America/Los_Angeles", "label": "America/Los Angeles" },
-                  { "value": "America/Sao_Paulo", "label": "America/Sao Paulo" },
-                  { "value": "America/Anchorage", "label": "America/Anchorage" },
-                  { "value": "Asia/Tokyo", "label": "Asia/Tokyo" },
-                  { "value": "Asia/Bangkok", "label": "Asia/Bangkok" },
-                  { "value": "Asia/Singapore", "label": "Asia/Singapore" },
-                  { "value": "Australia/Sydney", "label": "Australia/Sydney" },
-                  { "value": "Africa/Cairo", "label": "Afrika/Cairo" },
-                  { "value": "Pacific/Auckland", "label": "Pacific/Auckland" }
-                ],
-                "default": "auto"
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "autom"
+                },
+                {
+                  "value": "GMT",
+                  "label": "GMT / UTC"
+                },
+                {
+                  "value": "Europe/Berlin",
+                  "label": "Europa/Berlin"
+                },
+                {
+                  "value": "Europe/London",
+                  "label": "Europe/London"
+                },
+                {
+                  "value": "Europe/Moscow",
+                  "label": "Europe/Moscow"
+                },
+                {
+                  "value": "America/New_York",
+                  "label": "America/New York"
+                },
+                {
+                  "value": "America/Chicago",
+                  "label": "America/Chicago"
+                },
+                {
+                  "value": "America/Denver",
+                  "label": "America/Denver"
+                },
+                {
+                  "value": "America/Los_Angeles",
+                  "label": "America/Los Angeles"
+                },
+                {
+                  "value": "America/Sao_Paulo",
+                  "label": "America/Sao Paulo"
+                },
+                {
+                  "value": "America/Anchorage",
+                  "label": "America/Anchorage"
+                },
+                {
+                  "value": "Asia/Tokyo",
+                  "label": "Asia/Tokyo"
+                },
+                {
+                  "value": "Asia/Bangkok",
+                  "label": "Asia/Bangkok"
+                },
+                {
+                  "value": "Asia/Singapore",
+                  "label": "Asia/Singapore"
+                },
+                {
+                  "value": "Australia/Sydney",
+                  "label": "Australia/Sydney"
+                },
+                {
+                  "value": "Africa/Cairo",
+                  "label": "Afrika/Cairo"
+                },
+                {
+                  "value": "Pacific/Auckland",
+                  "label": "Pacific/Auckland"
+                }
+              ],
+              "default": "auto"
             }
           ]
         },
@@ -644,62 +1290,85 @@
           "type": "staticText",
           "text": "location_help",
           "newLine": true,
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12,
+          "xs": 12,
+          "sm": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12,
           "style": {
             "fontSize": "smaller",
             "fontStyle": "italic"
-          }		
+          }
         },
-          "_settingsHeader_sum": {
+        "_settingsHeader_sum": {
           "type": "header",
           "text": "_settingsHeader_sum_help",
           "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 4,
-          "xl": 4,			
+          "xl": 4,
           "size": 2,
           "newLine": true
         },
-        "locationsTotal": 
-            {
+        "locationsTotal": {
           "type": "checkbox",
           "label": "locationsTotal_label",
-          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",		
+          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",
           "default": false,
           "help": "locationsTotal_help",
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-            },
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
         "locationsTotal_hourly": {
           "type": "checkbox",
           "label": "locationsTotal_hourly_label",
-          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",	
+          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-            },
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
         "locationsTotal_minutely": {
           "type": "checkbox",
           "label": "locationsTotal_minutely_label",
-          "disabled": "!data.enablePV || !data.minutes_15 || !data.pv_locations || data.pv_locations.length < 2",	
+          "disabled": "!data.enablePV || !data.minutes_15 || !data.pv_locations || data.pv_locations.length < 2",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-            },
-          "locationsTotal_minutely_json": {
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
+        "locationsTotal_minutely_json": {
           "type": "checkbox",
           "label": "locationsTotal_minutely_json_label",
-          "disabled": "!data.enablePV || !data.minutes_15 || !data.pv_locations || data.pv_locations.length < 2",	
+          "disabled": "!data.enablePV || !data.minutes_15 || !data.pv_locations || data.pv_locations.length < 2",
           "default": false,
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-            },
-          "locationsTotal_hourly_json": {
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
+        "locationsTotal_hourly_json": {
           "type": "checkbox",
           "label": "locationsTotal_hourly_json_label",
-          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",	
+          "disabled": "!data.enablePV || !data.pv_locations || data.pv_locations.length < 2",
           "default": false,
           "help": "locationsTotal_hourly_json_help_label",
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3        
-          }
-      } 
-    } 
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        }
+      }
+    }
   }
 }
