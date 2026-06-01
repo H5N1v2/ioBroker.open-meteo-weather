@@ -316,7 +316,7 @@ The static weather and wind direction icons included in this adapter are subject
 * **Usage:** These icons are licensed for use within ioBroker. Commercial redistribution or use outside of this adapter requires the explicit consent of the author: h5n1@iknox.de.
 * **Weather Data:** All weather data is provided by [Open-Meteo.com](https://open-meteo.com/). Please review their terms of use for commercial purposes.
 
-### License
+## License
 This project is licensed under the **MIT License** - see the `LICENSE` file for details.
 
 Copyright (c) 2026 H5N1v2 <h5n1@iknox.de>
