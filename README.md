@@ -274,6 +274,15 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (pk68) fix: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` and `hourly.next_hours.hour*.date` now store a Unix timestamp (`value.time`) instead of a formatted string, preventing incorrect date parsing by ioBroker.
+* (H5N1v2) Update dependencies
+* (H5N1v2) fix: [W5612] Remove unused custom actions configuration from jsonConfig
+* (H5N1v2) fix: [W5063] JSON formatting in "admin/jsonConfig.json" is hard to read (mixed indentation).
+* (H5N1v2) fix type assertion for channel name
+* (H5N1v2) fix some things in README.md
+
+
 ### 3.1.0 (2026-05-03)
 * (H5N1v2) Changed update routine for weather and PV forecast to fixed fetch times.
 * (H5N1v2) Added a customizable HTML weather widget in the admin area.
