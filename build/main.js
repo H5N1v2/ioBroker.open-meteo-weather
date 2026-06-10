@@ -251,8 +251,8 @@ class OpenMeteoWeather extends utils.Adapter {
             nl: "Laatste update van de weersgegevens",
             uk: "\u041E\u0441\u0442\u0430\u043D\u043D\u0454 \u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044F \u0434\u0430\u043D\u0438\u0445 \u043F\u0440\u043E \u043F\u043E\u0433\u043E\u0434\u0443"
           },
-          type: "string",
-          role: "date",
+          type: "number",
+          role: "value.time",
           read: true,
           write: false
         },
@@ -597,15 +597,7 @@ class OpenMeteoWeather extends utils.Adapter {
         await this.updateWidgetHtml(loc, folderName);
       }
       this.log.debug("updateData: All Weather locations processed successfully.");
-      const now = /* @__PURE__ */ new Date();
-      const day = String(now.getDate()).padStart(2, "0");
-      const month = String(now.getMonth() + 1).padStart(2, "0");
-      const year = now.getFullYear();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-      const timestamp = `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
-      await this.setState("info.lastUpdate_weather", { val: timestamp, ack: true });
+      await this.setState("info.lastUpdate_weather", { val: (/* @__PURE__ */ new Date()).getTime(), ack: true });
     } catch (error) {
       this.log.error(`Retrieval failed: ${error.message}`);
     } finally {
@@ -890,13 +882,7 @@ class OpenMeteoWeather extends utils.Adapter {
             let val = data.hourly[key][i];
             if (key === "time" && typeof val === "string") {
               const dateObj = new Date(val);
-              const lang = this.systemLang || "de";
-              const dateVal = dateObj.toLocaleDateString(lang, {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-              });
-              await this.extendOrCreateState(`${hourPath}.date`, dateVal, "date");
+              await this.extendOrCreateState(`${hourPath}.date`, dateObj.getTime(), "value.time");
               val = dateObj.toLocaleTimeString(this.systemLang, {
                 hour: "2-digit",
                 minute: "2-digit",

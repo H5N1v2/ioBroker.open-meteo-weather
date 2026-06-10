@@ -257,8 +257,8 @@ class OpenMeteoWeather extends utils.Adapter {
 						nl: 'Laatste update van de weersgegevens',
 						uk: 'Останнє оновлення даних про погоду',
 					},
-					type: 'string',
-					role: 'date',
+					type: 'number',
+					role: 'value.time',
 					read: true,
 					write: false,
 				},
@@ -660,15 +660,7 @@ class OpenMeteoWeather extends utils.Adapter {
 			this.log.debug('updateData: All Weather locations processed successfully.');
 
 			// Zeitstempel für letztes Update setzen
-			const now = new Date();
-			const day = String(now.getDate()).padStart(2, '0');
-			const month = String(now.getMonth() + 1).padStart(2, '0');
-			const year = now.getFullYear();
-			const hours = String(now.getHours()).padStart(2, '0');
-			const minutes = String(now.getMinutes()).padStart(2, '0');
-			const seconds = String(now.getSeconds()).padStart(2, '0');
-			const timestamp = `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
-			await this.setState('info.lastUpdate_weather', { val: timestamp, ack: true });
+			await this.setState('info.lastUpdate_weather', { val: new Date().getTime(), ack: true });
 		} catch (error: any) {
 			this.log.error(`Retrieval failed: ${error.message}`);
 		} finally {
@@ -1006,14 +998,8 @@ class OpenMeteoWeather extends utils.Adapter {
 						let val = data.hourly[key][i];
 						if (key === 'time' && typeof val === 'string') {
 							const dateObj = new Date(val);
-							// Datum in separaten Datenpunkt
-							const lang = this.systemLang || 'de';
-							const dateVal = dateObj.toLocaleDateString(lang, {
-								day: '2-digit',
-								month: '2-digit',
-								year: 'numeric',
-							});
-							await this.extendOrCreateState(`${hourPath}.date`, dateVal, 'date');
+							// Datum als Unix-Timestamp in separaten Datenpunkt
+							await this.extendOrCreateState(`${hourPath}.date`, dateObj.getTime(), 'value.time');
 							// Zeit (nur Uhrzeit)
 							val = dateObj.toLocaleTimeString(this.systemLang, {
 								hour: '2-digit',
