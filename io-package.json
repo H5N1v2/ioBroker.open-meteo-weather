@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.1.1",
+    "version": "3.1.0",
     "news": {
       "3.1.1": {
         "en": "fix: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` and `hourly.next_hours.hour*.date` now store a Unix timestamp (`value.time`) instead of a formatted string, preventing incorrect date parsing by ioBroker.\nUpdate dependencies\nfix: [W5612] Remove unused custom actions configuration from jsonConfig\nfix: [W5063] JSON formatting in \"admin/jsonConfig.json\" is hard to read (mixed indentation).\nfix type assertion for channel name\nfix some things in README.md",
