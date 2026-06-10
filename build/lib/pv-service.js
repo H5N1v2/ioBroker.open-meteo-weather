@@ -270,8 +270,8 @@ class PVService {
           nl: "Laatste update PV-voorspelling",
           uk: "\u041E\u0441\u0442\u0430\u043D\u043D\u0454 \u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044F \u043F\u0440\u043E\u0433\u043D\u043E\u0437\u0443 PV"
         },
-        type: "string",
-        role: "date",
+        type: "number",
+        role: "value.time",
         read: true,
         write: false
       },
@@ -1210,15 +1210,7 @@ class PVService {
       }
     }
     await this.updateSumLocations();
-    const now = /* @__PURE__ */ new Date();
-    const day = String(now.getDate()).padStart(2, "0");
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const year = now.getFullYear();
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-    const timestamp = `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
-    await this.adapter.setState("info.lastUpdate_PV_Forecast", { val: timestamp, ack: true });
+    await this.adapter.setState("info.lastUpdate_PV_Forecast", { val: (/* @__PURE__ */ new Date()).getTime(), ack: true });
   }
   async updateSumLocations() {
     if (this.adapter.config.locationsTotal && this.adapter.config.pv_locations.length >= 1) {
