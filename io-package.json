@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.1.0",
+    "version": "3.1.1",
     "news": {
       "3.1.1": {
         "en": "fix: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` and `hourly.next_hours.hour*.date` now store a Unix timestamp (`value.time`) instead of a formatted string, preventing incorrect date parsing by ioBroker.\nUpdate dependencies\nfix: [W5612] Remove unused custom actions configuration from jsonConfig\nfix: [W5063] JSON formatting in \"admin/jsonConfig.json\" is hard to read (mixed indentation).\nfix type assertion for channel name\nfix some things in README.md",
@@ -15,7 +15,7 @@
         "pl": "naprawiono: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` i `hourly.next_hours.hour*.date` przechowują teraz znacznik czasu Unix (`value.time`) zamiast sformatowanego ciągu, zapobiegając nieprawidłowemu analizowaniu daty przez ioBroker.\nAktualizuj zależności\nnaprawiono: [W5612] Usuń nieużywaną konfigurację akcji niestandardowych z jsonConfig\nnaprawiono: [W5063] Formatowanie JSON w pliku „admin/jsonConfig.json” jest trudne do odczytania (mieszane wcięcia).\nnaprawa potwierdzenia typu dla nazwy kanału\npopraw kilka rzeczy w README.md",
         "uk": "виправлення: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` та `hourly.next_hours.hour*.date` тепер зберігають позначку часу Unix (`value.time`) замість форматованого рядка, що запобігає неправильному розбору дати ioBroker.\nОновлення залежностей\nвиправлення: [W5612] Видалення невикористаної конфігурації користувацьких дій з jsonConfig\nвиправлення: [W5063] Форматування JSON у \"admin/jsonConfig.json\" важко читати (змішані відступи).\nвиправити твердження типу для назви каналу\nвиправити деякі речі у README.md",
         "zh-cn": "修复：`info.lastUpdate_weather`、`info.lastUpdate_PV_Forecast` 和 `hourly.next_hours.hour*.date` 现在存储 Unix 时间戳 (`value.time`) 而不是格式化字符串，从而防止 ioBroker 错误解析日期。\n更新依赖项\n修复：[W5612] 从 jsonConfig 中移除未使用的自定义操作配置\n修复：[W5063]“admin/jsonConfig.json”中的JSON格式难以阅读（混合缩进）。\n修复通道名称的类型断言\n修复 README.md 中的一些问题"
-      },      
+      },
       "3.1.0": {
         "en": "Changed update routine for weather and PV forecast to fixed fetch times.\nAdded a customizable HTML weather widget in the admin area.\nAdaptation for version jumps from older configurations.\nDescription added to the admin area.\nReadme updated in widget section.\nAdapter internal widget adapted, hazards are highlighted in color (currently only in the internal adapter widget).\nAdapter requires node.js >= 22 now.\nUpdate axios to v.1.16.0.",
         "de": "Die Aktualisierungsroutine für Wetter- und PV-Vorhersagen wurde auf feste Abrufzeiten umgestellt.\nIm Adminbereich wurde ein anpassbares HTML-Wetter-Widget hinzugefügt.\nAnpassung für Versionssprünge von älteren Konfigurationen.\nBeschreibung im Adminbereich hinzugefügt.\nDie Readme-Datei wurde im Widget-Bereich aktualisiert.\nDas interne Adapter-Widget wurde angepasst, Gefahren werden farblich hervorgehoben (derzeit nur im internen Adapter-Widget).\nDer Adapter benötigt jetzt node.js >= 22.\nAktualisieren Sie axios auf Version 1.16.0.",
@@ -93,19 +93,6 @@
         "pl": "aktualizacja @ types / zależność węzła od wersji 22.19.15",
         "uk": "оновлення @types/node залежностей до версії 22.19.15",
         "zh-cn": "将@types/节点依赖性更新到22.19.15版本"
-      },
-      "2.6.1": {
-        "en": "chore: update dependencies to latest versions\nfix: axios seems to be missing in dependencies\nfix: language used for stateIds and names\nfix: creation of intermediate objects missing",
-        "de": "chore: die abhängigkeiten der neuesten versionen aktualisieren\nfix: axios scheint in abhängigkeiten zu fehlen\nfix: Sprache für Staat Ids und Namen\nfix: erstellung von zwischenobjekten fehlt",
-        "ru": "chore: зависимость обновлений от последних версий\nисправление: аксиос, кажется, отсутствует в зависимости\nязык, используемый для государства Ids и имена\nфиксация: создание промежуточных объектов, отсутствующих",
-        "pt": "tarefa: atualizar dependências para versões mais recentes\ncorreção: axios parece estar faltando nas dependências\ncorreção: idioma usado para o estado IDs e nomes\ncorreção: criação de objetos intermediários faltando",
-        "nl": "klus: update afhankelijkheden van de nieuwste versies\nfix: axios lijkt te ontbreken in afhankelijkheden\nfix: taal gebruikt voor status Identiteiten en namen\nfix: aanmaken van tussenliggende objecten ontbreekt",
-        "fr": "core: mettre à jour les dépendances aux dernières versions\ncorrection : l'axios semble manquer de dépendances\ncorrectif: langue utilisée pour l'état Id. et noms\ncorrection : création d'objets intermédiaires manquants",
-        "it": "core: aggiornare le dipendenze alle ultime versioni\ncorrezione: l'assio sembra mancare in dipendenze\ncorrezione: lingua utilizzata per lo stato Ids e nomi\nfix: creazione di oggetti intermedi mancanti",
-        "es": "core: actualizar las dependencias a las últimas versiones\nfijado: axios parece estar desaparecido en dependencias\nfijación: idioma utilizado para el estado Ids and names\nfijación: creación de objetos intermedios desaparecidos",
-        "pl": "core: aktualizacja zależności do najnowszych wersji\nfix: axios wydaje się brakować w zależności\nfix: język używany dla stanu Identyfikatory i nazwy\nfix: tworzenie brakujących obiektów pośrednich",
-        "uk": "chore: оновлення залежності до останніх версій\nвиправити: axios здається бути відсутнім у залежності\nвиправити: мова використовується для держави Ids і імена\nвиправити: створення проміжних об'єктів відсутні",
-        "zh-cn": "字符串:更新对最新版本的依赖\n修补: 轴线似乎在依赖中缺失\n修补:用于状态的语言 编号和名称\n修补: 中间对象缺失的创建"
       }
     },
     "plugins": {

@@ -1,4 +1,7 @@
 ## CHANGELOG OLD
+## 2.6.3 (2026-03-26)
+* (H5N1v2) add sentry plugin to automatically report errors to developer
+
 ## 2.6.2 (2026-03-25)
 * (H5N1v2) update @types/node dependency to version 22.19.15
 
