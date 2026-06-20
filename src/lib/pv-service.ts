@@ -1818,7 +1818,7 @@ export class PVService {
 
 		if (!existingObj) {
 			// existiert noch nicht -> ganz normal neu anlegen
-			await this.createOrFixObject(id, objDef);
+			await this.adapter.setObjectNotExistsAsync(id, objDef);
 		} else if (objDef.type === 'state' && existingObj.common && existingObj.common.type !== objDef.common.type) {
 			// FIX! Datentyp passt nicht mehr zum neuen Objekt-Definitionstyp -> anpassen
 			this.adapter.log.info(

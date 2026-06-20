@@ -1608,7 +1608,7 @@ class PVService {
   async createOrFixObject(id, objDef) {
     const existingObj = await this.adapter.getObjectAsync(id);
     if (!existingObj) {
-      await this.createOrFixObject(id, objDef);
+      await this.adapter.setObjectNotExistsAsync(id, objDef);
     } else if (objDef.type === "state" && existingObj.common && existingObj.common.type !== objDef.common.type) {
       this.adapter.log.info(
         `[PV-Forecast] extendOrCreateState: Fixing type mismatch for ${id} (from '${existingObj.common.type}' to '${objDef.common.type}')`
