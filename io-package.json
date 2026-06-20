@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.1.2",
+    "version": "3.1.3",
     "news": {
+      "3.1.3": {
+        "en": "Fixed an issue with object creation caused by an accidental change.",
+        "de": "Es wurde ein Problem mit der Objekterstellung behoben, das durch eine versehentliche Änderung verursacht worden war.",
+        "ru": "Исправлена ошибка при создании объектов, возникшая из-за случайного изменения.",
+        "pt": "Corrigido um problema na criação de objetos causado por uma alteração acidental.",
+        "nl": "Een probleem met het aanmaken van objecten, veroorzaakt door een onbedoelde wijziging, is opgelost.",
+        "fr": "Correction d'un problème de création d'objets causé par une modification accidentelle.",
+        "it": "Risolto un problema relativo alla creazione di oggetti causato da una modifica accidentale.",
+        "es": "Se solucionó un problema con la creación de objetos causado por un cambio accidental.",
+        "pl": "Naprawiono problem z tworzeniem obiektów spowodowany przypadkową zmianą.",
+        "uk": "Виправлено проблему зі створенням об'єктів, спричинену випадковою зміною.",
+        "zh-cn": "修复了因意外更改而导致的对象创建问题。"
+      },
       "3.1.2": {
         "en": "fix: after adapter update, automatically adjust type and role if they have been changed in new versions.\nUpdate dependencies",
         "de": "Behebung: Nach einem Adapter-Update werden Typ und Rolle automatisch angepasst, falls sie sich in neuen Versionen geändert haben.\nAbhängigkeiten aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "Aktualizuj zależność aksjosu od wersji 1.14.0",
         "uk": "Update axios залежність до версії 1.14.0",
         "zh-cn": "将轴依赖性更新到1.14.0版本"
-      },
-      "2.6.3": {
-        "en": "add sentry plugin to automatically report errors to developer",
-        "de": "sendry plugin hinzufügen, um automatisch fehler an entwickler zu melden",
-        "ru": "добавляйте шторный плагин для автоматического сообщения об ошибках разработчику",
-        "pt": "adicionar um 'plugin' de sentinela para comunicar automaticamente erros ao programador",
-        "nl": "toe te voegen wachtwoord plugin om automatisch fouten melden aan ontwikkelaar",
-        "fr": "ajouter le plugin sentiry pour signaler automatiquement les erreurs au développeur",
-        "it": "aggiungere plug-in inviato per segnalare automaticamente gli errori allo sviluppatore",
-        "es": "añadir plugin centry para reportar automáticamente errores al desarrollador",
-        "pl": "dodaj wtyczkę sentry do automatycznego zgłaszania błędów deweloperowi",
-        "uk": "додати плагін відправки, щоб автоматично звітувати помилки розробника",
-        "zh-cn": "添加哨兵插件以自动向开发者报告错误"
       }
     },
     "plugins": {

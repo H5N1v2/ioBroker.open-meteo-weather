@@ -1,4 +1,10 @@
 ## CHANGELOG OLD
+## 3.0.0 (2026-04-18)
+* (H5N1v2) merged open-meteo-weather and open-meteo-pv-forecast
+* (H5N1v2) adding icon selection tab and animated icons for weather by Bas Milius
+* (H5N1v2) adding solar_noon in daily, freezing_level_height and snowfall_height in hourly
+* (H5N1v2) remove global_tilted_irradiance datapoint from weather.hourly
+
 ## 2.6.4 (2026-03-30)
 * (H5N1v2) Update axios dependency to version 1.14.0
 
