@@ -274,6 +274,10 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (mcuiobroker) fix: after adapter update, automatically adjust type and role if they have been changed in new versions.
+* (H5N1v2) Update dependencies
+
 ### 3.1.1 (2026-06-10)
 * (pk68) fix: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` and `hourly.next_hours.hour*.date` now store a Unix timestamp (`value.time`) instead of a formatted string, preventing incorrect date parsing by ioBroker.
 * (H5N1v2) Update dependencies
