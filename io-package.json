@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.1.1",
+    "version": "3.1.2",
     "news": {
+      "3.1.2": {
+        "en": "fix: after adapter update, automatically adjust type and role if they have been changed in new versions.\nUpdate dependencies",
+        "de": "Behebung: Nach einem Adapter-Update werden Typ und Rolle automatisch angepasst, falls sie sich in neuen Versionen geändert haben.\nAbhängigkeiten aktualisiert",
+        "ru": "Исправление: после обновления адаптера автоматически корректируются тип и роль, если они были изменены в новых версиях.\nОбновить зависимости",
+        "pt": "Correção: após a atualização do adaptador, o tipo e a função serão ajustados automaticamente caso tenham sido alterados nas novas versões.\nAtualizar dependências",
+        "nl": "Oplossing: na een adapterupdate worden het type en de rol automatisch aangepast als deze in de nieuwe versie zijn gewijzigd.\nAfhankelijkheden bijwerken",
+        "fr": "Correction : après la mise à jour de l'adaptateur, ajustement automatique du type et du rôle s'ils ont été modifiés dans les nouvelles versions.\nMettre à jour les dépendances",
+        "it": "Correzione: dopo l'aggiornamento dell'adattatore, regola automaticamente il tipo e il ruolo se sono stati modificati nelle nuove versioni.\nAggiorna le dipendenze",
+        "es": "Corrección: tras la actualización del adaptador, se ajustarán automáticamente el tipo y la función si se han modificado en las nuevas versiones.\nActualizar dependencias",
+        "pl": "naprawiono: po aktualizacji adaptera typ i rola są automatycznie dostosowywane, jeśli zostały zmienione w nowych wersjach.\nAktualizuj zależności",
+        "uk": "виправлення: після оновлення адаптера автоматично коригувати тип і роль, якщо вони були змінені в нових версіях.\nОновлення залежностей",
+        "zh-cn": "修复：适配器更新后，如果新版本中类型和角色已更改，则自动调整类型和角色。\n更新依赖项"
+      },
       "3.1.1": {
         "en": "fix: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` and `hourly.next_hours.hour*.date` now store a Unix timestamp (`value.time`) instead of a formatted string, preventing incorrect date parsing by ioBroker.\nUpdate dependencies\nfix: [W5612] Remove unused custom actions configuration from jsonConfig\nfix: [W5063] JSON formatting in \"admin/jsonConfig.json\" is hard to read (mixed indentation).\nfix type assertion for channel name\nfix some things in README.md",
         "de": "Korrektur: `info.lastUpdate_weather`, `info.lastUpdate_PV_Forecast` und `hourly.next_hours.hour*.date` speichern nun einen Unix-Zeitstempel (`value.time`) anstelle einer formatierten Zeichenkette, um eine fehlerhafte Datumsanalyse durch ioBroker zu verhindern.\nAbhängigkeiten aktualisieren\nBehoben: [W5612] Nicht verwendete Konfigurationen für benutzerdefinierte Aktionen aus jsonConfig entfernen.\nBehoben: [W5063] Die JSON-Formatierung in \"admin/jsonConfig.json\" ist schwer lesbar (gemischte Einrückung).\nTypzusicherung für Kanalnamen korrigieren\nEinige Fehler in der README.md-Datei beheben",
@@ -80,19 +93,6 @@
         "pl": "dodaj wtyczkę sentry do automatycznego zgłaszania błędów deweloperowi",
         "uk": "додати плагін відправки, щоб автоматично звітувати помилки розробника",
         "zh-cn": "添加哨兵插件以自动向开发者报告错误"
-      },
-      "2.6.2": {
-        "en": "update @types/node dependency to version 22.19.15",
-        "de": "update @types/node abhängigkeit von version 22.19.15",
-        "ru": "обновление @types/node dependency до версии 22.19.15",
-        "pt": "atualizar @types/node dependência para a versão 22.19.15",
-        "nl": "update @types/node afhankelijkheid naar versie 22.19.15",
-        "fr": "mettre à jour la dépendance @types/node vers la version 22.19.15",
-        "it": "aggiornamento @types/node dipendenza alla versione 22.19.15",
-        "es": "actualización @tipos/node dependencia a la versión 22.19.15",
-        "pl": "aktualizacja @ types / zależność węzła od wersji 22.19.15",
-        "uk": "оновлення @types/node залежностей до версії 22.19.15",
-        "zh-cn": "将@types/节点依赖性更新到22.19.15版本"
       }
     },
     "plugins": {

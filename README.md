@@ -274,7 +274,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.1.2 (2026-06-20)
 * (mcuiobroker) fix: after adapter update, automatically adjust type and role if they have been changed in new versions.
 * (H5N1v2) Update dependencies
 
@@ -308,9 +308,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 * (H5N1v2) adding icon selection tab and animated icons for weather by Bas Milius
 * (H5N1v2) adding solar_noon in daily, freezing_level_height and snowfall_height in hourly
 * (H5N1v2) remove global_tilted_irradiance datapoint from weather.hourly
-
-### 2.6.4 (2026-03-30)
-* (H5N1v2) Update axios dependency to version 1.14.0
 
 ## Older Changelog
 [OLDER CHANGELOG](CHANGELOG_OLD.md)
