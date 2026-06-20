@@ -1237,7 +1237,7 @@ class OpenMeteoWeather extends utils.Adapter {
 		role: string = 'value',
 		translationKey?: string,
 	): Promise<void> {
-		// Objekt-Caching: Nur erstellen, wenn noch nicht im Set vorhanden
+		// Obj.-Caching
 		if (!this.createdObjects.has(id)) {
 			let unit = '';
 			for (const k in this.cachedUnitMap) {
@@ -1248,27 +1248,46 @@ class OpenMeteoWeather extends utils.Adapter {
 			}
 
 			const displayUnit = unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit;
-
-			this.log.debug(`extendOrCreateState: Creating state ${id} (role: ${role}, unit: ${displayUnit})`);
-
 			const idParts = id.split('.');
 			const lastPart = idParts[idParts.length - 1] || id;
 			const key = translationKey || lastPart;
 
-			await this.setObjectNotExistsAsync(id, {
-				type: 'state',
-				common: {
-					name: this.getI18nObject(key),
-					type: typeof val as any,
-					role: role,
-					read: true,
-					write: false,
-					unit: displayUnit,
-				},
-				native: {},
-			});
+			// Typ ermittelln
+			const expectedType = typeof val === 'number' ? 'number' : typeof val === 'boolean' ? 'boolean' : 'string';
+
+			//Prüfen, ob existiert
+			const existingObj = await this.getObjectAsync(id);
+
+			if (!existingObj) {
+				this.log.debug(`extendOrCreateState: Creating state ${id} (role: ${role}, unit: ${displayUnit})`);
+				await this.setObjectNotExistsAsync(id, {
+					type: 'state',
+					common: {
+						name: this.getI18nObject(key),
+						type: expectedType,
+						role: role,
+						read: true,
+						write: false,
+						unit: displayUnit,
+					},
+					native: {},
+				});
+			} else if (existingObj.common && existingObj.common.type !== expectedType) {
+				// FIX!
+				this.log.info(
+					`[Weather] extendOrCreateState: Fixing type mismatch for ${id} (changing from ${existingObj.common.type} to ${expectedType})`,
+				);
+				await this.extendObject(id, {
+					common: {
+						type: expectedType as any,
+						role: role, // evtl. korrektur role
+					},
+				});
+			}
+
 			this.createdObjects.add(id);
 		}
+		// Den Wert am Ende wie gewohnt wegschreiben
 		await this.setState(id, { val, ack: true });
 	}
 

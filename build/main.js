@@ -1073,22 +1073,37 @@ class OpenMeteoWeather extends utils.Adapter {
         }
       }
       const displayUnit = unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit;
-      this.log.debug(`extendOrCreateState: Creating state ${id} (role: ${role}, unit: ${displayUnit})`);
       const idParts = id.split(".");
       const lastPart = idParts[idParts.length - 1] || id;
       const key = translationKey || lastPart;
-      await this.setObjectNotExistsAsync(id, {
-        type: "state",
-        common: {
-          name: this.getI18nObject(key),
-          type: typeof val,
-          role,
-          read: true,
-          write: false,
-          unit: displayUnit
-        },
-        native: {}
-      });
+      const expectedType = typeof val === "number" ? "number" : typeof val === "boolean" ? "boolean" : "string";
+      const existingObj = await this.getObjectAsync(id);
+      if (!existingObj) {
+        this.log.debug(`extendOrCreateState: Creating state ${id} (role: ${role}, unit: ${displayUnit})`);
+        await this.setObjectNotExistsAsync(id, {
+          type: "state",
+          common: {
+            name: this.getI18nObject(key),
+            type: expectedType,
+            role,
+            read: true,
+            write: false,
+            unit: displayUnit
+          },
+          native: {}
+        });
+      } else if (existingObj.common && existingObj.common.type !== expectedType) {
+        this.log.info(
+          `[Weather] extendOrCreateState: Fixing type mismatch for ${id} (changing from ${existingObj.common.type} to ${expectedType})`
+        );
+        await this.extendObject(id, {
+          common: {
+            type: expectedType,
+            role
+            // evtl. korrektur role
+          }
+        });
+      }
       this.createdObjects.add(id);
     }
     await this.setState(id, { val, ack: true });
