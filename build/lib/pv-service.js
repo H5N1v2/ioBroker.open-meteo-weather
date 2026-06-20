@@ -277,7 +277,7 @@ class PVService {
       },
       native: {}
     });
-    await this.adapter.setObjectNotExistsAsync("pv-forecast", {
+    await this.createOrFixObject("pv-forecast", {
       type: "channel",
       common: { name: "PV Forecast" },
       role: "info",
@@ -286,12 +286,12 @@ class PVService {
     for (const location of this.adapter.config.pv_locations) {
       const locationName = `${this.sanitizeLocationName(location.name)}`;
       const base = `pv-forecast.${locationName}`;
-      await this.adapter.setObjectNotExistsAsync(base, {
+      await this.createOrFixObject(base, {
         type: "device",
         common: { name: location.name },
         native: {}
       });
-      await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast`, {
+      await this.createOrFixObject(`${base}.hourly-forecast`, {
         type: "channel",
         common: {
           name: {
@@ -311,7 +311,7 @@ class PVService {
         native: {}
       });
       for (let hour = 0; hour < this.adapter.config.pv_forecastHours; hour++) {
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}`, {
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}`, {
           type: "channel",
           common: {
             name: {
@@ -330,7 +330,7 @@ class PVService {
           },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}.time`, {
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.time`, {
           type: "state",
           common: {
             name: {
@@ -353,7 +353,7 @@ class PVService {
           },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}.unix_time_stamp`, {
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.unix_time_stamp`, {
           type: "state",
           common: {
             name: {
@@ -376,34 +376,31 @@ class PVService {
           },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(
-          `${base}.hourly-forecast.hour${hour}.global_tilted_irradiance`,
-          {
-            type: "state",
-            common: {
-              name: {
-                en: "Global Tilted Irradiance",
-                de: "Globale Strahlung auf geneigter Fl\xE4che",
-                ru: "\u0413\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u0430\u044F \u043D\u0430\u043A\u043B\u043E\u043D\u043D\u0430\u044F \u043E\u0441\u0432\u0435\u0449\u0435\u043D\u043D\u043E\u0441\u0442\u044C",
-                pt: "Irradi\xE2ncia Global Inclinada",
-                nl: "Globale gekantelde instraling",
-                fr: "Irradiance globale inclin\xE9e",
-                it: "Irradianza inclinata globale",
-                es: "Irradiancia global inclinada",
-                pl: "Globalne pochylone nat\u0119\u017Cenie promieniowania",
-                uk: "\u0413\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u0435 \u043D\u0430\u0445\u0438\u043B\u0435\u043D\u0435 \u0432\u0438\u043F\u0440\u043E\u043C\u0456\u043D\u044E\u0432\u0430\u043D\u043D\u044F",
-                "zh-cn": "\u5168\u7403\u503E\u659C\u8F90\u7167\u5EA6"
-              },
-              type: "number",
-              role: "value.energy",
-              unit: "Wh",
-              read: true,
-              write: false
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.global_tilted_irradiance`, {
+          type: "state",
+          common: {
+            name: {
+              en: "Global Tilted Irradiance",
+              de: "Globale Strahlung auf geneigter Fl\xE4che",
+              ru: "\u0413\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u0430\u044F \u043D\u0430\u043A\u043B\u043E\u043D\u043D\u0430\u044F \u043E\u0441\u0432\u0435\u0449\u0435\u043D\u043D\u043E\u0441\u0442\u044C",
+              pt: "Irradi\xE2ncia Global Inclinada",
+              nl: "Globale gekantelde instraling",
+              fr: "Irradiance globale inclin\xE9e",
+              it: "Irradianza inclinata globale",
+              es: "Irradiancia global inclinada",
+              pl: "Globalne pochylone nat\u0119\u017Cenie promieniowania",
+              uk: "\u0413\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u0435 \u043D\u0430\u0445\u0438\u043B\u0435\u043D\u0435 \u0432\u0438\u043F\u0440\u043E\u043C\u0456\u043D\u044E\u0432\u0430\u043D\u043D\u044F",
+              "zh-cn": "\u5168\u7403\u503E\u659C\u8F90\u7167\u5EA6"
             },
-            native: {}
-          }
-        );
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}.temperature_2m`, {
+            type: "number",
+            role: "value.energy",
+            unit: "Wh",
+            read: true,
+            write: false
+          },
+          native: {}
+        });
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.temperature_2m`, {
           type: "state",
           common: {
             name: {
@@ -428,7 +425,7 @@ class PVService {
           native: {}
         });
         if (this.adapter.config.cloud_cover) {
-          await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}.cloud_cover`, {
+          await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.cloud_cover`, {
             type: "state",
             common: {
               name: {
@@ -453,7 +450,7 @@ class PVService {
             native: {}
           });
         }
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}.wind_speed_10m`, {
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.wind_speed_10m`, {
           type: "state",
           common: {
             name: {
@@ -478,35 +475,32 @@ class PVService {
           native: {}
         });
         if (this.adapter.config.sunhine_duration) {
-          await this.adapter.setObjectNotExistsAsync(
-            `${base}.hourly-forecast.hour${hour}.sunshine_duration`,
-            {
-              type: "state",
-              common: {
-                name: {
-                  en: "Sunshine Duration",
-                  de: "Sonnenscheindauer",
-                  ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043B\u043D\u0435\u0447\u043D\u043E\u0433\u043E \u0441\u0438\u044F\u043D\u0438\u044F",
-                  pt: "Dura\xE7\xE3o da luz solar",
-                  nl: "Zonneschijnduur",
-                  fr: "Dur\xE9e d'ensoleillement",
-                  it: "Durata del sole",
-                  es: "Duraci\xF3n de la luz solar",
-                  pl: "Czas trwania nas\u0142onecznienia",
-                  uk: "\u0422\u0440\u0438\u0432\u0430\u043B\u0456\u0441\u0442\u044C \u0441\u043E\u043D\u044F\u0447\u043D\u043E\u0433\u043E \u0441\u0432\u0456\u0442\u043B\u0430",
-                  "zh-cn": "\u65E5\u7167\u65F6\u957F"
-                },
-                type: "number",
-                role: "value",
-                unit: "min",
-                read: true,
-                write: false
+          await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.sunshine_duration`, {
+            type: "state",
+            common: {
+              name: {
+                en: "Sunshine Duration",
+                de: "Sonnenscheindauer",
+                ru: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u0441\u043E\u043B\u043D\u0435\u0447\u043D\u043E\u0433\u043E \u0441\u0438\u044F\u043D\u0438\u044F",
+                pt: "Dura\xE7\xE3o da luz solar",
+                nl: "Zonneschijnduur",
+                fr: "Dur\xE9e d'ensoleillement",
+                it: "Durata del sole",
+                es: "Duraci\xF3n de la luz solar",
+                pl: "Czas trwania nas\u0142onecznienia",
+                uk: "\u0422\u0440\u0438\u0432\u0430\u043B\u0456\u0441\u0442\u044C \u0441\u043E\u043D\u044F\u0447\u043D\u043E\u0433\u043E \u0441\u0432\u0456\u0442\u043B\u0430",
+                "zh-cn": "\u65E5\u7167\u65F6\u957F"
               },
-              native: {}
-            }
-          );
+              type: "number",
+              role: "value",
+              unit: "min",
+              read: true,
+              write: false
+            },
+            native: {}
+          });
         }
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-forecast.hour${hour}.pv_temperature`, {
+        await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.pv_temperature`, {
           type: "state",
           common: {
             name: {
@@ -531,7 +525,7 @@ class PVService {
           native: {}
         });
       }
-      await this.adapter.setObjectNotExistsAsync(`${base}.daily-forecast`, {
+      await this.createOrFixObject(`${base}.daily-forecast`, {
         type: "channel",
         common: {
           name: {
@@ -551,7 +545,7 @@ class PVService {
         native: {}
       });
       for (let day = 0; day < this.adapter.config.forecastDays; day++) {
-        await this.adapter.setObjectNotExistsAsync(`${base}.daily-forecast.day${day}`, {
+        await this.createOrFixObject(`${base}.daily-forecast.day${day}`, {
           type: "channel",
           common: {
             name: {
@@ -570,7 +564,7 @@ class PVService {
           },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(`${base}.daily-forecast.day${day}.Date`, {
+        await this.createOrFixObject(`${base}.daily-forecast.day${day}.Date`, {
           type: "state",
           common: {
             name: {
@@ -593,7 +587,7 @@ class PVService {
           },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(`${base}.daily-forecast.day${day}.Peak_day`, {
+        await this.createOrFixObject(`${base}.daily-forecast.day${day}.Peak_day`, {
           type: "state",
           common: {
             name: {
@@ -620,7 +614,7 @@ class PVService {
       }
       if (this.adapter.config.locationsTotal && this.adapter.config.pv_locations.length > 1) {
         const sumBase = "pv-forecast";
-        await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_locations_Daily`, {
+        await this.createOrFixObject(`${sumBase}.sum_peak_locations_Daily`, {
           type: "channel",
           common: {
             name: {
@@ -640,7 +634,7 @@ class PVService {
           native: {}
         });
         for (let day = 0; day < this.adapter.config.forecastDays; day++) {
-          await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_locations_Daily.day${day}`, {
+          await this.createOrFixObject(`${sumBase}.sum_peak_locations_Daily.day${day}`, {
             type: "channel",
             common: {
               name: {
@@ -659,37 +653,34 @@ class PVService {
             },
             native: {}
           });
-          await this.adapter.setObjectNotExistsAsync(
-            `${sumBase}.sum_peak_locations_Daily.day${day}.sum_locations`,
-            {
-              type: "state",
-              common: {
-                name: {
-                  en: "Sum of all locations",
-                  de: "Summe aller Standorte",
-                  ru: "\u0421\u0443\u043C\u043C\u0430 \u0432\u0441\u0435\u0445 \u043C\u0435\u0441\u0442",
-                  pt: "Soma de todas as localiza\xE7\xF5es",
-                  nl: "Som van alle locaties",
-                  fr: "Somme de tous les emplacements",
-                  it: "Somma di tutte le posizioni",
-                  es: "Suma de todas las ubicaciones",
-                  pl: "Suma wszystkich lokalizacji",
-                  uk: "\u0421\u0443\u043C\u0430 \u0432\u0441\u0456\u0445 \u043C\u0456\u0441\u0446\u044C \u0440\u043E\u0437\u0442\u0430\u0448\u0443\u0432\u0430\u043D\u043D\u044F",
-                  "zh-cn": "\u6240\u6709\u4F4D\u7F6E\u7684\u603B\u548C"
-                },
-                type: "number",
-                role: "value.energy",
-                unit: "Wh",
-                read: true,
-                write: false
+          await this.createOrFixObject(`${sumBase}.sum_peak_locations_Daily.day${day}.sum_locations`, {
+            type: "state",
+            common: {
+              name: {
+                en: "Sum of all locations",
+                de: "Summe aller Standorte",
+                ru: "\u0421\u0443\u043C\u043C\u0430 \u0432\u0441\u0435\u0445 \u043C\u0435\u0441\u0442",
+                pt: "Soma de todas as localiza\xE7\xF5es",
+                nl: "Som van alle locaties",
+                fr: "Somme de tous les emplacements",
+                it: "Somma di tutte le posizioni",
+                es: "Suma de todas las ubicaciones",
+                pl: "Suma wszystkich lokalizacji",
+                uk: "\u0421\u0443\u043C\u0430 \u0432\u0441\u0456\u0445 \u043C\u0456\u0441\u0446\u044C \u0440\u043E\u0437\u0442\u0430\u0448\u0443\u0432\u0430\u043D\u043D\u044F",
+                "zh-cn": "\u6240\u6709\u4F4D\u7F6E\u7684\u603B\u548C"
               },
-              native: {}
-            }
-          );
+              type: "number",
+              role: "value.energy",
+              unit: "Wh",
+              read: true,
+              write: false
+            },
+            native: {}
+          });
         }
       }
       if (this.adapter.config.minutes_15) {
-        await this.adapter.setObjectNotExistsAsync(`${base}.15-min-forecast`, {
+        await this.createOrFixObject(`${base}.15-min-forecast`, {
           type: "channel",
           common: {
             name: {
@@ -820,7 +811,7 @@ class PVService {
         };
         for (let i = 0; i < 96; i++) {
           const channelId = `pv-forecast.${locationName}.15-min-forecast.${i}`;
-          await this.adapter.setObjectNotExistsAsync(channelId, {
+          await this.createOrFixObject(channelId, {
             type: "channel",
             common: { name: `Interval ${i}` },
             native: {}
@@ -831,7 +822,7 @@ class PVService {
               continue;
             }
             const base2 = `pv-forecast.${locationName2}`;
-            await this.adapter.setObjectNotExistsAsync(`${channelId}.${key}`, {
+            await this.createOrFixObject(`${channelId}.${key}`, {
               type: "state",
               common: {
                 name: info.name,
@@ -843,7 +834,7 @@ class PVService {
               },
               native: {}
             });
-            await this.adapter.setObjectNotExistsAsync(`${base2}.15-min-forecast.${i}.pv_temperature`, {
+            await this.createOrFixObject(`${base2}.15-min-forecast.${i}.pv_temperature`, {
               type: "state",
               common: {
                 name: {
@@ -871,7 +862,7 @@ class PVService {
         }
       }
       if (this.adapter.config.minutes_15_json) {
-        await this.adapter.setObjectNotExistsAsync(`${base}.15-min-json_chart`, {
+        await this.createOrFixObject(`${base}.15-min-json_chart`, {
           type: "state",
           common: {
             name: {
@@ -909,7 +900,7 @@ class PVService {
         });
       }
       if (this.adapter.config.hours_json) {
-        await this.adapter.setObjectNotExistsAsync(`${base}.hourly-json_chart`, {
+        await this.createOrFixObject(`${base}.hourly-json_chart`, {
           type: "state",
           common: {
             name: {
@@ -948,7 +939,7 @@ class PVService {
       }
       if (this.adapter.config.locationsTotal_minutely_json && this.adapter.config.minutes_15 && this.adapter.config.pv_locations.length > 1) {
         const sumBase = "pv-forecast";
-        await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_15-min-json_chart`, {
+        await this.createOrFixObject(`${sumBase}.sum_peak_15-min-json_chart`, {
           type: "state",
           common: {
             name: {
@@ -987,7 +978,7 @@ class PVService {
       }
       if (this.adapter.config.locationsTotal_hourly_json && this.adapter.config.pv_locations.length > 1) {
         const sumBase = "pv-forecast";
-        await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_hourly-json_chart`, {
+        await this.createOrFixObject(`${sumBase}.sum_peak_hourly-json_chart`, {
           type: "state",
           common: {
             name: {
@@ -1027,7 +1018,7 @@ class PVService {
     }
     if (this.adapter.config.minutes_15 && this.adapter.config.locationsTotal_minutely && this.adapter.config.pv_locations.length > 1) {
       const sumBase = "pv-forecast";
-      await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_locations_15_Minutely`, {
+      await this.createOrFixObject(`${sumBase}.sum_peak_locations_15_Minutely`, {
         type: "channel",
         common: {
           name: {
@@ -1048,39 +1039,36 @@ class PVService {
       });
       for (let i = 0; i < 96; i++) {
         const channelId = `${sumBase}.sum_peak_locations_15_Minutely.${i}`;
-        await this.adapter.setObjectNotExistsAsync(channelId, {
+        await this.createOrFixObject(channelId, {
           type: "channel",
           common: { name: `Interval ${i}` },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(
-          `${sumBase}.sum_peak_locations_15_Minutely.${i}.sum_locations`,
-          {
-            type: "state",
-            common: {
-              name: {
-                en: "15 Minutes Sum of all locations",
-                de: "15 Minuten Summe aller Standorte",
-                ru: "15 \u043C\u0438\u043D\u0443\u0442 \u0421\u0443\u043C\u043C\u0430 \u0432\u0441\u0435\u0445 \u043C\u0435\u0441\u0442",
-                pt: "15 minutos Soma de todos os locais",
-                nl: "15 Minuten Som van alle locaties",
-                fr: "15 minutes Somme de tous les lieux",
-                it: "15 minuti Somma di tutti i luoghi",
-                es: "15 Minutos Suma de todas las localizaciones",
-                pl: "15 minut Suma wszystkich lokalizacji",
-                uk: "15 \u0445\u0432\u0438\u043B\u0438\u043D \u0421\u0443\u043C\u0430 \u0432\u0441\u0456\u0445 \u043B\u043E\u043A\u0430\u0446\u0456\u0439",
-                "zh-cn": "15 Minutes Sum of all locations"
-              },
-              type: "number",
-              role: "value.energy",
-              unit: "Wh",
-              read: true,
-              write: false
+        await this.createOrFixObject(`${sumBase}.sum_peak_locations_15_Minutely.${i}.sum_locations`, {
+          type: "state",
+          common: {
+            name: {
+              en: "15 Minutes Sum of all locations",
+              de: "15 Minuten Summe aller Standorte",
+              ru: "15 \u043C\u0438\u043D\u0443\u0442 \u0421\u0443\u043C\u043C\u0430 \u0432\u0441\u0435\u0445 \u043C\u0435\u0441\u0442",
+              pt: "15 minutos Soma de todos os locais",
+              nl: "15 Minuten Som van alle locaties",
+              fr: "15 minutes Somme de tous les lieux",
+              it: "15 minuti Somma di tutti i luoghi",
+              es: "15 Minutos Suma de todas las localizaciones",
+              pl: "15 minut Suma wszystkich lokalizacji",
+              uk: "15 \u0445\u0432\u0438\u043B\u0438\u043D \u0421\u0443\u043C\u0430 \u0432\u0441\u0456\u0445 \u043B\u043E\u043A\u0430\u0446\u0456\u0439",
+              "zh-cn": "15 Minutes Sum of all locations"
             },
-            native: {}
-          }
-        );
-        await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_locations_15_Minutely.${i}.time`, {
+            type: "number",
+            role: "value.energy",
+            unit: "Wh",
+            read: true,
+            write: false
+          },
+          native: {}
+        });
+        await this.createOrFixObject(`${sumBase}.sum_peak_locations_15_Minutely.${i}.time`, {
           type: "state",
           common: {
             name: {
@@ -1107,7 +1095,7 @@ class PVService {
     }
     if (this.adapter.config.locationsTotal_hourly && this.adapter.config.pv_locations.length > 1) {
       const sumBase = "pv-forecast";
-      await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_locations_Hourly`, {
+      await this.createOrFixObject(`${sumBase}.sum_peak_locations_Hourly`, {
         type: "channel",
         common: {
           name: {
@@ -1127,7 +1115,7 @@ class PVService {
         native: {}
       });
       for (let hour = 0; hour < this.adapter.config.pv_forecastHours; hour++) {
-        await this.adapter.setObjectNotExistsAsync(`${sumBase}.sum_peak_locations_Hourly.Hour${hour}`, {
+        await this.createOrFixObject(`${sumBase}.sum_peak_locations_Hourly.Hour${hour}`, {
           type: "channel",
           common: {
             name: {
@@ -1146,34 +1134,31 @@ class PVService {
           },
           native: {}
         });
-        await this.adapter.setObjectNotExistsAsync(
-          `${sumBase}.sum_peak_locations_Hourly.Hour${hour}.sum_locations`,
-          {
-            type: "state",
-            common: {
-              name: {
-                en: "Hourly Sum of all locations",
-                de: "St\xFCndliche Summe aller Standorte",
-                ru: "\u041F\u043E\u0447\u0430\u0441\u043E\u0432\u0430\u044F \u0441\u0443\u043C\u043C\u0430 \u043F\u043E \u0432\u0441\u0435\u043C \u043C\u0435\u0441\u0442\u043E\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u044F\u043C",
-                pt: "Soma hor\xE1ria de todos os locais",
-                nl: "Uurtotaal van alle locaties",
-                fr: "Somme horaire de tous les emplacements",
-                it: "Somma oraria di tutte le posizioni",
-                es: "Suma horaria de todas las ubicaciones",
-                pl: "Suma godzinowa wszystkich lokalizacji",
-                uk: "\u041F\u043E\u0433\u043E\u0434\u0438\u043D\u043D\u0430 \u0441\u0443\u043C\u0430 \u0432\u0441\u0456\u0445 \u043B\u043E\u043A\u0430\u0446\u0456\u0439",
-                "zh-cn": "\u6240\u6709\u5730\u70B9\u6BCF\u5C0F\u65F6\u603B\u548C"
-              },
-              type: "number",
-              role: "value.energy",
-              unit: "Wh",
-              read: true,
-              write: false
+        await this.createOrFixObject(`${sumBase}.sum_peak_locations_Hourly.Hour${hour}.sum_locations`, {
+          type: "state",
+          common: {
+            name: {
+              en: "Hourly Sum of all locations",
+              de: "St\xFCndliche Summe aller Standorte",
+              ru: "\u041F\u043E\u0447\u0430\u0441\u043E\u0432\u0430\u044F \u0441\u0443\u043C\u043C\u0430 \u043F\u043E \u0432\u0441\u0435\u043C \u043C\u0435\u0441\u0442\u043E\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u044F\u043C",
+              pt: "Soma hor\xE1ria de todos os locais",
+              nl: "Uurtotaal van alle locaties",
+              fr: "Somme horaire de tous les emplacements",
+              it: "Somma oraria di tutte le posizioni",
+              es: "Suma horaria de todas las ubicaciones",
+              pl: "Suma godzinowa wszystkich lokalizacji",
+              uk: "\u041F\u043E\u0433\u043E\u0434\u0438\u043D\u043D\u0430 \u0441\u0443\u043C\u0430 \u0432\u0441\u0456\u0445 \u043B\u043E\u043A\u0430\u0446\u0456\u0439",
+              "zh-cn": "\u6240\u6709\u5730\u70B9\u6BCF\u5C0F\u65F6\u603B\u548C"
             },
-            native: {}
-          }
-        );
-        await this.adapter.setObjectNotExistsAsync(`pv-forecast.sum_peak_locations_Hourly.Hour${hour}.time`, {
+            type: "number",
+            role: "value.energy",
+            unit: "Wh",
+            read: true,
+            write: false
+          },
+          native: {}
+        });
+        await this.createOrFixObject(`pv-forecast.sum_peak_locations_Hourly.Hour${hour}.time`, {
           type: "state",
           common: {
             name: {
@@ -1617,6 +1602,23 @@ class PVService {
       this.adapter.clearTimeout(this.astroTimeout);
       this.astroTimeout = null;
       this.adapter.log.debug("PV-Service astro timer cleared.");
+    }
+  }
+  // Hilfsfunktion, um Objekte zu erstellen oder bei Bedarf zu korrigieren (z.B. wenn sich der Datentyp ändert)
+  async createOrFixObject(id, objDef) {
+    const existingObj = await this.adapter.getObjectAsync(id);
+    if (!existingObj) {
+      await this.createOrFixObject(id, objDef);
+    } else if (objDef.type === "state" && existingObj.common && existingObj.common.type !== objDef.common.type) {
+      this.adapter.log.info(
+        `[PV-Forecast] extendOrCreateState: Fixing type mismatch for ${id} (from '${existingObj.common.type}' to '${objDef.common.type}')`
+      );
+      await this.adapter.extendObjectAsync(id, {
+        common: {
+          type: objDef.common.type,
+          role: objDef.common.role
+        }
+      });
     }
   }
 }
