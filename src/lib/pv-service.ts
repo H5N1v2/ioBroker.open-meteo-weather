@@ -123,13 +123,48 @@ export class PVService {
 			try {
 				const times = SunCalc.getTimes(now, lat, lng);
 				let sunrise = times.sunrise;
+
+				if (!sunrise) {
+					this.adapter.log.warn(
+						'PV-Service: Sunrise time could not be calculated for today (polar day/night?). Retrying in 24h.',
+					);
+					if (this.astroTimeout) {
+						this.adapter.clearTimeout(this.astroTimeout);
+					}
+					this.astroTimeout = this.adapter.setTimeout(
+						() => {
+							this.scheduleSunriseUpdate();
+						},
+						24 * 60 * 60 * 1000,
+					);
+					return;
+				}
+
 				let targetTime = new Date(sunrise.getTime() - 15 * 60 * 1000);
 
 				if (targetTime <= now) {
 					const tomorrow = new Date();
 					tomorrow.setDate(tomorrow.getDate() + 1);
 					const tomorrowTimes = SunCalc.getTimes(tomorrow, lat, lng);
-					sunrise = tomorrowTimes.sunrise;
+					const tomorrowSunrise = tomorrowTimes.sunrise;
+
+					if (!tomorrowSunrise) {
+						this.adapter.log.warn(
+							'PV-Service: Sunrise time could not be calculated for tomorrow (polar day/night?). Retrying in 24h.',
+						);
+						if (this.astroTimeout) {
+							this.adapter.clearTimeout(this.astroTimeout);
+						}
+						this.astroTimeout = this.adapter.setTimeout(
+							() => {
+								this.scheduleSunriseUpdate();
+							},
+							24 * 60 * 60 * 1000,
+						);
+						return;
+					}
+
+					sunrise = tomorrowSunrise;
 					targetTime = new Date(sunrise.getTime() - 15 * 60 * 1000);
 				}
 
