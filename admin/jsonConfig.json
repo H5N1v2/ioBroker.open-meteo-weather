@@ -17,6 +17,10 @@
             "icontest": {
               "type": "staticImage",
               "src": "open-meteo.png",
+              "style": {
+                "width": "128px",
+                "height": "128px"
+              },
               "xs": 12,
               "sm": 3,
               "md": 2,
