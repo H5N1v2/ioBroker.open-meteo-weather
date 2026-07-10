@@ -20,6 +20,7 @@
         ],
 		"noEmitOnError": true,
 		"outDir": "./build/",
+		"rootDir": "./src/",
 		"removeComments": false,
 
 		// This is necessary for the automatic typing of the adapter config
