@@ -21,7 +21,7 @@
     "days_3": "3 天",
     "days_6": "6 天",
     "days_7": "7 天",
-    "descriptionText_text": "该适配器检索当前天气数据、光伏预报以及花粉和空气质量数据。要使用系统坐标，请将纬度和经度字段留空。其他坐标可以在 https://www.openstreetmap.org 找到。<br><br><br>有关天气小部件的注意事项：<br>适配器小部件中的设置仅包括字体大小。如需更广泛的自定义，请参阅 GitHub 上的小部件并手动添加。<br><br>请确保小部件中设置的天数或小时数不超过正在访问的天数或小时数。<br><br>其他：<br>如果仅需要光伏预报，只需将天气位置留空即可。然后将不会检索到任何天气数据。",
+    "descriptionText_text": "该适配器检索当前天气数据、光伏预报以及花粉和空气质量数据。要使用系统坐标，请将纬度和经度字段留空。其他坐标可以在 <a href=\"https://www.openstreetmap.org/\" target=\"_blank\">openstreetmap.org</a> 找到。<br><br><br>有关天气小部件的注意事项：<br>适配器小部件中的设置仅包括字体大小。如需更广泛的自定义，请参阅 GitHub 上的小部件并手动添加。<br><br>请确保小部件中设置的天数或小时数不超过正在访问的天数或小时数。<br><br>其他：<br>如果仅需要光伏预报，只需将天气位置留空即可。然后将不会检索到任何天气数据。<br><br>如果适配器出现问题，例如超时或服务器错误，可以查看 <a href=\"https://status.open-meteo.com/\" target=\"_blank\">Open-Meteo 状态</a>。",
     "direct1_label": "风向 (风吹向哪里)",
     "direct2_label": "风源 (风从哪里来)",
     "enablePV_help": "另外还可以进行 PV 预测",
