@@ -1,4 +1,11 @@
 ## CHANGELOG OLD
+## 3.0.1 (2026-04-25)
+* (H5N1) update dependencies
+* (H5N1) improve error handling in API calls with detailed messages
+* (H5N1) fix: attribute in jsonConfig.
+* (Negalein) fix: yellow help text in admin for pv-forecast extra dp's, poor recognition on white background
+* (H5N1v2) fix: update interval for pv-forecast "once before sunrise" time incorrectly calculated
+
 ## 3.0.0 (2026-04-18)
 * (H5N1v2) merged open-meteo-weather and open-meteo-pv-forecast
 * (H5N1v2) adding icon selection tab and animated icons for weather by Bas Milius

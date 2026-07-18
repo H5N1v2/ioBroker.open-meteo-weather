@@ -277,7 +277,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.1.4 (2026-07-18)
 * (@GermanBluefox) upscaled the logo
 * (@GermanBluefox) Updated TS to 6
 * (@GermanBluefox) Corrected image in JsonConfig
@@ -312,13 +312,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 * (H5N1v2) Adapter internal widget adapted, hazards are highlighted in color (currently only in the internal adapter widget).
 * (copilot) Adapter requires node.js >= 22 now.
 * (H5N1v2) Update axios to v.1.16.0.
-
-### 3.0.1 (2026-04-25)
-* (H5N1) update dependencies
-* (H5N1) improve error handling in API calls with detailed messages
-* (H5N1) fix: attribute in jsonConfig.
-* (Negalein) fix: yellow help text in admin for pv-forecast extra dp's, poor recognition on white background
-* (H5N1v2) fix: update interval for pv-forecast "once before sunrise" time incorrectly calculated
 
 ## Older Changelog
 [OLDER CHANGELOG](CHANGELOG_OLD.md)
