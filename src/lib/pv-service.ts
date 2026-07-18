@@ -9,6 +9,7 @@ export class PVService {
 	private apiCaller!: ApiCaller;
 	private updateInterval: ioBroker.Timeout | null = null;
 	private astroTimeout: NodeJS.Timeout | null = null;
+	private retryTimeout: NodeJS.Timeout | null = null;
 
 	/**
 	 * Creates a new PV service instance.
@@ -180,12 +181,51 @@ export class PVService {
 
 				this.astroTimeout = this.adapter.setTimeout(async () => {
 					this.adapter.log.info('Scheduled PV update is being executed...');
+					let success = false;
 					try {
-						await this.updateAllLocations();
+						success = await this.updateAllLocations();
 					} catch (error) {
 						this.adapter.log.error(`Error during PV update: ${String(error)}`);
 					}
-					this.scheduleSunriseUpdate();
+
+					if (success) {
+						// Update was successful – schedule next run before tomorrow's sunrise
+						this.scheduleSunriseUpdate();
+					} else {
+						// Update failed – retry in 30 minutes
+						this.adapter.log.warn('PV-Service: Sunrise update failed. Retrying in 30 minutes...');
+						if (this.retryTimeout) {
+							this.adapter.clearTimeout(this.retryTimeout);
+							this.retryTimeout = null;
+						}
+						this.retryTimeout = this.adapter.setTimeout(
+							async () => {
+								this.retryTimeout = null;
+								this.adapter.log.info('PV-Service: Executing retry update...');
+								let retrySuccess = false;
+								try {
+									retrySuccess = await this.updateAllLocations();
+								} catch (retryError) {
+									this.adapter.log.error(`Error during PV retry update: ${String(retryError)}`);
+								}
+
+								if (retrySuccess) {
+									this.adapter.log.info(
+										'PV-Service: Retry update successful. Scheduling next sunrise update.',
+									);
+									this.scheduleSunriseUpdate();
+								} else {
+									// Still failing – schedule another retry via a fresh sunrise schedule
+									// which will detect that sunrise has already passed and plan for tomorrow
+									this.adapter.log.warn(
+										'PV-Service: Retry update also failed. Scheduling next sunrise update for tomorrow.',
+									);
+									this.scheduleSunriseUpdate();
+								}
+							},
+							30 * 60 * 1000,
+						);
+					}
 				}, msToWait);
 			} catch (e: any) {
 				this.adapter.log.error(`Error during astro calculation: ${String(e)}`);
@@ -1302,20 +1342,30 @@ export class PVService {
 		}
 	}
 
-	private async updateAllLocations(): Promise<void> {
+	private async updateAllLocations(): Promise<boolean> {
+		let anySuccess = false;
+
 		for (const location of this.adapter.config.pv_locations) {
 			try {
 				const locationName = this.sanitizeLocationName(location.name);
 				const base = `pv-forecast.${locationName}`;
 
-				await this.updateLocation(location, base);
+				const locationSuccess = await this.updateLocation(location, base);
+				if (locationSuccess) {
+					anySuccess = true;
+				}
 			} catch (error) {
 				this.adapter.log.error(`Error updating PV location ${location.name}: ${(error as Error).message}`);
 			}
 		}
+
 		await this.updateSumLocations();
 
-		await this.adapter.setState('info.lastUpdate_PV_Forecast', { val: new Date().getTime(), ack: true });
+		if (anySuccess) {
+			await this.adapter.setState('info.lastUpdate_PV_Forecast', { val: new Date().getTime(), ack: true });
+		}
+
+		return anySuccess;
 	}
 
 	private async updateSumLocations(): Promise<void> {
@@ -1402,7 +1452,7 @@ export class PVService {
 		}
 	}
 
-	private async updateLocation(location: any, base: string): Promise<void> {
+	private async updateLocation(location: any, base: string): Promise<boolean> {
 		const effectiveLocation = { ...location };
 		const latMissing =
 			effectiveLocation.pv_latitude === undefined ||
@@ -1432,7 +1482,7 @@ export class PVService {
 				this.adapter.log.error(
 					`[${location.name}] latitude and/or longitude not set and no system coordinates available. Skipping location.`,
 				);
-				return;
+				return false;
 			}
 		}
 
@@ -1441,7 +1491,7 @@ export class PVService {
 
 			if (!data || !data.hourly || !data.hourly.time) {
 				this.adapter.log.error(`[${location.name}] The API returned no data..`);
-				return;
+				return false;
 			}
 
 			// kwp sicher als Zahl interpretieren
@@ -1819,8 +1869,10 @@ export class PVService {
 			this.adapter.log.info(
 				`[${location.name}] Update successful. Day0: ${Math.round(dailySums[Object.keys(dailySums)[0]] || 0)} Wh`,
 			);
+			return true;
 		} catch (error) {
 			this.adapter.log.error(`[${location.name}] Error: ${(error as Error).message}`);
+			return false;
 		}
 	}
 
@@ -1845,6 +1897,12 @@ export class PVService {
 			this.adapter.clearTimeout(this.astroTimeout);
 			this.astroTimeout = null;
 			this.adapter.log.debug('PV-Service astro timer cleared.');
+		}
+
+		if (this.retryTimeout) {
+			this.adapter.clearTimeout(this.retryTimeout);
+			this.retryTimeout = null;
+			this.adapter.log.debug('PV-Service retry timer cleared.');
 		}
 	}
 	// Hilfsfunktion, um Objekte zu erstellen oder bei Bedarf zu korrigieren (z.B. wenn sich der Datentyp ändert)
