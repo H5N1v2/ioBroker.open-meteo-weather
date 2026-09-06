@@ -423,8 +423,48 @@
           "md": 4,
           "lg": 3,
           "xl": 3,
-          "hidden": "!data.forecastHoursEnabled"
+          "disabled": "!data.forecastHoursEnabled"
         },
+        "forecast15Enabled": {
+          "type": "checkbox",
+          "label": "forecast15Enabled_label",
+          "help": "forecast15Enabled_help",
+          "default": false,
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3
+        },
+        "forecast15": {
+          "type": "select",
+          "label": "forecast15_label",
+          "default": 4,
+          "options": [
+            {
+              "value": 4,
+              "label": "datasets_1"
+            },
+            {
+              "value": 8,
+              "label": "datasets_2"
+            },
+            {
+              "value": 12,
+              "label": "datasets_3"
+            },
+            {
+              "value": 16,
+              "label": "datasets_4"
+            }
+          ],
+          "xs": 12,
+          "sm": 6,
+          "md": 4,
+          "lg": 3,
+          "xl": 3,
+          "disabled": "!data.forecast15Enabled"
+        },                
         "divider3": {
           "type": "divider",
           "xs": 12,
