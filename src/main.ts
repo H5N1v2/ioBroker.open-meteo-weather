@@ -376,7 +376,24 @@ class OpenMeteoWeather extends utils.Adapter {
 					continue;
 				}
 
-				// 4. Entfernt
+				// 4. 15-Minuten-Vorhersage deaktiviert oder zu viele Datensätze?
+				if (objId.includes(`${folderName}.weather.forecast.15min`)) {
+					if (!config.forecast15Enabled) {
+						await this.delObjectAsync(objId, { recursive: true });
+						deletedCount++;
+						continue;
+					}
+					const f15Match = objId.match(/\.15min\.(\d+)/);
+					if (f15Match) {
+						const f15Num = parseInt(f15Match[1]);
+						const f15Limit = parseInt(config.forecast15) || 4;
+						if (f15Num >= f15Limit) {
+							await this.delObjectAsync(objId, { recursive: true });
+							deletedCount++;
+							continue;
+						}
+					}
+				}
 
 				// 5. Zu viele normale Vorhersage-Tage? (dayX außerhalb von hourly)
 				if (objId.includes(`${folderName}.weather.forecast.day`) && !objId.includes('.hourly.')) {
@@ -633,6 +650,8 @@ class OpenMeteoWeather extends utils.Adapter {
 						forecastDays: config.forecastDays || 7,
 						forecastHours: config.forecastHours || 1,
 						forecastHoursEnabled: config.forecastHoursEnabled || false,
+						forecast15Enabled: config.forecast15Enabled || false,
+						forecast15: config.forecast15 || 4,
 						airQualityEnabled: config.airQualityEnabled || false,
 						airQualityForecastDays: parseInt(config.airQualityForecastDays) || 0,
 						timezone: loc.timezone || this.systemTimeZone,
@@ -648,6 +667,10 @@ class OpenMeteoWeather extends utils.Adapter {
 				if (data.hourly) {
 					this.log.debug(`updateData: Processing hourly forecast for ${folderName}`);
 					await this.processForecastHoursData(data.hourly, folderName);
+				}
+				if (config.forecast15Enabled && data.weather && data.weather.minutely_15) {
+					this.log.debug(`updateData: Processing 15-minute forecast for ${folderName}`);
+					await this.processForecast15Data(data.weather.minutely_15, folderName);
 				}
 				if (data.air) {
 					this.log.debug(`updateData: Processing air quality for ${folderName}`);
@@ -919,6 +942,149 @@ class OpenMeteoWeather extends utils.Adapter {
 							'',
 						);
 					}
+				}
+			}
+		}
+	}
+
+	// Verarbeitet die 15-Minuten-Vorhersagedaten
+	private async processForecast15Data(data: any, locationPath: string): Promise<void> {
+		const t = this.cachedTranslations;
+		const config = this.config as any;
+		const f15Limit = parseInt(config.forecast15) || 4;
+
+		if (!data || !data.time || !Array.isArray(data.time)) {
+			this.log.warn(`processForecast15Data: No valid minutely_15 data for ${locationPath}`);
+			return;
+		}
+
+		// Haupt-Channel: 15min-Vorhersage
+		await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.15min`, {
+			type: 'channel',
+			common: {
+				name: {
+					en: '15-Minutes-Forecast',
+					de: '15-Minuten-Vorhersage',
+					pl: 'Prognoza 15-minutowa',
+					ru: '15-минутный прогноз',
+					it: 'Previsioni 15 minuti',
+					es: 'Pronóstico de 15 minutos',
+					'zh-cn': '15分钟预报',
+					fr: 'Prévisions 15 minutes',
+					pt: 'Previsão de 15 minutos',
+					nl: '15-minuten verwachting',
+					uk: '15-хвилинний прогноз',
+				},
+			},
+			native: {},
+		});
+
+		for (let i = 0; i < data.time.length; i++) {
+			if (i >= f15Limit) {
+				break;
+			}
+
+			const slotPath = `${locationPath}.weather.forecast.15min.${i}`;
+
+			// Sub-Channel je Datensatz (0, 1, 2, ...)
+			await this.setObjectNotExistsAsync(slotPath, {
+				type: 'channel',
+				common: {
+					name: {
+						en: `Dataset ${i + 1}`,
+						de: `Datensatz ${i + 1}`,
+						pl: `Zestaw danych ${i + 1}`,
+						ru: `Набор данных ${i + 1}`,
+						it: `Set di dati ${i + 1}`,
+						es: `Conjunto de datos ${i + 1}`,
+						'zh-cn': `数据集 ${i + 1}`,
+						fr: `Jeu de données ${i + 1}`,
+						pt: `Conjunto de dados ${i + 1}`,
+						nl: `Dataset ${i + 1}`,
+						uk: `Набір даних ${i + 1}`,
+					},
+				},
+				native: {},
+			});
+
+			// Zeit als Unix-Timestamp (date) und formatierte Uhrzeit (time) schreiben
+			const rawTime = data.time[i];
+			if (typeof rawTime === 'string') {
+				const dateObj = new Date(rawTime);
+				const dateTs = dateObj.getTime();
+				const timeStr = dateObj.toLocaleTimeString(this.systemLang, {
+					hour: '2-digit',
+					minute: '2-digit',
+					hour12: this.systemLang === 'en',
+				});
+				const dateStr = dateObj.toLocaleDateString(this.systemLang, {
+					day: '2-digit',
+					month: '2-digit',
+					year: 'numeric',
+				});
+				await this.extendOrCreateState(`${slotPath}.date`, dateTs, 'value.time', 'date');
+				await this.extendOrCreateState(`${slotPath}.time`, timeStr, 'value', 'time');
+				await this.extendOrCreateState(`${slotPath}.date_text`, dateStr, 'value', 'date');
+			}
+
+			// Alle anderen Keys des minutely_15 Datensatzes
+			for (const key in data) {
+				if (key === 'time') {
+					continue; // Zeit bereits oben behandelt
+				}
+
+				const val = data[key][i];
+				const role = getRole('hourly', key, i);
+				await this.extendOrCreateState(`${slotPath}.${key}`, val, role, key);
+
+				if (key === 'weather_code' && val !== undefined) {
+					await this.createCustomState(`${slotPath}.weather_text`, t.codes[val] || '?', 'string', 'text', '');
+					const useAnimated = this.config.select_icon === 0;
+					const useNightBright = this.config.isNight_icon;
+					const isDaySlot = data.is_day ? data.is_day[i] : 1;
+					const iconPath = useAnimated
+						? `/adapter/${this.name}/icons/animated/${isDaySlot === 1 ? 'day' : 'night'}/${val}.svg`
+						: isDaySlot === 1
+							? `/adapter/${this.name}/icons/weather_icons/${val}.png`
+							: useNightBright
+								? `/adapter/${this.name}/icons/night_bright/${val}nh.png`
+								: `/adapter/${this.name}/icons/night_dark/${val}n.png`;
+					await this.createCustomState(
+						`${slotPath}.icon_url`,
+						iconPath,
+						'string',
+						`weather.icon.forecast.${i}`,
+						'',
+					);
+				}
+				if (key === 'wind_direction_10m' && typeof val === 'number') {
+					await this.createCustomState(
+						`${slotPath}.wind_direction_text`,
+						this.getWindDirection(val),
+						'string',
+						'text',
+						'',
+					);
+					await this.createCustomState(
+						`${slotPath}.wind_direction_icon`,
+						this.getWindDirectionIcon(val),
+						'string',
+						'weather.icon.wind',
+						'',
+					);
+				}
+				if (key === 'wind_gusts_10m' && typeof val === 'number') {
+					await this.createCustomState(
+						`${slotPath}.wind_gust_icon`,
+						this.getWindGustIcon(val),
+						'string',
+						'weather.icon.wind',
+						'',
+					);
+				}
+				if (key === 'sunshine_duration' && typeof val === 'number') {
+					const valH = parseFloat((val / 3600).toFixed(2));
+					await this.extendOrCreateState(`${slotPath}.${key}`, valH, role, key);
 				}
 			}
 		}

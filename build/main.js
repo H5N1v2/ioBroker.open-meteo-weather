@@ -342,6 +342,23 @@ class OpenMeteoWeather extends utils.Adapter {
           deletedCount++;
           continue;
         }
+        if (objId.includes(`${folderName}.weather.forecast.15min`)) {
+          if (!config.forecast15Enabled) {
+            await this.delObjectAsync(objId, { recursive: true });
+            deletedCount++;
+            continue;
+          }
+          const f15Match = objId.match(/\.15min\.(\d+)/);
+          if (f15Match) {
+            const f15Num = parseInt(f15Match[1]);
+            const f15Limit = parseInt(config.forecast15) || 4;
+            if (f15Num >= f15Limit) {
+              await this.delObjectAsync(objId, { recursive: true });
+              deletedCount++;
+              continue;
+            }
+          }
+        }
         if (objId.includes(`${folderName}.weather.forecast.day`) && !objId.includes(".hourly.")) {
           const dayMatch = objId.match(/\.day(\d+)/);
           if (dayMatch) {
@@ -575,6 +592,8 @@ class OpenMeteoWeather extends utils.Adapter {
             forecastDays: config.forecastDays || 7,
             forecastHours: config.forecastHours || 1,
             forecastHoursEnabled: config.forecastHoursEnabled || false,
+            forecast15Enabled: config.forecast15Enabled || false,
+            forecast15: config.forecast15 || 4,
             airQualityEnabled: config.airQualityEnabled || false,
             airQualityForecastDays: parseInt(config.airQualityForecastDays) || 0,
             timezone: loc.timezone || this.systemTimeZone,
@@ -589,6 +608,10 @@ class OpenMeteoWeather extends utils.Adapter {
         if (data.hourly) {
           this.log.debug(`updateData: Processing hourly forecast for ${folderName}`);
           await this.processForecastHoursData(data.hourly, folderName);
+        }
+        if (config.forecast15Enabled && data.weather && data.weather.minutely_15) {
+          this.log.debug(`updateData: Processing 15-minute forecast for ${folderName}`);
+          await this.processForecast15Data(data.weather.minutely_15, folderName);
         }
         if (data.air) {
           this.log.debug(`updateData: Processing air quality for ${folderName}`);
@@ -807,6 +830,129 @@ class OpenMeteoWeather extends utils.Adapter {
               ""
             );
           }
+        }
+      }
+    }
+  }
+  // Verarbeitet die 15-Minuten-Vorhersagedaten
+  async processForecast15Data(data, locationPath) {
+    const t = this.cachedTranslations;
+    const config = this.config;
+    const f15Limit = parseInt(config.forecast15) || 4;
+    if (!data || !data.time || !Array.isArray(data.time)) {
+      this.log.warn(`processForecast15Data: No valid minutely_15 data for ${locationPath}`);
+      return;
+    }
+    await this.setObjectNotExistsAsync(`${locationPath}.weather.forecast.15min`, {
+      type: "channel",
+      common: {
+        name: {
+          en: "15-Minutes-Forecast",
+          de: "15-Minuten-Vorhersage",
+          pl: "Prognoza 15-minutowa",
+          ru: "15-\u043C\u0438\u043D\u0443\u0442\u043D\u044B\u0439 \u043F\u0440\u043E\u0433\u043D\u043E\u0437",
+          it: "Previsioni 15 minuti",
+          es: "Pron\xF3stico de 15 minutos",
+          "zh-cn": "15\u5206\u949F\u9884\u62A5",
+          fr: "Pr\xE9visions 15 minutes",
+          pt: "Previs\xE3o de 15 minutos",
+          nl: "15-minuten verwachting",
+          uk: "15-\u0445\u0432\u0438\u043B\u0438\u043D\u043D\u0438\u0439 \u043F\u0440\u043E\u0433\u043D\u043E\u0437"
+        }
+      },
+      native: {}
+    });
+    for (let i = 0; i < data.time.length; i++) {
+      if (i >= f15Limit) {
+        break;
+      }
+      const slotPath = `${locationPath}.weather.forecast.15min.${i}`;
+      await this.setObjectNotExistsAsync(slotPath, {
+        type: "channel",
+        common: {
+          name: {
+            en: `Dataset ${i + 1}`,
+            de: `Datensatz ${i + 1}`,
+            pl: `Zestaw danych ${i + 1}`,
+            ru: `\u041D\u0430\u0431\u043E\u0440 \u0434\u0430\u043D\u043D\u044B\u0445 ${i + 1}`,
+            it: `Set di dati ${i + 1}`,
+            es: `Conjunto de datos ${i + 1}`,
+            "zh-cn": `\u6570\u636E\u96C6 ${i + 1}`,
+            fr: `Jeu de donn\xE9es ${i + 1}`,
+            pt: `Conjunto de dados ${i + 1}`,
+            nl: `Dataset ${i + 1}`,
+            uk: `\u041D\u0430\u0431\u0456\u0440 \u0434\u0430\u043D\u0438\u0445 ${i + 1}`
+          }
+        },
+        native: {}
+      });
+      const rawTime = data.time[i];
+      if (typeof rawTime === "string") {
+        const dateObj = new Date(rawTime);
+        const dateTs = dateObj.getTime();
+        const timeStr = dateObj.toLocaleTimeString(this.systemLang, {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: this.systemLang === "en"
+        });
+        const dateStr = dateObj.toLocaleDateString(this.systemLang, {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        });
+        await this.extendOrCreateState(`${slotPath}.date`, dateTs, "value.time", "date");
+        await this.extendOrCreateState(`${slotPath}.time`, timeStr, "value", "time");
+        await this.extendOrCreateState(`${slotPath}.date_text`, dateStr, "value", "date");
+      }
+      for (const key in data) {
+        if (key === "time") {
+          continue;
+        }
+        const val = data[key][i];
+        const role = (0, import_role_mapping.getRole)("hourly", key, i);
+        await this.extendOrCreateState(`${slotPath}.${key}`, val, role, key);
+        if (key === "weather_code" && val !== void 0) {
+          await this.createCustomState(`${slotPath}.weather_text`, t.codes[val] || "?", "string", "text", "");
+          const useAnimated = this.config.select_icon === 0;
+          const useNightBright = this.config.isNight_icon;
+          const isDaySlot = data.is_day ? data.is_day[i] : 1;
+          const iconPath = useAnimated ? `/adapter/${this.name}/icons/animated/${isDaySlot === 1 ? "day" : "night"}/${val}.svg` : isDaySlot === 1 ? `/adapter/${this.name}/icons/weather_icons/${val}.png` : useNightBright ? `/adapter/${this.name}/icons/night_bright/${val}nh.png` : `/adapter/${this.name}/icons/night_dark/${val}n.png`;
+          await this.createCustomState(
+            `${slotPath}.icon_url`,
+            iconPath,
+            "string",
+            `weather.icon.forecast.${i}`,
+            ""
+          );
+        }
+        if (key === "wind_direction_10m" && typeof val === "number") {
+          await this.createCustomState(
+            `${slotPath}.wind_direction_text`,
+            this.getWindDirection(val),
+            "string",
+            "text",
+            ""
+          );
+          await this.createCustomState(
+            `${slotPath}.wind_direction_icon`,
+            this.getWindDirectionIcon(val),
+            "string",
+            "weather.icon.wind",
+            ""
+          );
+        }
+        if (key === "wind_gusts_10m" && typeof val === "number") {
+          await this.createCustomState(
+            `${slotPath}.wind_gust_icon`,
+            this.getWindGustIcon(val),
+            "string",
+            "weather.icon.wind",
+            ""
+          );
+        }
+        if (key === "sunshine_duration" && typeof val === "number") {
+          const valH = parseFloat((val / 3600).toFixed(2));
+          await this.extendOrCreateState(`${slotPath}.${key}`, valH, role, key);
         }
       }
     }
