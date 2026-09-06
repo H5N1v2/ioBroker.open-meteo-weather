@@ -56,6 +56,13 @@ export const zh = {
 	solar_noon: '正午',
 	freezing_level_height: '零度层高度',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: '能见度',
+	lightning_potential: '闪电潜势',
+	shortwave_radiation: '短波辐射',
+	direct_radiation: '直射辐射',
+
 	// Luftqualität (Air Quality)
 	european_aqi: '欧洲空气质量指数',
 	pm10: 'PM10颗粒物',

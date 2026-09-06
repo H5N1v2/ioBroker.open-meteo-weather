@@ -77,6 +77,12 @@ const pl = {
   snowfall_height: "Granica opadu \u015Bniegu",
   solar_noon: "Po\u0142udnie s\u0142oneczne",
   freezing_level_height: "Wysoko\u015B\u0107 granicy zamarzania",
+  //15 Minuten Vorhersage
+  cape: "CAPE",
+  visibility: "Widoczno\u015B\u0107",
+  lightning_potential: "Potencja\u0142 wy\u0142adowa\u0144",
+  shortwave_radiation: "Promieniowanie kr\xF3tkofalowe",
+  direct_radiation: "Promieniowanie bezpo\u015Brednie",
   // Luftqualität (Air Quality)
   european_aqi: "Europejski indeks jako\u015Bci powietrza",
   pm10: "Py\u0142 zawieszony PM10",

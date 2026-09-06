@@ -77,6 +77,12 @@ const zh = {
   snowfall_height: "\u96EA\u7EBF\u9AD8\u5EA6",
   solar_noon: "\u6B63\u5348",
   freezing_level_height: "\u96F6\u5EA6\u5C42\u9AD8\u5EA6",
+  //15 Minuten Vorhersage
+  cape: "CAPE",
+  visibility: "\u80FD\u89C1\u5EA6",
+  lightning_potential: "\u95EA\u7535\u6F5C\u52BF",
+  shortwave_radiation: "\u77ED\u6CE2\u8F90\u5C04",
+  direct_radiation: "\u76F4\u5C04\u8F90\u5C04",
   // Luftqualität (Air Quality)
   european_aqi: "\u6B27\u6D32\u7A7A\u6C14\u8D28\u91CF\u6307\u6570",
   pm10: "PM10\u9897\u7C92\u7269",

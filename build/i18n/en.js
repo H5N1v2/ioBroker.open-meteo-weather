@@ -77,6 +77,12 @@ const en = {
   snowfall_height: "Snowfall Height",
   solar_noon: "Solar Noon",
   freezing_level_height: "Freezing Level Height",
+  //15 Minuten Vorhersage
+  cape: "CAPE",
+  visibility: "Visibility",
+  lightning_potential: "Lightning Potential",
+  shortwave_radiation: "Shortwave Radiation",
+  direct_radiation: "Direct Radiation",
   // Luftqualität (Air Quality)
   european_aqi: "European Air Quality Index",
   pm10: "PM10 Particulate Matter",

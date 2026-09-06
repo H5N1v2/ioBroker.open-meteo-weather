@@ -56,6 +56,13 @@ export const uk = {
 	solar_noon: 'Сонячний полудень',
 	freezing_level_height: 'Висота рівня замерзання',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Видимість',
+	lightning_potential: 'Грозовий потенціал',
+	shortwave_radiation: 'Короткохвильове випромінювання',
+	direct_radiation: 'Пряме випромінювання',
+
 	// Luftqualität (Air Quality)
 	european_aqi: 'Європейський індекс якості повітря',
 	pm10: 'Пил PM10',

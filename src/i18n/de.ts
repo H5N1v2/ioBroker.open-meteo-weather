@@ -56,6 +56,13 @@ export const de = {
 	solar_noon: 'Sonnenhöchststand',
 	freezing_level_height: 'Frostgrenze',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Sichtweite',
+	lightning_potential: 'Blitzpotential',
+	shortwave_radiation: 'Kurzwellige Strahlung ',
+	direct_radiation: 'Direktstrahlung',
+
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europäischer Luftqualitätsindex',
 	pm10: 'Feinstaub PM10',

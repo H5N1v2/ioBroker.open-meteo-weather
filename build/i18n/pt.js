@@ -77,6 +77,12 @@ const pt = {
   snowfall_height: "Cota de neve",
   solar_noon: "Meio-dia solar",
   freezing_level_height: "Altitude de congelamento",
+  //15 Minuten Vorhersage
+  cape: "CAPE",
+  visibility: "Visibilidade",
+  lightning_potential: "Potencial de raios",
+  shortwave_radiation: "Radia\xE7\xE3o de onda curta",
+  direct_radiation: "Radia\xE7\xE3o direta",
   // Luftqualität (Air Quality)
   european_aqi: "\xCDndice Europeu de Qualidade do Ar",
   pm10: "Part\xEDculas em suspens\xE3o PM10",

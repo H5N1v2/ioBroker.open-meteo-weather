@@ -56,6 +56,13 @@ export const ru = {
 	solar_noon: 'Солнечный полдень',
 	freezing_level_height: 'Высота нулевой изотермы',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Видимость',
+	lightning_potential: 'Грозовой потенциал',
+	shortwave_radiation: 'Коротковолновое излучение',
+	direct_radiation: 'Прямое излучение',
+
 	// Luftqualität (Air Quality)
 	european_aqi: 'Европейский индекс качества воздуха',
 	pm10: 'Мелкодисперсная пыль PM10',

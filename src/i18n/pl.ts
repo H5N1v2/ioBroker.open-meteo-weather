@@ -56,6 +56,13 @@ export const pl = {
 	solar_noon: 'Południe słoneczne',
 	freezing_level_height: 'Wysokość granicy zamarzania',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Widoczność',
+	lightning_potential: 'Potencjał wyładowań',
+	shortwave_radiation: 'Promieniowanie krótkofalowe',
+	direct_radiation: 'Promieniowanie bezpośrednie',
+
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europejski indeks jakości powietrza',
 	pm10: 'Pył zawieszony PM10',

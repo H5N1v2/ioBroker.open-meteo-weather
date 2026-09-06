@@ -56,6 +56,13 @@ export const pt = {
 	solar_noon: 'Meio-dia solar',
 	freezing_level_height: 'Altitude de congelamento',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Visibilidade',
+	lightning_potential: 'Potencial de raios',
+	shortwave_radiation: 'Radiação de onda curta',
+	direct_radiation: 'Radiação direta',
+
 	// Luftqualität (Air Quality)
 	european_aqi: 'Índice Europeu de Qualidade do Ar',
 	pm10: 'Partículas em suspensão PM10',

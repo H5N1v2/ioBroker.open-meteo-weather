@@ -56,6 +56,13 @@ export const fr = {
 	solar_noon: 'Midi solaire',
 	freezing_level_height: 'Altitude de gel',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Visibilité',
+	lightning_potential: 'Potentiel de foudre',
+	shortwave_radiation: 'Rayonnement à ondes courtes',
+	direct_radiation: 'Rayonnement direct',
+
 	// Luftqualität (Air Quality)
 	european_aqi: "Indice européen de qualité de l'air",
 	pm10: 'Particules en suspension PM10',

@@ -56,6 +56,13 @@ export const nl = {
 	solar_noon: 'Zonsmiddag',
 	freezing_level_height: 'Vriespunthoogte',
 
+	//15 Minuten Vorhersage
+	cape: 'CAPE',
+	visibility: 'Zichtbaarheid',
+	lightning_potential: 'Bliksempotentieel',
+	shortwave_radiation: 'Kortgolvige straling',
+	direct_radiation: 'Directe straling',
+
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europese luchtkwaliteitsindex',
 	pm10: 'Fijnstof PM10',

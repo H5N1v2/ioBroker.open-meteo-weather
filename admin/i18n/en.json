@@ -99,5 +99,12 @@
     "widget_text": "Link to the widget on GitHub",
     "windicon_help_from_where_label": "South wind, The wind comes from the south, but the arrow points north where the wind is blowing.",
     "windicon_help_where_label": "South wind, The wind blows north, but the arrow points south where the wind is coming from.",
-    "windicon_system_label": "Wind direction icon display"
+    "windicon_system_label": "Wind direction icon display",
+    "forecast15Enabled_label": "Get 15 Minutes forecast ",
+    "forecast15Enabled_help": "When enabled, up to 16 data records are retrieved. 4 data records correspond to 1 hour. Please ensure an appropriate retrieval interval.",
+    "forecast15_label": "Datasets",
+    "datasets_1": "4 datasets (next hour)",
+    "datasets_2": "8 datasets (next 2 hours)",
+    "datasets_3": "12 datasets (next 3 hours)",
+    "datasets_4": "16 datasets (next 4 hours)"
 }

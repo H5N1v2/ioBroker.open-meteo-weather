@@ -77,6 +77,12 @@ const de = {
   snowfall_height: "Schneefallgrenze",
   solar_noon: "Sonnenh\xF6chststand",
   freezing_level_height: "Frostgrenze",
+  //15 Minuten Vorhersage
+  cape: "CAPE",
+  visibility: "Sichtweite",
+  lightning_potential: "Blitzpotential",
+  shortwave_radiation: "Kurzwellige Strahlung ",
+  direct_radiation: "Direktstrahlung",
   // Luftqualität (Air Quality)
   european_aqi: "Europ\xE4ischer Luftqualit\xE4tsindex",
   pm10: "Feinstaub PM10",
