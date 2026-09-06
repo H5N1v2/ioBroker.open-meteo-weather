@@ -177,6 +177,8 @@
     "isImperial": false,
     "forecastHoursEnabled": false,
     "forecastHours": 6,
+    "forecast15Enabled": false,
+    "forecast15": 4,
     "airQualityEnabled": false,
     "airQualityForecastDays": 1,
     "select_icon": 1,
