@@ -64,6 +64,13 @@ const baseRoles: Record<string, string> = {
 	// Schnee/Frost
 	snow_depth: 'value',
 	freezing_level_height: 'value',
+
+	//Sonstiges
+	cape: 'value',
+	visibility: 'value',
+	lightning_potential: 'value',
+	shortwave_radiation: 'value.radiation',
+	direct_radiation: 'value.radiation',
 };
 
 /**
