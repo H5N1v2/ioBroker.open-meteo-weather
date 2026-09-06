@@ -31,6 +31,11 @@ export const unitMapMetric: Record<string, string> = {
 	ragweed_pollen: 'grains/m³',
 	olive_pollen: 'grains/m³',
 	global_tilted_irradiance: 'W/m²',
+	cape: 'J/kg',
+	lightning_potential: 'J/kg',
+	visibility: 'm',
+	shortwave_radiation: 'W/m²',
+	direct_radiation: 'W/m²',
 };
 
 export const unitMapImperial: Record<string, string> = {
@@ -58,6 +63,11 @@ export const unitMapImperial: Record<string, string> = {
 	snowfall: 'inch',
 	snow_depth: 'inch',
 	global_tilted_irradiance: 'W/m²',
+	cape: 'J/kg',
+	lightning_potential: 'J/kg',
+	visibility: 'ft',
+	shortwave_radiation: 'W/m²',
+	direct_radiation: 'W/m²',
 };
 
 export const unitTranslations: Record<string, Record<string, string>> = {

@@ -53,7 +53,12 @@ const unitMapMetric = {
   mugwort_pollen: "grains/m\xB3",
   ragweed_pollen: "grains/m\xB3",
   olive_pollen: "grains/m\xB3",
-  global_tilted_irradiance: "W/m\xB2"
+  global_tilted_irradiance: "W/m\xB2",
+  cape: "J/kg",
+  lightning_potential: "J/kg",
+  visibility: "m",
+  shortwave_radiation: "W/m\xB2",
+  direct_radiation: "W/m\xB2"
 };
 const unitMapImperial = {
   temperature: "\xB0F",
@@ -79,7 +84,12 @@ const unitMapImperial = {
   sunshine: "h",
   snowfall: "inch",
   snow_depth: "inch",
-  global_tilted_irradiance: "W/m\xB2"
+  global_tilted_irradiance: "W/m\xB2",
+  cape: "J/kg",
+  lightning_potential: "J/kg",
+  visibility: "ft",
+  shortwave_radiation: "W/m\xB2",
+  direct_radiation: "W/m\xB2"
 };
 const unitTranslations = {
   de: {
