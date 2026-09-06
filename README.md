@@ -34,6 +34,7 @@ Should the adapter encounter issues such as timeouts or server errors, you can c
 ## Features Weather
 
 * **Current Weather Data:** Real-time retrieval of temperature, humidity, air pressure, and wind data.
+* **15-minute forecast** with a maximum of 16 datasets for the next 4 hours.
 * **Flexible Forecasts:** Configurable number of forecast days and hourly resolution.
 * **Air Quality & Pollen:** Optional data for particulate matter (PM2.5, PM10) as well as various pollen types (alder, birch, grass, etc.).
 * **Automatic Cleanup:** The adapter automatically cleans up the object structure if forecast periods are shortened or changed in the configuration.
@@ -277,6 +278,10 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.
+* (H5N1v2) Update dependencie 
+
 ### 3.1.4 (2026-07-18)
 * (@GermanBluefox) upscaled the logo
 * (@GermanBluefox) Updated TS to 6
