@@ -1,4 +1,14 @@
 ## CHANGELOG OLD
+## 3.1.0 (2026-05-03)
+* (H5N1v2) Changed update routine for weather and PV forecast to fixed fetch times.
+* (H5N1v2) Added a customizable HTML weather widget in the admin area.
+* (H5N1v2) Adaptation for version jumps from older configurations.
+* (H5N1v2) Description added to the admin area.
+* (H5N1v2) Readme updated in widget section.
+* (H5N1v2) Adapter internal widget adapted, hazards are highlighted in color (currently only in the internal adapter widget).
+* (copilot) Adapter requires node.js >= 22 now.
+* (H5N1v2) Update axios to v.1.16.0.
+
 ## 3.0.1 (2026-04-25)
 * (H5N1) update dependencies
 * (H5N1) improve error handling in API calls with detailed messages

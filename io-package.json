@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.1.4",
+    "version": "3.2.0",
     "news": {
+      "3.2.0": {
+        "en": "Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.\nUpdate dependencies",
+        "de": "Neue 15-Minuten-Wettervorhersage mit max. 16 Datensätzen für die nächsten 4 Stunden.\nAbhängigkeiten updaten",
+        "ru": "Добавление настраиваемого 15-минутного прогноза погоды с максимум 16 наборами данных на следующие 4 часа.\nОбновить зависимости",
+        "pt": "Adicionar previsão do tempo de 15 minutos com até 16 conjuntos de dados para as próximas 4 horas.\nAtualizar dependências",
+        "nl": "Voeg een configureerbare weersvoorspelling van 15 minuten toe met max. 16 datasets voor de komende 4 uur.\nAfhankelijkheden bijwerken",
+        "fr": "Ajout de prévisions météo configurables de 15 minutes avec 16 jeux de données maximum pour les 4 prochaines heures.\nMettre à jour les dépendances",
+        "it": "Aggiungere previsioni meteo di 15 minuti con max. 16 set di dati per le prossime 4 ore.\nAggiorna dipendenze",
+        "es": "Añadir una previsión meteorológica configurable de 15 minutos con un máximo de 16 conjuntos de datos para las próximas 4 horas\nActualizar dependencias",
+        "pl": "Dodawanie konfigurowalnej 15-minutowej prognozy pogody z maksymalnie 16 zestawami danych na następne 4 godziny.\nZaktualizuj zależności",
+        "uk": "Додавання настроюваного 15-хвилинного прогнозу погоди з макс. 16 наборами даних на наступні 4 години.\nОновлення залежностей",
+        "zh-cn": "添加可配置的 15 分钟天气预报，接下来的 4 小时最多可配置 16 个数据集。\n更新依赖关系"
+      },
       "3.1.4": {
         "en": "upscaled the logo\nUpdated TS to 6\nCorrected image in JsonConfig\nResize logo to 512x512\nfix: info.lastUpdate_PV_Forecast is no longer updated if all API calls failed or returned empty data.\nfix: PV Forecast sunrise mode now retries automatically after 30 minutes if the API call fails (e.g. HTTP 500 overload). The next day's schedule is only planned after a successful update.\nadd open-meteo status link in adapter description and README.\nfix: made OpenStreetMap link clickable in the admin area.\nUpdate dependencie.",
         "de": "Das Logo wurde vergrößert.\nTS auf 6 aktualisiert\nKorrigiertes Bild in JsonConfig\nLogo auf 512x512 skalieren\nKorrektur: info.lastUpdate_PV_Forecast wird nicht mehr aktualisiert, wenn alle API-Aufrufe fehlgeschlagen sind oder leere Daten zurückgegeben haben.\nBehoben: Der Sonnenaufgangsmodus der PV-Vorhersage versucht nun nach 30 Minuten automatisch einen erneuten API-Aufruf, falls dieser fehlschlägt (z. B. HTTP-500-Fehler). Der Zeitplan für den nächsten Tag wird erst nach einer erfolgreichen Aktualisierung erstellt.\nFügen Sie einen Link zum OpenMeteo-Status in die Adapterbeschreibung und die README-Datei ein.\nBehoben: Der OpenStreetMap-Link ist nun im Adminbereich anklickbar.\nAbhängigkeit aktualisieren.",
@@ -80,19 +93,6 @@
         "pl": "aktualizuj zależności\npopraw obsługę błędów w wywołaniach API za pomocą szczegółowych komunikatów\nnaprawiono: atrybut w jsonConfig.\nnaprawiono: żółty tekst pomocy w panelu administracyjnym dla dodatkowych wartości dp prognozy PV, słabe rozpoznawanie na białym tle\nnaprawiono: nieprawidłowo obliczono interwał aktualizacji prognozy czasu „raz przed wschodem słońca”",
         "uk": "оновити залежності\nпокращити обробку помилок у викликах API за допомогою детальних повідомлень\nвиправлення: атрибут у jsonConfig.\nвиправлення: жовтий текст довідки в адмінці для додаткових точок прогнозу PV, погане розпізнавання на білому фоні\nвиправлення: інтервал оновлення для PV-прогнозу \"один раз перед сходом сонця\" розраховувався неправильно.",
         "zh-cn": "更新依赖项\n通过详细信息改进 API 调用中的错误处理\n修复：jsonConfig 中的属性。\n修复：管理后台中关于 pv-forecast 额外 dp 的黄色帮助文本在白色背景上识别效果不佳\n修复：光伏预测“日出前一次”的更新间隔时间计算错误"
-      },
-      "3.0.0": {
-        "en": "merged open-meteo-weather and open-meteo-pv-forecast\nadding icon selection tab and animated icons for weather by Bas Milius\nadding solar_noon in daily, freezing_level_height and snowfall_height in hourly\nremove global_tilted_irradiance datapoint from weather.hourly",
-        "de": "Zusammenführung von open-meteo-weather und open-meteo-pv-forecast\nHinzufügen eines Auswahlreiters für Symbole und animierter Wettersymbole von Bas Milius\nHinzufügen von solar_noon (Mittag) pro Tag, freeze_level_height (Frostgrenze) und snowfall_height (Schneefallhöhe) pro Stunde\nEntferne den Datenpunkt global_tilted_irradiance aus weather.hourly",
-        "ru": "объединены open-meteo-weather и open-meteo-pv-forecast\nДобавлена вкладка выбора значков и анимированные значки для погоды от Баса Милиуса.\nдобавление solar_noon в ежедневный график, freezing_level_height и snowfall_height в ежечасный график.\nУдалить точку данных global_tilted_irradiance из weather.hourly",
-        "pt": "mesclaram open-meteo-weather e open-meteo-pv-forecast\nAdicionando aba de seleção de ícones e ícones animados para previsão do tempo por Bas Milius\nAdicionando solar_noon em valores diários, freezing_level_height e snowfall_height em valores horários.\nRemover o ponto de dados global_tilted_irradiance de weather.hourly",
-        "nl": "open-meteo-weather en open-meteo-pv-forecast samengevoegd\nHet toevoegen van een tabblad voor pictogramselectie en geanimeerde pictogrammen voor het weer door Bas Milius.\nHet toevoegen van solar_noon aan de dagelijkse gegevens, freezing_level_height en snowfall_height aan de uurlijkse gegevens.\nVerwijder het datapunt global_tilted_irradiance uit weather.hourly.",
-        "fr": "fusion des prévisions open-meteo-weather et open-meteo-pv\nAjout d'un onglet de sélection d'icônes et d'icônes animées pour la météo par Bas Milius\najout de solar_noon dans les données quotidiennes, freezing_level_height et snowfall_height dans les données horaires\nsupprimer le point de données global_tilted_irradiance de weather.hourly",
-        "it": "fusione di open-meteo-weather e open-meteo-pv-forecast\nAggiunta della scheda di selezione delle icone e delle icone animate per le previsioni meteo a cura di Bas Milius\naggiunta di solar_noon in giornaliero, freezing_level_height e snowfall_height in orario\nrimuovere il punto dati global_tilted_irradiance da weather.hourly",
-        "es": "Se fusionaron open-meteo-weather y open-meteo-pv-forecast\nSe agregó una pestaña de selección de iconos e iconos animados para el clima por Bas Milius.\nagregar solar_noon en diario, freeze_level_height y snowfall_height en horario\neliminar el punto de datos global_tilted_irradiance de weather.hourly",
-        "pl": "połączone open-meteo-weather i open-meteo-pv-forecast\ndodanie zakładki wyboru ikon i animowanych ikon pogody przez Basa Miliusa\ndodawanie wartości solar_noon w ujęciu dziennym, wartości frozen_level_height i snowfall_height w ujęciu godzinowym\nusuń punkt danych global_tilted_irradiance z weather.hourly",
-        "uk": "об'єднано open-meteo-weather та open-meteo-pv-forecast\nдодавання вкладки вибору значків та анімованих значків для погоди від Bas Milius\nдодавання solar_noon у щоденний графік, freezing_level_height та snowfall_height у погодинний графік\nвидалити точку даних global_tilted_irradiance з weather.hourly",
-        "zh-cn": "合并了 open-meteo-weather 和 open-meteo-pv-forecast\nBas Milius 为天气添加了图标选择选项卡和动画图标\n每日添加太阳正午高度，每小时添加冰冻层高度和降雪高度\n从 weather.hourly 中移除 global_tilted_irradiance 数据点"
       }
     },
     "plugins": {

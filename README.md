@@ -278,9 +278,9 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.2.0 (2026-09-06)
 * (H5N1v2) Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.
-* (H5N1v2) Update dependencies 
+* (H5N1v2) Update dependencies
 
 ### 3.1.4 (2026-07-18)
 * (@GermanBluefox) upscaled the logo
@@ -307,16 +307,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 * (H5N1v2) fix: [W5063] JSON formatting in "admin/jsonConfig.json" is hard to read (mixed indentation).
 * (H5N1v2) fix type assertion for channel name
 * (H5N1v2) fix some things in README.md
-
-### 3.1.0 (2026-05-03)
-* (H5N1v2) Changed update routine for weather and PV forecast to fixed fetch times.
-* (H5N1v2) Added a customizable HTML weather widget in the admin area.
-* (H5N1v2) Adaptation for version jumps from older configurations.
-* (H5N1v2) Description added to the admin area.
-* (H5N1v2) Readme updated in widget section.
-* (H5N1v2) Adapter internal widget adapted, hazards are highlighted in color (currently only in the internal adapter widget).
-* (copilot) Adapter requires node.js >= 22 now.
-* (H5N1v2) Update axios to v.1.16.0.
 
 ## Older Changelog
 [OLDER CHANGELOG](CHANGELOG_OLD.md)
