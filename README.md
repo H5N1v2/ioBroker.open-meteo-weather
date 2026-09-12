@@ -278,6 +278,11 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) add 'diffuse_radiation' to 15 min weather forecast.
+* (H5N1v2) add node.js 26.x testmatrix
+* (H5N1v2) Update dependencies
+
 ### 3.2.0 (2026-09-06)
 * (H5N1v2) Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.
 * (H5N1v2) Update dependencies
