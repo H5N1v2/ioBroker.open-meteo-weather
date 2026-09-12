@@ -62,6 +62,7 @@ export const nl = {
 	lightning_potential: 'Bliksempotentieel',
 	shortwave_radiation: 'Kortgolvige straling',
 	direct_radiation: 'Directe straling',
+	diffuse_radiation: 'Diffuse straling',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europese luchtkwaliteitsindex',

@@ -62,6 +62,7 @@ export const de = {
 	lightning_potential: 'Blitzpotential',
 	shortwave_radiation: 'Kurzwellige Strahlung ',
 	direct_radiation: 'Direktstrahlung',
+	diffuse_radiation: 'Diffusstrahlung',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europäischer Luftqualitätsindex',

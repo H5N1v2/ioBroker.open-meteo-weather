@@ -83,6 +83,7 @@ const fr = {
   lightning_potential: "Potentiel de foudre",
   shortwave_radiation: "Rayonnement \xE0 ondes courtes",
   direct_radiation: "Rayonnement direct",
+  diffuse_radiation: "Rayonnement diffus",
   // Luftqualität (Air Quality)
   european_aqi: "Indice europ\xE9en de qualit\xE9 de l'air",
   pm10: "Particules en suspension PM10",

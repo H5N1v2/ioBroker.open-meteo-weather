@@ -62,6 +62,7 @@ export const ru = {
 	lightning_potential: 'Грозовой потенциал',
 	shortwave_radiation: 'Коротковолновое излучение',
 	direct_radiation: 'Прямое излучение',
+	diffuse_radiation: 'Рассеянное излучение',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Европейский индекс качества воздуха',

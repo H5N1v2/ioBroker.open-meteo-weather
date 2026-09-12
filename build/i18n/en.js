@@ -83,6 +83,7 @@ const en = {
   lightning_potential: "Lightning Potential",
   shortwave_radiation: "Shortwave Radiation",
   direct_radiation: "Direct Radiation",
+  diffuse_radiation: "Diffuse radiation",
   // Luftqualität (Air Quality)
   european_aqi: "European Air Quality Index",
   pm10: "PM10 Particulate Matter",

@@ -83,6 +83,7 @@ const pl = {
   lightning_potential: "Potencja\u0142 wy\u0142adowa\u0144",
   shortwave_radiation: "Promieniowanie kr\xF3tkofalowe",
   direct_radiation: "Promieniowanie bezpo\u015Brednie",
+  diffuse_radiation: "Promieniowanie rozproszone",
   // Luftqualität (Air Quality)
   european_aqi: "Europejski indeks jako\u015Bci powietrza",
   pm10: "Py\u0142 zawieszony PM10",

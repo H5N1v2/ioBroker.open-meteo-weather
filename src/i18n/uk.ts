@@ -62,6 +62,7 @@ export const uk = {
 	lightning_potential: 'Грозовий потенціал',
 	shortwave_radiation: 'Короткохвильове випромінювання',
 	direct_radiation: 'Пряме випромінювання',
+	diffuse_radiation: 'Розсіяне випромінювання',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Європейський індекс якості повітря',

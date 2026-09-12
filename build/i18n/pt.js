@@ -83,6 +83,7 @@ const pt = {
   lightning_potential: "Potencial de raios",
   shortwave_radiation: "Radia\xE7\xE3o de onda curta",
   direct_radiation: "Radia\xE7\xE3o direta",
+  diffuse_radiation: "Radia\xE7\xE3o difusa",
   // Luftqualität (Air Quality)
   european_aqi: "\xCDndice Europeu de Qualidade do Ar",
   pm10: "Part\xEDculas em suspens\xE3o PM10",

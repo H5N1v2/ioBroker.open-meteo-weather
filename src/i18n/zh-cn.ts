@@ -62,6 +62,7 @@ export const zh = {
 	lightning_potential: '闪电潜势',
 	shortwave_radiation: '短波辐射',
 	direct_radiation: '直射辐射',
+	diffuse_radiation: '散射辐射',
 
 	// Luftqualität (Air Quality)
 	european_aqi: '欧洲空气质量指数',

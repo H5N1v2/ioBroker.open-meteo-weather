@@ -62,6 +62,7 @@ export const pl = {
 	lightning_potential: 'Potencjał wyładowań',
 	shortwave_radiation: 'Promieniowanie krótkofalowe',
 	direct_radiation: 'Promieniowanie bezpośrednie',
+	diffuse_radiation: 'Promieniowanie rozproszone',
 
 	// Luftqualität (Air Quality)
 	european_aqi: 'Europejski indeks jakości powietrza',
