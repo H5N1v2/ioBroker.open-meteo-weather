@@ -58,7 +58,8 @@ const unitMapMetric = {
   lightning_potential: "J/kg",
   visibility: "m",
   shortwave_radiation: "W/m\xB2",
-  direct_radiation: "W/m\xB2"
+  direct_radiation: "W/m\xB2",
+  diffuse_radiation: "W/m\xB2"
 };
 const unitMapImperial = {
   temperature: "\xB0F",
@@ -89,7 +90,8 @@ const unitMapImperial = {
   lightning_potential: "J/kg",
   visibility: "ft",
   shortwave_radiation: "W/m\xB2",
-  direct_radiation: "W/m\xB2"
+  direct_radiation: "W/m\xB2",
+  diffuse_radiation: "W/m\xB2"
 };
 const unitTranslations = {
   de: {

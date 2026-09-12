@@ -36,6 +36,7 @@ export const unitMapMetric: Record<string, string> = {
 	visibility: 'm',
 	shortwave_radiation: 'W/m²',
 	direct_radiation: 'W/m²',
+	diffuse_radiation: 'W/m²',
 };
 
 export const unitMapImperial: Record<string, string> = {
@@ -68,6 +69,7 @@ export const unitMapImperial: Record<string, string> = {
 	visibility: 'ft',
 	shortwave_radiation: 'W/m²',
 	direct_radiation: 'W/m²',
+	diffuse_radiation: 'W/m²',
 };
 
 export const unitTranslations: Record<string, Record<string, string>> = {
