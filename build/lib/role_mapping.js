@@ -84,7 +84,8 @@ const baseRoles = {
   visibility: "value",
   lightning_potential: "value",
   shortwave_radiation: "value.radiation",
-  direct_radiation: "value.radiation"
+  direct_radiation: "value.radiation",
+  diffuse_radiation: "value.radiation"
 };
 function getRole(context, key, index) {
   const base = baseRoles[key] || "value";

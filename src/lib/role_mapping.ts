@@ -71,6 +71,7 @@ const baseRoles: Record<string, string> = {
 	lightning_potential: 'value',
 	shortwave_radiation: 'value.radiation',
 	direct_radiation: 'value.radiation',
+	diffuse_radiation: 'value.radiation',
 };
 
 /**
