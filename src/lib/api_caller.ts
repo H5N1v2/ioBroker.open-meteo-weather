@@ -137,7 +137,7 @@ export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBrok
 	if (config.forecast15Enabled) {
 		const total_datasets = config.forecast15;
 		f15Param = `&forecast_minutely_15=${total_datasets}`;
-		f15Param_keys = `&minutely_15=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,shortwave_radiation,direct_radiation,sunshine_duration,lightning_potential,precipitation,snowfall,rain,weather_code,visibility,wind_direction_10m,wind_gusts_10m,wind_speed_10m,cape,is_day,freezing_level_height,snowfall_height`;
+		f15Param_keys = `&minutely_15=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,shortwave_radiation,direct_radiation,diffuse_radiation,sunshine_duration,lightning_potential,precipitation,snowfall,rain,weather_code,visibility,wind_direction_10m,wind_gusts_10m,wind_speed_10m,cape,is_day,freezing_level_height,snowfall_height`;
 	}
 
 	const currentparam_keys =

@@ -95,7 +95,7 @@ async function fetchAllWeatherData(config, logger) {
   if (config.forecast15Enabled) {
     const total_datasets = config.forecast15;
     f15Param = `&forecast_minutely_15=${total_datasets}`;
-    f15Param_keys = `&minutely_15=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,shortwave_radiation,direct_radiation,sunshine_duration,lightning_potential,precipitation,snowfall,rain,weather_code,visibility,wind_direction_10m,wind_gusts_10m,wind_speed_10m,cape,is_day,freezing_level_height,snowfall_height`;
+    f15Param_keys = `&minutely_15=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,shortwave_radiation,direct_radiation,diffuse_radiation,sunshine_duration,lightning_potential,precipitation,snowfall,rain,weather_code,visibility,wind_direction_10m,wind_gusts_10m,wind_speed_10m,cape,is_day,freezing_level_height,snowfall_height`;
   }
   const currentparam_keys = "temperature_2m,relative_humidity_2m,pressure_msl,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day";
   const dailyparam_keys = "relative_humidity_2m_mean,weather_code,temperature_2m_max,temperature_2m_min,pressure_msl_mean,sunrise,sunshine_duration,sunset,uv_index_max,precipitation_sum,rain_sum,snowfall_sum,precipitation_probability_max,et0_fao_evapotranspiration_sum,cloud_cover_max,wind_speed_10m_max,wind_direction_10m_dominant,wind_gusts_10m_max,dew_point_2m_mean";
