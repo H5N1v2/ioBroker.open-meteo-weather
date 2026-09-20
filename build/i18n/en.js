@@ -57,6 +57,8 @@ const en = {
   snowfall: "Snowfall",
   snow_depth: "Snow Depth",
   snowfall_sum: "Snowfall Sum",
+  showers_sum: "Shower total",
+  showers: "Showers",
   precipitation_probability_max: "Max. Precipitation Probability",
   precipitation_probability: "Precipitation Probability",
   et0_fao_evapotranspiration: "Evapotranspiration",

@@ -35,6 +35,8 @@ export const ru = {
 	snowfall: 'Снегопад',
 	snow_depth: 'Глубина снега',
 	snowfall_sum: 'Сумма снегопада',
+	showers_sum: 'Всего ливней',
+	showers: 'Ливни',
 	precipitation_probability_max: 'Макс. вероятность осадков',
 	precipitation_probability: 'Вероятность осадков',
 	et0_fao_evapotranspiration: 'Эвапотранспирация',

@@ -35,6 +35,8 @@ export const nl = {
 	snowfall: 'Sneeuwval',
 	snow_depth: 'Sneeuwhoogte',
 	snowfall_sum: 'Totale sneeuwval',
+	showers_sum: 'Totaal aantal buien',
+	showers: 'Buien',
 	precipitation_probability_max: 'Max. neerslagkans',
 	precipitation_probability: 'Neerslagkans',
 	et0_fao_evapotranspiration: 'Verdamping',

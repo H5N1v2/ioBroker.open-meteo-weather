@@ -35,6 +35,8 @@ export const uk = {
 	snowfall: 'Снігопад',
 	snow_depth: 'Висота снігового покриву',
 	snowfall_sum: 'Загальна кількість снігу',
+	showers_sum: 'Всього злив',
+	showers: 'Зливи',
 	precipitation_probability_max: 'Макс. ймовірність опадів',
 	precipitation_probability: 'Ймовірність опадів',
 	et0_fao_evapotranspiration: 'Евапотранспірація',

@@ -35,6 +35,8 @@ export const pt = {
 	snowfall: 'Nevada',
 	snow_depth: 'Profundidade da neve',
 	snowfall_sum: 'Soma de neve',
+	showers_sum: 'Total de aguaceiros',
+	showers: 'Aguaceiros',
 	precipitation_probability_max: 'Probabilidade de precipitação máx.',
 	precipitation_probability: 'Probabilidade de precipitação',
 	et0_fao_evapotranspiration: 'Evapotranspiração',

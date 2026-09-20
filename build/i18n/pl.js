@@ -57,6 +57,8 @@ const pl = {
   snowfall: "Opad \u015Bniegu",
   snow_depth: "G\u0142\u0119boka \u015Bniegu",
   snowfall_sum: "Suma opad\xF3w \u015Bniegu",
+  showers_sum: "Suma opad\xF3w",
+  showers: "Opady",
   precipitation_probability_max: "Maks. prawdopodobie\u0144stwo opad\xF3w",
   precipitation_probability: "Prawdopodobie\u0144stwo opad\xF3w",
   et0_fao_evapotranspiration: "Ewapotranspiracja",

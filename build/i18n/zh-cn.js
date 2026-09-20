@@ -57,6 +57,8 @@ const zh = {
   snowfall: "\u96EA\u91CF",
   snow_depth: "\u96EA\u6DF1",
   snowfall_sum: "\u603B\u964D\u96EA\u91CF",
+  showers_sum: "\u9635\u96E8\u603B\u8BA1",
+  showers: "\u9635\u96E8",
   precipitation_probability_max: "\u6700\u5927\u964D\u6C34\u6982\u7387",
   precipitation_probability: "\u964D\u6C34\u6982\u7387",
   et0_fao_evapotranspiration: "\u84B8\u6563\u53D1",

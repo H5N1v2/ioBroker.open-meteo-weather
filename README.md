@@ -136,6 +136,15 @@ The adapter provides dynamic icon paths that can be used directly in visualizati
 | `weather.forecast.hourly.hourX` | Hourly details per full hour |
 | `info.lastUpdate_weather` | Shows Date and Time from last Weather Update |
 
+## Miscellaneous
+  * **To make things easier for myself and for you:** 
+  Automatic role migration: When [`role_mapping.ts` line 7](/src/lib/role_mapping.ts) is updated, existing 
+  ioBroker objects are automatically updated with the new roles on the next adapter start – 
+  no manual deletion of the object tree required.
+  The migration only affects API data points (e.g. `temperature_2m`, `wind_speed_10m`) and 
+  skips all custom states (e.g. `icon_url`, `weather_text`, `wind_direction_icon`).
+  The current role mapping version is tracked in `info.roleMappingVersion`.
+
 ---
 #### If you do not need the weather forecasts, leave the location field blank, no states will be entered.
 ---
@@ -278,6 +287,13 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) Adding some weather keys, in hourly: showers, in daily: showers_sum, in current: rain, showers, snowfall
+* (H5N1v2) Automatic role migration: When `role_mapping.ts` is updated, existing 
+  ioBroker objects are automatically updated with the new roles on the next adapter start – 
+  no manual deletion of the object tree required.
+* (H5N1v2) Update dependencies
+
 ### 3.2.1 (2026-09-12)
 * (H5N1v2) add 'diffuse_radiation' to 15 min weather forecast.
 * (H5N1v2) add node.js 26.x testmatrix

@@ -35,6 +35,8 @@ export const it = {
 	snowfall: 'Neve',
 	snow_depth: 'Profondità neve',
 	snowfall_sum: 'Somma neve',
+	showers_sum: 'Totale rovesci',
+	showers: 'Rovesci',
 	precipitation_probability_max: 'Probabilità precipitazioni max',
 	precipitation_probability: 'Probabilità di precipitazioni',
 	et0_fao_evapotranspiration: 'Evapotraspirazione',

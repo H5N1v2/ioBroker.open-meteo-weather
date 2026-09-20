@@ -57,6 +57,8 @@ const it = {
   snowfall: "Neve",
   snow_depth: "Profondit\xE0 neve",
   snowfall_sum: "Somma neve",
+  showers_sum: "Totale rovesci",
+  showers: "Rovesci",
   precipitation_probability_max: "Probabilit\xE0 precipitazioni max",
   precipitation_probability: "Probabilit\xE0 di precipitazioni",
   et0_fao_evapotranspiration: "Evapotraspirazione",

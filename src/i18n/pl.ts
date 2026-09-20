@@ -35,6 +35,8 @@ export const pl = {
 	snowfall: 'Opad śniegu',
 	snow_depth: 'Głęboka śniegu',
 	snowfall_sum: 'Suma opadów śniegu',
+	showers_sum: 'Suma opadów',
+	showers: 'Opady',
 	precipitation_probability_max: 'Maks. prawdopodobieństwo opadów',
 	precipitation_probability: 'Prawdopodobieństwo opadów',
 	et0_fao_evapotranspiration: 'Ewapotranspiracja',

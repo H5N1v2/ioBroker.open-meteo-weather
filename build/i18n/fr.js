@@ -57,6 +57,8 @@ const fr = {
   snowfall: "Nieve",
   snow_depth: "Profondeur de neige",
   snowfall_sum: "Cumul de neige",
+  showers_sum: "Total des averses",
+  showers: "Averses",
   precipitation_probability_max: "Probabilit\xE9 de pr\xE9cipitations max",
   precipitation_probability: "Probabilit\xE9 de pr\xE9cipitations",
   et0_fao_evapotranspiration: "\xC9vapotranspiration",

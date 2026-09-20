@@ -57,6 +57,8 @@ const de = {
   snowfall: "Schneefall",
   snow_depth: "Schneehoehe",
   snowfall_sum: "Schneefallsumme",
+  showers_sum: "Schauer insgesamt",
+  showers: "Schauer",
   precipitation_probability_max: "Max. Niederschlagswahrscheinlichkeit",
   precipitation_probability: "Niederschlagswahrscheinlichkeit",
   et0_fao_evapotranspiration: "Verdunstung",

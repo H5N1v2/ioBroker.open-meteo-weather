@@ -40,6 +40,8 @@ export const es = {
 	snowfall: 'Nieve',
 	snow_depth: 'Profundidad de nieve',
 	snowfall_sum: 'Suma de nieve',
+	showers_sum: 'Total de lluvias',
+	showers: 'Lluvias',
 	precipitation_probability_max: 'Probabilidad de precipitación máx.',
 	precipitation_probability: 'Probabilidad de precipitación',
 	et0_fao_evapotranspiration: 'Evapotranspiración',
