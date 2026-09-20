@@ -287,7 +287,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.3.0 (2026-09-20)
 * (H5N1v2) Adding some weather keys, in hourly: showers, in daily: showers_sum, in current: rain, showers, snowfall
 * (H5N1v2) Automatic role migration: When `role_mapping.ts` is updated, existing 
   ioBroker objects are automatically updated with the new roles on the next adapter start – 
@@ -316,10 +316,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 
 ### 3.1.3 (2026-06-20)
 * (H5N1v2) Fixed an issue with object creation caused by an accidental change.
-
-### 3.1.2 (2026-06-20)
-* (mcuiobroker) fix: after adapter update, automatically adjust type and role if they have been changed in new versions.
-* (H5N1v2) Update dependencies
 
 ## Older Changelog
 [OLDER CHANGELOG](CHANGELOG_OLD.md)
