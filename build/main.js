@@ -261,6 +261,7 @@ class OpenMeteoWeather extends utils.Adapter {
     } catch (err) {
       this.log.error(`Initialization failed: ${err.message}`);
     }
+    await this.migrateRolesIfNeeded();
     await this.updateData();
     const config = this.config;
     const minutes = parseInt(config.updateInterval) || 30;
@@ -399,6 +400,73 @@ class OpenMeteoWeather extends utils.Adapter {
       }
     }
     this.log.debug(`cleanupDeletedLocations: Finished. Objects deleted: ${deletedCount}`);
+  }
+  // Prüft beim Start, ob sich die Rollen-Zuordnung geändert hat, und aktualisiert ggf. alle bestehenden Objekte
+  async migrateRolesIfNeeded() {
+    var _a;
+    const versionStateId = "info.roleMappingVersion";
+    const currentVersion = import_role_mapping.ROLE_MAPPING_VERSION;
+    await this.extendObject(versionStateId, {
+      type: "state",
+      common: {
+        name: "Role Mapping Version",
+        type: "number",
+        role: "value",
+        read: true,
+        write: false
+      },
+      native: {}
+    });
+    const versionState = await this.getStateAsync(versionStateId);
+    const savedVersion = versionState ? versionState.val : 0;
+    if (savedVersion >= currentVersion) {
+      this.log.debug(`migrateRolesIfNeeded: Roles are up to date (v${currentVersion}), skipping.`);
+      return;
+    }
+    this.log.info(
+      `migrateRolesIfNeeded: Role mapping updated (v${savedVersion} \u2192 v${currentVersion}). Updating existing objects...`
+    );
+    const allObjects = await this.getAdapterObjectsAsync();
+    let updatedCount = 0;
+    for (const objId in allObjects) {
+      const obj = allObjects[objId];
+      if (obj.type !== "state") {
+        continue;
+      }
+      const parts = objId.split(".");
+      const key = parts[parts.length - 1];
+      if (!import_role_mapping.MANAGED_ROLE_KEYS.has(key)) {
+        continue;
+      }
+      let context = "current";
+      if (objId.includes(".forecast.day")) {
+        context = "daily";
+      } else if (objId.includes(".forecast.hourly") || objId.includes(".forecast.15min")) {
+        context = "hourly";
+      }
+      let index = void 0;
+      const dayMatch = objId.match(/\.day(\d+)\.[^.]+$/);
+      const hourMatch = objId.match(/\.hour(\d+)\.[^.]+$/);
+      const slotMatch = objId.match(/\.15min\.(\d+)\.[^.]+$/);
+      if (dayMatch) {
+        index = parseInt(dayMatch[1]);
+      } else if (hourMatch) {
+        index = parseInt(hourMatch[1]);
+      } else if (slotMatch) {
+        index = parseInt(slotMatch[1]);
+      }
+      const newRole = (0, import_role_mapping.getRole)(context, key, index);
+      const currentRole = (_a = obj.common) == null ? void 0 : _a.role;
+      if (currentRole !== newRole) {
+        this.log.debug(`migrateRolesIfNeeded: Updating role for ${objId}: "${currentRole}" \u2192 "${newRole}"`);
+        await this.extendObject(objId, { common: { role: newRole } });
+        updatedCount++;
+      }
+    }
+    await this.setState(versionStateId, { val: currentVersion, ack: true });
+    this.log.info(
+      `migrateRolesIfNeeded: Done. ${updatedCount} object(s) updated to role mapping v${currentVersion}.`
+    );
   }
   // Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
   async updateData() {

@@ -4,7 +4,7 @@ import { translations } from './i18n';
 import { fetchAllWeatherData } from './lib/api_caller';
 import { PVService } from './lib/pv-service';
 import { unitMapMetric, unitMapImperial, unitTranslations } from './lib/units';
-import { getRole } from './lib/role_mapping';
+import { getRole, ROLE_MAPPING_VERSION, MANAGED_ROLE_KEYS } from './lib/role_mapping';
 import { generateWeatherHtml } from './lib/widget_html_creator';
 import * as SunCalc from 'suncalc';
 
@@ -268,6 +268,7 @@ class OpenMeteoWeather extends utils.Adapter {
 			this.log.error(`Initialization failed: ${err.message}`);
 		}
 
+		await this.migrateRolesIfNeeded();
 		await this.updateData();
 
 		const config = this.config as any;
@@ -441,6 +442,97 @@ class OpenMeteoWeather extends utils.Adapter {
 			}
 		}
 		this.log.debug(`cleanupDeletedLocations: Finished. Objects deleted: ${deletedCount}`);
+	}
+
+	// Prüft beim Start, ob sich die Rollen-Zuordnung geändert hat, und aktualisiert ggf. alle bestehenden Objekte
+	private async migrateRolesIfNeeded(): Promise<void> {
+		const versionStateId = 'info.roleMappingVersion';
+		const currentVersion = ROLE_MAPPING_VERSION;
+
+		// Objekt für den Versions-State sicherstellen
+		await this.extendObject(versionStateId, {
+			type: 'state',
+			common: {
+				name: 'Role Mapping Version',
+				type: 'number',
+				role: 'value',
+				read: true,
+				write: false,
+			},
+			native: {},
+		});
+
+		// Gespeicherte Version lesen
+		const versionState = await this.getStateAsync(versionStateId);
+		const savedVersion = versionState ? (versionState.val as number) : 0;
+
+		if (savedVersion >= currentVersion) {
+			this.log.debug(`migrateRolesIfNeeded: Roles are up to date (v${currentVersion}), skipping.`);
+			return;
+		}
+
+		this.log.info(
+			`migrateRolesIfNeeded: Role mapping updated (v${savedVersion} → v${currentVersion}). Updating existing objects...`,
+		);
+
+		// Alle Adapter-Objekte holen und Rollen aktualisieren
+		const allObjects = await this.getAdapterObjectsAsync();
+		let updatedCount = 0;
+
+		for (const objId in allObjects) {
+			const obj = allObjects[objId];
+			if (obj.type !== 'state') {
+				continue;
+			}
+
+			// Den letzten Teil der ID als Key extrahieren
+			// z.B. "myLocation.weather.current.temperature_2m" → "temperature_2m"
+			const parts = objId.split('.');
+			const key = parts[parts.length - 1];
+
+			// Nur Keys migrieren, die getRole() auch wirklich kennt.
+			// Custom-States (icon_url, weather_text, wind_direction_icon, etc.) werden übersprungen.
+			if (!MANAGED_ROLE_KEYS.has(key)) {
+				continue;
+			}
+
+			// Context aus dem Pfad ableiten
+			let context: 'current' | 'daily' | 'hourly' = 'current';
+			if (objId.includes('.forecast.day')) {
+				context = 'daily';
+			} else if (objId.includes('.forecast.hourly') || objId.includes('.forecast.15min')) {
+				context = 'hourly';
+			}
+
+			// Index aus dem Pfad lesen (für daily: dayX, für hourly: hourX oder slotX)
+			let index: number | undefined = undefined;
+			const dayMatch = objId.match(/\.day(\d+)\.[^.]+$/);
+			const hourMatch = objId.match(/\.hour(\d+)\.[^.]+$/);
+			const slotMatch = objId.match(/\.15min\.(\d+)\.[^.]+$/);
+			if (dayMatch) {
+				index = parseInt(dayMatch[1]);
+			} else if (hourMatch) {
+				index = parseInt(hourMatch[1]);
+			} else if (slotMatch) {
+				index = parseInt(slotMatch[1]);
+			}
+
+			const newRole = getRole(context, key, index);
+			const currentRole = obj.common?.role;
+
+			if (currentRole !== newRole) {
+				this.log.debug(`migrateRolesIfNeeded: Updating role for ${objId}: "${currentRole}" → "${newRole}"`);
+				await this.extendObject(objId, { common: { role: newRole } });
+				updatedCount++;
+			}
+		}
+
+		// Neue Version persistieren
+		await this.setState(versionStateId, { val: currentVersion, ack: true });
+
+		this.log.info(
+			`migrateRolesIfNeeded: Done. ${updatedCount} object(s) updated to role mapping v${currentVersion}.`,
+		);
 	}
 
 	// Steuert den Abruf der Wetterdaten und verteilt sie an die Verarbeitungsfunktionen
