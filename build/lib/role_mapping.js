@@ -18,9 +18,12 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var role_mapping_exports = {};
 __export(role_mapping_exports, {
+  MANAGED_ROLE_KEYS: () => MANAGED_ROLE_KEYS,
+  ROLE_MAPPING_VERSION: () => ROLE_MAPPING_VERSION,
   getRole: () => getRole
 });
 module.exports = __toCommonJS(role_mapping_exports);
+const ROLE_MAPPING_VERSION = 1;
 const baseRoles = {
   // Luftqualität & Pollenflug
   pm10: "value",
@@ -59,6 +62,8 @@ const baseRoles = {
   snowfall: "value.snow",
   snowfall_sum: "value.snow",
   snowfall_height: "value.snowline",
+  showers_sum: "value.precipitation.day",
+  showers: "value.precipitation",
   et0_fao_evapotranspiration: "value",
   // Wind
   wind_speed_10m: "value.speed.wind",
@@ -87,9 +92,10 @@ const baseRoles = {
   direct_radiation: "value.radiation",
   diffuse_radiation: "value.radiation"
 };
+const MANAGED_ROLE_KEYS = new Set(Object.keys(baseRoles));
 function getRole(context, key, index) {
   const base = baseRoles[key] || "value";
-  if (key === "dew_point_2m" || key === "rain" || key === "snowfall" || key === "precipitation_probability") {
+  if (key === "dew_point_2m" || key === "rain" || key === "snowfall" || key === "showers" || key === "precipitation_probability" || key === "precipitation") {
     if (context === "hourly" && index !== void 0 && index > 0) {
       return "value";
     }
@@ -99,6 +105,7 @@ function getRole(context, key, index) {
     "uv_index_max",
     "precipitation_probability_max",
     "rain_sum",
+    //'showers_sum',
     "relative_humidity_2m_mean",
     "snowfall_sum",
     "sunshine_duration"
@@ -124,7 +131,7 @@ function getRole(context, key, index) {
     }
   }
   if (context === "hourly") {
-    if (key === "precipitation" || key === "rain" || key === "snowfall") {
+    if (key === "precipitation" || key === "rain" || key === "snowfall" || key === "showers") {
       return `${base}.hour`;
     }
   }
@@ -132,6 +139,8 @@ function getRole(context, key, index) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  MANAGED_ROLE_KEYS,
+  ROLE_MAPPING_VERSION,
   getRole
 });
 //# sourceMappingURL=role_mapping.js.map

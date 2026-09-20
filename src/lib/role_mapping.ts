@@ -1,5 +1,11 @@
 // lib/role_mapping.ts
 
+/**
+ * Increase this version number every time baseRoles or the getRole logic is changed.
+ * This triggers an automatic one-time role migration for existing installations.
+ */
+export const ROLE_MAPPING_VERSION = 1;
+
 const baseRoles: Record<string, string> = {
 	// Luftqualität & Pollenflug
 	pm10: 'value',
@@ -41,6 +47,8 @@ const baseRoles: Record<string, string> = {
 	snowfall: 'value.snow',
 	snowfall_sum: 'value.snow',
 	snowfall_height: 'value.snowline',
+	showers_sum: 'value.precipitation.day',
+	showers: 'value.precipitation',
 	et0_fao_evapotranspiration: 'value',
 
 	// Wind
@@ -75,6 +83,13 @@ const baseRoles: Record<string, string> = {
 };
 
 /**
+ * Alle Keys, für die getRole() eine definierte Rolle verwaltet.
+ * Nur diese Keys werden bei der automatischen Rollen-Migration angefasst.
+ * Custom-States (icon_url, weather_text, wind_direction_icon, etc.) sind bewusst NICHT enthalten.
+ */
+export const MANAGED_ROLE_KEYS = new Set<string>(Object.keys(baseRoles));
+
+/**
  * Ermittelt die exakte ioBroker-Rolle basierend auf dem API-Key und dem Zeitkontext.
  *
  * @param context - Time context: 'current', 'daily', or 'hourly'.
@@ -86,7 +101,14 @@ export function getRole(context: 'current' | 'daily' | 'hourly', key: string, in
 	const base = baseRoles[key] || 'value';
 
 	// Spezielle Behandlung für dew_point_2m, rain, snowfall und precipitation_probability: Nur Stunde 0 bekommt die Rolle.
-	if (key === 'dew_point_2m' || key === 'rain' || key === 'snowfall' || key === 'precipitation_probability') {
+	if (
+		key === 'dew_point_2m' ||
+		key === 'rain' ||
+		key === 'snowfall' ||
+		key === 'showers' ||
+		key === 'precipitation_probability' ||
+		key === 'precipitation'
+	) {
 		if (context === 'hourly' && index !== undefined && index > 0) {
 			return 'value';
 		}
@@ -99,6 +121,7 @@ export function getRole(context: 'current' | 'daily' | 'hourly', key: string, in
 		'uv_index_max',
 		'precipitation_probability_max',
 		'rain_sum',
+		//'showers_sum',
 		'relative_humidity_2m_mean',
 		'snowfall_sum',
 		'sunshine_duration',
@@ -133,7 +156,7 @@ export function getRole(context: 'current' | 'daily' | 'hourly', key: string, in
 
 	// Für stündliche Vorhersagen: Spezifische .hour Anhänge (laut stateroles.md)
 	if (context === 'hourly') {
-		if (key === 'precipitation' || key === 'rain' || key === 'snowfall') {
+		if (key === 'precipitation' || key === 'rain' || key === 'snowfall' || key === 'showers') {
 			return `${base}.hour`;
 		}
 	}
