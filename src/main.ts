@@ -289,8 +289,13 @@ class OpenMeteoWeather extends utils.Adapter {
 			} else {
 				nextRun.setMinutes(nextMinute + 3);
 			}
-
-			const delay = nextRun.getTime() - now.getTime();
+			// Schutz vor negativen Delays (z.B. bei Zeitumstellung oder Systemzeit-Sprüngen)
+			let delay = nextRun.getTime() - now.getTime();
+			if (delay < 1000) {
+				// Falls der berechnete Zeitpunkt in der Vergangenheit liegt,
+				// das Intervall auf die reguläre Wartezeit setzen
+				delay = minutes * 60 * 1000;
+			}
 
 			this.log.info(`Next Weather update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1000)}s)`);
 

@@ -93,7 +93,13 @@ export class PVService {
 						nextRun.setMinutes(nextMinute + 2);
 					}
 
-					const delay = nextRun.getTime() - now.getTime();
+					// Schutz vor negativen Delays (z.B. bei Zeitumstellung oder Systemzeit-Sprüngen)
+					let delay = nextRun.getTime() - now.getTime();
+					if (delay < 1000) {
+						// Falls der berechnete Zeitpunkt in der Vergangenheit liegt,
+						// das Intervall auf die reguläre Wartezeit setzen
+						delay = intervalMinutes * 60 * 1000;
+					}
 
 					this.adapter.log.info(
 						`PV: Next update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1000)}s)`,

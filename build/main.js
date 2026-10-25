@@ -276,7 +276,10 @@ class OpenMeteoWeather extends utils.Adapter {
       } else {
         nextRun.setMinutes(nextMinute + 3);
       }
-      const delay = nextRun.getTime() - now.getTime();
+      let delay = nextRun.getTime() - now.getTime();
+      if (delay < 1e3) {
+        delay = minutes * 60 * 1e3;
+      }
       this.log.info(`Next Weather update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1e3)}s)`);
       this.updateInterval = this.setTimeout(async () => {
         await this.updateData();

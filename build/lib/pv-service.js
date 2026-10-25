@@ -107,7 +107,10 @@ class PVService {
           } else {
             nextRun.setMinutes(nextMinute + 2);
           }
-          const delay = nextRun.getTime() - now.getTime();
+          let delay = nextRun.getTime() - now.getTime();
+          if (delay < 1e3) {
+            delay = intervalMinutes * 60 * 1e3;
+          }
           this.adapter.log.info(
             `PV: Next update at ${nextRun.toLocaleTimeString()} (in ${Math.round(delay / 1e3)}s)`
           );
