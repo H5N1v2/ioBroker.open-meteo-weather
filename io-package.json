@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.3.1",
+    "version": "3.3.2",
     "news": {
+      "3.3.2": {
+        "en": "Bug fixed: \"Error Timeout (-xxxxx) is smaller than 0\" occurring during the transition to or from daylight saving time.\nUpdate dependencies.",
+        "de": "Fehler behoben: Der Fehler „Timeout (-xxxxx) is smaller than 0“ trat beim Wechsel zwischen Sommer- und Winterzeit auf.\nAbhängigkeiten aktualisiert.",
+        "ru": "Исправлена ошибка: «Timeout (-xxxxx) is smaller than 0» при переходе на летнее или зимнее время.\nЗависимости обновлены.",
+        "pt": "Erro corrigido: «Timeout (-xxxxx) is smaller than 0» durante a mudança para o horário de verão ou o regresso ao horário padrão.\nDependências atualizadas.",
+        "nl": "Bug opgelost: de fout „Timeout (-xxxxx) is smaller than 0“ trad op bij de overgang tussen zomer- en wintertijd.\nAfhankelijkheden bijgewerkt.",
+        "fr": "Bug corrigé : l’erreur « Timeout (-xxxxx) is smaller than 0 » survenait lors du passage à l’heure d’été ou du retour à l’heure d’hiver.\nDépendances mises à jour.",
+        "it": "Bug risolto: l’errore «Timeout (-xxxxx) is smaller than 0» si verificava durante il passaggio all’ora legale o il ritorno all’ora solare.\nDipendenze aggiornate.",
+        "es": "Error corregido: el error «Timeout (-xxxxx) is smaller than 0» se producía al pasar al horario de verano o volver al horario estándar.\nDependencias actualizadas.",
+        "pl": "Naprawiono błąd: komunikat „Timeout (-xxxxx) is smaller than 0” pojawiający się podczas przejścia na czas letni lub powrotu do czasu standardowego.\nZaktualizowano zależności.",
+        "uk": "Виправлено помилку: повідомлення «Timeout (-xxxxx) is smaller than 0» з’являлося під час переходу на літній час або повернення до зимового часу.\nЗалежності оновлено.",
+        "zh-cn": "已修复在切换至夏令时或切换回标准时间时出现的错误“Timeout (-xxxxx) is smaller than 0”。\n已更新依赖项。"
+      },
       "3.3.1": {
         "en": "Added `showers` datapoint to 15-minute forecast.\nUpdated dependencies.",
         "de": "Datenpunkt `showers` (Regenschauer) zur 15-Minuten-Vorhersage hinzugefügt.\nAbhängigkeiten aktualisiert.",
@@ -80,19 +93,6 @@
         "pl": "Naprawiono problem z tworzeniem obiektów spowodowany przypadkową zmianą.",
         "uk": "Виправлено проблему зі створенням об'єктів, спричинену випадковою зміною.",
         "zh-cn": "修复了因意外更改而导致的对象创建问题。"
-      },
-      "3.1.2": {
-        "en": "fix: after adapter update, automatically adjust type and role if they have been changed in new versions.\nUpdate dependencies",
-        "de": "Behebung: Nach einem Adapter-Update werden Typ und Rolle automatisch angepasst, falls sie sich in neuen Versionen geändert haben.\nAbhängigkeiten aktualisiert",
-        "ru": "Исправление: после обновления адаптера автоматически корректируются тип и роль, если они были изменены в новых версиях.\nОбновить зависимости",
-        "pt": "Correção: após a atualização do adaptador, o tipo e a função serão ajustados automaticamente caso tenham sido alterados nas novas versões.\nAtualizar dependências",
-        "nl": "Oplossing: na een adapterupdate worden het type en de rol automatisch aangepast als deze in de nieuwe versie zijn gewijzigd.\nAfhankelijkheden bijwerken",
-        "fr": "Correction : après la mise à jour de l'adaptateur, ajustement automatique du type et du rôle s'ils ont été modifiés dans les nouvelles versions.\nMettre à jour les dépendances",
-        "it": "Correzione: dopo l'aggiornamento dell'adattatore, regola automaticamente il tipo e il ruolo se sono stati modificati nelle nuove versioni.\nAggiorna le dipendenze",
-        "es": "Corrección: tras la actualización del adaptador, se ajustarán automáticamente el tipo y la función si se han modificado en las nuevas versiones.\nActualizar dependencias",
-        "pl": "naprawiono: po aktualizacji adaptera typ i rola są automatycznie dostosowywane, jeśli zostały zmienione w nowych wersjach.\nAktualizuj zależności",
-        "uk": "виправлення: після оновлення адаптера автоматично коригувати тип і роль, якщо вони були змінені в нових версіях.\nОновлення залежностей",
-        "zh-cn": "修复：适配器更新后，如果新版本中类型和角色已更改，则自动调整类型和角色。\n更新依赖项"
       }
     },
     "plugins": {

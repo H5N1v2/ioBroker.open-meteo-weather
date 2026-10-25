@@ -1,4 +1,15 @@
 ## CHANGELOG OLD
+## 3.1.4 (2026-07-18)
+* (@GermanBluefox) upscaled the logo
+* (@GermanBluefox) Updated TS to 6
+* (@GermanBluefox) Corrected image in JsonConfig
+* (H5N1v2) Resize logo to 512x512
+* (pk68) fix: info.lastUpdate_PV_Forecast is no longer updated if all API calls failed or returned empty data.
+* (H5N1v2) fix: PV Forecast sunrise mode now retries automatically after 30 minutes if the API call fails (e.g. HTTP 500 overload). The next day's schedule is only planned after a successful update.
+* (H5N1v2) add open-meteo status link in adapter description and README.
+* (H5N1v2) fix: made OpenStreetMap link clickable in the admin area.
+* (H5N1v2) Update dependencie.
+
 ## 3.1.3 (2026-06-20)
 * (H5N1v2) Fixed an issue with object creation caused by an accidental change.
 
