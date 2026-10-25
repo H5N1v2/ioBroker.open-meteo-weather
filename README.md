@@ -287,6 +287,10 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
+### **WORK IN PROGRESS**
+* (H5N1v2) Bug fixed: "Error Timeout (-xxxxx) is smaller than 0" occurring during the transition to or from daylight saving time.
+* (H5N1v2) Update dependencies.
+
 ### 3.3.1 (2026-10-10)
 * (H5N1v2) Added `showers` datapoint to 15-minute forecast.
 * (H5N1v2) Update dependencies.
