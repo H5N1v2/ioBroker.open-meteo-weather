@@ -18,9 +18,9 @@ declare global {
             // Wetter-Einstellungen (Bestand)
             locations: {
                 name: string;
-                lat: number;
-                lon: number;
-                tz: string;
+                latitude: number;
+                longitude: number;
+                timezone: string;
                 country?: string;
                 create_widget?: boolean;
                 daysCount?: number;
