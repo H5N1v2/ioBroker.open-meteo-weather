@@ -1,4 +1,8 @@
 ## CHANGELOG OLD
+## 3.2.0 (2026-09-06)
+* (H5N1v2) Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.
+* (H5N1v2) Update dependencies
+
 ## 3.1.4 (2026-07-18)
 * (@GermanBluefox) upscaled the logo
 * (@GermanBluefox) Updated TS to 6

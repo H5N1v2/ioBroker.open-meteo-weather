@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "open-meteo-weather",
-    "version": "3.3.2",
+    "version": "3.3.3",
     "news": {
+      "3.3.3": {
+        "en": "fixed: Corrected weather location configuration property names and fixed PV longitude validation to properly handle empty values and trigger the system-coordinate fallback.\nUpdate dependencies.",
+        "de": "Behoben: Die Namen der Konfigurationseigenschaften für den Wetterstandort wurden korrigiert und die PV-Längengradvalidierung wurde angepasst, um leere Werte korrekt zu verarbeiten und den Fallback auf Systemkoordinaten auszulösen.\nAbhängigkeiten aktualisieren.",
+        "ru": "исправлено: Исправлены имена свойств конфигурации местоположения погоды и валидация долготы PV для корректной обработки пустых значений и активации резервных системных координат.\nОбновите зависимости.",
+        "pt": "corrigido: Corrigidos os nomes das propriedades de configuração da localização meteorológica e a validação da longitude PV para tratar adequadamente valores vazios e acionar o fallback de coordenadas do sistema.\nAtualizar dependências.",
+        "nl": "opgelost: Namen van configuratie-eigenschappen voor de weerlocatie gecorrigeerd en de PV-lengtegraadvalidatie aangepast om lege waarden correct te verwerken en de terugval op systeemcoördinaten te activeren.\nAfhankelijkheden bijwerken.",
+        "fr": "corrigé : Correction des noms des propriétés de configuration de l'emplacement météo et de la validation de la longitude PV pour gérer correctement les valeurs vides et déclencher le repli sur les coordonnées système.\nMettre à jour les dépendances.",
+        "it": "risolto: Corretti i nomi delle proprietà di configurazione della posizione meteo e la validazione della longitudine PV per gestire correttamente i valori vuoti e attivare il fallback delle coordinate di sistema.\nAggiorna le dipendenze.",
+        "es": "corregido: Se corrigieron los nombres de las propiedades de configuración de la ubicación meteorológica y la validación de la longitud PV para gestionar correctamente los valores vacíos y activar el respaldo de coordenadas del sistema.\nActualizar dependencias.",
+        "pl": "naprawiono: Poprawiono nazwy właściwości konfiguracji lokalizacji pogodowej oraz walidację długości geograficznej PV, aby poprawnie obsługiwać puste wartości i wyzwalać mechanizm awaryjny współrzędnych systemowych.\nZaktualizuj zależności.",
+        "uk": "виправлено: Виправлено назви властивостей конфігурації місця розташування погоди та перевірку довготи PV для належної обробки порожніх значень і запуску резервного механізму системних координат.\nОновіть залежності.",
+        "zh-cn": "修复：更正了天气位置配置属性名称，并修复了光伏经度验证，以正确处理空值并触发系统坐标回退。\n更新依赖项。"
+      },
       "3.3.2": {
         "en": "Bug fixed: \"Error Timeout (-xxxxx) is smaller than 0\" occurring during the transition to or from daylight saving time.\nUpdate dependencies.",
         "de": "Fehler behoben: Der Fehler „Timeout (-xxxxx) is smaller than 0“ trat beim Wechsel zwischen Sommer- und Winterzeit auf.\nAbhängigkeiten aktualisiert.",
@@ -80,19 +93,6 @@
         "pl": "podniesiono skalę logo\nZaktualizowano TS do wersji 6\nPoprawiono obraz w JsonConfig\nZmień rozmiar logo do 512x512\nnaprawiono: info.lastUpdate_PV_Forecast nie jest już aktualizowane, jeśli wszystkie wywołania API zakończyły się niepowodzeniem lub zwróciły puste dane.\nNaprawiono: tryb wschodu słońca prognozy PV jest teraz automatycznie wznawiany po 30 minutach, jeśli wywołanie API się nie powiedzie (np. z powodu przeciążenia HTTP 500). Harmonogram na następny dzień jest planowany dopiero po pomyślnej aktualizacji.\ndodaj odnośnik do statusu open-meteo w opisie adaptera i pliku README.\nnaprawiono: dodano możliwość kliknięcia odnośnika OpenStreetMap w obszarze administracyjnym.\nZależność aktualizacji.",
         "uk": "збільшив масштаб логотипу\nОновлено TS до 6\nВиправлено зображення в JsonConfig\nЗмінити розмір логотипа до 512x512\nвиправлення: info.lastUpdate_PV_Forecast більше не оновлюється, якщо всі виклики API завершилися невдачею або повернули порожні дані.\nвиправлення: режим сходу сонця PV-прогнозу тепер автоматично повторює спробу через 30 хвилин, якщо виклик API завершується невдачею (наприклад, перевантаження HTTP 500). Розклад на наступний день планується лише після успішного оновлення.\nдодати посилання на статус open-meteo в опис адаптера та README.\nвиправлення: посилання OpenStreetMap стало клікабельним в адміністративній панелі.\nЗалежність оновлення.",
         "zh-cn": "放大了徽标\nTS 已更新至 6\nJsonConfig 中的图像已更正\n将徽标尺寸调整为 512x512\n修复：如果所有 API 调用都失败或返回空数据，则 info.lastUpdate_PV_Forecast 将不再更新。\n修复：PV Forecast 日出模式现在会在 API 调用失败（例如 HTTP 500 过载）后 30 分钟自动重试。第二天的日程安排仅在成功更新后才会进行规划。\n在适配器描述和 README 文件中添加 open-meteo 状态链接。\n修复：使管理区域中的 OpenStreetMap 链接可点击。\n更新依赖项。"
-      },
-      "3.1.3": {
-        "en": "Fixed an issue with object creation caused by an accidental change.",
-        "de": "Es wurde ein Problem mit der Objekterstellung behoben, das durch eine versehentliche Änderung verursacht worden war.",
-        "ru": "Исправлена ошибка при создании объектов, возникшая из-за случайного изменения.",
-        "pt": "Corrigido um problema na criação de objetos causado por uma alteração acidental.",
-        "nl": "Een probleem met het aanmaken van objecten, veroorzaakt door een onbedoelde wijziging, is opgelost.",
-        "fr": "Correction d'un problème de création d'objets causé par une modification accidentelle.",
-        "it": "Risolto un problema relativo alla creazione di oggetti causato da una modifica accidentale.",
-        "es": "Se solucionó un problema con la creación de objetos causado por un cambio accidental.",
-        "pl": "Naprawiono problem z tworzeniem obiektów spowodowany przypadkową zmianą.",
-        "uk": "Виправлено проблему зі створенням об'єктів, спричинену випадковою зміною.",
-        "zh-cn": "修复了因意外更改而导致的对象创建问题。"
       }
     },
     "plugins": {

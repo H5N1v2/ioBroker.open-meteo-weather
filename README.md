@@ -287,7 +287,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.3.3 (2026-11-09)
 * (H5N1v2) fixed: Corrected weather location configuration property names and fixed PV longitude validation to properly handle empty values and trigger the system-coordinate fallback.
 * (H5N1v2) Update dependencies.
 
@@ -309,10 +309,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 ### 3.2.1 (2026-09-12)
 * (H5N1v2) add 'diffuse_radiation' to 15 min weather forecast.
 * (H5N1v2) add node.js 26.x testmatrix
-* (H5N1v2) Update dependencies
-
-### 3.2.0 (2026-09-06)
-* (H5N1v2) Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.
 * (H5N1v2) Update dependencies
 
 ## Older Changelog
