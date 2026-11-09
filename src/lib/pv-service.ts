@@ -1467,7 +1467,7 @@ export class PVService {
 		const lonMissing =
 			effectiveLocation.pv_longitude === undefined ||
 			effectiveLocation.pv_longitude === null ||
-			(effectiveLocation.longitude as unknown as string) === '';
+			(effectiveLocation.pv_longitude as unknown as string) === '';
 
 		if (latMissing || lonMissing) {
 			this.adapter.log.debug(

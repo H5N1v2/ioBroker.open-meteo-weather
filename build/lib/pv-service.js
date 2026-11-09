@@ -1346,7 +1346,7 @@ class PVService {
     var _a, _b;
     const effectiveLocation = { ...location };
     const latMissing = effectiveLocation.pv_latitude === void 0 || effectiveLocation.pv_latitude === null || effectiveLocation.pv_latitude === "";
-    const lonMissing = effectiveLocation.pv_longitude === void 0 || effectiveLocation.pv_longitude === null || effectiveLocation.longitude === "";
+    const lonMissing = effectiveLocation.pv_longitude === void 0 || effectiveLocation.pv_longitude === null || effectiveLocation.pv_longitude === "";
     if (latMissing || lonMissing) {
       this.adapter.log.debug(
         `[${location.name}] Debug:longitude and/or latitude not set, loading system configuration`
