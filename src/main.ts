@@ -16,7 +16,7 @@ class OpenMeteoWeather extends utils.Adapter {
 
 	// Cached values für Performance
 	private cachedTranslations: any = null;
-	private cachedUnitMap: any = null;
+	private cachedUnitMap: Record<string, string> | null = null;
 	private cachedIsImperial: boolean = false;
 
 	// Objekt-Caching für bereits erstellte States (verhindert redundante DB-Zugriffe)
@@ -60,11 +60,11 @@ class OpenMeteoWeather extends utils.Adapter {
 
 	// Holt die passende Übersetzung für Objektnamen aus den i18n Dateien
 	private getI18nObject(key: string): ioBroker.StringOrTranslated {
-		const obj: any = {};
+		const obj: Record<string, string> = {};
 		for (const lang in translations) {
 			obj[lang] = translations[lang][key] || translations.en[key] || key;
 		}
-		return obj;
+		return obj as ioBroker.StringOrTranslated;
 	}
 
 	private getTranslation(key: string): string {
@@ -312,8 +312,8 @@ class OpenMeteoWeather extends utils.Adapter {
 		if (this.config.enablePV) {
 			this.log.info('PV Service is enabled, initializing...');
 			try {
-				const pvService = new PVService(this);
-				await pvService.init();
+				this.pvService = new PVService(this);
+				await this.pvService.init();
 			} catch (err: any) {
 				this.log.error(`Failed to initialize PV Service: ${err}`);
 			}
@@ -567,6 +567,8 @@ class OpenMeteoWeather extends utils.Adapter {
 				return;
 			}
 
+			let processedLocations = 0;
+
 			for (const loc of locations) {
 				const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, '_');
 
@@ -776,11 +778,19 @@ class OpenMeteoWeather extends utils.Adapter {
 
 				// ---- Widget HTML generieren ----
 				await this.updateWidgetHtml(loc, folderName);
+
+				if (data.weather || data.air) {
+					processedLocations++;
+				}
 			}
 			this.log.debug('updateData: All Weather locations processed successfully.');
 
-			// Zeitstempel für letztes Update setzen
-			await this.setState('info.lastUpdate_weather', { val: new Date().getTime(), ack: true });
+			// Zeitstempel nur setzen, wenn mindestens ein Standort erfolgreich war
+			if (processedLocations > 0) {
+				await this.setState('info.lastUpdate_weather', { val: new Date().getTime(), ack: true });
+			} else {
+				this.log.warn('No weather location could be updated; leaving info.lastUpdate_weather unchanged.');
+			}
 		} catch (error: any) {
 			this.log.error(`Retrieval failed: ${error.message}`);
 		} finally {
@@ -1130,7 +1140,10 @@ class OpenMeteoWeather extends utils.Adapter {
 					continue; // Zeit bereits oben behandelt
 				}
 
-				const val = data[key][i];
+				let val = data[key][i];
+				if (key === 'sunshine_duration' && typeof val === 'number') {
+					val = parseFloat((val / 3600).toFixed(2));
+				}
 				const role = getRole('hourly', key, i);
 				await this.extendOrCreateState(`${slotPath}.${key}`, val, role, key);
 
@@ -1178,10 +1191,6 @@ class OpenMeteoWeather extends utils.Adapter {
 						'weather.icon.wind',
 						'',
 					);
-				}
-				if (key === 'sunshine_duration' && typeof val === 'number') {
-					const valH = parseFloat((val / 3600).toFixed(2));
-					await this.extendOrCreateState(`${slotPath}.${key}`, valH, role, key);
 				}
 			}
 		}
@@ -1465,29 +1474,49 @@ class OpenMeteoWeather extends utils.Adapter {
 	// Erstellt einen neuen Datenpunkt mit benutzerdefinierter Rolle und Einheit
 	private async createCustomState(
 		id: string,
-		val: any,
+		val: ioBroker.StateValue,
 		type: ioBroker.CommonType,
 		role: string,
 		unit: string,
 	): Promise<void> {
-		// Objekt-Caching: Nur erstellen, wenn noch nicht im Set vorhanden
+		// Objekt-Caching: Nur prüfen/erstellen, wenn noch nicht im Set vorhanden
 		if (!this.createdObjects.has(id)) {
-			this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
+			const displayUnit = unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit;
 			const idParts = id.split('.');
 			const lastPart = idParts[idParts.length - 1] || id;
 
-			await this.setObjectNotExistsAsync(id, {
-				type: 'state',
-				common: {
-					name: this.getI18nObject(lastPart),
-					type,
-					role,
-					read: true,
-					unit: unit ? (unitTranslations[this.systemLang]?.[unit] ?? unit) : unit,
-					write: false,
-				},
-				native: {},
-			});
+			const existingObj = await this.getObjectAsync(id);
+
+			if (!existingObj) {
+				this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
+				await this.setObjectNotExistsAsync(id, {
+					type: 'state',
+					common: {
+						name: this.getI18nObject(lastPart),
+						type,
+						role,
+						read: true,
+						unit: displayUnit,
+						write: false,
+					},
+					native: {},
+				});
+			} else if (
+				existingObj.common &&
+				(existingObj.common.type !== type ||
+					existingObj.common.role !== role ||
+					(existingObj.common.unit || '') !== (displayUnit || ''))
+			) {
+				this.log.info(`[Weather] createCustomState: Correcting object definition for ${id}`);
+				await this.extendObject(id, {
+					common: {
+						type,
+						role,
+						unit: displayUnit,
+					},
+				});
+			}
+
 			this.createdObjects.add(id);
 		}
 		await this.setState(id, { val, ack: true });
@@ -1496,16 +1525,17 @@ class OpenMeteoWeather extends utils.Adapter {
 	// Erstellt oder aktualisiert einen Datenpunkt und weist automatisch Einheiten und Rollen zu
 	private async extendOrCreateState(
 		id: string,
-		val: any,
+		val: ioBroker.StateValue,
 		role: string = 'value',
 		translationKey?: string,
 	): Promise<void> {
 		// Obj.-Caching
 		if (!this.createdObjects.has(id)) {
 			let unit = '';
-			for (const k in this.cachedUnitMap) {
+			const unitMap = this.cachedUnitMap || {};
+			for (const k in unitMap) {
 				if (id.includes(k)) {
-					unit = this.cachedUnitMap[k];
+					unit = unitMap[k];
 					break;
 				}
 			}
@@ -1515,10 +1545,10 @@ class OpenMeteoWeather extends utils.Adapter {
 			const lastPart = idParts[idParts.length - 1] || id;
 			const key = translationKey || lastPart;
 
-			// Typ ermittelln
+			// Typ ermitteln
 			const expectedType = typeof val === 'number' ? 'number' : typeof val === 'boolean' ? 'boolean' : 'string';
 
-			//Prüfen, ob existiert
+			// Prüfen, ob existiert
 			const existingObj = await this.getObjectAsync(id);
 
 			if (!existingObj) {
@@ -1535,15 +1565,21 @@ class OpenMeteoWeather extends utils.Adapter {
 					},
 					native: {},
 				});
-			} else if (existingObj.common && existingObj.common.type !== expectedType) {
-				// FIX!
+			} else if (
+				existingObj.common &&
+				(existingObj.common.type !== expectedType ||
+					existingObj.common.role !== role ||
+					(existingObj.common.unit || '') !== (displayUnit || ''))
+			) {
+				// FIX! Typ, Rolle und Einheit an die aktuelle Definition angleichen
 				this.log.info(
-					`[Weather] extendOrCreateState: Fixing type mismatch for ${id} (changing from ${existingObj.common.type} to ${expectedType})`,
+					`[Weather] extendOrCreateState: Correcting object definition for ${id} (type: ${existingObj.common.type} → ${expectedType}, role/unit synced)`,
 				);
 				await this.extendObject(id, {
 					common: {
-						type: expectedType as any,
-						role: role, // evtl. korrektur role
+						type: expectedType as ioBroker.CommonType,
+						role: role,
+						unit: displayUnit,
 					},
 				});
 			}

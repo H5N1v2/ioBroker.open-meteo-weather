@@ -291,8 +291,8 @@ class OpenMeteoWeather extends utils.Adapter {
     if (this.config.enablePV) {
       this.log.info("PV Service is enabled, initializing...");
       try {
-        const pvService = new import_pv_service.PVService(this);
-        await pvService.init();
+        this.pvService = new import_pv_service.PVService(this);
+        await this.pvService.init();
       } catch (err) {
         this.log.error(`Failed to initialize PV Service: ${err}`);
       }
@@ -493,6 +493,7 @@ class OpenMeteoWeather extends utils.Adapter {
         }
         return;
       }
+      let processedLocations = 0;
       for (const loc of locations) {
         const folderName = loc.name.replace(/[^a-zA-Z0-9]/g, "_");
         await this.setObjectNotExistsAsync(folderName, {
@@ -689,9 +690,16 @@ class OpenMeteoWeather extends utils.Adapter {
           await this.processAirQualityData(data.air, folderName);
         }
         await this.updateWidgetHtml(loc, folderName);
+        if (data.weather || data.air) {
+          processedLocations++;
+        }
       }
       this.log.debug("updateData: All Weather locations processed successfully.");
-      await this.setState("info.lastUpdate_weather", { val: (/* @__PURE__ */ new Date()).getTime(), ack: true });
+      if (processedLocations > 0) {
+        await this.setState("info.lastUpdate_weather", { val: (/* @__PURE__ */ new Date()).getTime(), ack: true });
+      } else {
+        this.log.warn("No weather location could be updated; leaving info.lastUpdate_weather unchanged.");
+      }
     } catch (error) {
       this.log.error(`Retrieval failed: ${error.message}`);
     } finally {
@@ -979,7 +987,10 @@ class OpenMeteoWeather extends utils.Adapter {
         if (key === "time") {
           continue;
         }
-        const val = data[key][i];
+        let val = data[key][i];
+        if (key === "sunshine_duration" && typeof val === "number") {
+          val = parseFloat((val / 3600).toFixed(2));
+        }
         const role = (0, import_role_mapping.getRole)("hourly", key, i);
         await this.extendOrCreateState(`${slotPath}.${key}`, val, role, key);
         if (key === "weather_code" && val !== void 0) {
@@ -1020,10 +1031,6 @@ class OpenMeteoWeather extends utils.Adapter {
             "weather.icon.wind",
             ""
           );
-        }
-        if (key === "sunshine_duration" && typeof val === "number") {
-          const valH = parseFloat((val / 3600).toFixed(2));
-          await this.extendOrCreateState(`${slotPath}.${key}`, valH, role, key);
         }
       }
     }
@@ -1259,21 +1266,34 @@ class OpenMeteoWeather extends utils.Adapter {
   async createCustomState(id, val, type, role, unit) {
     var _a, _b;
     if (!this.createdObjects.has(id)) {
-      this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
+      const displayUnit = unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit;
       const idParts = id.split(".");
       const lastPart = idParts[idParts.length - 1] || id;
-      await this.setObjectNotExistsAsync(id, {
-        type: "state",
-        common: {
-          name: this.getI18nObject(lastPart),
-          type,
-          role,
-          read: true,
-          unit: unit ? (_b = (_a = import_units.unitTranslations[this.systemLang]) == null ? void 0 : _a[unit]) != null ? _b : unit : unit,
-          write: false
-        },
-        native: {}
-      });
+      const existingObj = await this.getObjectAsync(id);
+      if (!existingObj) {
+        this.log.debug(`createCustomState: Creating state ${id} (role: ${role})`);
+        await this.setObjectNotExistsAsync(id, {
+          type: "state",
+          common: {
+            name: this.getI18nObject(lastPart),
+            type,
+            role,
+            read: true,
+            unit: displayUnit,
+            write: false
+          },
+          native: {}
+        });
+      } else if (existingObj.common && (existingObj.common.type !== type || existingObj.common.role !== role || (existingObj.common.unit || "") !== (displayUnit || ""))) {
+        this.log.info(`[Weather] createCustomState: Correcting object definition for ${id}`);
+        await this.extendObject(id, {
+          common: {
+            type,
+            role,
+            unit: displayUnit
+          }
+        });
+      }
       this.createdObjects.add(id);
     }
     await this.setState(id, { val, ack: true });
@@ -1283,9 +1303,10 @@ class OpenMeteoWeather extends utils.Adapter {
     var _a, _b;
     if (!this.createdObjects.has(id)) {
       let unit = "";
-      for (const k in this.cachedUnitMap) {
+      const unitMap = this.cachedUnitMap || {};
+      for (const k in unitMap) {
         if (id.includes(k)) {
-          unit = this.cachedUnitMap[k];
+          unit = unitMap[k];
           break;
         }
       }
@@ -1309,15 +1330,15 @@ class OpenMeteoWeather extends utils.Adapter {
           },
           native: {}
         });
-      } else if (existingObj.common && existingObj.common.type !== expectedType) {
+      } else if (existingObj.common && (existingObj.common.type !== expectedType || existingObj.common.role !== role || (existingObj.common.unit || "") !== (displayUnit || ""))) {
         this.log.info(
-          `[Weather] extendOrCreateState: Fixing type mismatch for ${id} (changing from ${existingObj.common.type} to ${expectedType})`
+          `[Weather] extendOrCreateState: Correcting object definition for ${id} (type: ${existingObj.common.type} \u2192 ${expectedType}, role/unit synced)`
         );
         await this.extendObject(id, {
           common: {
             type: expectedType,
-            role
-            // evtl. korrektur role
+            role,
+            unit: displayUnit
           }
         });
       }
