@@ -77,7 +77,7 @@
     "minutes_15_label": "Utwórz prognozę 15-minutową (24 godziny/bieżący dzień)",
     "no_forecast": "Brak prognozy",
     "options_header_text": "Opcje",
-    "pollenEnabled_label": "Pobieraj dane o pyłkach",
+    "px": "px",
     "pv_loc_info_label": "Informacje: Ustawienia lokalizacji są widoczne i edytowalne tylko wtedy, gdy włączona jest prognoza fotowoltaiczna.",
     "pv_select_label": "Ustawienia fotowoltaiczne",
     "pv_timezone_label": "Strefa czasowa",

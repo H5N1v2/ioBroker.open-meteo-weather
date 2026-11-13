@@ -77,7 +77,7 @@
     "minutes_15_label": "创建 15 分钟预测（24 小时/当天）",
     "no_forecast": "无预报",
     "options_header_text": "选项",
-    "pollenEnabled_label": "获取花粉数据",
+    "px": "px",
     "pv_loc_info_label": "信息：仅当启用 PV 预测时，位置设置才可见和可编辑。",
     "pv_select_label": "光伏设置",
     "pv_timezone_label": "时区",

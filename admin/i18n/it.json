@@ -77,7 +77,7 @@
     "minutes_15_label": "Crea previsioni a 15 minuti (24 ore/giorno corrente)",
     "no_forecast": "Nessuna previsione",
     "options_header_text": "Opzioni",
-    "pollenEnabled_label": "Recupera dati sui pollini",
+    "px": "px",
     "pv_loc_info_label": "Informazioni: le impostazioni della posizione sono visibili e modificabili solo quando la previsione FV è abilitata.",
     "pv_select_label": "Impostazioni fotovoltaiche",
     "pv_timezone_label": "Fuso orario",

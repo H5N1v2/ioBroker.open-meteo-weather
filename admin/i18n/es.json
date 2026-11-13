@@ -77,7 +77,7 @@
     "minutes_15_label": "Crear pronóstico de 15 minutos (24 horas/día actual)",
     "no_forecast": "Sin pronóstico",
     "options_header_text": "Opciones",
-    "pollenEnabled_label": "Obtener datos de polen",
+    "px": "px",
     "pv_loc_info_label": "Información: la configuración de ubicación solo es visible y editable cuando el pronóstico de PV está habilitado.",
     "pv_select_label": "Configuraciones Fotovoltaicas",
     "pv_timezone_label": "Zona horaria",

@@ -77,7 +77,7 @@
     "minutes_15_label": "Créer une prévision sur 15 minutes (24 heures/jour en cours)",
     "no_forecast": "Pas de prévision",
     "options_header_text": "Options",
-    "pollenEnabled_label": "Récupérer les données de pollen",
+    "px": "px",
     "pv_loc_info_label": "Info : les paramètres de localisation ne sont visibles et modifiables que lorsque la prévision PV est activée.",
     "pv_select_label": "Paramètres photovoltaïques",
     "pv_timezone_label": "Fuseau horaire",

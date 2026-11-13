@@ -77,7 +77,7 @@
     "minutes_15_label": "15-Minuten-Prognose erstellen (24 Stunden/aktueller Tag)",
     "no_forecast": "Keine Vorhersage",
     "options_header_text": "Optionen",
-    "pollenEnabled_label": "Pollendaten abrufen",
+    "px": "px",
     "pv_loc_info_label": "Info: Standorteinstellungen nur sichtbar und bearbeitbar wenn PV Vorhersage aktiviert ist.",
     "pv_select_label": "Photovoltaik Einstellungen",
     "pv_timezone_label": "Zeitzone",

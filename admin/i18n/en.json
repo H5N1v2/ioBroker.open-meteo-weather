@@ -70,7 +70,7 @@
     "minutes_15_label": "Create 15-minute forecast (24 hours/current day)",
     "no_forecast": "No forecast",
     "options_header_text": "Options",
-    "pollenEnabled_label": "Fetch Pollen Data",
+    "px": "px",
     "pv_loc_info_label": "Info: Location settings are only visible and editable when PV forecast is enabled.",
     "pv_select_label": "Photovoltaic Settings",
     "pv_timezone_label": "Timezone",
