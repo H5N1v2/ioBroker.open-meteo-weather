@@ -4,7 +4,7 @@
  * Increase this version number every time baseRoles or the getRole logic is changed.
  * This triggers an automatic one-time role migration for existing installations.
  */
-export const ROLE_MAPPING_VERSION = 1;
+export const ROLE_MAPPING_VERSION = 2;
 
 const baseRoles: Record<string, string> = {
 	// Luftqualität & Pollenflug
@@ -64,7 +64,7 @@ const baseRoles: Record<string, string> = {
 	cloud_cover_max: 'value.clouds',
 	uv_index: 'value.uv',
 	uv_index_max: 'value.uv',
-	sunshine_duration: 'value.radiation',
+	sunshine_duration: 'value.interval',
 	sunrise: 'date.sunrise',
 	sunset: 'date.sunset',
 	weather_code: 'weather.state',

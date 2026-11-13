@@ -23,7 +23,7 @@ __export(role_mapping_exports, {
   getRole: () => getRole
 });
 module.exports = __toCommonJS(role_mapping_exports);
-const ROLE_MAPPING_VERSION = 1;
+const ROLE_MAPPING_VERSION = 2;
 const baseRoles = {
   // Luftqualität & Pollenflug
   pm10: "value",
@@ -77,7 +77,7 @@ const baseRoles = {
   cloud_cover_max: "value.clouds",
   uv_index: "value.uv",
   uv_index_max: "value.uv",
-  sunshine_duration: "value.radiation",
+  sunshine_duration: "value.interval",
   sunrise: "date.sunrise",
   sunset: "date.sunset",
   weather_code: "weather.state",
