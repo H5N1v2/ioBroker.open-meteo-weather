@@ -288,7 +288,7 @@ After a new adapter update, it is recommended to delete the entire directory tre
 
 ## Changelog
 
-## **WORK IN PROGRESS**
+### **WORK IN PROGRESS**
 
 * (H5N1v2) fix: PV service timers are now properly cleaned up when the adapter stops. The PV service instance is stored and destroyed in `onUnload`, so the sunrise/interval/retry timers are cleared on shutdown.
 * (H5N1v2) fix: Corrected a typo in the PV service configuration key (`sunhine_duration` → `sunshine_duration`). The optional PV `sunshine_duration` data points are now created and updated correctly when the "Sunshine Duration" option is enabled.
