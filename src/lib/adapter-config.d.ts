@@ -31,9 +31,7 @@ declare global {
                 fSizeHour?: number;            }[];
             isNight_icon: boolean;
             isWinddirection_icon: boolean;
-            pollenEnabled: boolean;
             airQualityEnabled: boolean;
-            language: string;
             forecastDays: number;
             select_icon: number;
             updateInterval: number;
