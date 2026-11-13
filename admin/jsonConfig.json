@@ -170,6 +170,7 @@
               "title": "widget_create_label",
               "label": "",
               "width": "130px",
+              "help": "widget_create_help",
               "default": false
             },
             {
@@ -328,7 +329,7 @@
         "forecastDays": {
           "type": "select",
           "label": "forecastDays_label",
-          "default": 1,
+          "default": 7,
           "options": [
             {
               "value": 1,
@@ -399,7 +400,7 @@
         "forecastHours": {
           "type": "select",
           "label": "forecastHours_label",
-          "default": 1,
+          "default": 6,
           "options": [
             {
               "value": 1,
@@ -1016,7 +1017,7 @@
           "md": 6,
           "lg": 4,
           "xl": 4,
-          "default": 15,
+          "default": "sunrise",
           "options": [
             {
               "value": 15,
