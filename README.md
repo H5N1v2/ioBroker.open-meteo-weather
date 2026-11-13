@@ -287,8 +287,7 @@ The adapter uses the **Faiman model** to estimate the module temperature. This m
 After a new adapter update, it is recommended to delete the entire directory tree and let it be recreated.
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 3.4.0 (2026-11-13)
 
 * (H5N1v2) fix: PV service timers are now properly cleaned up when the adapter stops. The PV service instance is stored and destroyed in `onUnload`, so the sunrise/interval/retry timers are cleared on shutdown.
 * (H5N1v2) fix: Corrected a typo in the PV service configuration key (`sunhine_duration` → `sunshine_duration`). The optional PV `sunshine_duration` data points are now created and updated correctly when the "Sunshine Duration" option is enabled.
@@ -320,11 +319,6 @@ After a new adapter update, it is recommended to delete the entire directory tre
 * (H5N1v2) Automatic role migration: When `role_mapping.ts` is updated, existing 
   ioBroker objects are automatically updated with the new roles on the next adapter start – 
   no manual deletion of the object tree required.
-* (H5N1v2) Update dependencies
-
-### 3.2.1 (2026-09-12)
-* (H5N1v2) add 'diffuse_radiation' to 15 min weather forecast.
-* (H5N1v2) add node.js 26.x testmatrix
 * (H5N1v2) Update dependencies
 
 ## Older Changelog

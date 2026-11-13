@@ -1,4 +1,9 @@
 ## CHANGELOG OLD
+## 3.2.1 (2026-09-12)
+* (H5N1v2) add 'diffuse_radiation' to 15 min weather forecast.
+* (H5N1v2) add node.js 26.x testmatrix
+* (H5N1v2) Update dependencies
+
 ## 3.2.0 (2026-09-06)
 * (H5N1v2) Adding configurable 15 minute weather forecast with max. 16 Datasets for the next 4 hours.
 * (H5N1v2) Update dependencies
