@@ -33,7 +33,7 @@ export class PVService {
 		this.adapter.log.info('Starting PV-Forecast Service...');
 
 		this.adapter.config.pv_forecastHours = this.adapter.config.pv_forecastHours || 24;
-		this.adapter.config.pv_forecastDays = this.adapter.config.pv_forecastDays || 7;
+		this.adapter.config.forecastDays_pv = this.adapter.config.forecastDays_pv || 7;
 
 		await this.cleanupStaleObjects();
 		await this.createStatesForLocations();
@@ -300,8 +300,11 @@ export class PVService {
 
 			// B) Falls Location existiert -> Unterordner/Optionen prüfen
 
-			// 1. Check Cloud Cover (Hourly)
-			if (localId.includes('.hourly-forecast.hour') && localId.endsWith('.cloud_cover')) {
+			// 1. Check Cloud Cover (Hourly & 15-Min)
+			if (
+				(localId.includes('.hourly-forecast.hour') || localId.includes('.15-min-forecast.')) &&
+				localId.endsWith('.cloud_cover')
+			) {
 				if (!this.adapter.config.cloud_cover) {
 					await this.adapter.delObjectAsync(localId);
 					this.adapter.log.debug(`Cleanup: Removed disabled cloud_cover: ${localId}`);
@@ -328,7 +331,7 @@ export class PVService {
 			const dayMatch = localId.match(/\.daily-forecast\.day(\d+)$/);
 			if (dayMatch) {
 				const dayIndex = parseInt(dayMatch[1]);
-				if (dayIndex >= this.adapter.config.forecastDays) {
+				if (dayIndex >= this.adapter.config.forecastDays_pv) {
 					await this.adapter.delObjectAsync(localId, { recursive: true });
 					continue;
 				}
@@ -599,7 +602,7 @@ export class PVService {
 					},
 					native: {},
 				});
-				if (this.adapter.config.sunhine_duration) {
+				if (this.adapter.config.sunshine_duration) {
 					await this.createOrFixObject(`${base}.hourly-forecast.hour${hour}.sunshine_duration`, {
 						type: 'state',
 						common: {
@@ -672,7 +675,7 @@ export class PVService {
 				native: {},
 			});
 
-			for (let day = 0; day < this.adapter.config.forecastDays; day++) {
+			for (let day = 0; day < this.adapter.config.forecastDays_pv; day++) {
 				await this.createOrFixObject(`${base}.daily-forecast.day${day}`, {
 					type: 'channel',
 					common: {
@@ -765,7 +768,7 @@ export class PVService {
 					native: {},
 				});
 
-				for (let day = 0; day < this.adapter.config.forecastDays; day++) {
+				for (let day = 0; day < this.adapter.config.forecastDays_pv; day++) {
 					await this.createOrFixObject(`${sumBase}.sum_peak_locations_Daily.day${day}`, {
 						type: 'channel',
 						common: {
@@ -944,6 +947,24 @@ export class PVService {
 						role: 'value',
 						unit: 'min',
 					},
+					cloud_cover: {
+						name: {
+							en: 'Cloud Cover',
+							de: 'Wolkenbedeckung',
+							ru: 'Облачность',
+							pt: 'Cobertura de nuvens',
+							nl: 'Bewolking',
+							fr: 'Couverture nuageuse',
+							it: 'Copertura nuvolosa',
+							es: 'Cobertura de nubes',
+							pl: 'Zachmurzenie',
+							uk: 'Хмарний покрив',
+							'zh-cn': '云层覆盖',
+						},
+						type: 'number',
+						role: 'value.clouds',
+						unit: '%',
+					},
 				};
 
 				// Schleife für die Intervalle
@@ -961,6 +982,9 @@ export class PVService {
 					for (const [key, info] of Object.entries(states)) {
 						const locationName = this.sanitizeLocationName(location.name);
 						if (key === 'sunshine_duration' && !this.adapter.config.sunshine_duration) {
+							continue;
+						}
+						if (key === 'cloud_cover' && !this.adapter.config.cloud_cover) {
 							continue;
 						}
 						const base = `pv-forecast.${locationName}`;
@@ -1377,7 +1401,7 @@ export class PVService {
 	private async updateSumLocations(): Promise<void> {
 		// Summe Täglich
 		if (this.adapter.config.locationsTotal && this.adapter.config.pv_locations.length >= 1) {
-			for (let day = 0; day < this.adapter.config.forecastDays; day++) {
+			for (let day = 0; day < this.adapter.config.forecastDays_pv; day++) {
 				let sum = 0;
 				for (const location of this.adapter.config.pv_locations) {
 					const base = `pv-forecast.${this.sanitizeLocationName(location.name)}`;
@@ -1493,7 +1517,7 @@ export class PVService {
 		}
 
 		try {
-			const data = await this.apiCaller.fetchForecastData(effectiveLocation, this.adapter.config.forecastDays);
+			const data = await this.apiCaller.fetchForecastData(effectiveLocation, this.adapter.config.forecastDays_pv);
 
 			if (!data || !data.hourly || !data.hourly.time) {
 				this.adapter.log.error(`[${location.name}] The API returned no data..`);
@@ -1529,7 +1553,7 @@ export class PVService {
 
 			const sysLang = this.adapter.language || 'de';
 
-			for (let day = 0; day < this.adapter.config.forecastDays; day++) {
+			for (let day = 0; day < this.adapter.config.forecastDays_pv; day++) {
 				const targetDate = new Date(todayObj);
 				targetDate.setDate(todayObj.getDate() + day);
 
@@ -1608,7 +1632,7 @@ export class PVService {
 						val: data.hourly.wind_speed_10m[idx],
 						ack: true,
 					});
-					if (this.adapter.config.sunhine_duration) {
+					if (this.adapter.config.sunshine_duration) {
 						await this.adapter.setState(`${base}.hourly-forecast.hour${hour}.sunshine_duration`, {
 							val: sunshineMinutes,
 							ack: true,
@@ -1681,6 +1705,12 @@ export class PVService {
 						if (minData.wind_speed_10m) {
 							await this.adapter.setState(`${path}.wind_speed_10m`, {
 								val: minData.wind_speed_10m[i],
+								ack: true,
+							});
+						}
+						if (this.adapter.config.cloud_cover && minData.cloud_cover) {
+							await this.adapter.setState(`${path}.cloud_cover`, {
+								val: minData.cloud_cover[i],
 								ack: true,
 							});
 						}
