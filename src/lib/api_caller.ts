@@ -100,15 +100,29 @@ export interface WeatherConfig {
 }
 
 /**
+ * Ergebnis des Wetter- und Luftqualitätsabrufs.
+ * Enthält die Rohdaten der Open-Meteo-APIs (bewusst locker typisiert,
+ * da die Struktur je nach aktivierten Optionen variiert).
+ */
+export interface WeatherApiResult {
+	/** Wetter- und Tages-/Stundenprognose der Weather-API */
+	weather?: Record<string, unknown>;
+	/** Stundenprognose (gleiches Objekt wie weather, nur wenn hourly vorhanden) */
+	hourly?: Record<string, unknown>;
+	/** Luftqualität- und Pollendaten der Air-Quality-API */
+	air?: Record<string, unknown>;
+}
+
+/**
  * Holt alle Wetter- und Luftqualitätsdaten von der Open-Meteo API
  *
  * @param config Die Konfiguration für den Abruf
  * @param logger Optionaler ioBroker Logger für Debug-Ausgaben
  * @returns Die abgerufenen Wetterdaten als Objekt
  */
-export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBroker.Logger): Promise<any> {
+export async function fetchAllWeatherData(config: WeatherConfig, logger?: ioBroker.Logger): Promise<WeatherApiResult> {
 	const tz = encodeURIComponent(config.timezone);
-	const results: any = {};
+	const results: WeatherApiResult = {};
 
 	// Axios-Konfiguration für Performance und Stabilität
 	const axiosConfig = {
